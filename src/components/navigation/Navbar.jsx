@@ -60,13 +60,9 @@ export default function Navbar() {
       <a href="#main" className="skip-link">Skip to content</a>
       <div className="nav__bar glass">
         <Link to="/" className="nav__brand" aria-label="Brisbane Islamic Centre & Sukoon Village — Home">
-          <Logo project="bic" showName={false} size={scrolled ? 36 : 42} />
+          <Logo project="bic" height={28} decorative />
           <span className="nav__brand-divider" aria-hidden="true" />
-          <Logo project="sukoon" showName={false} size={scrolled ? 36 : 42} />
-          <span className="nav__brand-text">
-            <span>Brisbane Islamic Centre</span>
-            <span>Sukoon Village</span>
-          </span>
+          <Logo project="sukoon" height={28} decorative />
         </Link>
 
         <nav className="nav__primary" aria-label="Primary">
@@ -96,7 +92,7 @@ export default function Navbar() {
                     onMouseLeave={scheduleClose}
                   >
                     <div className="mega__intro">
-                      <Logo project={item.project} showName={false} size={48} />
+                      <Logo project={item.project} height={34} />
                       <p className="mega__title">{item.label}</p>
                       <p className="mega__text">{item.intro}</p>
                       <Link to={item.to} className="mega__cta">

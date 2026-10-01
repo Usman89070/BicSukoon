@@ -30,8 +30,8 @@ export default function Footer() {
         <div className="footer__grid">
           <div className="footer__brand">
             <div className="footer__logos">
-              <Logo project="bic" />
-              <Logo project="sukoon" />
+              <Logo project="bic" height={40} />
+              <Logo project="sukoon" height={40} />
             </div>
             <p className="footer__tagline">{site.tagline}</p>
             <SocialLinks />

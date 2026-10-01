@@ -1,3 +1,8 @@
+import bicLogo from '../assets/logos/bic.png'
+import bicLogoWhite from '../assets/logos/bic-white.png'
+import sukoonLogo from '../assets/logos/sukoon.png'
+import sukoonLogoDark from '../assets/logos/sukoon-dark.png'
+
 /**
  * Global site configuration.
  * Any value set to `null` is rendered in the UI as a clearly identifiable
@@ -12,11 +17,28 @@ export const site = {
     'Brisbane Islamic Centre and Sukoon Village — two connected community developments shaped by Faith, Knowledge, Community and Legacy.',
   defaultOgImage: null, // e.g. '/og/default.jpg' once a render is supplied
 
-  // Official logos — drop files into src/assets/logos and import them here.
-  // Until supplied, a typographic placeholder mark is shown.
+  // Official logos. `onDark` / `onLight` select the right variant for the
+  // background. bic-white and sukoon-dark are colour reversals of the official
+  // files (BIC navy → white; Sukoon white → BIC navy, gold unchanged).
+  // Replace with official reversed artwork if the design team supplies it.
   logos: {
-    bic: null,
-    sukoon: null,
+    bic: {
+      name: 'Brisbane Islamic Centre',
+      onLight: bicLogo,
+      onDark: bicLogoWhite,
+      width: 779,
+      height: 173,
+    },
+    sukoon: {
+      name: 'Sukoon Village — Seniors Living',
+      onLight: sukoonLogoDark,
+      onDark: sukoonLogo,
+      width: 987,
+      height: 267,
+      // The wordmark carries "peace" and "Seniors Living" above/below, so it
+      // renders slightly taller to sit optically level with the BIC wordmark.
+      scale: 1.3,
+    },
   },
 
   legalName: null,

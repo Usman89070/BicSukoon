@@ -42,8 +42,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(13, 16, 17, 0.55) 0%, rgba(13, 16, 17, 0.1) 35%, rgba(13, 16, 17, 0.85) 100%),
-    linear-gradient(90deg, rgba(13, 16, 17, 0.6), transparent 70%);
+    linear-gradient(180deg, rgba(10, 8, 32, 0.55) 0%, rgba(10, 8, 32, 0.1) 35%, rgba(10, 8, 32, 0.85) 100%),
+    linear-gradient(90deg, rgba(10, 8, 32, 0.6), transparent 70%);
 }
 .hero__pattern {
   position: absolute;
@@ -194,7 +194,7 @@
 .page-hero__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(13, 16, 17, 0.55), rgba(13, 16, 17, 0.25) 40%, rgba(13, 16, 17, 0.88));
+  background: linear-gradient(180deg, rgba(10, 8, 32, 0.55), rgba(10, 8, 32, 0.25) 40%, rgba(10, 8, 32, 0.88));
 }
 .page-hero__pattern {
   position: absolute;
@@ -246,7 +246,7 @@
   text-wrap: balance;
 }
 .story__headline em {
-  color: var(--primary);
+  color: var(--primary-ink);
 }
 .story__list {
   display: grid;
@@ -301,9 +301,12 @@
   border-radius: var(--radius-xl);
   padding: clamp(40px, 7vw, 96px) clamp(24px, 6vw, 80px);
   color: var(--white);
+  /* Deep navy ground (BIC) with a project-coloured glow — keeps white text
+     high-contrast for both identities, including Sukoon gold */
   background:
-    radial-gradient(70% 120% at 100% 0%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 60%),
-    linear-gradient(135deg, var(--primary-dark), var(--primary) 60%, var(--primary-light));
+    radial-gradient(70% 120% at 100% 0%, color-mix(in srgb, var(--primary) 55%, transparent), transparent 62%),
+    radial-gradient(60% 90% at 0% 100%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
+    linear-gradient(135deg, var(--ink-950), var(--bic-primary) 70%);
   box-shadow: var(--shadow-lg);
 }
 .cta-band__pattern {
@@ -333,8 +336,8 @@
   margin-top: var(--space-6);
 }
 .cta-band .btn--primary {
-  background: var(--white);
-  color: var(--primary-dark);
+  background: linear-gradient(135deg, var(--sv-primary-light), var(--sv-primary) 60%, var(--sv-primary-dark));
+  color: var(--sv-on-primary);
 }
 
 /* ---- Facility page ----------------------------------------------------- */
@@ -372,7 +375,7 @@
   font-weight: 700;
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  color: var(--primary);
+  color: var(--primary-ink);
 }
 .facts dd {
   font-family: var(--font-display);
@@ -451,7 +454,7 @@
 }
 .vision-chapter__num {
   font-family: var(--font-display);
-  color: var(--primary);
+  color: var(--primary-ink);
 }
 .vision-chapter__title {
   font-family: var(--font-display);
@@ -466,7 +469,7 @@
   font-family: var(--font-display);
   font-style: italic;
   font-size: var(--fs-lg);
-  color: var(--primary);
+  color: var(--primary-ink);
 }
 .vision-chapter__body {
   margin-top: var(--space-4);
@@ -484,7 +487,7 @@
   gap: 8px;
   font-weight: 600;
   font-size: var(--fs-sm);
-  color: var(--primary);
+  color: var(--primary-ink);
   text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
   padding-bottom: 2px;
@@ -517,7 +520,7 @@
   font-family: var(--font-display);
   font-weight: 400;
   font-size: var(--fs-xl);
-  color: var(--primary);
+  color: var(--primary-ink);
 }
 .why-card__text {
   margin-top: var(--space-3);
@@ -555,7 +558,7 @@
   gap: var(--space-3);
 }
 .assurance svg {
-  color: var(--primary);
+  color: var(--primary-ink);
   flex: none;
 }
 .impact {
@@ -600,7 +603,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  color: var(--primary);
+  color: var(--primary-ink);
   font-weight: 600;
 }
 .doc-list small {

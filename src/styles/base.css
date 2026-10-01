@@ -154,6 +154,8 @@ main:focus {
 .section--dark {
   background: var(--background-dark);
   color: var(--text-on-dark);
+  --primary-ink: var(--accent);
+  --dot: var(--accent);
   --text-primary: var(--text-on-dark);
   --text-secondary: var(--text-on-dark-muted);
   --border: rgba(255, 255, 255, 0.12);
@@ -195,7 +197,7 @@ main:focus {
   font-weight: 700;
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  color: var(--primary);
+  color: var(--primary-ink);
   margin-bottom: var(--space-4);
 }
 .eyebrow::before {
@@ -204,6 +206,11 @@ main:focus {
   height: 1px;
   background: currentColor;
   opacity: 0.6;
+}
+/* Project themes nested inside dark sections keep light, legible brand text */
+.section--dark [class*='theme-'] {
+  --primary-ink: var(--accent);
+  --dot: var(--accent);
 }
 .section--dark .eyebrow,
 .eyebrow--light {

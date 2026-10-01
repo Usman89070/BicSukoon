@@ -35,25 +35,39 @@ For other hosts, configure a fallback to `index.html`.
 
 ---
 
-## ⚠ Logos & colour system — action required
+## Logos & colour system
 
-The official BIC and Sukoon Village logo files were **not in the repository**
-when this site was built, so the brand colours are **provisional**.
+The colour system is sampled directly from the official logos in `src/assets/logos/`:
 
-1. Add the logo files (SVG preferred) to `src/assets/logos/`.
-2. Register them in `src/data/site.js`:
-   ```js
-   import bicLogo from '../assets/logos/bic.svg'
-   import sukoonLogo from '../assets/logos/sukoon.svg'
-   logos: { bic: bicLogo, sukoon: sukoonLogo }
-   ```
-   The typographic placeholder marks are then replaced everywhere (nav, mega
-   menu, project cards, footer).
-3. Sample each logo's primary / secondary / accent colours and update **only**
-   the `BRAND` block at the top of `src/styles/tokens.css`
-   (`--bic-*` and `--sv-*`). Every component reads semantic tokens
-   (`--primary`, `--accent`, …), so the whole site re-themes, including
-   the subtle accent shift between BIC and Sukoon pages.
+| Logo | Sampled colours | Role in the site |
+| --- | --- | --- |
+| Brisbane Islamic Centre | `#1C155C` indigo-navy | Foundation: dark surfaces, BIC identity, primary buttons on light grounds |
+| Sukoon Village | `#CB9B61` gold + white | Sukoon identity, shared accent, primary actions on dark grounds |
+
+Both marks share the crescent motif and the Sukoon logo sits naturally on the
+BIC navy, so shared pages (Home, Vision, Updates, Donate) combine navy + gold,
+BIC pages shift toward indigo tints, and Sukoon pages shift toward gold.
+
+Derived tokens (all in the `BRAND` block of `src/styles/tokens.css`) were
+chosen to pass WCAG AA:
+
+- `--sv-ink: #7D5828` — gold deepened for text on ivory (raw gold is only 2.3:1).
+- `--sv-on-primary: #15122E` — navy text on gold buttons (white on gold fails at 2.5:1).
+- `--bic-accent: #B4AEEB` — light tint of the BIC navy for text/hotspots on dark grounds.
+
+### Logo files
+
+| File | Use |
+| --- | --- |
+| `bic.png` | Official (navy) — light backgrounds |
+| `bic-white.png` | Reversed to white — dark backgrounds (nav, cards, footer) |
+| `sukoon.png` | Official (white + gold) — dark backgrounds |
+| `sukoon-dark.png` | White parts recoloured to BIC navy, gold kept — light backgrounds |
+
+The two reversed variants were generated from the official files. If the
+design team has official reversed artwork or SVG versions, drop them in with
+the same names (or update `src/data/site.js → logos`). Use
+`<Logo project="bic|sukoon" tone="dark|light" height={32} />` to render them.
 
 ---
 

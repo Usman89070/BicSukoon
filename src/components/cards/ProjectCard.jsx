@@ -20,7 +20,7 @@ export default function ProjectCard({ project, delay = 0 }) {
         <div className="project-card__shade" />
         <div className="project-card__body glass">
           <div className="project-card__head">
-            <Logo project={project.id} showName={false} size={52} />
+            <Logo project={project.id} height={40} className="project-card__logo" />
             <span className="project-card__eyebrow">{project.eyebrow}</span>
           </div>
           <h3 className="project-card__title">{project.name}</h3>

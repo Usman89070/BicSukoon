@@ -1,68 +1,77 @@
 /* ==========================================================================
    DESIGN TOKENS
    --------------------------------------------------------------------------
-   ⚠ LOGO-DERIVED COLOURS — PROVISIONAL
-   The official BIC and Sukoon Village logo files were not present in the
-   repository when this site was built. The brand values below are
-   provisional, restrained placeholders chosen so the layout reads well.
+   LOGO-DERIVED COLOUR SYSTEM
+   Sampled directly from the official logo files in src/assets/logos/:
 
-   When the logos are supplied:
-     1. Add them to src/assets/logos/ (SVG preferred) and register them in
-        src/data/site.js → logos.
-     2. Sample each logo's primary / secondary / accent colours.
-     3. Replace ONLY the values in the "BRAND" block below. Every component
-        reads from the semantic tokens, so the whole site re-themes.
+     Brisbane Islamic Centre  →  #1C155C  indigo-navy (single-colour wordmark)
+     Sukoon Village           →  #CB9B61  warm gold  +  #FFFFFF white
+                                 (logo is designed to sit on a dark ground)
+
+   Both marks share the crescent motif, and the Sukoon logo sits naturally on
+   the BIC navy — so the system is: BIC navy as the foundation (dark surfaces,
+   BIC identity), Sukoon gold as the warm identity/accent, white + warm ivory
+   as neutrals. Tints/shades below are mathematical derivatives of the two
+   sampled colours; nothing else is introduced.
    ========================================================================== */
 
 :root {
-  /* ---- BRAND: Brisbane Islamic Centre (PROVISIONAL — replace from BIC logo) */
-  --bic-primary: #1f5c55;
-  --bic-primary-light: #3f8a80;
-  --bic-primary-dark: #123a36;
-  --bic-secondary: #c9b48a;
-  --bic-accent: #d9c08c;
+  /* ---- BRAND: Brisbane Islamic Centre (from BIC logo #1C155C) */
+  --bic-primary: #1c155c;
+  --bic-primary-light: #3b3290;
+  --bic-primary-dark: #110c3a;
+  --bic-secondary: #cb9b61; /* shared family gold (Sukoon logo) */
+  --bic-accent: #b4aeeb; /* light tint of the logo navy, for dark grounds */
+  --bic-ink: #1c155c; /* brand text on light backgrounds — 14.6:1 on ivory */
+  --bic-on-primary: #ffffff;
 
-  /* ---- BRAND: Sukoon Village (PROVISIONAL — replace from Sukoon logo) */
-  --sv-primary: #8a6a4a;
-  --sv-primary-light: #b8916a;
-  --sv-primary-dark: #4f3a27;
-  --sv-secondary: #a9b79a;
-  --sv-accent: #e0bf93;
+  /* ---- BRAND: Sukoon Village (from Sukoon logo #CB9B61 + white) */
+  --sv-primary: #cb9b61;
+  --sv-primary-light: #ddb887;
+  --sv-primary-dark: #9a7038;
+  --sv-secondary: #ffffff;
+  --sv-accent: #e6c99f; /* light gold, for dark grounds */
+  --sv-ink: #7d5828; /* deepened gold for text on ivory — 5.8:1 (gold itself is 2.3:1) */
+  --sv-on-primary: #15122e; /* navy text on gold — 7.3:1 (white on gold fails at 2.5:1) */
 
   /* ---- NEUTRALS (permitted by brief for readability & premium presentation) */
-  --ink-950: #0d1011;
-  --ink-900: #14181a;
-  --ink-800: #1d2326;
-  --ink-700: #2b3337;
-  --stone-500: #7c8481;
-  --stone-300: #b9bdb7;
-  --stone-100: #e9e6df;
-  --ivory: #f6f3ec;
+  /* Darks are deepened shades of the BIC navy rather than a generic black */
+  --ink-950: #0a0820;
+  --ink-900: #110e2e;
+  --ink-800: #1b1742;
+  --ink-700: #2a2558;
+  --stone-500: #7d7a92;
+  --stone-300: #bcb9c9;
+  --stone-100: #ebe7df;
+  --ivory: #f7f4ee;
   --white: #ffffff;
 
-  /* ---- SEMANTIC (default = BIC identity; projects override below) */
+  /* ---- SEMANTIC — shared pages (home, vision, updates, donate) combine both
+     logos: BIC navy as primary, Sukoon gold as accent. Project pages override. */
   --primary: var(--bic-primary);
   --primary-light: var(--bic-primary-light);
   --primary-dark: var(--bic-primary-dark);
   --secondary: var(--bic-secondary);
-  --accent: var(--bic-accent);
+  --accent: var(--sv-primary);
+  --primary-ink: var(--bic-ink);
+  --on-primary: var(--bic-on-primary);
 
   --background: var(--ivory);
   --background-dark: var(--ink-900);
   --surface: #ffffff;
-  --surface-muted: #efebe2;
-  --text-primary: #161b1d;
-  --text-secondary: #4d5654;
-  --text-on-dark: #f4f1ea;
-  --text-on-dark-muted: rgba(244, 241, 234, 0.72);
-  --border: rgba(22, 27, 29, 0.12);
+  --surface-muted: #eeeae2;
+  --text-primary: #15122e;
+  --text-secondary: #4a4766;
+  --text-on-dark: #f7f4ee;
+  --text-on-dark-muted: rgba(247, 244, 238, 0.74);
+  --border: rgba(21, 18, 46, 0.12);
 
   /* Glass — always over imagery/dark surfaces, tuned to keep text AA-legible */
-  --glass: rgba(20, 24, 26, 0.48);
-  --glass-strong: rgba(20, 24, 26, 0.72);
+  --glass: rgba(17, 14, 46, 0.5);
+  --glass-strong: rgba(17, 14, 46, 0.76);
   --glass-light: rgba(255, 255, 255, 0.72);
   --glass-border: rgba(255, 255, 255, 0.16);
-  --glass-border-light: rgba(22, 27, 29, 0.08);
+  --glass-border-light: rgba(21, 18, 46, 0.08);
   --glass-blur: 18px;
   --glow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent),
     0 12px 40px -12px color-mix(in srgb, var(--accent) 45%, transparent);
@@ -100,9 +109,9 @@
   --radius-lg: 22px;
   --radius-xl: 32px;
   --radius-pill: 999px;
-  --shadow-sm: 0 2px 10px -4px rgba(13, 16, 17, 0.18);
-  --shadow-md: 0 14px 40px -18px rgba(13, 16, 17, 0.35);
-  --shadow-lg: 0 30px 80px -30px rgba(13, 16, 17, 0.55);
+  --shadow-sm: 0 2px 10px -4px rgba(10, 8, 32, 0.18);
+  --shadow-md: 0 14px 40px -18px rgba(10, 8, 32, 0.35);
+  --shadow-lg: 0 30px 80px -30px rgba(10, 8, 32, 0.55);
 
   /* ---- MOTION */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -115,12 +124,23 @@
 }
 
 /* Project identity shift — set on <html data-project="…"> by SiteLayout */
+:root[data-project='bic'] {
+  --primary: var(--bic-primary);
+  --primary-light: var(--bic-primary-light);
+  --primary-dark: var(--bic-primary-dark);
+  --secondary: var(--bic-secondary);
+  --accent: var(--bic-accent);
+  --primary-ink: var(--bic-ink);
+  --on-primary: var(--bic-on-primary);
+}
 :root[data-project='sukoon'] {
   --primary: var(--sv-primary);
   --primary-light: var(--sv-primary-light);
   --primary-dark: var(--sv-primary-dark);
   --secondary: var(--sv-secondary);
   --accent: var(--sv-accent);
+  --primary-ink: var(--sv-ink);
+  --on-primary: var(--sv-on-primary);
 }
 
 /* Scoped identity for mixed pages (e.g. landing cards, masterplan) */
@@ -130,6 +150,8 @@
   --primary-dark: var(--bic-primary-dark);
   --secondary: var(--bic-secondary);
   --accent: var(--bic-accent);
+  --primary-ink: var(--bic-ink);
+  --on-primary: var(--bic-on-primary);
 }
 .theme-sukoon {
   --primary: var(--sv-primary);
@@ -137,6 +159,8 @@
   --primary-dark: var(--sv-primary-dark);
   --secondary: var(--sv-secondary);
   --accent: var(--sv-accent);
+  --primary-ink: var(--sv-ink);
+  --on-primary: var(--sv-on-primary);
 }
 
 @media (prefers-reduced-motion: reduce) {
