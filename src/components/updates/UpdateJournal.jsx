@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { updates } from '../../data/updates'
-import { facilities } from '../../data/facilities'
-import { projects } from '../../data/projects'
+import { facilities, facilitiesFor } from '../../data/facilities'
+import { SITE_ID } from '../../site'
 import { cx, formatDate, sortByDateDesc } from '../../utils/format'
 import Media from '../common/Media'
 import Reveal from '../common/Reveal'
@@ -9,22 +9,23 @@ import Pending from '../common/Pending'
 import EmptyState from '../common/EmptyState'
 import VideoFeature from '../video/VideoFeature'
 
-/** Architectural development journal — newest → oldest. */
-export default function UpdateJournal({ project, showFilter = !project, limit }) {
-  const [filter, setFilter] = useState(project ?? 'all')
+/** Development journal for the current website — newest → oldest, filterable by area. */
+export default function UpdateJournal({ showFilter = true, limit }) {
+  const [area, setArea] = useState('all')
+  const own = useMemo(() => sortByDateDesc(updates).filter((u) => u.project === SITE_ID), [])
+  const areas = facilitiesFor(SITE_ID).filter((f) => own.some((u) => u.area === f.id))
   const list = useMemo(() => {
-    const sorted = sortByDateDesc(updates).filter((u) => filter === 'all' || u.project === filter)
-    return limit ? sorted.slice(0, limit) : sorted
-  }, [filter, limit])
+    const filtered = own.filter((u) => area === 'all' || u.area === area)
+    return limit ? filtered.slice(0, limit) : filtered
+  }, [own, area, limit])
 
   return (
     <div className="journal">
-      {showFilter && (
-        <div className="journal__filter" role="group" aria-label="Filter updates by project">
-          {[{ id: 'all', label: 'All updates' }, ...Object.values(projects).map((p) => ({ id: p.id, label: p.name }))].map((f) => (
-            <button key={f.id} type="button" className={cx('chip', f.id !== 'all' && `theme-${f.id}`, filter === f.id && 'is-active')} aria-pressed={filter === f.id} onClick={() => setFilter(f.id)}>
-              {f.id !== 'all' && <span className="chip__dot" aria-hidden="true" />}
-              {f.label}
+      {showFilter && areas.length > 1 && (
+        <div className="journal__filter" role="group" aria-label="Filter updates by area">
+          {[{ id: 'all', title: 'All updates' }, ...areas].map((f) => (
+            <button key={f.id} type="button" className={cx('chip', area === f.id && 'is-active')} aria-pressed={area === f.id} onClick={() => setArea(f.id)}>
+              {f.shortTitle ?? f.title}
             </button>
           ))}
         </div>
@@ -37,9 +38,9 @@ export default function UpdateJournal({ project, showFilter = !project, limit })
       ) : (
         <ol className="journal__list">
           {list.map((u) => {
-            const area = u.area ? facilities[u.area] : null
+            const areaOf = u.area ? facilities[u.area] : null
             return (
-              <li key={u.id} className={cx('journal__entry', `theme-${u.project}`)}>
+              <li key={u.id} className="journal__entry">
                 <Reveal className="journal__rail">
                   <span className="journal__node" aria-hidden="true" />
                   {u.date ? (
@@ -50,8 +51,7 @@ export default function UpdateJournal({ project, showFilter = !project, limit })
                 </Reveal>
                 <Reveal as="article" className="journal__card glass-panel" delay={80} aria-labelledby={`upd-${u.id}`}>
                   <div className="journal__tags">
-                    <span className="tag tag--project">{projects[u.project].name}</span>
-                    {area && <span className="tag">{area.shortTitle ?? area.title}</span>}
+                    {areaOf && <span className="tag tag--project">{areaOf.shortTitle ?? areaOf.title}</span>}
                     {u.placeholder && <Pending>Sample entry</Pending>}
                   </div>
                   <h3 id={`upd-${u.id}`} className="journal__title">{u.title}</h3>

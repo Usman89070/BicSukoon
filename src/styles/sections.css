@@ -42,8 +42,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(10, 8, 32, 0.55) 0%, rgba(10, 8, 32, 0.1) 35%, rgba(10, 8, 32, 0.85) 100%),
-    linear-gradient(90deg, rgba(10, 8, 32, 0.6), transparent 70%);
+    linear-gradient(180deg, rgba(var(--ink-deep-rgb), 0.55) 0%, rgba(var(--ink-deep-rgb), 0.1) 35%, rgba(var(--ink-deep-rgb), 0.85) 100%),
+    linear-gradient(90deg, rgba(var(--ink-deep-rgb), 0.6), transparent 70%);
 }
 .hero__pattern {
   position: absolute;
@@ -194,7 +194,7 @@
 .page-hero__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10, 8, 32, 0.55), rgba(10, 8, 32, 0.25) 40%, rgba(10, 8, 32, 0.88));
+  background: linear-gradient(180deg, rgba(var(--ink-deep-rgb), 0.55), rgba(var(--ink-deep-rgb), 0.25) 40%, rgba(var(--ink-deep-rgb), 0.88));
 }
 .page-hero__pattern {
   position: absolute;
@@ -232,66 +232,130 @@
   margin-top: var(--space-6);
 }
 
-/* ---- Story ------------------------------------------------------------- */
-.story__intro {
-  max-width: 900px;
-  margin-bottom: var(--space-8);
+/* ---- Statement (BIC home) -------------------------------------------- */
+.statement__inner {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-5);
+  max-width: 980px;
+  margin-inline: auto;
+  text-align: center;
 }
-.story__headline {
+.statement__mark {
+  width: 44px;
+  height: 44px;
+  color: var(--secondary);
+}
+.statement__text {
   font-family: var(--font-display);
   font-weight: 300;
   font-size: var(--fs-2xl);
-  line-height: 1.12;
+  line-height: 1.15;
   letter-spacing: -0.02em;
   text-wrap: balance;
 }
-.story__headline em {
+.statement__text em {
   color: var(--primary-ink);
 }
-.story__list {
+
+/* ---- Feature rows (alternating media + text) -------------------------- */
+.features {
   display: grid;
-  gap: clamp(3rem, 8vw, 7rem);
+  gap: clamp(3.5rem, 8vw, 7rem);
 }
-.story__item {
+.feature {
   display: grid;
-  gap: var(--space-5);
+  gap: var(--space-6);
   align-items: center;
 }
 @media (min-width: 900px) {
-  .story__item {
-    grid-template-columns: 1fr 1fr;
+  .feature {
+    grid-template-columns: 7fr 5fr;
     gap: var(--space-8);
   }
-  .story__item:nth-child(even) .story__media {
+  .feature:nth-child(even) {
+    grid-template-columns: 5fr 7fr;
+  }
+  .feature:nth-child(even) .feature__media {
     order: 2;
   }
 }
-.story__media {
-  border-radius: var(--radius-lg);
+.feature__media {
+  border-radius: var(--radius-xl);
   overflow: hidden;
 }
-.story__text {
-  position: relative;
-  max-width: 480px;
-}
-.story__num {
+.feature__num {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-size: clamp(3rem, 5vw, 4.5rem);
   line-height: 1;
   color: color-mix(in srgb, var(--primary) 22%, transparent);
   margin-bottom: var(--space-3);
 }
-.story__title {
+.feature__title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: var(--fs-xl);
-  line-height: 1.15;
+  font-size: var(--fs-2xl);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
 }
-.story__body {
-  margin: var(--space-4) 0;
-  color: var(--text-secondary);
+.feature__body {
+  margin-top: var(--space-4);
   font-size: var(--fs-md);
+  color: var(--text-secondary);
+  max-width: 46ch;
+}
+.feature__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: var(--space-5);
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentColor;
+  color: var(--primary-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.feature__link svg {
+  transition: transform var(--dur) var(--ease-out);
+}
+.feature__link:hover svg {
+  transform: translateX(5px);
+}
+
+/* ---- Story grid (BIC home) -------------------------------------------- */
+.story-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+}
+.story-grid__item {
+  padding: var(--space-6) var(--space-5);
+  border-top: 2px solid var(--primary);
+  background: var(--surface);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.story-grid__num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  color: var(--secondary);
+  margin-bottom: var(--space-3);
+}
+.story-grid__item .eyebrow {
+  margin-bottom: var(--space-2);
+}
+.story-grid__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-lg);
+  line-height: 1.2;
+}
+.story-grid__body {
+  margin: var(--space-3) 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
 }
 
 /* ---- CTA band ---------------------------------------------------------- */

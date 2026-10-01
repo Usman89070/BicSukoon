@@ -1,10 +1,11 @@
 import { useId, useState } from 'react'
+import { site } from '../../site'
 import { endpoints, isEmail, submitForm } from '../../utils/forms'
 import Icon from '../common/Icon'
 
-export default function ContactForm({ project = 'general' }) {
+export default function ContactForm() {
   const uid = useId()
-  const [form, setForm] = useState({ name: '', email: '', phone: '', topic: project, message: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', topic: site.enquiryTopics[0], message: '' })
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle')
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
@@ -18,7 +19,7 @@ export default function ContactForm({ project = 'general' }) {
     setErrors(e)
     if (Object.keys(e).length) return
     setStatus('sending')
-    const res = await submitForm(endpoints.contact, form)
+    const res = await submitForm(endpoints.contact, { ...form, site: site.id })
     setStatus(res.ok ? 'done' : res.reason)
   }
 
@@ -57,12 +58,7 @@ export default function ContactForm({ project = 'general' }) {
         <div className="field">
           <label htmlFor={`${uid}-topic`}>Enquiry about</label>
           <select id={`${uid}-topic`} value={form.topic} onChange={set('topic')}>
-            <option value="general">General enquiry</option>
-            <option value="bic">Brisbane Islamic Centre</option>
-            <option value="sukoon">Sukoon Village</option>
-            <option value="donations">Donations &amp; funding</option>
-            <option value="events">Events</option>
-            <option value="media">Media</option>
+            {site.enquiryTopics.map((t) => <option key={t} value={t}>{t}</option>)}
           </select>
         </div>
       </div>

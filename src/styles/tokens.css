@@ -8,11 +8,12 @@
      Sukoon Village           →  #CB9B61  warm gold  +  #FFFFFF white
                                  (logo is designed to sit on a dark ground)
 
-   Both marks share the crescent motif, and the Sukoon logo sits naturally on
-   the BIC navy — so the system is: BIC navy as the foundation (dark surfaces,
-   BIC identity), Sukoon gold as the warm identity/accent, white + warm ivory
-   as neutrals. Tints/shades below are mathematical derivatives of the two
-   sampled colours; nothing else is introduced.
+   The two websites are separate builds. <html data-site="bic|sukoon"> selects
+   a complete identity:
+     BIC     → navy foundation, monumental & cinematic, dark navigation.
+     Sukoon  → gold on warm white, light & airy, light navigation, softer
+               shapes and slightly larger type for an older audience.
+   Tints/shades are derivatives of the sampled colours; nothing else is introduced.
    ========================================================================== */
 
 :root {
@@ -38,6 +39,9 @@
   /* Darks are deepened shades of the BIC navy rather than a generic black */
   --ink-950: #0a0820;
   --ink-900: #110e2e;
+  --ink-rgb: 17, 14, 46; /* = ink-900, for translucent surfaces */
+  --ink-deep-rgb: 10, 8, 32; /* = ink-950, for scrims */
+  --text-rgb: 21, 18, 46;
   --ink-800: #1b1742;
   --ink-700: #2a2558;
   --stone-500: #7d7a92;
@@ -46,13 +50,12 @@
   --ivory: #f7f4ee;
   --white: #ffffff;
 
-  /* ---- SEMANTIC — shared pages (home, vision, updates, donate) combine both
-     logos: BIC navy as primary, Sukoon gold as accent. Project pages override. */
+  /* ---- SEMANTIC (BIC website defaults; Sukoon overrides below) */
   --primary: var(--bic-primary);
   --primary-light: var(--bic-primary-light);
   --primary-dark: var(--bic-primary-dark);
   --secondary: var(--bic-secondary);
-  --accent: var(--sv-primary);
+  --accent: var(--sv-primary); /* family gold for highlights on navy */
   --primary-ink: var(--bic-ink);
   --on-primary: var(--bic-on-primary);
 
@@ -64,14 +67,14 @@
   --text-secondary: #4a4766;
   --text-on-dark: #f7f4ee;
   --text-on-dark-muted: rgba(247, 244, 238, 0.74);
-  --border: rgba(21, 18, 46, 0.12);
+  --border: rgba(var(--text-rgb), 0.12);
 
   /* Glass — always over imagery/dark surfaces, tuned to keep text AA-legible */
-  --glass: rgba(17, 14, 46, 0.5);
-  --glass-strong: rgba(17, 14, 46, 0.76);
+  --glass: rgba(var(--ink-rgb), 0.5);
+  --glass-strong: rgba(var(--ink-rgb), 0.76);
   --glass-light: rgba(255, 255, 255, 0.72);
   --glass-border: rgba(255, 255, 255, 0.16);
-  --glass-border-light: rgba(21, 18, 46, 0.08);
+  --glass-border-light: rgba(var(--text-rgb), 0.08);
   --glass-blur: 18px;
   --glow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent),
     0 12px 40px -12px color-mix(in srgb, var(--accent) 45%, transparent);
@@ -109,9 +112,9 @@
   --radius-lg: 22px;
   --radius-xl: 32px;
   --radius-pill: 999px;
-  --shadow-sm: 0 2px 10px -4px rgba(10, 8, 32, 0.18);
-  --shadow-md: 0 14px 40px -18px rgba(10, 8, 32, 0.35);
-  --shadow-lg: 0 30px 80px -30px rgba(10, 8, 32, 0.55);
+  --shadow-sm: 0 2px 10px -4px rgba(var(--ink-deep-rgb), 0.18);
+  --shadow-md: 0 14px 40px -18px rgba(var(--ink-deep-rgb), 0.35);
+  --shadow-lg: 0 30px 80px -30px rgba(var(--ink-deep-rgb), 0.55);
 
   /* ---- MOTION */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -121,46 +124,67 @@
   --dur-slow: 900ms;
 
   --nav-h: 76px;
+
+  /* Masterplan schematic */
+  --schematic-bg: var(--ink-800);
+  --schematic-line: var(--ivory);
 }
 
-/* Project identity shift — set on <html data-project="…"> by SiteLayout */
-:root[data-project='bic'] {
-  --primary: var(--bic-primary);
-  --primary-light: var(--bic-primary-light);
-  --primary-dark: var(--bic-primary-dark);
-  --secondary: var(--bic-secondary);
-  --accent: var(--bic-accent);
-  --primary-ink: var(--bic-ink);
-  --on-primary: var(--bic-on-primary);
-}
-:root[data-project='sukoon'] {
+/* ==========================================================================
+   SUKOON VILLAGE WEBSITE
+   Gold + white from the logo; darks are deep espresso shades of the gold
+   (the official white-and-gold logo sits on them exactly as designed).
+   ========================================================================== */
+:root[data-site='sukoon'] {
+  font-size: 106.25%; /* 17px base — easier reading for seniors and families */
+
   --primary: var(--sv-primary);
   --primary-light: var(--sv-primary-light);
   --primary-dark: var(--sv-primary-dark);
   --secondary: var(--sv-secondary);
   --accent: var(--sv-accent);
   --primary-ink: var(--sv-ink);
-  --on-primary: var(--sv-on-primary);
-}
+  --on-primary: #2a1f13; /* espresso on gold — 6.4:1 */
+  --sv-on-primary: #2a1f13;
 
-/* Scoped identity for mixed pages (e.g. landing cards, masterplan) */
-.theme-bic {
-  --primary: var(--bic-primary);
-  --primary-light: var(--bic-primary-light);
-  --primary-dark: var(--bic-primary-dark);
-  --secondary: var(--bic-secondary);
-  --accent: var(--bic-accent);
-  --primary-ink: var(--bic-ink);
-  --on-primary: var(--bic-on-primary);
-}
-.theme-sukoon {
-  --primary: var(--sv-primary);
-  --primary-light: var(--sv-primary-light);
-  --primary-dark: var(--sv-primary-dark);
-  --secondary: var(--sv-secondary);
-  --accent: var(--sv-accent);
-  --primary-ink: var(--sv-ink);
-  --on-primary: var(--sv-on-primary);
+  --ink-950: #1c140b;
+  --ink-900: #2a1f13;
+  --ink-rgb: 42, 31, 19;
+  --ink-deep-rgb: 28, 20, 11;
+  --text-rgb: 42, 31, 19;
+  --ink-800: #3a2b1b;
+  --ink-700: #4d3a25;
+  --stone-500: #8f8170;
+  --ivory: #fbf8f3;
+
+  --background: #fbf8f3;
+  --background-dark: #2a1f13;
+  --surface: #ffffff;
+  --surface-muted: #f3ece1;
+  --text-primary: #2a1f13; /* 15.2:1 */
+  --text-secondary: #6b5a45; /* 6.3:1 */
+  --text-on-dark: #fbf8f3;
+  --text-on-dark-muted: rgba(251, 248, 243, 0.76);
+  --border: rgba(42, 31, 19, 0.12);
+
+  --glass: rgba(42, 31, 19, 0.5);
+  --glass-strong: rgba(42, 31, 19, 0.78);
+  --glass-border-light: rgba(42, 31, 19, 0.08);
+
+  --font-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --tracking-wide: 0.14em;
+
+  /* Softer, more residential shapes */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-xl: 40px;
+  --shadow-sm: 0 2px 12px -4px rgba(42, 31, 19, 0.14);
+  --shadow-md: 0 16px 44px -20px rgba(42, 31, 19, 0.3);
+  --shadow-lg: 0 30px 80px -34px rgba(42, 31, 19, 0.45);
+
+  --schematic-bg: #3a2b1b;
 }
 
 @media (prefers-reduced-motion: reduce) {

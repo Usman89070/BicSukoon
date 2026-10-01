@@ -1,11 +1,11 @@
-import { socials } from '../../data/site'
+import { site } from '../../site'
 import { cx } from '../../utils/format'
 import Icon from './Icon'
 import Pending from './Pending'
 
 /** Clickable social icons — only official accounts with an href are rendered. */
 export default function SocialLinks({ className, showPending = true }) {
-  const active = socials.filter((s) => s.href)
+  const active = site.socials.filter((s) => s.href)
   if (!active.length) {
     return showPending ? <Pending className={className}>Official social accounts to be added</Pending> : null
   }

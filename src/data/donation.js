@@ -22,7 +22,7 @@ export const donation = {
   taxDeductibleStatement: null, // official wording only
 }
 
-/** "Where your support goes" — configurable allocation cards. */
+/** "Where your support goes" — configurable cards; each website shows only its own (by `project`). */
 export const allocations = [
   { id: 'masjid-complex', title: 'Masjid Complex', project: 'bic', facility: 'masjid-complex' },
   { id: 'cultural-heritage-centre', title: 'Queensland Muslim Cultural & Heritage Centre', project: 'bic', facility: 'cultural-heritage-centre' },
@@ -30,7 +30,7 @@ export const allocations = [
   { id: 'seniors-living', title: 'Seniors Living', project: 'sukoon', facility: 'seniors-living' },
   { id: 'lifestyle-centre', title: 'Lifestyle Centre', project: 'sukoon', facility: 'lifestyle-centre' },
   { id: 'childcare-centre', title: 'Childcare Centre', project: 'sukoon', facility: 'childcare-centre' },
-  { id: 'future-development', title: 'Future Development', project: 'bic', text: 'Helping the precinct grow with the needs of the community.' },
+  { id: 'future-development', title: 'Future Development', project: 'bic', text: 'Helping the centre grow with the needs of the community.' },
 ]
 
 /** Impact statistics — ONLY official figures. Empty = section shows placeholder. */

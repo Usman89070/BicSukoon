@@ -1,74 +1,76 @@
 import { Link } from 'react-router-dom'
-import { contacts, site } from '../../data/site'
-import { primaryNav } from '../../data/navigation'
+import { site } from '../../site'
+import { formatPhoneHref } from '../../utils/format'
 import Logo from '../common/Logo'
 import Button from '../common/Button'
+import Icon from '../common/Icon'
 import SocialLinks from '../common/SocialLinks'
 import Pattern from '../common/Pattern'
 import { Value } from '../common/Pending'
 
+/** Footer for the current website. The sister project appears only as a single outbound link. */
 export default function Footer() {
   const year = new Date().getFullYear()
-  const bic = primaryNav.find((n) => n.project === 'bic')
-  const sv = primaryNav.find((n) => n.project === 'sukoon')
+  const groups = site.nav.filter((n) => n.children)
+  const singles = site.nav.filter((n) => !n.children && n.to !== '/')
+  const { contact, legal, sister } = site
 
   return (
     <footer className="footer">
       <Pattern className="footer__pattern" opacity={0.05} scale={90} />
       <div className="container">
-        <div className="footer__cta glass">
+        <div className="footer__cta">
           <div>
-            <p className="eyebrow">Support the Vision</p>
-            <p className="footer__cta-title">Help build the future of our community.</p>
+            <p className="eyebrow">{site.features.donate ? 'Support the Vision' : 'Get in touch'}</p>
+            <p className="footer__cta-title">
+              {site.features.donate ? 'Help build the future of our community.' : 'We would love to hear from you.'}
+            </p>
           </div>
           <div className="footer__cta-actions">
-            <Button to="/donate" variant="primary" icon="heart">Donate Now</Button>
+            <Button to={site.cta.to} variant="primary" icon={site.cta.icon}>{site.features.donate ? 'Donate Now' : 'Enquire Now'}</Button>
             <Button to="/project-updates" variant="glass">Project Updates</Button>
           </div>
         </div>
 
         <div className="footer__grid">
           <div className="footer__brand">
-            <div className="footer__logos">
-              <Logo project="bic" height={40} />
-              <Logo project="sukoon" height={40} />
-            </div>
+            <Logo project={site.id} height={44} />
             <p className="footer__tagline">{site.tagline}</p>
             <SocialLinks />
           </div>
 
-          <nav aria-label="Brisbane Islamic Centre" className="footer__col theme-bic">
-            <p className="footer__heading">Brisbane Islamic Centre</p>
-            <ul>{bic.groups.flatMap((g) => g.links).map((l) => <li key={l.to}><Link to={l.to}>{l.label}</Link></li>)}</ul>
-          </nav>
-
-          <nav aria-label="Sukoon Village" className="footer__col theme-sukoon">
-            <p className="footer__heading">Sukoon Village</p>
-            <ul>{sv.groups.flatMap((g) => g.links).map((l) => <li key={l.to}><Link to={l.to}>{l.label}</Link></li>)}</ul>
-          </nav>
+          {groups.map((g) => (
+            <nav key={g.label} aria-label={g.label} className="footer__col">
+              <p className="footer__heading">{g.label}</p>
+              <ul>{g.children.map((l) => <li key={l.to}><Link to={l.to}>{l.label}</Link></li>)}</ul>
+            </nav>
+          ))}
 
           <div className="footer__col">
             <p className="footer__heading">Explore</p>
-            <ul>
-              <li><Link to="/vision">Vision</Link></li>
-              <li><Link to="/project-updates">Project Updates</Link></li>
-              <li><Link to="/donate">Donate</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
-            </ul>
+            <ul>{singles.map((l) => <li key={l.to}><Link to={l.to}>{l.label}</Link></li>)}</ul>
             <p className="footer__heading footer__heading--spaced">Contact</p>
             <address className="footer__contact">
-              <span><Value value={contacts.bic.address} fallback="Address to be confirmed" /></span>
-              <span>{contacts.bic.email ? <a href={`mailto:${contacts.bic.email}`}>{contacts.bic.email}</a> : <Value value={null} fallback="Email to be confirmed" />}</span>
-              {contacts.bic.phone && <a href={`tel:${contacts.bic.phone.replace(/\s/g, '')}`}>{contacts.bic.phone}</a>}
+              <span><Value value={contact.address} fallback="Address to be confirmed" /></span>
+              <span>{contact.email ? <a href={`mailto:${contact.email}`}>{contact.email}</a> : <Value value={null} fallback="Email to be confirmed" />}</span>
+              {contact.phone && <a href={formatPhoneHref(contact.phone)}>{contact.phone}</a>}
             </address>
           </div>
         </div>
 
+        {sister.url && (
+          <a className="footer__sister" href={sister.url}>
+            <span className="footer__sister-label">Also visit</span>
+            <Logo project={sister.id} height={26} />
+            <Icon name="arrow" size={16} />
+          </a>
+        )}
+
         <div className="footer__base">
-          <p>© {year} {site.copyrightHolder ?? site.name}{site.registrationNumber ? ` · ${site.registrationNumber}` : ''}</p>
-          {site.legalLinks.length > 0 && (
+          <p>© {year} {legal.copyrightHolder ?? site.name}{legal.registrationNumber ? ` · ${legal.registrationNumber}` : ''}</p>
+          {legal.links.length > 0 && (
             <ul className="footer__legal">
-              {site.legalLinks.map((l) => <li key={l.href}><Link to={l.href}>{l.label}</Link></li>)}
+              {legal.links.map((l) => <li key={l.href}><Link to={l.href}>{l.label}</Link></li>)}
             </ul>
           )}
         </div>

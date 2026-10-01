@@ -1,73 +1,85 @@
-# Brisbane Islamic Centre & Sukoon Village — Website
+# Brisbane Islamic Centre & Sukoon Village — Websites
 
-A premium, data-driven React website for two connected community projects:
-**Brisbane Islamic Centre (BIC)** and **Sukoon Village**, built around
-**Faith — Knowledge — Community — Legacy**.
+Two **separate websites**, each with its own interface, navigation, routes,
+fonts and build, developed from one shared React codebase:
 
-Built with **React 19 + React Router 7 + Vite 8**. No UI framework: a custom
-design system using CSS tokens, restrained glassmorphism and lightweight
-IntersectionObserver-based animation.
+| | Brisbane Islamic Centre | Sukoon Village |
+| --- | --- | --- |
+| Character | Monumental, cinematic, deep navy | Light, calm, residential, warm gold |
+| Navigation | Dark floating glass bar, 4 dropdowns | Light floating bar, 2 dropdowns |
+| Home hero | Full-bleed film/render | Split layout with an arched image window |
+| Interior heroes | Full-bleed image with dark scrim | Split, light, arched image |
+| Fonts | Fraunces + Manrope | Cormorant Garamond + Nunito Sans (17px base) |
+| Main action | **Donate** | **Enquire** |
+| Darks | Navy shades of `#1C155C` | Espresso shades of `#CB9B61` |
+
+Built with **React 19 + React Router 7 + Vite 8**. No UI framework.
 
 ---
 
-## Getting started
+## Commands
 
 ```bash
 npm install
-npm run dev       # local development → http://localhost:5173
-npm run build     # production build → dist/ (+ sitemap.xml when VITE_SITE_URL is set)
-npm run preview   # preview the production build
+
+npm run dev:bic        # BIC website     → http://localhost:5173
+npm run dev:sukoon     # Sukoon website  → http://localhost:5174
+npm run dev            # same as dev:bic
+
+npm run build          # builds both → dist/bic and dist/sukoon
+npm run build:bic
+npm run build:sukoon
+npm run preview:bic    # → http://localhost:4173
+npm run preview:sukoon # → http://localhost:4174
 npm run lint
 ```
 
-Copy `.env.example` to `.env` and fill in values when available:
+Run both dev servers at once to click the "Also visit" link in each footer
+between the two sites.
 
-| Variable | Purpose |
-| --- | --- |
-| `VITE_SITE_URL` | Public URL. Enables canonical/Open Graph URLs and generates `sitemap.xml` + `robots.txt` at build. |
-| `VITE_CONTACT_ENDPOINT` | Any JSON POST endpoint (Formspree, serverless function, CRM webhook). Empty = the form honestly says it is not yet connected. |
-| `VITE_DONATION_ENDPOINT` | Endpoint that receives donation intent before payment. Alternatively set `payment.checkoutUrl` in `src/data/donation.js`. |
+### How the split works
+`VITE_SITE` in `.env.bic` / `.env.sukoon` decides which website is built.
+`src/main.jsx` mounts `src/sites/bic/App.jsx` or `src/sites/sukoon/App.jsx`;
+the other site's pages are tree-shaken out of each build. `index.html`
+receives the site's title, description, favicon, theme colour and fonts from
+the same env file, and `<html data-site="…">` switches the design tokens.
 
 ### Deployment
-It's a static SPA. `public/_redirects` (Netlify) and `vercel.json` (Vercel) are
-included so deep links like `/sukoon-village/seniors-living` resolve.
-For other hosts, configure a fallback to `index.html`.
+Deploy `dist/bic` and `dist/sukoon` as **two separate static sites** (two
+domains). Before building, set in each env file (or `.env.bic.local` /
+`.env.sukoon.local`):
+
+- `VITE_SITE_URL`: that site's public URL. Enables canonical/Open Graph
+  URLs and generates `sitemap.xml` + `robots.txt`.
+- `VITE_SISTER_URL`: the other site's URL, for the "Also visit" footer link.
+  It is hidden when empty in production.
+
+Both are SPAs: configure the host to fall back to `index.html`
+(`public/_redirects` for Netlify and `vercel.json` for Vercel are included).
+
+Optional form endpoints go in `.env.*.local`: `VITE_CONTACT_ENDPOINT`,
+`VITE_DONATION_ENDPOINT` (see `.env.example`). Without them the forms say
+honestly that they are not yet connected.
 
 ---
 
-## Logos & colour system
+## Routes
 
-The colour system is sampled directly from the official logos in `src/assets/logos/`:
+**Brisbane Islamic Centre**
+```text
+/  /about  /vision  /masjid-complex  /cultural-heritage-centre
+/project-status  /project-updates  /project-funding
+/events  /honoured-guests  /donate  /contact
+```
 
-| Logo | Sampled colours | Role in the site |
-| --- | --- | --- |
-| Brisbane Islamic Centre | `#1C155C` indigo-navy | Foundation: dark surfaces, BIC identity, primary buttons on light grounds |
-| Sukoon Village | `#CB9B61` gold + white | Sukoon identity, shared accent, primary actions on dark grounds |
+**Sukoon Village**
+```text
+/  /vision  /seniors-living  /lifestyle-centre  /childcare-centre
+/project-status  /project-updates  /contact
+```
 
-Both marks share the crescent motif and the Sukoon logo sits naturally on the
-BIC navy, so shared pages (Home, Vision, Updates, Donate) combine navy + gold,
-BIC pages shift toward indigo tints, and Sukoon pages shift toward gold.
-
-Derived tokens (all in the `BRAND` block of `src/styles/tokens.css`) were
-chosen to pass WCAG AA:
-
-- `--sv-ink: #7D5828` — gold deepened for text on ivory (raw gold is only 2.3:1).
-- `--sv-on-primary: #15122E` — navy text on gold buttons (white on gold fails at 2.5:1).
-- `--bic-accent: #B4AEEB` — light tint of the BIC navy for text/hotspots on dark grounds.
-
-### Logo files
-
-| File | Use |
-| --- | --- |
-| `bic.png` | Official (navy) — light backgrounds |
-| `bic-white.png` | Reversed to white — dark backgrounds (nav, cards, footer) |
-| `sukoon.png` | Official (white + gold) — dark backgrounds |
-| `sukoon-dark.png` | White parts recoloured to BIC navy, gold kept — light backgrounds |
-
-The two reversed variants were generated from the official files. If the
-design team has official reversed artwork or SVG versions, drop them in with
-the same names (or update `src/data/site.js → logos`). Use
-`<Logo project="bic|sukoon" tone="dark|light" height={32} />` to render them.
+Route lists for the sitemap live in `src/sites/<site>/routes.js`. Keep them
+in sync with each site's `App.jsx`.
 
 ---
 
@@ -75,89 +87,79 @@ the same names (or update `src/data/site.js → logos`). Use
 
 ```text
 src/
-├── assets/            images/, videos/, logos/ (drop official media here)
-├── components/
-│   ├── common/        Button, Media (lazy image + render placeholder), Seo, Reveal,
-│   │                  Pending, Logo, Icon, Pattern, SocialLinks, SubNav, …
-│   ├── navigation/    Floating glass Navbar with mega menus + mobile menu
-│   ├── hero/          Cinematic home Hero, interior PageHero
-│   ├── cards/         ProjectCard (landing), FacilityCard
-│   ├── video/         VideoFeature (poster-first, lazy, fullscreen, YouTube support)
-│   ├── masterplan/    Interactive Masterplan + indicative schematic
-│   ├── timeline/      Completed / current / upcoming Timeline
-│   ├── updates/       UpdateJournal (Project Updates, newest → oldest)
-│   ├── events/        EventList (upcoming / past computed from dates)
-│   ├── guests/        GuestGrid
-│   ├── donation/      DonationForm, AllocationCards, FundingProgress
-│   ├── forms/         ContactForm, ContactSection
-│   ├── story/         ProjectStory, VisionPillars
-│   └── footer/
-├── data/              ← ALL CONTENT LIVES HERE
-├── hooks/             useReveal, useScrolled, useParallax, useLockBody, useEscape
-├── layouts/           SiteLayout (nav, footer, project theme switching, Suspense)
-├── pages/             Home, BIC/, SukoonVillage/, ProjectUpdates, Donate, Vision,
-│                      Contact, NotFound, shared/ (data-driven page templates)
-├── styles/            tokens.css, base.css, components.css, sections.css
-└── utils/             format, forms (integration-ready submit), routes (sitemap)
+├── sites/
+│   ├── bic/            App.jsx (routes), routes.js, Hero.jsx, pages/ (Home, About,
+│   │                   Funding, Events, Guests, Donate)
+│   └── sukoon/         App.jsx (routes), routes.js, Hero.jsx, pages/ (Home)
+├── templates/          Page templates both sites fill with their own data:
+│                       FacilityPage, VisionPage, StatusPage, UpdatesPage,
+│                       ContactPage, PageShell, CtaBand, NotFound
+├── components/         Shared building blocks (nav, footer, video, masterplan,
+│                       timeline, journal, forms, donation, cards, …)
+├── data/               ALL CONTENT, see below
+├── site.js             SITE_ID + the current site's config
+├── layouts/  hooks/  utils/
+└── styles/             tokens.css (both identities), base, components, sections,
+                        sukoon.css (Sukoon-only interface)
 ```
 
-## Routes
+---
 
-```text
-/                               /project-updates      /donate
-/vision                         /contact
-/brisbane-islamic-centre        /vision /masjid-complex /cultural-heritage-centre
-                                /project-status /project-funding /honoured-guests
-                                /events /about /contact
-/sukoon-village                 /vision /seniors-living /lifestyle-centre
-                                /project-status /childcare-centre /contact
-```
+## Logos & colours
 
-Each section is code-split (BIC and Sukoon each load as one chunk).
+Colours were sampled from the official logos in `src/assets/logos/`:
+BIC `#1C155C` (indigo-navy) and Sukoon `#CB9B61` (gold) + white. All derived
+text colours pass WCAG AA (details in `src/styles/tokens.css`).
+
+| File | Use |
+| --- | --- |
+| `bic.png` | Official navy, for light backgrounds |
+| `bic-white.png` | Reversed to white, for dark backgrounds |
+| `sukoon.png` | Official white + gold, for dark backgrounds |
+| `sukoon-dark.png` | White parts recoloured to espresso, gold kept; for the light Sukoon nav |
+
+The two reversed variants were generated from the official files. Replace
+them with official artwork (ideally SVG) if available.
 
 ---
 
 ## Updating content (no UI changes needed)
 
-| What | File | Notes |
-| --- | --- | --- |
-| Contact details, socials, legal, registration no. | `data/site.js` | `null` shows a "to be confirmed" badge. Social icons appear only when `href` is set. |
-| Project intros | `data/projects.js` | |
-| Facilities (Masjid, Heritage Centre, Seniors Living, …) | `data/facilities.js` | Drives facility pages, masterplan panels and donation cards. |
-| Masterplan | `data/masterplan.js` | Set `image` to the official aerial/masterplan and adjust each hotspot's `x`/`y` (%). Set `isIndicative: false`. Append objects to add locations. |
-| Project updates | `data/updates.js` | Append entries; sorted newest → oldest automatically. **Remove the two `placeholder: true` samples.** |
-| Timeline | `data/timeline.js` | Replace placeholder milestones with official ones only. |
-| Events | `data/events.js` | Upcoming/past computed from `date`. |
-| Honoured guests | `data/guests.js` | |
-| Videos | `data/videos.js` | Set `src` (or `sources`, or `youtubeId`) and `poster` per slot: hero, masjid, status, update2026, funding, guests, donate, events, about, contact, sukoon. |
-| Donation settings | `data/donation.js` | Preset amounts, recurring support, payment provider / checkout URL, impact stats, transparency documents. |
-| Funding figures | `data/funding.js` | Progress bar appears only when both `target` and `raised` are set. |
-| Vision & story copy | `data/vision.js` | |
+| What | File |
+| --- | --- |
+| Per-site name, menu, CTA, contact details, socials, legal, enquiry topics, features | `data/sites.js` |
+| Facilities (Masjid, Heritage Centre, Seniors Living, Lifestyle, Childcare) | `data/facilities.js` |
+| Masterplans (one per site; hotspots, shapes, official image) | `data/masterplan.js` |
+| Project updates (each tagged `project: 'bic' \| 'sukoon'`) | `data/updates.js` |
+| Timelines (per site) | `data/timeline.js` |
+| Events, honoured guests (BIC) | `data/events.js`, `data/guests.js` |
+| Videos | `data/videos.js` |
+| Donation settings, allocations (filtered per site), impact, transparency | `data/donation.js` |
+| Funding figures (BIC) | `data/funding.js` |
+| Vision pillars & home stories (per site) | `data/vision.js` |
 
-### Images
-`<Media src={…} />` accepts a URL/import or `{ src, srcSet, sizes, alt }` for
-responsive images. When `src` is missing, an art-directed architectural
-placeholder labelled with the required asset is shown instead of a fake photo.
+**Sukoon donations** are off (`features.donate: false`, CTA = Enquire)
+because no Sukoon donation programme has been confirmed. To enable them, add
+a `/donate` route to `src/sites/sukoon/App.jsx`, set `features.donate: true`
+and point `cta` at `/donate`.
+
+Remove the two `placeholder: true` sample entries in `data/updates.js` and the
+placeholder milestones in `data/timeline.js` when official ones arrive.
 
 ---
 
 ## Content integrity
 
-No official information has been invented: names, dates, statistics, funding
-amounts, targets, guest details, completion percentages, addresses, contact
-details, payment details, bank details and registration numbers are all
-`null`/empty and rendered as clearly identifiable placeholders. Descriptive
-copy is introductory draft wording based on the project brief and should be
-replaced with official wording as it is supplied.
+No official information has been invented. Names, dates, statistics, funding
+figures, guest details, addresses, contact and payment details are `null` or
+empty and render as clearly marked "to be confirmed" placeholders.
+Descriptive copy is draft wording based on the brief, to be replaced with
+official wording.
 
 ## Accessibility & performance
 
-- Semantic landmarks, one `<h1>` per page, skip link, visible focus states,
-  labelled form fields with inline errors, `aria-expanded` menus, Escape to
-  close menus/panels, keyboard-operable hotspots, `prefers-reduced-motion`.
-- Glass surfaces sit over dark scrims (or near-opaque light panels) to keep
-  text contrast high.
-- Route-level code splitting, lazy images, videos load only on play,
-  `preload="none"`/`metadata` on background video, rAF-throttled scroll effects.
-- Per-page `<title>`, meta description, Open Graph/Twitter tags and canonical
-  URLs (React 19 native head hoisting), sitemap generation at build.
+Semantic landmarks, one `<h1>` per page, skip link, focus states, labelled
+form fields with inline errors, keyboard-operable menus, hotspots and dialogs,
+Escape to close, `prefers-reduced-motion`. Route-level code splitting, lazy
+images, videos load only on play, and per-page title, description, Open Graph
+and canonical tags.

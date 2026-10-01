@@ -3,11 +3,16 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Brisbane Islamic Centre & Sukoon Village — official project website",
+  "description": "Brisbane Islamic Centre and Sukoon Village — two separate websites built from one shared React codebase",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build && node scripts/generate-sitemap.mjs",
-    "preview": "vite preview",
+    "dev": "npm run dev:bic",
+    "dev:bic": "vite --mode bic --port 5173",
+    "dev:sukoon": "vite --mode sukoon --port 5174",
+    "build": "npm run build:bic && npm run build:sukoon",
+    "build:bic": "vite build --mode bic --outDir dist/bic --emptyOutDir && node scripts/generate-sitemap.mjs bic",
+    "build:sukoon": "vite build --mode sukoon --outDir dist/sukoon --emptyOutDir && node scripts/generate-sitemap.mjs sukoon",
+    "preview:bic": "vite preview --mode bic --outDir dist/bic --port 4173",
+    "preview:sukoon": "vite preview --mode sukoon --outDir dist/sukoon --port 4174",
     "lint": "eslint ."
   },
   "dependencies": {

@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { events } from '../../data/events'
-import { cx, formatDate, isUpcoming, sortByDateDesc } from '../../utils/format'
+import { SITE_ID } from '../../site'
+import { formatDate, isUpcoming, sortByDateDesc } from '../../utils/format'
 import Media from '../common/Media'
 import Icon from '../common/Icon'
 import Reveal from '../common/Reveal'
@@ -10,7 +11,7 @@ import { Value } from '../common/Pending'
 function EventCard({ ev, delay }) {
   const d = ev.date ? new Date(`${ev.date}T00:00:00`) : null
   return (
-    <Reveal as="article" delay={delay} className={cx('event-card', `theme-${ev.project ?? 'bic'}`)}>
+    <Reveal as="article" delay={delay} className="event-card">
       <div className="event-card__media">
         <Media src={ev.image?.src} alt={ev.image?.alt ?? ''} label="Event image" ratio="16 / 10" />
         {d && (
@@ -39,13 +40,13 @@ function EventCard({ ev, delay }) {
   )
 }
 
-export default function EventList({ project }) {
+export default function EventList() {
   const { upcoming, past } = useMemo(() => {
-    const list = events.filter((e) => !project || !e.project || e.project === project)
+    const list = events.filter((e) => !e.project || e.project === SITE_ID)
     const up = sortByDateDesc(list.filter((e) => isUpcoming(e.date))).reverse()
     const pa = sortByDateDesc(list.filter((e) => !isUpcoming(e.date)))
     return { upcoming: up, past: pa }
-  }, [project])
+  }, [])
 
   if (!upcoming.length && !past.length) {
     return (

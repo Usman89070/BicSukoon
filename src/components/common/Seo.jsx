@@ -1,14 +1,12 @@
 import { useLocation } from 'react-router-dom'
-import { site } from '../../data/site'
+import { site, siteUrl } from '../../site'
 
-/**
- * Per-page metadata. React 19 hoists <title>, <meta> and <link> into <head>.
- */
-export default function Seo({ title, description = site.defaultDescription, image = site.defaultOgImage, noindex = false }) {
+/** Per-page metadata. React 19 hoists <title>, <meta> and <link> into <head>. */
+export default function Seo({ title, description = site.description, image = site.defaultOgImage, noindex = false }) {
   const { pathname } = useLocation()
-  const fullTitle = title ? `${title} | ${site.shortName}` : site.name
-  const url = site.url ? `${site.url.replace(/\/$/, '')}${pathname}` : undefined
-  const img = image && site.url && image.startsWith('/') ? `${site.url.replace(/\/$/, '')}${image}` : image
+  const fullTitle = title ? `${title} | ${site.name}` : site.name
+  const url = siteUrl ? `${siteUrl}${pathname}` : undefined
+  const img = image && siteUrl && image.startsWith('/') ? `${siteUrl}${image}` : image
   return (
     <>
       <title>{fullTitle}</title>

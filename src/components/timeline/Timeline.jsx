@@ -5,9 +5,9 @@ import Pending from '../common/Pending'
 const stateLabel = { completed: 'Completed', current: 'Current', upcoming: 'Upcoming' }
 
 /** Data-driven project timeline (completed → current → upcoming). */
-export default function Timeline({ items, project }) {
+export default function Timeline({ items }) {
   return (
-    <ol className={cx('timeline', project && `theme-${project}`)}>
+    <ol className="timeline">
       {items.map((m, i) => (
         <Reveal as="li" key={m.id} delay={i * 100} className={cx('timeline__item', `is-${m.state}`)}>
           <span className="timeline__node" aria-hidden="true" />

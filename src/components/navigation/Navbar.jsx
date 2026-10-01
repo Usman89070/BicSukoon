@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { primaryNav } from '../../data/navigation'
+import { site } from '../../site'
 import { useScrolled } from '../../hooks/useScrolled'
 import { useLockBody } from '../../hooks/useLockBody'
 import { useEscape } from '../../hooks/useEscape'
@@ -9,6 +9,10 @@ import Icon from '../common/Icon'
 import Logo from '../common/Logo'
 import Button from '../common/Button'
 
+/**
+ * Floating glass navigation for the current website (BIC or Sukoon).
+ * Menu items, logo, CTA and tone (dark / light) come from data/sites.js.
+ */
 export default function Navbar() {
   const scrolled = useScrolled(24)
   const { pathname } = useLocation()
@@ -16,14 +20,16 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileSection, setMobileSection] = useState(null)
   const closeTimer = useRef(0)
+  const hoverOpened = useRef(false)
   const navRef = useRef(null)
+  const tone = site.navTone
 
   const closeAll = useCallback(() => {
     setOpenMenu(null)
     setMobileOpen(false)
   }, [])
 
-  // Close menus on route change — derived-state pattern instead of an effect.
+  // Close menus on route change (derived-state pattern instead of an effect).
   const [lastPath, setLastPath] = useState(pathname)
   if (lastPath !== pathname) {
     setLastPath(pathname)
@@ -34,7 +40,6 @@ export default function Navbar() {
   useLockBody(mobileOpen)
   useEscape(Boolean(openMenu) || mobileOpen, closeAll)
 
-  // Close desktop mega menu on outside click / touch
   useEffect(() => {
     if (!openMenu) return
     const onDown = (e) => {
@@ -46,73 +51,63 @@ export default function Navbar() {
 
   const open = (label) => {
     clearTimeout(closeTimer.current)
+    hoverOpened.current = true
     setOpenMenu(label)
   }
   const scheduleClose = () => {
     clearTimeout(closeTimer.current)
-    closeTimer.current = setTimeout(() => setOpenMenu(null), 160)
+    closeTimer.current = setTimeout(() => {
+      hoverOpened.current = false
+      setOpenMenu(null)
+    }, 160)
   }
-
-  const isSectionActive = (item) => item.to !== '/' && pathname.startsWith(item.to)
+  // When a hover (or a tap's emulated hover) has just opened the menu, the
+  // click that follows keeps it open instead of toggling it shut. Relies on a
+  // ref, not state, because the hover update may not have rendered yet.
+  const onToggle = (label) => {
+    if (hoverOpened.current) {
+      hoverOpened.current = false
+      setOpenMenu(label)
+      return
+    }
+    setOpenMenu((m) => (m === label ? null : label))
+  }
+  const groupActive = (item) => item.children.some((c) => pathname === c.to)
 
   return (
-    <header className={cx('nav', scrolled && 'nav--scrolled', mobileOpen && 'nav--mobile-open')} ref={navRef}>
+    <header className={cx('nav', `nav--${tone}`, scrolled && 'nav--scrolled', mobileOpen && 'nav--mobile-open')} ref={navRef}>
       <a href="#main" className="skip-link">Skip to content</a>
-      <div className="nav__bar glass">
-        <Link to="/" className="nav__brand" aria-label="Brisbane Islamic Centre & Sukoon Village — Home">
-          <Logo project="bic" height={28} decorative />
-          <span className="nav__brand-divider" aria-hidden="true" />
-          <Logo project="sukoon" height={28} decorative />
+      <div className="nav__bar">
+        <Link to="/" className="nav__brand" aria-label={`${site.name} — Home`}>
+          <Logo project={site.id} tone={tone === 'light' ? 'light' : 'dark'} height={30} decorative />
         </Link>
 
         <nav className="nav__primary" aria-label="Primary">
           <ul className="nav__list">
-            {primaryNav.map((item) =>
-              item.groups ? (
-                <li
-                  key={item.label}
-                  className={cx('nav__item has-menu', item.project && `theme-${item.project}`)}
-                  onMouseEnter={() => open(item.label)}
-                  onMouseLeave={scheduleClose}
-                >
+            {site.nav.map((item) =>
+              item.children ? (
+                <li key={item.label} className="nav__item" onMouseEnter={() => open(item.label)} onMouseLeave={scheduleClose}>
                   <button
                     type="button"
-                    className={cx('nav__link', isSectionActive(item) && 'is-active')}
+                    className={cx('nav__link', groupActive(item) && 'is-active')}
                     aria-expanded={openMenu === item.label}
-                    aria-controls={`mega-${item.project}`}
-                    onClick={() => setOpenMenu((m) => (m === item.label ? null : item.label))}
+                    aria-controls={`menu-${item.label}`}
+                    onClick={() => onToggle(item.label)}
                   >
-                    {item.short ?? item.label}
+                    {item.label}
                     <Icon name="chevron" size={14} className="nav__chev" />
                   </button>
-                  <div
-                    id={`mega-${item.project}`}
-                    className={cx('mega glass', openMenu === item.label && 'is-open')}
-                    onMouseEnter={() => open(item.label)}
-                    onMouseLeave={scheduleClose}
-                  >
-                    <div className="mega__intro">
-                      <Logo project={item.project} height={34} />
-                      <p className="mega__title">{item.label}</p>
-                      <p className="mega__text">{item.intro}</p>
-                      <Link to={item.to} className="mega__cta">
-                        Explore {item.short ?? item.label} <Icon name="arrow" size={16} />
-                      </Link>
-                    </div>
-                    {item.groups.map((g) => (
-                      <div key={g.title} className="mega__group">
-                        <p className="mega__group-title">{g.title}</p>
-                        <ul>
-                          {g.links.map((l) => (
-                            <li key={l.to}>
-                              <NavLink to={l.to} end className="mega__link">
-                                {l.label}
-                              </NavLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+                  <div id={`menu-${item.label}`} className={cx('dropdown', openMenu === item.label && 'is-open')}>
+                    <ul>
+                      {item.children.map((c) => (
+                        <li key={c.to}>
+                          <NavLink to={c.to} end className="dropdown__link">
+                            <span className="dropdown__label">{c.label}</span>
+                            {c.text && <span className="dropdown__text">{c.text}</span>}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </li>
               ) : (
@@ -127,7 +122,7 @@ export default function Navbar() {
         </nav>
 
         <div className="nav__actions">
-          <Button to="/donate" variant="primary" size="sm" className="nav__donate">Donate</Button>
+          <Button to={site.cta.to} variant="primary" size="sm" className="nav__cta">{site.cta.label}</Button>
           <button
             type="button"
             className="nav__toggle"
@@ -141,13 +136,12 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
       <div id="mobile-menu" className={cx('mobile-menu', mobileOpen && 'is-open')} aria-hidden={!mobileOpen} inert={!mobileOpen}>
         <nav aria-label="Mobile" className="mobile-menu__inner">
           <ul>
-            {primaryNav.map((item, i) => (
-              <li key={item.label} className={cx(item.project && `theme-${item.project}`)} style={{ '--i': i }}>
-                {item.groups ? (
+            {site.nav.map((item, i) => (
+              <li key={item.label} style={{ '--i': i }}>
+                {item.children ? (
                   <>
                     <button
                       type="button"
@@ -160,23 +154,19 @@ export default function Navbar() {
                     </button>
                     <div className={cx('mobile-menu__sub', mobileSection === item.label && 'is-open')}>
                       <ul>
-                        {item.groups.flatMap((g) => g.links).map((l) => (
-                          <li key={l.to}>
-                            <NavLink to={l.to} end>{l.label}</NavLink>
-                          </li>
+                        {item.children.map((c) => (
+                          <li key={c.to}><NavLink to={c.to} end>{c.label}</NavLink></li>
                         ))}
                       </ul>
                     </div>
                   </>
                 ) : (
-                  <NavLink to={item.to} end={item.to === '/'} className="mobile-menu__link">
-                    {item.label}
-                  </NavLink>
+                  <NavLink to={item.to} end={item.to === '/'} className="mobile-menu__link">{item.label}</NavLink>
                 )}
               </li>
             ))}
           </ul>
-          <Button to="/donate" variant="primary" className="mobile-menu__donate" icon="heart">Donate Now</Button>
+          <Button to={site.cta.to} variant="primary" className="mobile-menu__cta" icon={site.cta.icon}>{site.cta.label}</Button>
         </nav>
       </div>
     </header>

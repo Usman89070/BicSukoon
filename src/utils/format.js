@@ -27,3 +27,5 @@ export function isUpcoming(iso) {
 }
 
 export const cx = (...parts) => parts.filter(Boolean).join(' ')
+
+export const formatPhoneHref = (phone) => `tel:${phone.replace(/[^\d+]/g, '')}`

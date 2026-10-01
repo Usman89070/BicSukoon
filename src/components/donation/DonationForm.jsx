@@ -1,4 +1,5 @@
 import { useId, useState } from 'react'
+import { SITE_ID } from '../../site'
 import { allocations, donation } from '../../data/donation'
 import { cx, formatCurrency } from '../../utils/format'
 import { endpoints, isEmail, submitForm } from '../../utils/forms'
@@ -112,7 +113,7 @@ export default function DonationForm() {
           <label htmlFor={`${uid}-alloc`}>Direct my support to</label>
           <select id={`${uid}-alloc`} value={form.allocation} onChange={set('allocation')}>
             <option value="general">Where it is needed most</option>
-            {allocations.map((a) => <option key={a.id} value={a.id}>{a.title}</option>)}
+            {allocations.filter((a) => a.project === SITE_ID).map((a) => <option key={a.id} value={a.id}>{a.title}</option>)}
           </select>
         </div>
         <div className="field">

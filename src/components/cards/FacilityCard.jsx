@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom'
-import { cx } from '../../utils/format'
 import Media from '../common/Media'
 import Icon from '../common/Icon'
 import Reveal from '../common/Reveal'
 
 export default function FacilityCard({ facility, delay = 0 }) {
   return (
-    <Reveal delay={delay} className={cx('facility-card', `theme-${facility.project}`)}>
+    <Reveal delay={delay} className="facility-card">
       <Link to={facility.path} className="facility-card__link">
         <Media src={facility.media.image} label={facility.media.label} ratio="4 / 3" className="facility-card__media" />
         <div className="facility-card__body">

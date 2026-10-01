@@ -207,11 +207,6 @@ main:focus {
   background: currentColor;
   opacity: 0.6;
 }
-/* Project themes nested inside dark sections keep light, legible brand text */
-.section--dark [class*='theme-'] {
-  --primary-ink: var(--accent);
-  --dot: var(--accent);
-}
 .section--dark .eyebrow,
 .eyebrow--light {
   color: var(--accent);

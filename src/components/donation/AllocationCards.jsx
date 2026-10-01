@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { SITE_ID } from '../../site'
 import { allocations } from '../../data/donation'
 import { facilities } from '../../data/facilities'
 import Media from '../common/Media'
@@ -8,10 +9,10 @@ import Icon from '../common/Icon'
 export default function AllocationCards() {
   return (
     <div className="alloc-grid">
-      {allocations.map((a, i) => {
+      {allocations.filter((a) => a.project === SITE_ID).map((a, i) => {
         const f = a.facility ? facilities[a.facility] : null
         return (
-          <Reveal key={a.id} delay={(i % 4) * 70} className={`alloc-card theme-${a.project}`}>
+          <Reveal key={a.id} delay={(i % 4) * 70} className="alloc-card">
             <Media src={a.image ?? f?.media.image} label={a.title} showLabel={false} className="alloc-card__media" />
             <div className="alloc-card__body">
               <span className="alloc-card__icon"><Icon name="heart" size={18} /></span>

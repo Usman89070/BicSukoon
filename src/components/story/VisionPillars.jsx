@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom'
 import { pillars } from '../../data/vision'
+import { SITE_ID } from '../../site'
 import { facilities } from '../../data/facilities'
 import { cx } from '../../utils/format'
 import Media from '../common/Media'
 import Reveal from '../common/Reveal'
 
 /** The four themes as premium cards. `detailed` adds facility links. */
-export default function VisionPillars({ detailed = false, filter, className }) {
-  const list = filter ? pillars.filter((p) => p.facilities.some((f) => facilities[f].project === filter)) : pillars
+export default function VisionPillars({ detailed = false, className }) {
+  const list = pillars[SITE_ID]
   return (
     <div className={cx('pillars', detailed && 'pillars--detailed', className)}>
       {list.map((p, i) => (
@@ -23,7 +24,7 @@ export default function VisionPillars({ detailed = false, filter, className }) {
                 <p className="pillar__text">{p.body}</p>
                 <ul className="pillar__links">
                   {p.facilities.map((id) => (
-                    <li key={id} className={`theme-${facilities[id].project}`}>
+                    <li key={id}>
                       <Link to={facilities[id].path}>{facilities[id].shortTitle ?? facilities[id].title}</Link>
                     </li>
                   ))}

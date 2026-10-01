@@ -1,0 +1,384 @@
+/* ==========================================================================
+   SUKOON VILLAGE INTERFACE
+   Light, calm and residential: warm white grounds, gold accents, arched
+   "window" imagery, a light floating navigation and softer typography.
+   Everything here is scoped to <html data-site="sukoon">.
+   ========================================================================== */
+
+/* ---- Typography -------------------------------------------------------- */
+:root[data-site='sukoon']
+  :is(
+    .section-title,
+    .page-hero__title,
+    .feature__title,
+    .cta-band__title,
+    .facility-block__title,
+    .vision-chapter__title,
+    .pillar__title,
+    .journal__title,
+    .timeline__title,
+    .footer__cta-title,
+    .facility-card__title,
+    .contact-card__title,
+    .empty-state__title,
+    .masterplan__panel-title,
+    .sv-card__title
+  ) {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+:root[data-site='sukoon'] .eyebrow::before {
+  width: 18px;
+}
+
+/* ---- Light navigation -------------------------------------------------- */
+.nav--light .nav__bar {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(var(--text-rgb), 0.08);
+  box-shadow: 0 12px 40px -22px rgba(var(--ink-deep-rgb), 0.35);
+}
+.nav--light.nav--scrolled .nav__bar {
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 18px 50px -26px rgba(var(--ink-deep-rgb), 0.45);
+}
+.nav--light .nav__link {
+  color: var(--text-secondary);
+}
+.nav--light .nav__link:hover,
+.nav--light .nav__link[aria-expanded='true'],
+.nav--light .nav__link.is-active {
+  color: var(--text-primary);
+  background: rgba(var(--text-rgb), 0.05);
+}
+.nav--light .nav__link.is-active::after {
+  background: var(--primary);
+}
+.nav--light .nav__toggle {
+  color: var(--text-primary);
+  background: rgba(var(--text-rgb), 0.06);
+}
+.nav--light .dropdown {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: rgba(var(--text-rgb), 0.08);
+  box-shadow: var(--shadow-lg);
+}
+.nav--light .dropdown__link {
+  color: var(--text-primary);
+}
+.nav--light .dropdown__link:hover {
+  background: var(--surface-muted);
+}
+.nav--light .dropdown__text {
+  color: var(--text-secondary);
+}
+.nav--light .dropdown__link.active .dropdown__label {
+  color: var(--primary-ink);
+}
+.nav--light .mobile-menu {
+  background: rgba(251, 248, 243, 0.97);
+}
+.nav--light .mobile-menu__inner > ul > li {
+  border-color: rgba(var(--text-rgb), 0.1);
+}
+.nav--light .mobile-menu__link {
+  color: var(--text-primary);
+}
+.nav--light .mobile-menu__link.active,
+.nav--light .mobile-menu__sub a.active {
+  color: var(--primary-ink);
+}
+.nav--light .mobile-menu__chev {
+  color: var(--primary-ink);
+}
+.nav--light .mobile-menu__sub > ul {
+  border-color: var(--primary);
+}
+.nav--light .mobile-menu__sub a {
+  color: var(--text-secondary);
+}
+
+/* ---- Home hero (split, arched window) --------------------------------- */
+.sv-hero {
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--nav-h) + clamp(3rem, 7vw, 6rem)) 0 clamp(3rem, 7vw, 6rem);
+  background:
+    radial-gradient(60% 70% at 85% 30%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 70%),
+    radial-gradient(50% 60% at 0% 100%, color-mix(in srgb, var(--primary-light) 18%, transparent), transparent 70%),
+    var(--background);
+}
+.sv-hero__inner {
+  display: grid;
+  gap: var(--space-8);
+  align-items: center;
+}
+@media (min-width: 960px) {
+  .sv-hero__inner {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+}
+.sv-hero__eyebrow {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--primary-ink);
+  animation: fade-up 1s var(--ease-out) 0.1s both;
+}
+.sv-hero__title {
+  margin-top: var(--space-4);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.9rem, 1.8rem + 4.6vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  animation: fade-up 1s var(--ease-out) 0.2s both;
+}
+.sv-hero__title em {
+  color: var(--primary-ink);
+}
+.sv-hero__lead {
+  margin-top: var(--space-5);
+  max-width: 46ch;
+  font-size: var(--fs-md);
+  color: var(--text-secondary);
+  animation: fade-up 1s var(--ease-out) 0.35s both;
+}
+.sv-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  animation: fade-up 1s var(--ease-out) 0.5s both;
+}
+.sv-hero__visual {
+  position: relative;
+  max-width: 520px;
+  width: 100%;
+  justify-self: center;
+  animation: fade-up 1.2s var(--ease-out) 0.25s both;
+}
+.sv-hero__arch {
+  aspect-ratio: 4 / 5;
+  border-radius: 999px 999px var(--radius-xl) var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 6px solid var(--surface);
+}
+.sv-hero__arch video,
+.sv-hero__arch .media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.sv-hero__chips {
+  position: absolute;
+  left: -8%;
+  bottom: 10%;
+  display: grid;
+  gap: 10px;
+}
+.sv-hero__chips li {
+  animation: fade-up 0.9s var(--ease-out) both;
+  animation-delay: calc(0.7s + var(--i) * 0.12s);
+}
+.sv-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(var(--text-rgb), 0.08);
+  box-shadow: var(--shadow-md);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  text-decoration: none;
+  transition: transform var(--dur) var(--ease-out);
+}
+.sv-chip:hover {
+  transform: translateX(4px);
+}
+.sv-chip__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+@media (max-width: 640px) {
+  .sv-hero__chips {
+    position: static;
+    margin-top: var(--space-5);
+  }
+  .sv-hero__ctas .btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* ---- Welcome ----------------------------------------------------------- */
+.sv-welcome__inner {
+  max-width: 820px;
+  margin-inline: auto;
+  text-align: center;
+}
+.sv-welcome__word {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(3rem, 2rem + 4vw, 5.5rem);
+  line-height: 1;
+  color: var(--primary-ink);
+}
+.sv-welcome__text {
+  margin-top: var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1.3;
+  text-wrap: balance;
+}
+.sv-welcome__text em {
+  color: var(--primary-ink);
+}
+
+/* ---- Facility cards with arched windows ------------------------------- */
+.sv-cards {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+.sv-card__link {
+  display: grid;
+  gap: var(--space-3);
+  text-decoration: none;
+  text-align: center;
+  justify-items: center;
+}
+.sv-card__arch {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--dur) var(--ease-out), box-shadow var(--dur);
+}
+.sv-card__arch .media {
+  height: 100%;
+}
+.sv-card__link:hover .sv-card__arch {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+.sv-card__title {
+  margin-top: var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  color: var(--text-primary);
+}
+.sv-card__text {
+  max-width: 34ch;
+  color: var(--text-secondary);
+}
+.sv-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  color: var(--primary-ink);
+}
+
+/* ---- Interior hero (split) -------------------------------------------- */
+.page-hero-split {
+  padding: calc(var(--nav-h) + clamp(2.5rem, 6vw, 5rem)) 0 clamp(2.5rem, 6vw, 4.5rem);
+  background:
+    radial-gradient(55% 80% at 100% 0%, color-mix(in srgb, var(--primary) 20%, transparent), transparent 70%),
+    var(--background);
+}
+.page-hero-split__inner {
+  display: grid;
+  gap: var(--space-7);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .page-hero-split__inner {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+.page-hero-split__text {
+  animation: fade-up 1s var(--ease-out) both;
+}
+.page-hero-split .breadcrumbs ol {
+  color: var(--text-secondary);
+}
+.page-hero-split .breadcrumbs [aria-current] {
+  color: var(--text-primary);
+}
+.page-hero-split .breadcrumbs a:hover {
+  color: var(--primary-ink);
+}
+.page-hero-split .eyebrow--light {
+  color: var(--primary-ink);
+}
+.page-hero-split .page-hero__title {
+  color: var(--text-primary);
+  font-size: clamp(2.6rem, 1.6rem + 4vw, 5rem);
+}
+.page-hero-split .page-hero__lead {
+  color: var(--text-secondary);
+}
+.page-hero-split .btn--glass {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+.page-hero-split__visual {
+  justify-self: center;
+  width: min(100%, 440px);
+  aspect-ratio: 4 / 5;
+  border-radius: 999px 999px var(--radius-xl) var(--radius-xl);
+  overflow: hidden;
+  border: 6px solid var(--surface);
+  box-shadow: var(--shadow-lg);
+  animation: fade-up 1.2s var(--ease-out) 0.15s both;
+}
+.page-hero-split--sm .page-hero-split__visual {
+  width: min(100%, 340px);
+}
+.page-hero-split__visual video,
+.page-hero-split__visual .media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 899px) {
+  .page-hero-split__visual {
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    border-radius: 200px 200px var(--radius-lg) var(--radius-lg);
+  }
+}
+
+/* ---- Shared components, Sukoon character ------------------------------ */
+:root[data-site='sukoon'] .cta-band__inner {
+  background:
+    radial-gradient(70% 120% at 100% 0%, color-mix(in srgb, var(--primary) 45%, transparent), transparent 62%),
+    linear-gradient(135deg, var(--ink-950), var(--ink-700));
+}
+:root[data-site='sukoon'] .glass-panel {
+  background: linear-gradient(160deg, #ffffff, rgba(255, 255, 255, 0.82));
+}
+:root[data-site='sukoon'] .feature__media,
+:root[data-site='sukoon'] .vision-chapter__media {
+  border-radius: 280px 280px var(--radius-xl) var(--radius-xl);
+}
+:root[data-site='sukoon'] .pillar {
+  border-radius: 200px 200px var(--radius-lg) var(--radius-lg);
+}
+:root[data-site='sukoon'] .chip.is-active,
+:root[data-site='sukoon'] .tag--project,
+:root[data-site='sukoon'] .status-pill--completed {
+  color: var(--on-primary);
+}
