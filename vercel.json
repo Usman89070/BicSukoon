@@ -1,1 +1,7 @@
-{ "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
+{
+  "rewrites": [
+    { "source": "/bic/(.*)", "destination": "/bic/index.html" },
+    { "source": "/sukoon/(.*)", "destination": "/sukoon/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

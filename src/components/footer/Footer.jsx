@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { site } from '../../site'
+import { site, urls } from '../../site'
 import { formatPhoneHref } from '../../utils/format'
 import Logo from '../common/Logo'
 import Button from '../common/Button'
@@ -14,6 +14,7 @@ export default function Footer() {
   const groups = site.nav.filter((n) => n.children)
   const singles = site.nav.filter((n) => !n.children && n.to !== '/')
   const { contact, legal, sister } = site
+  const sisterUrl = sister.url ?? urls[sister.id]
 
   return (
     <footer className="footer">
@@ -58,13 +59,19 @@ export default function Footer() {
           </div>
         </div>
 
-        {sister.url && (
-          <a className="footer__sister" href={sister.url}>
-            <span className="footer__sister-label">Also visit</span>
-            <Logo project={sister.id} height={26} />
-            <Icon name="arrow" size={16} />
+        <div className="footer__links-out">
+          <a className="footer__sister" href={urls.portal}>
+            <Icon name="arrowLeft" size={16} />
+            <span className="footer__sister-label">All projects</span>
           </a>
-        )}
+          {sisterUrl && (
+            <a className="footer__sister" href={sisterUrl}>
+              <span className="footer__sister-label">Also visit</span>
+              <Logo project={sister.id} height={26} />
+              <Icon name="arrow" size={16} />
+            </a>
+          )}
+        </div>
 
         <div className="footer__base">
           <p>© {year} {legal.copyrightHolder ?? site.name}{legal.registrationNumber ? ` · ${legal.registrationNumber}` : ''}</p>

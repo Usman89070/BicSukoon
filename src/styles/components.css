@@ -1971,11 +1971,16 @@
 .footer .pending {
   color: var(--text-on-dark-muted);
 }
+.footer__links-out {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
+}
 .footer__sister {
   display: inline-flex;
   align-items: center;
   gap: var(--space-4);
-  margin-top: var(--space-7);
   padding: 12px 20px;
   border-radius: var(--radius-pill);
   border: 1px solid rgba(255, 255, 255, 0.14);

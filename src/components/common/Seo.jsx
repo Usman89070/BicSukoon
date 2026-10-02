@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import { site, siteUrl } from '../../site'
 
-/** Per-page metadata. React 19 hoists <title>, <meta> and <link> into <head>. */
+/** Per-page metadata (canonical includes the base path). React 19 hoists <title>, <meta> and <link> into <head>. */
 export default function Seo({ title, description = site.description, image = site.defaultOgImage, noindex = false }) {
   const { pathname } = useLocation()
   const fullTitle = title ? `${title} | ${site.name}` : site.name

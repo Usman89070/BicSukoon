@@ -1,7 +1,15 @@
 # Brisbane Islamic Centre & Sukoon Village — Websites
 
-Two **separate websites**, each with its own interface, navigation, routes,
-fonts and build, developed from one shared React codebase:
+A **starting page** where visitors choose a project, plus two **separate
+websites**, each with its own interface, navigation, routes, fonts and build,
+developed from one shared React codebase:
+
+```text
+/          Starting page: two boxes, "Brisbane Islamic Centre" and "Sukoon Village"
+/bic/      Brisbane Islamic Centre website
+/sukoon/   Sukoon Village website
+```
+
 
 | | Brisbane Islamic Centre | Sukoon Village |
 | --- | --- | --- |
@@ -22,40 +30,46 @@ Built with **React 19 + React Router 7 + Vite 8**. No UI framework.
 ```bash
 npm install
 
+npm run dev:portal     # starting page   → http://localhost:5175  (links to the two dev servers below)
 npm run dev:bic        # BIC website     → http://localhost:5173
 npm run dev:sukoon     # Sukoon website  → http://localhost:5174
-npm run dev            # same as dev:bic
+npm run dev            # same as dev:portal
 
-npm run build          # builds both → dist/bic and dist/sukoon
-npm run build:bic
-npm run build:sukoon
-npm run preview:bic    # → http://localhost:4173
-npm run preview:sukoon # → http://localhost:4174
+npm run build          # everything → dist/ (starting page), dist/bic/, dist/sukoon/
+npm run preview        # serve the full dist/ → http://localhost:4173
 npm run lint
 ```
 
-Run both dev servers at once to click the "Also visit" link in each footer
-between the two sites.
+In development each part runs at `/` on its own port; run all three to click
+through the whole journey. `npm run preview` serves the production build
+exactly as deployed (starting page at `/`, sites under `/bic/` and `/sukoon/`).
 
-### How the split works
-`VITE_SITE` in `.env.bic` / `.env.sukoon` decides which website is built.
-`src/main.jsx` mounts `src/sites/bic/App.jsx` or `src/sites/sukoon/App.jsx`;
-the other site's pages are tree-shaken out of each build. `index.html`
-receives the site's title, description, favicon, theme colour and fonts from
-the same env file, and `<html data-site="…">` switches the design tokens.
+### How it works
+`VITE_SITE` in `.env.portal` / `.env.bic` / `.env.sukoon` decides what is
+built; `src/main.jsx` loads only that app (`src/portal/Portal.jsx`,
+`src/sites/bic/App.jsx` or `src/sites/sukoon/App.jsx`), so each build
+contains only its own code. `VITE_BASE` sets the path each site is served
+under (`/bic/`, `/sukoon/`); routing, assets and canonical URLs follow it.
+
+### Starting page images
+Put the BIC aerial render at **`src/assets/images/portal-bic.jpg`** (JPG, PNG
+or WebP; about 1500 × 1101 px, under ~400 KB). It becomes the BIC box
+background, shown in full: on desktop both boxes take the image's
+proportions, and on mobile the image sits above the text. An optional
+`portal-sukoon.jpg` works the same way. Without an image a box uses its brand
+colours.
 
 ### Deployment
-Deploy `dist/bic` and `dist/sukoon` as **two separate static sites** (two
-domains). Before building, set in each env file (or `.env.bic.local` /
-`.env.sukoon.local`):
+**One domain (default):** upload the whole `dist/` folder.
+`public/_redirects` (Netlify) and `vercel.json` (Vercel) route `/bic/*` and
+`/sukoon/*` to their own `index.html`. Set `VITE_SITE_URL` (the domain
+origin, e.g. `https://example.org`) in `.env.bic` and `.env.sukoon` to enable
+canonical URLs and `sitemap.xml`.
 
-- `VITE_SITE_URL`: that site's public URL. Enables canonical/Open Graph
-  URLs and generates `sitemap.xml` + `robots.txt`.
-- `VITE_SISTER_URL`: the other site's URL, for the "Also visit" footer link.
-  It is hidden when empty in production.
-
-Both are SPAs: configure the host to fall back to `index.html`
-(`public/_redirects` for Netlify and `vercel.json` for Vercel are included).
+**Separate domains (optional):** set `VITE_BASE=/` in a site's env file,
+`VITE_SISTER_URL` and `VITE_PORTAL_URL` to the other addresses, and
+`VITE_BIC_URL` / `VITE_SUKOON_URL` in `.env.portal`; then deploy each `dist/`
+folder on its own.
 
 Optional form endpoints go in `.env.*.local`: `VITE_CONTACT_ENDPOINT`,
 `VITE_DONATION_ENDPOINT` (see `.env.example`). Without them the forms say
@@ -64,6 +78,8 @@ honestly that they are not yet connected.
 ---
 
 ## Routes
+
+Paths below are relative to each site's base (`/bic/…`, `/sukoon/…`).
 
 **Brisbane Islamic Centre**
 ```text
@@ -87,6 +103,7 @@ in sync with each site's `App.jsx`.
 
 ```text
 src/
+├── portal/             Starting page (Portal.jsx) + optional box images (media.js)
 ├── sites/
 │   ├── bic/            App.jsx (routes), routes.js, Hero.jsx, pages/ (Home, About,
 │   │                   Funding, Events, Guests, Donate)
@@ -100,7 +117,7 @@ src/
 ├── site.js             SITE_ID + the current site's config
 ├── layouts/  hooks/  utils/
 └── styles/             tokens.css (both identities), base, components, sections,
-                        sukoon.css (Sukoon-only interface)
+                        sukoon.css (Sukoon-only interface), portal.css (starting page)
 ```
 
 ---

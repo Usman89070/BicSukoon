@@ -2,11 +2,12 @@
  * The two websites. Each is built separately (npm run build:bic / build:sukoon)
  * and has its own navigation, footer, contact details and social accounts.
  *
+ * Sister-site links default to the other site's sub-path (see urls in site.js);
+ * set VITE_SISTER_URL when the sites live on separate domains.
+ *
  * Any value set to `null` renders as a clearly identifiable "to be confirmed"
  * placeholder. Replace with official information only.
  */
-const devUrl = (port) => (import.meta.env.DEV ? `http://localhost:${port}` : null)
-
 const socialSlots = () => [
   { id: 'facebook', label: 'Facebook', href: null },
   { id: 'instagram', label: 'Instagram', href: null },
@@ -69,7 +70,7 @@ export const sites = {
     socials: socialSlots(),
     legal: { name: null, registrationNumber: null, copyrightHolder: null, links: [] },
 
-    sister: { id: 'sukoon', name: 'Sukoon Village', url: import.meta.env.VITE_SISTER_URL || devUrl(5174) },
+    sister: { id: 'sukoon', name: 'Sukoon Village', url: import.meta.env.VITE_SISTER_URL || null },
   },
 
   sukoon: {
@@ -113,6 +114,6 @@ export const sites = {
     socials: socialSlots(),
     legal: { name: null, registrationNumber: null, copyrightHolder: null, links: [] },
 
-    sister: { id: 'bic', name: 'Brisbane Islamic Centre', url: import.meta.env.VITE_SISTER_URL || devUrl(5173) },
+    sister: { id: 'bic', name: 'Brisbane Islamic Centre', url: import.meta.env.VITE_SISTER_URL || null },
   },
 }

@@ -1,5 +1,5 @@
 // Generates sitemap.xml + robots.txt for one website: node scripts/generate-sitemap.mjs <bic|sukoon>
-// Uses VITE_SITE_URL from .env.<site> (or .env.<site>.local / the environment).
+// Uses VITE_SITE_URL (origin) + VITE_BASE (path) from .env.<site> (or .env.<site>.local / the environment).
 import { writeFileSync, existsSync, readFileSync } from 'node:fs'
 
 const siteId = process.argv[2]
@@ -9,15 +9,18 @@ if (!['bic', 'sukoon'].includes(siteId)) {
 }
 const { routes } = await import(`../src/sites/${siteId}/routes.js`)
 
-const readEnv = (file) => (existsSync(file) ? readFileSync(file, 'utf8').match(/^VITE_SITE_URL=(.*)$/m)?.[1]?.trim() : '')
-const site = process.env.VITE_SITE_URL || readEnv(`.env.${siteId}.local`) || readEnv(`.env.${siteId}`)
+const readEnv = (file, key) =>
+  existsSync(file) ? readFileSync(file, 'utf8').match(new RegExp(`^${key}=(.*)$`, 'm'))?.[1]?.trim() : ''
+const env = (key) => process.env[key] || readEnv(`.env.${siteId}.local`, key) || readEnv(`.env.${siteId}`, key)
+const site = env('VITE_SITE_URL')
+const basePath = (env('VITE_BASE') || '/').replace(/\/$/, '')
 const outDir = `dist/${siteId}`
 
 if (!site) {
   console.warn(`[sitemap:${siteId}] VITE_SITE_URL not set — skipping sitemap.xml.`)
   process.exit(0)
 }
-const base = site.replace(/\/$/, '')
+const base = site.replace(/\/$/, '') + basePath
 writeFileSync(
   `${outDir}/sitemap.xml`,
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes
