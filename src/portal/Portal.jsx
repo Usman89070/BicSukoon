@@ -11,14 +11,12 @@ const doors = [
     eyebrow: 'Masjid Complex · Cultural & Heritage Centre',
     text: 'A place of worship, learning and heritage, built for the community and for generations to come.',
     tags: ['Faith', 'Knowledge', 'Community', 'Legacy'],
-    imageAlt: 'Aerial render of the Brisbane Islamic Centre',
   },
   {
     id: 'sukoon',
     eyebrow: 'Seniors Living · Lifestyle · Childcare',
     text: 'A calm, connected village designed around care and belonging, for every stage of life.',
     tags: ['Seniors Living', 'Lifestyle Centre', 'Childcare Centre'],
-    imageAlt: 'Sukoon Village render',
   },
 ]
 
@@ -30,8 +28,9 @@ const Crescent = (props) => (
 
 /**
  * Starting page: two full-height "doors", one per website, each in its own
- * identity. The whole door is the link. Pictures come from
- * src/assets/images/portal-<site>.* and are always shown in full.
+ * identity. The whole door is the link. When a photo is supplied (see
+ * ./media.js) it fills the door's background and the content sits on a
+ * frosted glass panel; otherwise a branded framed placeholder is shown.
  */
 export default function Portal() {
   return (
@@ -51,9 +50,24 @@ export default function Portal() {
           const s = sites[d.id]
           const image = portalImage(d.id)
           return (
-            <a key={d.id} href={urls[d.id]} className={`door door--${d.id}`} style={{ '--i': i }} aria-label={`Enter the ${s.name} website`}>
-              <Pattern className="door__pattern" opacity={0.07} scale={88} />
-              <span className="door__glow" aria-hidden="true" />
+            <a
+              key={d.id}
+              href={urls[d.id]}
+              className={`door door--${d.id}${image ? ' door--photo' : ''}`}
+              style={{ '--i': i }}
+              aria-label={`Enter the ${s.name} website`}
+            >
+              {image ? (
+                <>
+                  <img className="door__bg" src={image} alt="" fetchPriority={i === 0 ? 'high' : undefined} decoding="async" />
+                  <span className="door__scrim" aria-hidden="true" />
+                </>
+              ) : (
+                <>
+                  <Pattern className="door__pattern" opacity={0.07} scale={88} />
+                  <span className="door__glow" aria-hidden="true" />
+                </>
+              )}
 
               <span className="door__inner">
                 <span className="door__logo">
@@ -61,16 +75,14 @@ export default function Portal() {
                 </span>
                 <span className="door__eyebrow">{d.eyebrow}</span>
 
-                <span className="door__frame">
-                  {image ? (
-                    <img src={image} alt={d.imageAlt} width="1500" height="1101" fetchPriority={i === 0 ? 'high' : undefined} decoding="async" />
-                  ) : (
+                {!image && (
+                  <span className="door__frame">
                     <span className="door__placeholder">
                       <Pattern className="door__placeholder-pattern" opacity={0.22} scale={56} />
                       <Crescent className="door__placeholder-mark" />
                     </span>
-                  )}
-                </span>
+                  </span>
+                )}
 
                 <span className="door__text">{d.text}</span>
                 <span className="door__tags">

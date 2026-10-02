@@ -318,6 +318,103 @@
   box-shadow: 0 12px 30px -14px rgba(42, 31, 19, 0.6);
 }
 
+/* ---- Block with a background photo ------------------------------------ */
+.door--photo {
+  /* glass panel sits low so the buildings (upper part of the photos) stay visible */
+  align-items: flex-end;
+}
+.door__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+  transition: transform 1.6s var(--ease-out);
+}
+.door--photo:hover .door__bg,
+.door--photo:focus-visible .door__bg {
+  transform: scale(1.04);
+}
+.door__scrim {
+  /* gentle tint so the photo stays visible while the panel stays readable */
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  transition: opacity 700ms var(--ease-out);
+}
+.door--bic .door__scrim {
+  background: linear-gradient(180deg, rgba(28, 21, 92, 0.18), rgba(28, 21, 92, 0.05) 45%, rgba(28, 21, 92, 0.3));
+}
+.door--sukoon .door__scrim {
+  background: linear-gradient(180deg, rgba(42, 31, 19, 0.15), rgba(42, 31, 19, 0.04) 45%, rgba(42, 31, 19, 0.28));
+}
+.door--photo:hover .door__scrim {
+  opacity: 0.75;
+}
+.door--photo .door__inner {
+  /* frosted glass panel carrying the logo, text and button */
+  padding: clamp(1.5rem, 3vh, 2.25rem) clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 30px 80px -40px rgba(10, 8, 32, 0.55);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  transition: transform 600ms var(--ease-out), opacity 500ms var(--ease-out);
+}
+.door--bic.door--photo .door__inner {
+  background: rgba(255, 255, 255, 0.8);
+}
+.door--sukoon.door--photo .door__inner {
+  background: rgba(255, 253, 249, 0.82);
+}
+.door--photo:hover .door__inner,
+.door--photo:focus-visible .door__inner {
+  transform: translateY(-6px);
+}
+.door--photo .door__logo {
+  height: auto;
+}
+.door--photo .door__inner {
+  gap: clamp(0.55rem, 1.2vh, 0.85rem);
+}
+.door--photo .door__logo .logo {
+  height: clamp(38px, 5.4vh, 50px);
+}
+.door--sukoon.door--photo .door__logo .logo {
+  height: clamp(52px, 7.4vh, 68px);
+}
+@media (max-width: 899px) {
+  /* phones/tablets: the whole photo on top, glass panel overlapping below it */
+  .door--photo {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 var(--space-4) var(--space-7);
+  }
+  .door--photo .door__bg {
+    position: relative;
+    z-index: 0;
+    width: calc(100% + 2 * var(--space-4));
+    max-width: none;
+    height: auto;
+    aspect-ratio: 1200 / 881;
+    object-position: center;
+  }
+  .door--photo .door__scrim {
+    display: none;
+  }
+  .door--photo .door__inner {
+    position: relative;
+    z-index: 1;
+    margin-top: -56px;
+    width: 100%;
+  }
+  .door--photo:hover .door__bg {
+    transform: none;
+  }
+}
+
 /* ---- Centre medallion -------------------------------------------------- */
 .portal__medallion {
   display: none;
@@ -375,8 +472,17 @@
   right: 0;
   text-align: center;
   font-size: var(--fs-xs);
-  color: #6f6b8a;
+  color: #4a4766;
   pointer-events: none;
+}
+.portal__foot p {
+  /* small frosted pill so it stays readable over photos */
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.78);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 /* ---- Mobile / tablet: stacked doors ----------------------------------- */

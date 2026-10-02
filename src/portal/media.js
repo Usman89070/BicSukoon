@@ -1,13 +1,24 @@
 /**
- * Optional background images for the starting-page boxes.
- * Drop a file named portal-bic.(jpg|jpeg|png|webp) or portal-sukoon.(…) into
- * src/assets/images/ and it is picked up automatically; without one, the box
- * falls back to its brand colours. Keep files around 1500px wide and under
- * ~400 KB (JPG or WebP) so the page stays fast.
+ * Background photos for the starting-page blocks, picked up automatically
+ * from src/assets/images/ (JPG, PNG or WebP):
+ *   BIC block:     site-300DPIbicM-50kb.jpg   (or portal-bic.*)
+ *   Sukoon block:  site-300DPISukoon-50kb.jpg (or portal-sukoon.*)
+ * Without a photo, a block uses its brand colours and pattern.
  */
-const files = import.meta.glob('../assets/images/portal-*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' })
+const files = import.meta.glob('../assets/images/{portal-*,site-300DPI*}.{jpg,jpeg,png,webp}', {
+  eager: true,
+  import: 'default',
+})
+
+const patterns = {
+  bic: [/\/site-300DPIbic[^/]*$/i, /\/portal-bic\.[a-z]+$/i],
+  sukoon: [/\/site-300DPISukoon[^/]*$/i, /\/portal-sukoon\.[a-z]+$/i],
+}
 
 export function portalImage(id) {
-  const key = Object.keys(files).find((k) => new RegExp(`/portal-${id}\\.[a-z]+$`).test(k))
-  return key ? files[key] : null
+  for (const re of patterns[id] ?? []) {
+    const key = Object.keys(files).find((k) => re.test(k))
+    if (key) return files[key]
+  }
+  return null
 }
