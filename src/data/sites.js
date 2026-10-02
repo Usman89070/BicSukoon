@@ -29,7 +29,7 @@ export const sites = {
     // Light interface: frosted white surfaces so the official navy logo is shown as-is.
     navTone: 'light',
     footerTone: 'light',
-    heroStyle: 'cinematic',
+    heroStyle: 'framed', // light hero: text + framed image (see bic.css)
 
     nav: [
       { label: 'Home', to: '/' },

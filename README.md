@@ -15,8 +15,8 @@ developed from one shared React codebase:
 | --- | --- | --- |
 | Character | Light & frosted white, navy text, official navy logo | Light, calm, residential, warm gold |
 | Navigation | Frosted white bar, 4 dropdowns | Light floating bar, 2 dropdowns |
-| Home hero | Full-bleed film/render | Split layout with an arched image window |
-| Interior heroes | Full-bleed image with dark scrim | Split, light, arched image |
+| Home hero | Light frosted hero, navy text, framed aerial render | Split layout with an arched image window |
+| Interior heroes | Light split, rounded image frame | Split, light, arched image |
 | Fonts | Fraunces + Manrope | Cormorant Garamond + Nunito Sans (17px base) |
 | Main action | **Donate** | **Enquire** |
 | Surfaces | White / translucent white; navy `#1C155C` for text and actions; white text only over photos | Warm white; espresso shades of `#CB9B61` for footer and dark bands |
@@ -58,6 +58,10 @@ background, shown in full: on desktop both boxes take the image's
 proportions, and on mobile the image sits above the text. An optional
 `portal-sukoon.jpg` works the same way. Without an image a box uses its brand
 colours.
+
+The BIC **home hero** shows the same aerial render in a framed panel (whole
+image, never cropped). To use a different hero picture, add
+`src/assets/images/hero-bic.jpg`; it takes priority over `portal-bic.jpg`.
 
 ### Deployment
 **One domain (default):** upload the whole `dist/` folder.
