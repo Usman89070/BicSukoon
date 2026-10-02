@@ -71,9 +71,16 @@ canonical URLs and `sitemap.xml`.
 `VITE_BIC_URL` / `VITE_SUKOON_URL` in `.env.portal`; then deploy each `dist/`
 folder on its own.
 
-Optional form endpoints go in `.env.*.local`: `VITE_CONTACT_ENDPOINT`,
-`VITE_DONATION_ENDPOINT` (see `.env.example`). Without them the forms say
-honestly that they are not yet connected.
+**Hostinger (and other Apache/LiteSpeed hosts):** framework preset *Vite*,
+build command `npm run build`, output directory `dist`. No environment
+variables are required. The build writes `dist/.htaccess`, which routes
+`/bic/*` and `/sukoon/*` to their own app so page links and refreshes work.
+
+**Optional form endpoints:** `VITE_CONTACT_ENDPOINT` and
+`VITE_DONATION_ENDPOINT` (any URL that accepts a JSON POST, e.g. Formspree).
+Set them in the host's environment variables or in `.env.bic.local` /
+`.env.sukoon.local`. Without them the forms say honestly that they are not
+yet connected, and nothing is sent anywhere.
 
 ---
 

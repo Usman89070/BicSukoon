@@ -10,7 +10,7 @@
     "dev:bic": "vite --mode bic --port 5173",
     "dev:sukoon": "vite --mode sukoon --port 5174",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
-    "build": "npm run clean && npm run build:portal && npm run build:bic && npm run build:sukoon",
+    "build": "npm run clean && npm run build:portal && npm run build:bic && npm run build:sukoon && node scripts/write-htaccess.mjs",
     "build:portal": "vite build --mode portal --outDir dist",
     "build:bic": "vite build --mode bic --outDir dist/bic && node scripts/generate-sitemap.mjs bic",
     "build:sukoon": "vite build --mode sukoon --outDir dist/sukoon && node scripts/generate-sitemap.mjs sukoon",
