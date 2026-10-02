@@ -56,12 +56,13 @@ Photos in `src/assets/images/` are picked up automatically by name:
 
 | File | Used for |
 | --- | --- |
-| `site-300DPIbicM-50kb.jpg` | BIC block background on the starting page + BIC home hero |
-| `site-300DPISukoon-50kb.jpg` | Sukoon block background on the starting page |
+| `site-300DPIbicM-50kb.jpg` | Background of the BIC text block on the starting page + BIC home hero |
+| `site-300DPISukoon-50kb.jpg` | Background of the Sukoon text block on the starting page |
 | `hero-bic.jpg` (optional) | A different BIC home hero image (takes priority) |
 
-On desktop the photo fills the block with the text on a frosted glass panel
-below the buildings; on phones the whole photo shows above the panel. To
+Each photo is the background of its text block (logo, text and button),
+with a soft shade at the bottom so the white text stays readable and the
+buildings stay clear at the top. To
 change a picture, upload a new file with the same name to that folder.
 
 ### Deployment

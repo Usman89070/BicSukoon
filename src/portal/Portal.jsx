@@ -29,8 +29,8 @@ const Crescent = (props) => (
 /**
  * Starting page: two full-height "doors", one per website, each in its own
  * identity. The whole door is the link. When a photo is supplied (see
- * ./media.js) it fills the door's background and the content sits on a
- * frosted glass panel; otherwise a branded framed placeholder is shown.
+ * ./media.js) it becomes the background of the text block (with a soft shade
+ * so the white text stays readable); otherwise a framed placeholder is shown.
  */
 export default function Portal() {
   return (
@@ -57,21 +57,18 @@ export default function Portal() {
               style={{ '--i': i }}
               aria-label={`Enter the ${s.name} website`}
             >
-              {image ? (
-                <>
-                  <img className="door__bg" src={image} alt="" fetchPriority={i === 0 ? 'high' : undefined} decoding="async" />
-                  <span className="door__scrim" aria-hidden="true" />
-                </>
-              ) : (
-                <>
-                  <Pattern className="door__pattern" opacity={0.07} scale={88} />
-                  <span className="door__glow" aria-hidden="true" />
-                </>
-              )}
+              <Pattern className="door__pattern" opacity={0.07} scale={88} />
+              <span className="door__glow" aria-hidden="true" />
 
               <span className="door__inner">
+                {image && (
+                  <>
+                    <img className="door__photo" src={image} alt="" fetchPriority={i === 0 ? 'high' : undefined} decoding="async" />
+                    <span className="door__photo-shade" aria-hidden="true" />
+                  </>
+                )}
                 <span className="door__logo">
-                  <Logo project={d.id} tone="light" height={d.id === 'sukoon' ? 62 : 58} decorative />
+                  <Logo project={d.id} tone={image ? 'dark' : 'light'} height={d.id === 'sukoon' ? 62 : 58} decorative />
                 </span>
                 <span className="door__eyebrow">{d.eyebrow}</span>
 

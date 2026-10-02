@@ -318,100 +318,103 @@
   box-shadow: 0 12px 30px -14px rgba(42, 31, 19, 0.6);
 }
 
-/* ---- Block with a background photo ------------------------------------ */
-.door--photo {
-  /* glass panel sits low so the buildings (upper part of the photos) stay visible */
-  align-items: flex-end;
-}
-.door__bg {
-  position: absolute;
-  inset: 0;
-  z-index: -3;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 28%;
-  transition: transform 1.6s var(--ease-out);
-}
-.door--photo:hover .door__bg,
-.door--photo:focus-visible .door__bg {
-  transform: scale(1.04);
-}
-.door__scrim {
-  /* gentle tint so the photo stays visible while the panel stays readable */
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  transition: opacity 700ms var(--ease-out);
-}
-.door--bic .door__scrim {
-  background: linear-gradient(180deg, rgba(28, 21, 92, 0.18), rgba(28, 21, 92, 0.05) 45%, rgba(28, 21, 92, 0.3));
-}
-.door--sukoon .door__scrim {
-  background: linear-gradient(180deg, rgba(42, 31, 19, 0.15), rgba(42, 31, 19, 0.04) 45%, rgba(42, 31, 19, 0.28));
-}
-.door--photo:hover .door__scrim {
-  opacity: 0.75;
-}
+/* ---- Text block with a photo background -------------------------------- */
 .door--photo .door__inner {
-  /* frosted glass panel carrying the logo, text and button */
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  justify-content: flex-end;
+  width: min(540px, 100%);
+  min-height: clamp(440px, 66vh, 620px);
   padding: clamp(1.5rem, 3vh, 2.25rem) clamp(1.5rem, 3vw, 2.5rem);
   border-radius: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 30px 80px -40px rgba(10, 8, 32, 0.55);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  backdrop-filter: blur(18px) saturate(140%);
-  transition: transform 600ms var(--ease-out), opacity 500ms var(--ease-out);
-}
-.door--bic.door--photo .door__inner {
-  background: rgba(255, 255, 255, 0.8);
-}
-.door--sukoon.door--photo .door__inner {
-  background: rgba(255, 253, 249, 0.82);
+  border: 6px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 36px 90px -40px rgba(10, 8, 32, 0.6);
+  color: #ffffff;
+  transition: transform 600ms var(--ease-out), box-shadow 600ms var(--ease-out), opacity 500ms var(--ease-out);
 }
 .door--photo:hover .door__inner,
 .door--photo:focus-visible .door__inner {
   transform: translateY(-6px);
+  box-shadow: 0 48px 100px -42px rgba(10, 8, 32, 0.65);
+}
+.door__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  transition: transform 1.6s var(--ease-out);
+}
+.door--photo:hover .door__photo {
+  transform: scale(1.05);
+}
+.door__photo-shade {
+  /* clear at the top (the buildings), darker where the text sits */
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.door--bic .door__photo-shade {
+  background: linear-gradient(180deg, rgba(17, 12, 58, 0) 14%, rgba(17, 12, 58, 0.62) 40%, rgba(17, 12, 58, 0.92) 100%);
+}
+.door--sukoon .door__photo-shade {
+  background: linear-gradient(180deg, rgba(42, 31, 19, 0) 14%, rgba(42, 31, 19, 0.62) 40%, rgba(42, 31, 19, 0.92) 100%);
 }
 .door--photo .door__logo {
   height: auto;
 }
+.door--photo .door__logo .logo {
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.55));
+}
+.door--photo .door__eyebrow,
+.door--photo .door__text {
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
+}
+.door--photo .door__logo .logo {
+  height: clamp(38px, 5.2vh, 48px);
+}
+.door--sukoon.door--photo .door__logo .logo {
+  height: clamp(52px, 7.2vh, 66px);
+}
 .door--photo .door__inner {
   gap: clamp(0.55rem, 1.2vh, 0.85rem);
 }
-.door--photo .door__logo .logo {
-  height: clamp(38px, 5.4vh, 50px);
+.door--photo .door__text {
+  color: rgba(255, 255, 255, 0.92);
 }
-.door--sukoon.door--photo .door__logo .logo {
-  height: clamp(52px, 7.4vh, 68px);
+.door--bic.door--photo .door__eyebrow {
+  color: #d4d0f7;
+}
+.door--sukoon.door--photo .door__eyebrow {
+  color: var(--sv-accent);
+}
+.door--photo .door__tags span {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.door--bic.door--photo .door__cta {
+  background: #ffffff;
+  color: var(--bic-primary);
+}
+.door--sukoon.door--photo .door__cta {
+  background: linear-gradient(135deg, var(--sv-primary-light), var(--sv-primary));
+  color: #2a1f13;
 }
 @media (max-width: 899px) {
-  /* phones/tablets: the whole photo on top, glass panel overlapping below it */
-  .door--photo {
-    flex-direction: column;
-    align-items: center;
-    padding: 0 var(--space-4) var(--space-7);
-  }
-  .door--photo .door__bg {
-    position: relative;
-    z-index: 0;
-    width: calc(100% + 2 * var(--space-4));
-    max-width: none;
-    height: auto;
-    aspect-ratio: 1200 / 881;
-    object-position: center;
-  }
-  .door--photo .door__scrim {
-    display: none;
-  }
   .door--photo .door__inner {
-    position: relative;
-    z-index: 1;
-    margin-top: -56px;
-    width: 100%;
+    /* taller block so the photo shows above the text on phones */
+    min-height: 0;
+    padding-top: clamp(170px, 48vw, 260px);
   }
-  .door--photo:hover .door__bg {
-    transform: none;
+  .door--bic .door__photo-shade {
+    background: linear-gradient(180deg, rgba(17, 12, 58, 0) 10%, rgba(17, 12, 58, 0.7) 34%, rgba(17, 12, 58, 0.94) 100%);
+  }
+  .door--sukoon .door__photo-shade {
+    background: linear-gradient(180deg, rgba(42, 31, 19, 0) 10%, rgba(42, 31, 19, 0.7) 34%, rgba(42, 31, 19, 0.94) 100%);
   }
 }
 

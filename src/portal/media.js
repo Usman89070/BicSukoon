@@ -1,5 +1,5 @@
 /**
- * Background photos for the starting-page blocks, picked up automatically
+ * Photos for the starting-page text blocks, picked up automatically
  * from src/assets/images/ (JPG, PNG or WebP):
  *   BIC block:     site-300DPIbicM-50kb.jpg   (or portal-bic.*)
  *   Sukoon block:  site-300DPISukoon-50kb.jpg (or portal-sukoon.*)
