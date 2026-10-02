@@ -5,80 +5,89 @@ import Icon from '../components/common/Icon'
 import Pattern from '../components/common/Pattern'
 import { portalImage } from './media'
 
-const choices = [
+const doors = [
   {
     id: 'bic',
-    tone: 'light',
     eyebrow: 'Masjid Complex · Cultural & Heritage Centre',
+    text: 'A place of worship, learning and heritage, built for the community and for generations to come.',
     tags: ['Faith', 'Knowledge', 'Community', 'Legacy'],
-    text: 'A Masjid Complex and the Queensland Muslim Cultural & Heritage Centre.',
     imageAlt: 'Aerial render of the Brisbane Islamic Centre',
   },
   {
     id: 'sukoon',
-    tone: 'light',
     eyebrow: 'Seniors Living · Lifestyle · Childcare',
+    text: 'A calm, connected village designed around care and belonging, for every stage of life.',
     tags: ['Seniors Living', 'Lifestyle Centre', 'Childcare Centre'],
-    text: 'Seniors Living, a Lifestyle Centre and a Childcare Centre — a village for every stage of life.',
     imageAlt: 'Sukoon Village render',
   },
 ]
 
-/** Starting page: the visitor chooses which website to enter. */
+const Crescent = (props) => (
+  <svg viewBox="0 0 64 64" aria-hidden="true" {...props}>
+    <path d="M38 14a19 19 0 1 0 0 36 22 22 0 0 1 0-36z" fill="currentColor" />
+  </svg>
+)
+
+/**
+ * Starting page: two full-height "doors", one per website, each in its own
+ * identity. The whole door is the link. Pictures come from
+ * src/assets/images/portal-<site>.* and are always shown in full.
+ */
 export default function Portal() {
   return (
     <main className="portal">
       <title>{import.meta.env.VITE_SITE_NAME}</title>
-      <Pattern className="portal__pattern" opacity={0.05} scale={96} />
 
-      <header className="portal__head">
-        <svg className="portal__mark" viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M38 14a19 19 0 1 0 0 36 22 22 0 0 1 0-36z" fill="currentColor" />
-        </svg>
-        <p className="portal__eyebrow">Welcome</p>
-        <h1 className="portal__title">Where would you like to go?</h1>
-        <p className="portal__lead">Choose a project to visit its website.</p>
+      <header className="portal__bar">
+        <Crescent className="portal__bar-mark" />
+        <div>
+          <p className="portal__bar-eyebrow">Welcome</p>
+          <h1 className="portal__bar-title">Choose a project to explore</h1>
+        </div>
       </header>
 
-      <ul className="portal__choices">
-        {choices.map((c, i) => {
-          const s = sites[c.id]
-          const image = portalImage(c.id)
+      <div className="portal__split">
+        {doors.map((d, i) => {
+          const s = sites[d.id]
+          const image = portalImage(d.id)
           return (
-            <li key={c.id} style={{ '--i': i }}>
-              <a
-                href={urls[c.id]}
-                className={`choice choice--${c.id}${image ? ' choice--image' : ''}`}
-                aria-label={`Visit the ${s.name} website`}
-              >
-                {image ? (
-                  <span className="choice__media">
-                    <img src={image} alt={c.imageAlt} width="1500" height="1101" fetchPriority={i === 0 ? 'high' : undefined} decoding="async" />
-                  </span>
-                ) : (
-                  <>
-                    <Pattern className="choice__pattern" opacity={0.12} scale={72} />
-                    <span className="choice__glow" aria-hidden="true" />
-                  </>
-                )}
-                <span className="choice__body">
-                  <span className="choice__logo">
-                    <Logo project={c.id} tone={c.tone} height={c.id === 'sukoon' ? 66 : 64} decorative />
-                  </span>
-                  <span className="choice__eyebrow">{c.eyebrow}</span>
-                  <span className="choice__text">{c.text}</span>
-                  <span className="choice__tags">
-                    {c.tags.map((t) => <span key={t}>{t}</span>)}
-                  </span>
-                  <span className="choice__cta">
-                    Visit website <Icon name="arrow" size={18} />
-                  </span>
+            <a key={d.id} href={urls[d.id]} className={`door door--${d.id}`} style={{ '--i': i }} aria-label={`Enter the ${s.name} website`}>
+              <Pattern className="door__pattern" opacity={0.07} scale={88} />
+              <span className="door__glow" aria-hidden="true" />
+
+              <span className="door__inner">
+                <span className="door__logo">
+                  <Logo project={d.id} tone="light" height={d.id === 'sukoon' ? 62 : 58} decorative />
                 </span>
-              </a>
-            </li>
+                <span className="door__eyebrow">{d.eyebrow}</span>
+
+                <span className="door__frame">
+                  {image ? (
+                    <img src={image} alt={d.imageAlt} width="1500" height="1101" fetchPriority={i === 0 ? 'high' : undefined} decoding="async" />
+                  ) : (
+                    <span className="door__placeholder">
+                      <Pattern className="door__placeholder-pattern" opacity={0.22} scale={56} />
+                      <Crescent className="door__placeholder-mark" />
+                    </span>
+                  )}
+                </span>
+
+                <span className="door__text">{d.text}</span>
+                <span className="door__tags">
+                  {d.tags.map((t) => <span key={t}>{t}</span>)}
+                </span>
+                <span className="door__cta">
+                  Enter website <Icon name="arrow" size={18} />
+                </span>
+              </span>
+            </a>
           )
         })}
-      </ul>
+
+        <span className="portal__medallion" aria-hidden="true">
+          <Crescent />
+        </span>
+      </div>
 
       <footer className="portal__foot">
         <p>© {new Date().getFullYear()} {sites.bic.name} · {sites.sukoon.name}</p>
