@@ -195,30 +195,31 @@
   gap: 16px;
 }
 
-/* BIC box — deep navy, white logo */
+/* BIC box — frosted white, official navy logo */
 .choice--bic {
-  color: var(--text-on-dark);
-  background: linear-gradient(160deg, var(--bic-primary-light) -20%, var(--bic-primary) 40%, var(--bic-primary-dark));
+  color: var(--bic-primary);
+  background: linear-gradient(160deg, #ffffff, #f5f4fc 55%, #e7e4f7);
+  border: 1px solid rgba(28, 21, 92, 0.12);
 }
 .choice--bic .choice__pattern {
-  color: var(--bic-accent);
+  color: var(--bic-primary);
 }
 .choice--bic .choice__glow {
-  background: var(--bic-primary-light);
+  background: #b4aeeb;
 }
 .choice--bic .choice__eyebrow {
-  color: var(--bic-accent);
+  color: var(--bic-primary);
 }
 .choice--bic .choice__text {
-  color: rgba(247, 244, 238, 0.82);
+  color: #4a4766;
 }
 .choice--bic .choice__tags span {
-  border: 1px solid rgba(180, 174, 235, 0.35);
-  color: var(--bic-accent);
+  border: 1px solid rgba(28, 21, 92, 0.2);
+  color: var(--bic-primary);
 }
 .choice--bic .choice__cta {
-  background: linear-gradient(135deg, var(--sv-primary-light), var(--sv-primary));
-  color: #15122e;
+  background: linear-gradient(135deg, var(--bic-primary-light), var(--bic-primary) 60%, var(--bic-primary-dark));
+  color: #ffffff;
 }
 
 /* Sukoon box — warm white, gold, dark logo */
@@ -260,7 +261,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: var(--bic-primary-dark);
+  background: #e7e4f7;
 }
 .choice__media img {
   width: 100%;
@@ -277,7 +278,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 42%, rgba(var(--ink-deep-rgb), 0.55) 100%);
+  background: linear-gradient(180deg, transparent 50%, rgba(255, 255, 255, 0.25) 100%);
 }
 .choice--image {
   flex-direction: column;
@@ -290,8 +291,9 @@
   margin: 14px;
   padding: clamp(1rem, 2vw, 1.4rem) clamp(1.25rem, 3vw, 2rem);
   border-radius: 24px;
-  background: rgba(17, 14, 46, 0.62);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 40px -20px rgba(10, 8, 32, 0.45);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   backdrop-filter: blur(16px) saturate(140%);
 }
@@ -302,11 +304,7 @@
 .choice--image .choice__logo .logo {
   height: 36px;
 }
-.choice--image .choice__eyebrow {
-  color: var(--sv-primary-light);
-}
 .choice--image .choice__text {
-  color: rgba(247, 244, 238, 0.9);
   font-size: var(--fs-sm);
   line-height: 1.5;
 }
@@ -342,7 +340,6 @@
   /* Mobile: the full image on top, text panel below it */
   .choice--image {
     justify-content: flex-start;
-    background: var(--bic-primary-dark);
   }
   .choice--image .choice__media {
     position: relative;

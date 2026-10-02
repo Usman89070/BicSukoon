@@ -1924,7 +1924,7 @@
 }
 @media (min-width: 1100px) {
   .footer__grid {
-    grid-template-columns: minmax(240px, 1.4fr) repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: minmax(220px, 1.3fr) repeat(var(--footer-cols, 3), minmax(0, 1fr));
   }
 }
 .footer__logos {

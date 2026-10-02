@@ -26,7 +26,9 @@ export const sites = {
     description:
       'Brisbane Islamic Centre — a Masjid Complex and the Queensland Muslim Cultural & Heritage Centre, built on Faith, Knowledge, Community and Legacy.',
     defaultOgImage: null,
-    navTone: 'dark',
+    // Light interface: frosted white surfaces so the official navy logo is shown as-is.
+    navTone: 'light',
+    footerTone: 'light',
     heroStyle: 'cinematic',
 
     nav: [
@@ -82,6 +84,7 @@ export const sites = {
       'Sukoon Village — Seniors Living, a Lifestyle Centre and a Childcare Centre: a village for every stage of life.',
     defaultOgImage: null,
     navTone: 'light',
+    footerTone: 'dark',
     heroStyle: 'split',
 
     nav: [

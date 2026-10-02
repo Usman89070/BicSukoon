@@ -15,9 +15,10 @@ export default function Footer() {
   const singles = site.nav.filter((n) => !n.children && n.to !== '/')
   const { contact, legal, sister } = site
   const sisterUrl = sister.url ?? urls[sister.id]
+  const tone = site.footerTone === 'light' ? 'light' : 'dark'
 
   return (
-    <footer className="footer">
+    <footer className={`footer footer--${tone}`}>
       <Pattern className="footer__pattern" opacity={0.05} scale={90} />
       <div className="container">
         <div className="footer__cta">
@@ -33,9 +34,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="footer__grid">
+        <div className="footer__grid" style={{ '--footer-cols': groups.length + 1 }}>
           <div className="footer__brand">
-            <Logo project={site.id} height={44} />
+            <Logo project={site.id} tone={tone} height={44} />
             <p className="footer__tagline">{site.tagline}</p>
             <SocialLinks />
           </div>
@@ -67,7 +68,7 @@ export default function Footer() {
           {sisterUrl && (
             <a className="footer__sister" href={sisterUrl}>
               <span className="footer__sister-label">Also visit</span>
-              <Logo project={sister.id} height={26} />
+              <Logo project={sister.id} tone={tone} height={26} />
               <Icon name="arrow" size={16} />
             </a>
           )}

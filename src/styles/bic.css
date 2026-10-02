@@ -1,0 +1,209 @@
+/* ==========================================================================
+   BRISBANE ISLAMIC CENTRE INTERFACE — light & frosted white
+   White and translucent-white surfaces so the official navy logo (#1C155C)
+   is shown exactly as designed. Navy carries the text and actions; white
+   text is kept only over photography (hero, page heroes, image cards).
+   Everything here is scoped to <html data-site="bic">.
+   ========================================================================== */
+
+/* ---- Navigation: frosted white (shares .nav--light with Sukoon) -------- */
+:root[data-site='bic'] .nav--light .nav__bar {
+  background: rgba(255, 255, 255, 0.84);
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 40px -22px rgba(var(--ink-deep-rgb), 0.4);
+}
+:root[data-site='bic'] .nav--light.nav--scrolled .nav__bar {
+  background: rgba(255, 255, 255, 0.94);
+}
+:root[data-site='bic'] .nav--light .nav__link {
+  color: #3a3566;
+}
+:root[data-site='bic'] .nav--light .nav__link:hover,
+:root[data-site='bic'] .nav--light .nav__link[aria-expanded='true'],
+:root[data-site='bic'] .nav--light .nav__link.is-active {
+  color: var(--bic-primary);
+  background: rgba(28, 21, 92, 0.06);
+}
+:root[data-site='bic'] .nav--light .nav__link.is-active::after {
+  background: var(--bic-primary);
+}
+:root[data-site='bic'] .nav--light .mobile-menu {
+  background: rgba(251, 251, 254, 0.96);
+}
+:root[data-site='bic'] .nav--light .mobile-menu__sub > ul {
+  border-color: var(--bic-primary);
+}
+/* Donate: solid navy on the white bar */
+:root[data-site='bic'] .nav .btn--primary {
+  background: linear-gradient(135deg, var(--bic-primary-light), var(--bic-primary) 60%, var(--bic-primary-dark));
+  color: #ffffff;
+  box-shadow: 0 10px 28px -14px var(--bic-primary);
+}
+
+/* ---- Former dark sections become light & frosted ---------------------- */
+:root[data-site='bic'] .section--dark {
+  background:
+    radial-gradient(60% 80% at 100% 0%, rgba(59, 50, 144, 0.08), transparent 70%),
+    radial-gradient(50% 70% at 0% 100%, rgba(203, 155, 97, 0.1), transparent 70%),
+    #f4f3fa;
+  color: var(--text-primary);
+  --text-primary: #15122e;
+  --text-secondary: #4a4766;
+  --primary-ink: var(--bic-primary);
+  --dot: var(--bic-primary);
+  --border: rgba(28, 21, 92, 0.12);
+}
+:root[data-site='bic'] .section--dark .eyebrow {
+  color: var(--bic-primary);
+}
+:root[data-site='bic'] .section--dark .glass-panel {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.7));
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-sm);
+}
+:root[data-site='bic'] .section--dark .btn--primary {
+  background: linear-gradient(135deg, var(--bic-primary-light), var(--bic-primary) 55%, var(--bic-primary-dark));
+  color: #ffffff;
+  box-shadow: 0 10px 30px -14px var(--bic-primary);
+}
+
+/* Translucent "glass" buttons on light grounds: white glass, navy text */
+:root[data-site='bic'] :is(.section--dark, .footer, .cta-band, .section) .btn--glass {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(28, 21, 92, 0.18);
+  color: var(--bic-primary);
+}
+:root[data-site='bic'] :is(.section--dark, .footer, .cta-band, .section) .btn--glass:hover {
+  background: #ffffff;
+  border-color: var(--bic-primary);
+}
+
+/* ---- Masterplan: light map, frosted white panel ----------------------- */
+:root[data-site='bic'] .masterplan__map {
+  border-color: rgba(28, 21, 92, 0.1);
+  box-shadow: var(--shadow-md);
+}
+:root[data-site='bic'] .masterplan__panel {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.95);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-lg);
+}
+:root[data-site='bic'] .masterplan__panel-body .eyebrow {
+  color: var(--bic-primary);
+}
+:root[data-site='bic'] .masterplan__panel-text,
+:root[data-site='bic'] .masterplan__meta dt {
+  color: var(--text-secondary);
+}
+:root[data-site='bic'] .masterplan__meta .pending {
+  color: var(--text-secondary);
+}
+:root[data-site='bic'] .masterplan__close {
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--bic-primary);
+  box-shadow: var(--shadow-sm);
+}
+:root[data-site='bic'] .masterplan__legend button,
+:root[data-site='bic'] .masterplan__note {
+  color: var(--text-secondary);
+}
+:root[data-site='bic'] .masterplan__legend button:hover,
+:root[data-site='bic'] .masterplan__legend button.is-active {
+  color: var(--bic-primary);
+}
+:root[data-site='bic'] .hotspot__dot {
+  background: var(--bic-primary);
+}
+:root[data-site='bic'] .hotspot__pulse {
+  background: rgba(28, 21, 92, 0.35);
+}
+
+/* ---- CTA band: frosted white panel ------------------------------------ */
+:root[data-site='bic'] .cta-band__inner {
+  color: var(--text-primary);
+  background:
+    radial-gradient(70% 120% at 100% 0%, rgba(59, 50, 144, 0.16), transparent 62%),
+    radial-gradient(60% 90% at 0% 100%, rgba(203, 155, 97, 0.18), transparent 60%),
+    linear-gradient(160deg, #ffffff, #f1f0f8);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-md);
+}
+:root[data-site='bic'] .cta-band__pattern {
+  color: var(--bic-primary);
+  opacity: 0.4;
+}
+:root[data-site='bic'] .cta-band .eyebrow--light {
+  color: var(--bic-primary);
+}
+:root[data-site='bic'] .cta-band__title {
+  color: var(--bic-primary);
+}
+:root[data-site='bic'] .cta-band__text {
+  color: var(--text-secondary);
+}
+:root[data-site='bic'] .cta-band .btn--primary {
+  background: linear-gradient(135deg, var(--bic-primary-light), var(--bic-primary) 55%, var(--bic-primary-dark));
+  color: #ffffff;
+}
+
+/* ---- Footer: light, navy logo ----------------------------------------- */
+.footer--light {
+  background:
+    radial-gradient(50% 80% at 100% 0%, rgba(59, 50, 144, 0.07), transparent 70%),
+    #f4f3fa;
+  color: var(--text-primary);
+  border-top: 1px solid rgba(28, 21, 92, 0.08);
+  --text-on-dark: #15122e;
+  --text-on-dark-muted: #4a4766;
+  --text-primary: #15122e;
+  --text-secondary: #4a4766;
+  --primary-ink: var(--bic-primary);
+  --border: rgba(28, 21, 92, 0.14);
+}
+.footer--light .footer__pattern {
+  color: var(--bic-primary);
+}
+.footer--light .footer__cta {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.7));
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: var(--shadow-md);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.footer--light .footer__cta .eyebrow,
+.footer--light .footer__heading,
+.footer--light .footer__tagline {
+  color: var(--bic-primary);
+}
+.footer--light .footer__cta-title {
+  color: var(--bic-primary);
+}
+.footer--light .footer__col a:hover {
+  color: var(--bic-primary);
+}
+.footer--light .btn--primary {
+  background: linear-gradient(135deg, var(--bic-primary-light), var(--bic-primary) 55%, var(--bic-primary-dark));
+  color: #ffffff;
+  box-shadow: 0 10px 30px -14px var(--bic-primary);
+}
+.footer--light .footer__sister {
+  border-color: rgba(28, 21, 92, 0.14);
+  background: rgba(255, 255, 255, 0.6);
+}
+.footer--light .footer__sister:hover {
+  border-color: var(--bic-primary);
+  background: #ffffff;
+}
+.footer--light .footer__base {
+  border-top-color: rgba(28, 21, 92, 0.1);
+}
+
+/* ---- Small accents that were gold-on-dark ----------------------------- */
+:root[data-site='bic'] .story-grid__num,
+:root[data-site='bic'] .why-card__num {
+  color: var(--bic-primary-light);
+}
+:root[data-site='bic'] .page-loader {
+  background: var(--background);
+}

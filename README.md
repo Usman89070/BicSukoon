@@ -13,13 +13,13 @@ developed from one shared React codebase:
 
 | | Brisbane Islamic Centre | Sukoon Village |
 | --- | --- | --- |
-| Character | Monumental, cinematic, deep navy | Light, calm, residential, warm gold |
-| Navigation | Dark floating glass bar, 4 dropdowns | Light floating bar, 2 dropdowns |
+| Character | Light & frosted white, navy text, official navy logo | Light, calm, residential, warm gold |
+| Navigation | Frosted white bar, 4 dropdowns | Light floating bar, 2 dropdowns |
 | Home hero | Full-bleed film/render | Split layout with an arched image window |
 | Interior heroes | Full-bleed image with dark scrim | Split, light, arched image |
 | Fonts | Fraunces + Manrope | Cormorant Garamond + Nunito Sans (17px base) |
 | Main action | **Donate** | **Enquire** |
-| Darks | Navy shades of `#1C155C` | Espresso shades of `#CB9B61` |
+| Surfaces | White / translucent white; navy `#1C155C` for text and actions; white text only over photos | Warm white; espresso shades of `#CB9B61` for footer and dark bands |
 
 Built with **React 19 + React Router 7 + Vite 8**. No UI framework.
 
@@ -117,7 +117,7 @@ src/
 ├── site.js             SITE_ID + the current site's config
 ├── layouts/  hooks/  utils/
 └── styles/             tokens.css (both identities), base, components, sections,
-                        sukoon.css (Sukoon-only interface), portal.css (starting page)
+                        bic.css (BIC light interface), sukoon.css (Sukoon interface), portal.css (starting page)
 ```
 
 ---

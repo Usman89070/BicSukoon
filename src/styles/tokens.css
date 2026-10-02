@@ -59,10 +59,11 @@
   --primary-ink: var(--bic-ink);
   --on-primary: var(--bic-on-primary);
 
-  --background: var(--ivory);
+  /* BIC: white and frosted white, with the official navy logo colour for text */
+  --background: #fbfbfe;
   --background-dark: var(--ink-900);
   --surface: #ffffff;
-  --surface-muted: #eeeae2;
+  --surface-muted: #f1f0f8;
   --text-primary: #15122e;
   --text-secondary: #4a4766;
   --text-on-dark: #f7f4ee;
@@ -125,9 +126,9 @@
 
   --nav-h: 76px;
 
-  /* Masterplan schematic */
-  --schematic-bg: var(--ink-800);
-  --schematic-line: var(--ivory);
+  /* Masterplan schematic (light for BIC; Sukoon overrides) */
+  --schematic-bg: #e9e7f6;
+  --schematic-line: #1c155c;
 }
 
 /* ==========================================================================
@@ -185,6 +186,7 @@
   --shadow-lg: 0 30px 80px -34px rgba(42, 31, 19, 0.45);
 
   --schematic-bg: #3a2b1b;
+  --schematic-line: #fbf8f3;
 }
 
 @media (prefers-reduced-motion: reduce) {

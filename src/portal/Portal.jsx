@@ -8,7 +8,7 @@ import { portalImage } from './media'
 const choices = [
   {
     id: 'bic',
-    tone: 'dark',
+    tone: 'light',
     eyebrow: 'Masjid Complex · Cultural & Heritage Centre',
     tags: ['Faith', 'Knowledge', 'Community', 'Legacy'],
     text: 'A Masjid Complex and the Queensland Muslim Cultural & Heritage Centre.',
@@ -44,8 +44,6 @@ export default function Portal() {
         {choices.map((c, i) => {
           const s = sites[c.id]
           const image = portalImage(c.id)
-          // With an image the logo sits in the panel; without one it is centred.
-          const tone = image ? 'dark' : c.tone
           return (
             <li key={c.id} style={{ '--i': i }}>
               <a
@@ -59,13 +57,13 @@ export default function Portal() {
                   </span>
                 ) : (
                   <>
-                    <Pattern className="choice__pattern" opacity={c.tone === 'dark' ? 0.1 : 0.12} scale={72} />
+                    <Pattern className="choice__pattern" opacity={0.12} scale={72} />
                     <span className="choice__glow" aria-hidden="true" />
                   </>
                 )}
                 <span className="choice__body">
                   <span className="choice__logo">
-                    <Logo project={c.id} tone={tone} height={c.id === 'sukoon' ? 66 : 64} decorative />
+                    <Logo project={c.id} tone={c.tone} height={c.id === 'sukoon' ? 66 : 64} decorative />
                   </span>
                   <span className="choice__eyebrow">{c.eyebrow}</span>
                   <span className="choice__text">{c.text}</span>
