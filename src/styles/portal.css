@@ -322,19 +322,30 @@
 .door__bg {
   position: absolute;
   inset: -24px; /* bleed so the blur has no soft edges */
-  z-index: -3;
+  z-index: -4;
   width: calc(100% + 48px);
   max-width: none; /* override the global img max-width so the bleed reaches both edges */
   height: calc(100% + 48px);
   object-fit: cover;
   object-position: center 35%;
-  filter: blur(3px) saturate(1.05);
-  transform: scale(1.04);
-  transition: transform 1.8s var(--ease-out), filter 1s var(--ease-out);
+  filter: blur(18px) saturate(1.1) brightness(0.9);
+  transform: scale(1.1);
 }
-.door--photo:hover .door__bg {
-  transform: scale(1.08);
-  filter: blur(2px) saturate(1.1);
+.door__full {
+  /* the complete photo, uncropped and sharp */
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top; /* complete photo at the top; the block sits below it */
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.35));
+  transition: transform 1.6s var(--ease-out);
+}
+.door--photo:hover .door__full {
+  transform: scale(1.02);
 }
 .door__bg-tint {
   position: absolute;
@@ -342,24 +353,23 @@
   z-index: -2;
 }
 .door--bic .door__bg-tint {
-  background:
-    radial-gradient(60% 50% at 50% 55%, rgba(255, 255, 255, 0.12), transparent 70%),
-    linear-gradient(180deg, rgba(28, 21, 92, 0.38), rgba(28, 21, 92, 0.18) 45%, rgba(17, 12, 58, 0.5));
+  /* only a light touch at the very top and bottom; the photo itself stays clear */
+  background: linear-gradient(180deg, rgba(28, 21, 92, 0.3), transparent 18%, transparent 82%, rgba(17, 12, 58, 0.35));
 }
 .door--sukoon .door__bg-tint {
-  background:
-    radial-gradient(60% 50% at 50% 55%, rgba(255, 253, 249, 0.12), transparent 70%),
-    linear-gradient(180deg, rgba(42, 31, 19, 0.36), rgba(42, 31, 19, 0.16) 45%, rgba(28, 20, 11, 0.5));
+  background: linear-gradient(180deg, rgba(42, 31, 19, 0.28), transparent 18%, transparent 82%, rgba(28, 20, 11, 0.35));
 }
 
 /* ---- Text block with a photo background -------------------------------- */
+.door--photo {
+  align-items: flex-end;
+}
 .door--photo .door__inner {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   justify-content: flex-end;
   width: min(540px, 100%);
-  min-height: clamp(440px, 66vh, 620px);
   padding: clamp(1.5rem, 3vh, 2.25rem) clamp(1.5rem, 3vw, 2.5rem);
   border-radius: 32px;
   border: 6px solid rgba(255, 255, 255, 0.9);
@@ -392,10 +402,10 @@
   z-index: -1;
 }
 .door--bic .door__photo-shade {
-  background: linear-gradient(180deg, rgba(17, 12, 58, 0) 14%, rgba(17, 12, 58, 0.62) 40%, rgba(17, 12, 58, 0.92) 100%);
+  background: linear-gradient(180deg, rgba(17, 12, 58, 0.55) 0%, rgba(17, 12, 58, 0.78) 45%, rgba(17, 12, 58, 0.92) 100%);
 }
 .door--sukoon .door__photo-shade {
-  background: linear-gradient(180deg, rgba(42, 31, 19, 0) 14%, rgba(42, 31, 19, 0.62) 40%, rgba(42, 31, 19, 0.92) 100%);
+  background: linear-gradient(180deg, rgba(42, 31, 19, 0.55) 0%, rgba(42, 31, 19, 0.78) 45%, rgba(42, 31, 19, 0.92) 100%);
 }
 .door--photo .door__logo {
   height: auto;
@@ -439,16 +449,9 @@
   color: #2a1f13;
 }
 @media (max-width: 899px) {
-  .door--photo .door__inner {
-    /* taller block so the photo shows above the text on phones */
-    min-height: 0;
-    padding-top: clamp(170px, 48vw, 260px);
-  }
-  .door--bic .door__photo-shade {
-    background: linear-gradient(180deg, rgba(17, 12, 58, 0) 10%, rgba(17, 12, 58, 0.7) 34%, rgba(17, 12, 58, 0.94) 100%);
-  }
-  .door--sukoon .door__photo-shade {
-    background: linear-gradient(180deg, rgba(42, 31, 19, 0) 10%, rgba(42, 31, 19, 0.7) 34%, rgba(42, 31, 19, 0.94) 100%);
+  /* phones: the complete photo across the top, the block underneath */
+  .portal__split .door.door--photo {
+    padding-top: calc(100vw / 1.3624 - 44px);
   }
 }
 

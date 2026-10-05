@@ -29,9 +29,9 @@ const Crescent = (props) => (
 /**
  * Starting page: two full-height "doors", one per website, each in its own
  * identity. The whole door is the link. When a photo is supplied (see
- * ./media.js) it fills the whole half (softened and tinted) and also appears
- * sharp as the background of the text block, with a shade under the white
- * text; otherwise a framed placeholder is shown.
+ * ./media.js) the complete photo is shown uncropped across each half (a
+ * blurred copy fills the leftover space) and also as the background of the
+ * text block; otherwise a framed placeholder is shown.
  */
 export default function Portal() {
   return (
@@ -60,8 +60,9 @@ export default function Portal() {
             >
               {image ? (
                 <>
-                  {/* the same photo across the whole half, softened, behind the sharp block */}
+                  {/* blurred copy fills the half; the complete photo sits on top, never cropped */}
                   <img className="door__bg" src={image} alt="" decoding="async" />
+                  <img className="door__full" src={image} alt="" decoding="async" />
                   <span className="door__bg-tint" aria-hidden="true" />
                 </>
               ) : (

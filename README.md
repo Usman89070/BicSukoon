@@ -60,9 +60,9 @@ Photos in `src/assets/images/` are picked up automatically by name:
 | `site-300DPISukoon-50kb.jpg` | Background of the Sukoon text block on the starting page |
 | `hero-bic.jpg` (optional) | A different BIC home hero image (takes priority) |
 
-Each photo fills its whole half of the starting page (softly blurred and
-tinted) and also shows sharp as the background of its text block (logo, text
-and button), with a soft shade under the white text. To
+Each photo is shown complete (never cropped) at the top of its half of the
+starting page, with a blurred copy filling the remaining space; the text
+block (logo, text and button) sits below and also uses the photo. To
 change a picture, upload a new file with the same name to that folder.
 
 ### Deployment
