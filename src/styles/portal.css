@@ -532,311 +532,98 @@
 }
 
 /* ==========================================================================
-   AERIAL MAP STARTING PAGE (.portal--map)
-   One aerial photo of both sites fills the screen; each block sits just
-   above its own buildings, linked by a line and a pulsing pin.
-   Both "stages" share the photo's geometry (1200 × 670) and cover the
-   viewport like object-fit: cover, so % positions stay on the buildings.
+   AERIAL BACKGROUND (.portal--aerial)
+   One aerial photo behind both doors: cool blue on the BIC (left) side,
+   warm golden on the Sukoon (right) side, with the photo-cards on top.
    ========================================================================== */
-.portal--map {
-  background: #0d0a26;
-}
-.map__stage {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: max(100vw, 100svh * 1.791);
-  height: max(100svh, 100vw / 1.791);
-  transform: translate(-50%, -50%);
-}
-.map__stage--cards {
-  pointer-events: none;
-}
-.map__img {
-  position: absolute;
+.portal__aerial {
+  position: fixed;
   inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: #1c2a3a;
+}
+.portal__aerial img {
   width: 100%;
   max-width: none;
   height: 100%;
   object-fit: cover;
-  animation: map-in 1.6s var(--ease-out) both;
+  object-position: center 62%;
+  filter: saturate(1.12) contrast(1.04);
+  animation: aerial-in 1.8s var(--ease-out) both;
 }
-@keyframes map-in {
+@keyframes aerial-in {
   from {
     opacity: 0;
-    transform: scale(1.04);
+    transform: scale(1.05);
   }
 }
-.map__shade {
-  /* soft vignette so the cards and the bar read well; centre stays clear */
+.portal__grade {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(13, 10, 38, 0.35) 0%, rgba(13, 10, 38, 0.1) 22%, transparent 45%, transparent 80%, rgba(13, 10, 38, 0.35) 100%);
+    linear-gradient(180deg, rgba(10, 20, 50, 0.18), transparent 30%, transparent 75%, rgba(10, 8, 32, 0.28)),
+    linear-gradient(90deg, rgba(60, 120, 240, 0.6) 0%, rgba(60, 120, 240, 0.42) 49.6%, rgba(255, 180, 80, 0.48) 50.4%, rgba(255, 170, 70, 0.62) 100%);
+  mix-blend-mode: soft-light;
 }
-
-/* Highlighted building areas */
-.map__area {
-  position: absolute;
-  border-radius: 14px;
-  border: 2px dashed rgba(255, 255, 255, 0.85);
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.12);
-  transition: background 400ms var(--ease-out), box-shadow 400ms var(--ease-out), border-color 400ms;
-}
-.map__spot--bic .map__area {
-  background: rgba(59, 50, 144, 0.14);
-}
-.map__spot--sukoon .map__area {
-  background: rgba(203, 155, 97, 0.16);
-}
-.map__line {
-  position: absolute;
-  width: 2px;
-  margin-left: -1px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.6));
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.35);
-}
-.map__pin {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  margin: -9px 0 0 -9px;
-  border-radius: 50%;
-  border: 3px solid #ffffff;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
-}
-.map__pin::after {
+.portal--aerial .portal__grade::after {
+  /* a little extra warmth / coolness on top of the blend */
   content: '';
   position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  animation: pin-pulse 2.2s var(--ease-out) infinite;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(120, 170, 240, 0.28) 0%, transparent 22%),
+    linear-gradient(90deg, rgba(90, 145, 235, 0.14) 0%, rgba(90, 145, 235, 0.08) 49.8%, rgba(255, 205, 140, 0.14) 50.2%, rgba(255, 195, 120, 0.2) 100%);
+  mix-blend-mode: normal;
 }
-.map__spot--bic .map__pin,
-.map__spot--bic .map__pin::after {
-  background: var(--bic-primary);
+.portal--aerial .door {
+  background: transparent;
 }
-.map__spot--sukoon .map__pin,
-.map__spot--sukoon .map__pin::after {
-  background: var(--sv-primary);
+.portal--aerial .door__pattern,
+.portal--aerial .door__glow {
+  display: none;
 }
-@keyframes pin-pulse {
-  from {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-  to {
-    transform: scale(3);
-    opacity: 0;
-  }
+.portal--aerial .portal__split::after {
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35) 25%, rgba(255, 255, 255, 0.35) 75%, transparent);
 }
-/* light up the matching area while its card is hovered */
-.map:has(.map-card--bic:hover, .map-card--bic:focus-visible) .map__spot--bic .map__area,
-.map:has(.map-card--sukoon:hover, .map-card--sukoon:focus-visible) .map__spot--sukoon .map__area {
-  border-color: #ffffff;
-  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.35);
+.portal--aerial .door--photo .door__inner {
+  width: min(430px, 29vw);
+  min-height: clamp(420px, 62vh, 560px);
 }
-.map:has(.map-card--bic:hover) .map__spot--bic .map__area {
-  background: rgba(59, 50, 144, 0.28);
+.portal--aerial .door--photo .door__tags {
+  flex-wrap: nowrap;
+  gap: 6px;
 }
-.map:has(.map-card--sukoon:hover) .map__spot--sukoon .map__area {
-  background: rgba(203, 155, 97, 0.3);
+.portal--aerial .door--photo .door__tags span {
+  padding: 4px 10px;
+  font-size: 0.68rem;
+  white-space: nowrap;
 }
-
-/* Cards above their buildings */
-.map-card {
-  pointer-events: auto;
-  position: absolute;
-  left: var(--x);
-  bottom: calc(100% - var(--top));
-  transform: translateX(-50%);
-  width: clamp(270px, 24vw, 360px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(0.4rem, 1.1vh, 0.7rem);
-  padding: clamp(1rem, 2.2vh, 1.5rem) clamp(1.1rem, 1.8vw, 1.6rem);
-  border-radius: 24px;
-  text-align: center;
-  text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 24px 60px -24px rgba(10, 8, 32, 0.6);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  backdrop-filter: blur(16px) saturate(140%);
-  animation: card-in 0.9s var(--ease-out) both;
-  animation-delay: calc(0.5s + var(--i) * 0.15s);
-  transition: transform 450ms var(--ease-out), box-shadow 450ms var(--ease-out);
-}
-@keyframes card-in {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 14px);
-  }
-}
-.map-card:hover,
-.map-card:focus-visible {
-  transform: translate(-50%, -6px);
-  box-shadow: 0 36px 80px -28px rgba(10, 8, 32, 0.7);
-}
-.map-card:focus-visible {
-  outline: 3px solid var(--sv-primary);
-  outline-offset: 4px;
-}
-.map-card--bic {
-  background: rgba(255, 255, 255, 0.84);
-  color: var(--bic-primary);
-}
-.map-card--sukoon {
-  background: rgba(255, 252, 246, 0.86);
-  color: #2a1f13;
-}
-.map-card__logo .logo {
-  height: clamp(32px, 4.6vh, 44px);
-  width: auto;
-}
-.map-card--sukoon .map-card__logo .logo {
-  height: clamp(44px, 6.2vh, 58px);
-}
-.map-card__eyebrow {
+.portal--aerial .door--photo .door__eyebrow {
   font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
 }
-.map-card--sukoon .map-card__eyebrow {
-  color: var(--sv-ink);
-}
-.map-card__text {
+.portal--aerial .door--photo .door__text {
   font-size: var(--fs-sm);
-  line-height: 1.5;
+}
+.portal--aerial .portal__foot {
   color: #4a4766;
 }
-.map-card--sukoon .map-card__text {
-  color: #6b5a45;
-}
-.map-card__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 2px;
-  padding: 10px 22px;
-  border-radius: var(--radius-pill);
-  font-weight: 700;
-  font-size: var(--fs-sm);
-  transition: gap var(--dur) var(--ease-out);
-}
-.map-card:hover .map-card__cta {
-  gap: 13px;
-}
-.map-card--bic .map-card__cta {
-  background: linear-gradient(135deg, var(--bic-primary-light), var(--bic-primary) 60%, var(--bic-primary-dark));
-  color: #ffffff;
-}
-.map-card--sukoon .map-card__cta {
-  background: #2a1f13;
-  color: #fbf8f3;
-}
-@media (max-height: 760px) and (min-width: 900px) {
-  .map-card__text {
-    display: none;
+@media (max-width: 1100px) and (min-width: 900px) {
+  .portal--aerial .door--photo .door__tags {
+    flex-wrap: wrap;
   }
 }
-
-/* Phones, tablets in portrait: whole photo on top, cards underneath */
-@media (max-width: 899px), (max-aspect-ratio: 1/1) {
-  .portal--map {
-    background: linear-gradient(180deg, #ffffff, #f6f5fc);
+@media (max-width: 899px) {
+  .portal--aerial {
+    background: transparent;
   }
-  .portal--map .portal__bar {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    margin: 16px auto;
-    width: fit-content;
-    max-width: calc(100% - 32px);
-    white-space: normal;
+  .portal--aerial .door--photo .door__tags {
+    flex-wrap: wrap;
   }
-  .map {
-    position: relative;
+  .portal--aerial .door--photo .door__inner {
+    width: min(480px, 100%);
   }
-  .map__stage {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1200 / 670;
-    transform: none;
-  }
-  .map__area {
-    border-width: 1.5px;
-    border-radius: 8px;
-  }
-  .map__pin {
-    width: 14px;
-    height: 14px;
-    margin: -7px 0 0 -7px;
-    border-width: 2px;
-  }
-  .map__line {
-    display: none;
-  }
-  .map__stage--cards {
-    aspect-ratio: auto;
-    display: grid;
-    gap: var(--space-4);
-    padding: var(--space-5) var(--space-4) var(--space-6);
-    pointer-events: auto;
-  }
-  .map-card {
-    position: relative;
-    left: auto;
-    bottom: auto;
-    transform: none;
-    width: 100%;
-    max-width: 520px;
-    margin-inline: auto;
-    padding: var(--space-5);
-    animation-name: fade-up;
-  }
-  .map-card:hover,
-  .map-card:focus-visible {
-    transform: translateY(-3px);
-  }
-  .map-card::before {
-    /* small coloured marker matching the pin on the photo */
-    content: '';
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 2px solid #ffffff;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
-  }
-  .map-card--bic::before {
-    background: var(--bic-primary);
-  }
-  .map-card--sukoon::before {
-    background: var(--sv-primary);
-  }
-  .map-card--bic {
-    border-color: rgba(28, 21, 92, 0.12);
-  }
-  .map-card--sukoon {
-    border-color: rgba(203, 155, 97, 0.35);
-  }
-  .portal--map .portal__foot {
-    position: static;
-    padding: 0 0 var(--space-6);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .map__img,
-  .map-card,
-  .map__pin::after {
-    animation: none;
+  .portal--aerial .portal__foot {
+    background: transparent;
   }
 }
