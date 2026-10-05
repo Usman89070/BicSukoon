@@ -22,3 +22,9 @@ export function portalImage(id) {
   }
   return null
 }
+
+/** Aerial photo showing both sites, used as the starting-page background map. */
+export const aerialImage = (() => {
+  const key = Object.keys(files).find((k) => /\/portal-aerial\.[a-z]+$/i.test(k))
+  return key ? files[key] : null
+})()

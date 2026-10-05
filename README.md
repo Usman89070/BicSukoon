@@ -52,18 +52,16 @@ contains only its own code. `VITE_BASE` sets the path each site is served
 under (`/bic/`, `/sukoon/`); routing, assets and canonical URLs follow it.
 
 ### Starting page images
-Photos in `src/assets/images/` are picked up automatically by name:
+The starting page uses **`src/assets/images/portal-aerial.jpg`**, one aerial
+photo showing both sites, as a full-screen map. Each block sits just above its
+own buildings, linked by a line and pin, and the buildings are outlined
+(positions in `mapAreas` in `src/portal/Portal.jsx`, as % of the photo). On
+phones the whole photo shows on top with the two blocks underneath. If the
+photo is replaced with a different shot, update those percentages.
 
-| File | Used for |
-| --- | --- |
-| `site-300DPIbicM-50kb.jpg` | Background of the BIC text block on the starting page + BIC home hero |
-| `site-300DPISukoon-50kb.jpg` | Background of the Sukoon text block on the starting page |
-| `hero-bic.jpg` (optional) | A different BIC home hero image (takes priority) |
-
-Each photo is the background of its text block (logo, text and button),
-with a soft shade at the bottom so the white text stays readable and the
-buildings stay clear at the top. To
-change a picture, upload a new file with the same name to that folder.
+Without `portal-aerial.*` the page falls back to the two-door layout, which
+uses `site-300DPIbicM-50kb.jpg` and `site-300DPISukoon-50kb.jpg` inside the
+blocks. `site-300DPIbicM-50kb.jpg` is also the BIC home hero image.
 
 ### Deployment
 **One domain (default):** upload the whole `dist/` folder.
