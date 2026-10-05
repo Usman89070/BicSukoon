@@ -627,3 +627,169 @@
     background: transparent;
   }
 }
+
+/* ---- Match the reference design exactly (aerial version, desktop) ------ */
+@media (min-width: 900px) {
+  .portal--aerial .portal__bar {
+    top: 10px;
+    padding: 8px 24px 8px 12px;
+  }
+  .portal--aerial .portal__bar-mark {
+    width: 34px;
+    height: 34px;
+  }
+  .portal--aerial .portal__bar-eyebrow {
+    font-size: 0.6rem;
+    color: #6f6b8a;
+  }
+  .portal--aerial .portal__bar-title {
+    font-size: 1.05rem;
+  }
+  .portal--aerial .portal__split::after,
+  .portal--aerial .portal__foot {
+    display: none;
+  }
+  .portal--aerial .door {
+    align-items: center;
+    padding: 0;
+  }
+  .portal--aerial .portal__medallion {
+    top: 48.6%;
+    width: 54px;
+    height: 54px;
+  }
+  .portal--aerial .portal__medallion svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* cards: 24% wide, 58% tall, photo bright at the top */
+  .portal--aerial .door--photo .door__inner {
+    width: clamp(330px, 24vw, 400px);
+    min-height: 0;
+    height: clamp(420px, 58.4svh, 560px);
+    padding: 0 clamp(1rem, 1.6vw, 1.6rem) clamp(1.4rem, 3.4vh, 1.9rem);
+    gap: 0;
+    border-width: 5px;
+    border-radius: 22px;
+  }
+  .portal--aerial .door__photo {
+    object-position: center 18%;
+    filter: saturate(1.15) contrast(1.05);
+  }
+  .portal--aerial .door--bic .door__photo-shade {
+    background: linear-gradient(180deg, transparent 0%, transparent 34%, rgba(30, 22, 80, 0.72) 50%, rgba(28, 20, 78, 0.94) 66%, rgba(24, 17, 68, 0.97) 100%);
+  }
+  .portal--aerial .door--sukoon .door__photo-shade {
+    background: linear-gradient(180deg, transparent 0%, transparent 34%, rgba(64, 48, 26, 0.7) 50%, rgba(60, 45, 24, 0.92) 66%, rgba(52, 39, 20, 0.96) 100%);
+  }
+  .portal--aerial .door--photo .door__logo .logo {
+    height: clamp(40px, 6vh, 50px);
+    filter: none;
+  }
+  .portal--aerial .door--sukoon.door--photo .door__logo .logo {
+    height: clamp(52px, 7.6vh, 64px);
+  }
+  .portal--aerial .door--photo .door__eyebrow {
+    margin-top: clamp(0.6rem, 1.6vh, 0.9rem);
+    font-size: 0.56rem;
+    letter-spacing: 0.16em;
+    white-space: nowrap;
+    color: rgba(255, 255, 255, 0.82);
+    text-shadow: none;
+  }
+  .portal--aerial .door--sukoon.door--photo .door__eyebrow {
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .portal--aerial .door--photo .door__text {
+    margin-top: clamp(0.5rem, 1.3vh, 0.75rem);
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: #ffffff;
+    text-shadow: none;
+  }
+  .portal--aerial .door--photo .door__tags {
+    margin-top: clamp(0.9rem, 2.6vh, 1.4rem);
+  }
+  .portal--aerial .door--photo .door__tags span {
+    padding: 4px 11px;
+    font-size: 0.62rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+  }
+  .portal--aerial .door--photo .door__cta {
+    margin-top: clamp(1.2rem, 3.2vh, 1.7rem);
+    padding: 11px 34px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    gap: 22px;
+  }
+  .portal--aerial .door--photo:hover .door__cta {
+    gap: 28px;
+  }
+  .portal--aerial .door--bic.door--photo .door__cta {
+    padding-inline: 34px;
+  }
+  .portal--aerial .door--sukoon.door--photo .door__cta {
+    background: #e9c48f;
+    color: #2a1f13;
+  }
+}
+
+/* richer, clearer background: blue sky on the BIC side, warm gold on the Sukoon side */
+.portal--aerial .portal__aerial img {
+  filter: saturate(1.35) contrast(1.12) brightness(1.04);
+}
+.portal--aerial .portal__grade {
+  background:
+    linear-gradient(90deg, rgba(40, 110, 255, 0.55) 0%, rgba(40, 110, 255, 0.4) 50%, rgba(255, 165, 60, 0.5) 50%, rgba(255, 160, 50, 0.62) 100%);
+}
+.portal--aerial .portal__grade::after {
+  background:
+    linear-gradient(180deg, rgba(95, 160, 235, 0.55) 0%, rgba(95, 160, 235, 0.2) 10%, transparent 18%) left / 50% 100% no-repeat,
+    linear-gradient(180deg, rgba(250, 215, 160, 0.6) 0%, rgba(250, 210, 150, 0.2) 10%, transparent 18%) right / 50% 100% no-repeat,
+    linear-gradient(90deg, rgba(80, 140, 235, 0.1) 0% 50%, rgba(255, 190, 110, 0.14) 50% 100%);
+}
+@media (min-width: 900px) {
+  .portal--aerial .door--photo .door__text {
+    max-width: none;
+    font-size: 0.8rem;
+    padding-inline: 0.2rem;
+  }
+  .portal--aerial .door--photo .door__tags {
+    margin-top: clamp(1rem, 3.6vh, 1.7rem);
+  }
+  .portal--aerial .door--photo .door__cta {
+    margin-top: clamp(1.2rem, 3.8vh, 1.9rem);
+  }
+}
+.portal--aerial .portal__aerial img {
+  filter: saturate(1.28) contrast(1.06) brightness(1.03);
+}
+.portal--aerial .portal__grade {
+  background: linear-gradient(90deg, rgba(40, 110, 255, 0.36) 0%, rgba(40, 110, 255, 0.28) 50%, rgba(255, 165, 60, 0.5) 50%, rgba(255, 160, 50, 0.6) 100%);
+}
+.portal--aerial .portal__grade::after {
+  background:
+    linear-gradient(180deg, rgba(72, 140, 228, 0.92) 0%, rgba(110, 165, 232, 0.75) 9%, rgba(140, 185, 235, 0.35) 15%, transparent 19%) left / 50% 100% no-repeat,
+    linear-gradient(180deg, rgba(240, 222, 186, 0.92) 0%, rgba(245, 215, 170, 0.72) 9%, rgba(245, 205, 150, 0.32) 15%, transparent 19%) right / 50% 100% no-repeat,
+    linear-gradient(90deg, rgba(80, 140, 235, 0.08) 0% 50%, rgba(255, 190, 110, 0.14) 50% 100%);
+}
+@media (min-width: 900px) {
+  /* spacing measured from the reference (at 788px tall) */
+  .portal--aerial .door--photo .door__eyebrow {
+    margin-top: clamp(0.5rem, 1.3vh, 0.75rem);
+  }
+  .portal--aerial .door--photo .door__text {
+    margin-top: clamp(0.7rem, 2vh, 1.1rem);
+  }
+  .portal--aerial .door--photo .door__tags {
+    margin-top: clamp(0.9rem, 2.8vh, 1.5rem);
+  }
+  .portal--aerial .door--photo .door__cta {
+    margin-top: clamp(0.75rem, 2vh, 1.1rem);
+    padding-block: 12px;
+  }
+}
