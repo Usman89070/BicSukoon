@@ -318,6 +318,40 @@
   box-shadow: 0 12px 30px -14px rgba(42, 31, 19, 0.6);
 }
 
+/* ---- Whole-half photo background (softened) ---------------------------- */
+.door__bg {
+  position: absolute;
+  inset: -24px; /* bleed so the blur has no soft edges */
+  z-index: -3;
+  width: calc(100% + 48px);
+  max-width: none; /* override the global img max-width so the bleed reaches both edges */
+  height: calc(100% + 48px);
+  object-fit: cover;
+  object-position: center 35%;
+  filter: blur(3px) saturate(1.05);
+  transform: scale(1.04);
+  transition: transform 1.8s var(--ease-out), filter 1s var(--ease-out);
+}
+.door--photo:hover .door__bg {
+  transform: scale(1.08);
+  filter: blur(2px) saturate(1.1);
+}
+.door__bg-tint {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+.door--bic .door__bg-tint {
+  background:
+    radial-gradient(60% 50% at 50% 55%, rgba(255, 255, 255, 0.12), transparent 70%),
+    linear-gradient(180deg, rgba(28, 21, 92, 0.38), rgba(28, 21, 92, 0.18) 45%, rgba(17, 12, 58, 0.5));
+}
+.door--sukoon .door__bg-tint {
+  background:
+    radial-gradient(60% 50% at 50% 55%, rgba(255, 253, 249, 0.12), transparent 70%),
+    linear-gradient(180deg, rgba(42, 31, 19, 0.36), rgba(42, 31, 19, 0.16) 45%, rgba(28, 20, 11, 0.5));
+}
+
 /* ---- Text block with a photo background -------------------------------- */
 .door--photo .door__inner {
   position: relative;
