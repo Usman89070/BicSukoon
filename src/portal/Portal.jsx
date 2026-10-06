@@ -70,6 +70,11 @@ export default function Portal() {
             >
               <Pattern className="door__pattern" opacity={0.07} scale={88} />
               <span className="door__glow" aria-hidden="true" />
+              {image && (
+                <span className="door__backdrop" aria-hidden="true">
+                  <img src={image} alt="" decoding="async" />
+                </span>
+              )}
 
               <span className="door__inner">
                 {image && (

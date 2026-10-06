@@ -793,3 +793,65 @@
     padding-block: 12px;
   }
 }
+
+/* ---- Phones / tablets: each door gets its own photo as background ------
+   The doors stack vertically, so instead of one aerial photo behind both,
+   each door shows its own project photo behind its card. */
+.door__backdrop {
+  display: none;
+}
+@media (max-width: 899px) {
+  .portal--aerial .portal__aerial {
+    display: none;
+  }
+  .portal--aerial {
+    background: #110e2e;
+  }
+  .door__backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    display: block;
+    overflow: hidden;
+  }
+  .door__backdrop img {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    transform: scale(1.08);
+    filter: blur(3px) saturate(1.2);
+  }
+  .door__backdrop::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .door--bic .door__backdrop::after {
+    background: linear-gradient(180deg, rgba(28, 21, 92, 0.35), rgba(28, 21, 92, 0.6));
+  }
+  .door--sukoon .door__backdrop::after {
+    background: linear-gradient(180deg, rgba(120, 82, 38, 0.35), rgba(66, 46, 24, 0.62));
+  }
+  .portal--aerial .portal__bar {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    top: 16px;
+    width: max-content;
+    max-width: calc(100% - 32px);
+    animation: none;
+  }
+  .portal--aerial .door--bic {
+    padding-top: calc(var(--space-7) + 72px);
+  }
+  .portal--aerial .portal__foot {
+    background: #2a1f13;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .portal--aerial .portal__foot p {
+    background: transparent;
+  }
+}
