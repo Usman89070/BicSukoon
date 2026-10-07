@@ -60,7 +60,7 @@ appear automatically (until then a labelled placeholder is shown):
 | `portal-bic`, `portal-sukoon` | Starting page, full-screen halves (falls back to the `site-300DPI…` renders) |
 | `hero-bic`, `hero-sukoon` | Full-screen home hero (falls back to the `site-300DPI…` renders) |
 | `facility-masjid`, `facility-qmchc`, `facility-community-hall`, `facility-cafe`, `facility-gyms`, `facility-childcare` | "Everything in one place" facility tiles |
-| `progress-sukoon-drive`, `progress-existing-structure`, `progress-underground-tank` | "Already built" panels |
+| `progress-existing-structure`, `progress-underground-tank` | "Already built" panels |
 
 Use wide images (about 2400px) for the hero and starting page. Videos (MP4
 URL or file) go in `src/data/videos.js`: `hero` and `sukoon` play full screen

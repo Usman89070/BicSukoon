@@ -1,7 +1,7 @@
 /**
  * Drop-in photography from src/assets/images/. Any JPG, PNG or WebP whose
  * file name starts with a known key is picked up automatically, e.g.
- *   sukoon-drive.jpg, underground-tank.webp, facility-cafe.jpg
+ *   progress-underground-tank.webp, facility-cafe.jpg
  * Until a file is supplied, components show a labelled placeholder.
  */
 const files = import.meta.glob('../assets/images/*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' })

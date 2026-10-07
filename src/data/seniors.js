@@ -15,7 +15,7 @@ export const seniors = {
   facts: [
     { value: '36', label: 'modern townhouses' },
     { value: 'Lift', label: 'to the first floor in every townhouse' },
-    { value: 'Sukoon Drive', label: 'linking the village to Brisbane Islamic Centre' },
+    { value: 'Sukoon Drive', label: 'proposed, linking the village to Brisbane Islamic Centre' },
   ],
 
   dignity: {

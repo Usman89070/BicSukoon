@@ -283,7 +283,8 @@
 }
 @media (min-width: 800px) {
   .done {
-    grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
   }
 }
 .done__item {
