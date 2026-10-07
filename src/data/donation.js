@@ -25,7 +25,7 @@ export const donation = {
 /** "Where your support goes" — configurable cards; each website shows only its own (by `project`). */
 export const allocations = [
   { id: 'masjid-complex', title: 'Masjid Complex', project: 'bic', facility: 'masjid-complex' },
-  { id: 'cultural-heritage-centre', title: 'Queensland Muslim Cultural & Heritage Centre', project: 'bic', facility: 'cultural-heritage-centre' },
+  { id: 'cultural-heritage-centre', title: 'Queensland Muslim Cultural Heritage Centre', project: 'bic', facility: 'cultural-heritage-centre' },
   { id: 'sukoon-village', title: 'Sukoon Village', project: 'sukoon', text: 'Supporting the village as a whole — from early childhood to later years.' },
   { id: 'seniors-living', title: 'Seniors Living', project: 'sukoon', facility: 'seniors-living' },
   { id: 'lifestyle-centre', title: 'Lifestyle Centre', project: 'sukoon', facility: 'lifestyle-centre' },

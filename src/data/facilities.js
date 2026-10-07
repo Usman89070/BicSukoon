@@ -35,14 +35,14 @@ export const facilities = {
   'cultural-heritage-centre': {
     id: 'cultural-heritage-centre',
     project: 'bic',
-    title: 'Queensland Muslim Cultural & Heritage Centre',
-    shortTitle: 'Cultural & Heritage Centre',
+    title: 'Queensland Muslim Cultural Heritage Centre',
+    shortTitle: 'Cultural Heritage Centre',
     path: '/cultural-heritage-centre',
     eyebrow: 'Brisbane Islamic Centre',
     pillar: 'Knowledge',
-    summary: 'A museum, library and theatre to preserve, share and celebrate the story of Muslims in Queensland.',
+    summary: 'A place where history is preserved, knowledge is shared and understanding is encouraged: library, Islamic Museum and theatre.',
     status: null,
-    media: { image: null, video: null, label: 'Cultural & Heritage Centre render' },
+    media: { image: null, video: null, label: 'Cultural Heritage Centre render' },
     sections: [
       { heading: 'Cultural purpose', body: 'A home for the cultural life of Queensland’s Muslim communities — open to everyone who wishes to learn and connect.' },
       { heading: 'Educational role', body: 'A place for learning, exhibitions and programmes that build understanding across communities and generations.' },

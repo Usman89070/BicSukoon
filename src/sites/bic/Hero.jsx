@@ -26,7 +26,7 @@ export default function BicHero() {
             A landmark for faith and heritage <em>in Brisbane.</em>
           </h1>
           <p className="bic-hero__lead">
-            The Brisbane Islamic Centre — a Masjid Complex and the Queensland Muslim Cultural &amp; Heritage Centre,
+            The Brisbane Islamic Centre — a Masjid Complex and the Queensland Muslim Cultural Heritage Centre,
             built for the community and for generations to come.
           </p>
           <div className="bic-hero__ctas">

@@ -67,8 +67,8 @@ export const bicHome = {
         image: 'facility-qmchc',
         links: [
           { label: 'Cultural Heritage Centre', path: '/cultural-heritage-centre' },
-          { label: 'Islamic Museum', path: '/cultural-heritage-centre' },
-          { label: 'Theatre', path: '/cultural-heritage-centre' },
+          { label: 'Islamic Museum', path: '/cultural-heritage-centre#museum' },
+          { label: 'Theatre', path: '/cultural-heritage-centre#theatre' },
           { label: 'Community Hall', path: '/community-hall' },
           { label: 'Café', path: '/cafe' },
           { label: 'Gyms', path: '/gyms' },

@@ -24,7 +24,7 @@ export const sites = {
     shortName: 'BIC',
     tagline: 'Faith — Knowledge — Community — Legacy',
     description:
-      'Brisbane Islamic Centre — a Masjid Complex and the Queensland Muslim Cultural & Heritage Centre, built on Faith, Knowledge, Community and Legacy.',
+      'Brisbane Islamic Centre — a Masjid Complex and the Queensland Muslim Cultural Heritage Centre, built on Faith, Knowledge, Community and Legacy.',
     defaultOgImage: null,
     // Light interface: frosted white surfaces so the official navy logo is shown as-is.
     navTone: 'light',
@@ -71,7 +71,7 @@ export const sites = {
     ],
     cta: { label: 'Donate', to: '/donate', icon: 'heart' },
     features: { donate: true, funding: true, events: true, guests: true },
-    enquiryTopics: ['General enquiry', 'Masjid Complex', 'Cultural & Heritage Centre', 'Childcare Centre', 'Donations & funding', 'Events', 'Media'],
+    enquiryTopics: ['General enquiry', 'Masjid Complex', 'Cultural Heritage Centre', 'Childcare Centre', 'Donations & funding', 'Events', 'Media'],
 
     contact: { address: null, phone: null, email: null, hours: null, mapEmbedUrl: null },
     socials: socialSlots(),

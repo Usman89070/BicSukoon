@@ -15,6 +15,7 @@ const Events = lazy(() => import('./pages/Events'))
 const Guests = lazy(() => import('./pages/Guests'))
 const Donate = lazy(() => import('./pages/Donate'))
 const Childcare = lazy(() => import('./pages/Childcare'))
+const Qmchc = lazy(() => import('./pages/Qmchc'))
 
 /** Brisbane Islamic Centre website. */
 export default function BicApp() {
@@ -25,7 +26,7 @@ export default function BicApp() {
         <Route path="about" element={<About />} />
         <Route path="vision" element={<VisionPage />} />
         <Route path="masjid-complex" element={<FacilityPage id="masjid-complex" />} />
-        <Route path="cultural-heritage-centre" element={<FacilityPage id="cultural-heritage-centre" />} />
+        <Route path="cultural-heritage-centre" element={<Qmchc />} />
         <Route path="community-hall" element={<FacilityPage id="community-hall" />} />
         <Route path="cafe" element={<FacilityPage id="cafe" />} />
         <Route path="gyms" element={<FacilityPage id="gyms" />} />

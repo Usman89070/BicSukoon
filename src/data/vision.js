@@ -5,7 +5,7 @@
 export const pillars = {
   bic: [
     { id: 'faith', title: 'Faith', line: 'A place to pray, reflect and belong.', body: 'Faith is the foundation of the Brisbane Islamic Centre, expressed through the Masjid Complex as a welcoming centre of worship.', facilities: ['masjid-complex'], media: { image: null } },
-    { id: 'knowledge', title: 'Knowledge', line: 'Learning that connects generations.', body: 'The Queensland Muslim Cultural & Heritage Centre is a place to learn, share and understand.', facilities: ['cultural-heritage-centre'], media: { image: null } },
+    { id: 'knowledge', title: 'Knowledge', line: 'Learning that connects generations.', body: 'The Queensland Muslim Cultural Heritage Centre is a place to learn, share and understand.', facilities: ['cultural-heritage-centre'], media: { image: null } },
     { id: 'community', title: 'Community', line: 'Spaces that bring people together.', body: 'Both facilities are designed to welcome families, neighbours and visitors from across Brisbane.', facilities: ['masjid-complex', 'cultural-heritage-centre'], media: { image: null } },
     { id: 'legacy', title: 'Legacy', line: 'Building for those who come after us.', body: 'A heritage preserved and a centre built to serve the generations to come.', facilities: ['cultural-heritage-centre'], media: { image: null } },
   ],
@@ -31,7 +31,7 @@ export const story = {
       id: 'what',
       eyebrow: 'What is being built',
       title: 'A Masjid Complex and a home for heritage.',
-      body: 'The Masjid Complex and the Queensland Muslim Cultural & Heritage Centre — places for worship, learning and remembrance.',
+      body: 'The Masjid Complex and the Queensland Muslim Cultural Heritage Centre — places for worship, learning and remembrance.',
     },
     {
       id: 'why',
