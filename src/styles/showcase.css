@@ -1643,3 +1643,104 @@
     box-shadow: 0 30px 56px -34px rgba(10, 8, 32, 0.55);
   }
 }
+
+/* ---- About: statements, board, tribute, gallery ------------------------ */
+.ab-statements {
+  display: grid;
+  gap: clamp(12px, 1.6vw, 20px);
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 760px) {
+  .ab-statements {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1200px) {
+  .ab-statements {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.ab-statement {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: clamp(22px, 2.4vw, 32px);
+  border-radius: var(--radius-lg, 20px);
+  background: #ffffff;
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 50px -38px rgba(10, 8, 32, 0.45);
+}
+.ab-statement__num {
+  font-family: var(--font-display);
+  color: var(--sv-primary-dark, #9c7443);
+}
+.ab-statement__label {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 1.15rem + 0.8vw, 1.9rem);
+  color: var(--text-primary);
+}
+.ab-statement p {
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.ab-objective {
+  margin-top: var(--space-6) !important;
+  padding: 18px 22px;
+  border-radius: var(--radius-md, 14px);
+  border-left: 4px solid var(--sv-primary);
+  background: linear-gradient(90deg, rgba(203, 155, 97, 0.16), rgba(203, 155, 97, 0.04));
+  color: var(--text-primary) !important;
+}
+.ab-board {
+  margin-top: var(--space-7);
+}
+.guest--memoriam .guest__frame {
+  filter: grayscale(0.6);
+  border-color: rgba(10, 8, 32, 0.4);
+}
+.ab-board__memoriam {
+  margin-top: var(--space-4);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sv-primary-dark, #9c7443);
+}
+.guest--memoriam .guest__name {
+  margin-top: 4px;
+}
+.ab-tribute {
+  max-width: 900px;
+  margin: var(--space-8) auto 0;
+  padding: clamp(22px, 3vw, 36px);
+  border-radius: var(--radius-lg, 20px);
+  background: var(--surface-muted, #f4f3fa);
+  border: 1px solid var(--border);
+}
+.ab-tribute p {
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+.ab-tribute p + p {
+  margin-top: var(--space-4);
+}
+.ab-donate {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-7);
+}
+.ab-gallery {
+  display: grid;
+  gap: clamp(12px, 1.4vw, 20px);
+}
+@media (min-width: 760px) {
+  .ab-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.ab-gallery .media {
+  border-radius: var(--radius-lg, 20px);
+  overflow: hidden;
+}
