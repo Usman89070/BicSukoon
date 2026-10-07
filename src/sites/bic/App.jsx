@@ -25,6 +25,9 @@ export default function BicApp() {
         <Route path="vision" element={<VisionPage />} />
         <Route path="masjid-complex" element={<FacilityPage id="masjid-complex" />} />
         <Route path="cultural-heritage-centre" element={<FacilityPage id="cultural-heritage-centre" />} />
+        <Route path="community-hall" element={<FacilityPage id="community-hall" />} />
+        <Route path="cafe" element={<FacilityPage id="cafe" />} />
+        <Route path="gyms" element={<FacilityPage id="gyms" />} />
         <Route path="project-status" element={<StatusPage />} />
         <Route path="project-updates" element={<UpdatesPage />} />
         <Route path="project-funding" element={<Funding />} />

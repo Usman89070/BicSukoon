@@ -17,3 +17,13 @@ export const urls = {
   bic: import.meta.env.VITE_BIC_URL || devUrl(5173) || '/bic/',
   sukoon: import.meta.env.VITE_SUKOON_URL || devUrl(5174) || '/sukoon/',
 }
+
+/**
+ * Link to a page on either website. Returns null for the current website
+ * (use a router link), otherwise an absolute href to the other website.
+ */
+export const externalHref = (siteId, path = '/') => {
+  if (!siteId || siteId === SITE_ID) return null
+  const root = (SITE_ID !== 'portal' && site?.sister?.id === siteId && site.sister.url) || urls[siteId]
+  return root.replace(/\/$/, '') + path
+}

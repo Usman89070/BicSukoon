@@ -3,23 +3,11 @@ import { urls } from '../site'
 import Logo from '../components/common/Logo'
 import Icon from '../components/common/Icon'
 import Pattern from '../components/common/Pattern'
-import { aerialImage, portalImage } from './media'
+import { portalImage } from './media'
 
-const doors = [
-  {
-    id: 'bic',
-    cta: 'Explore BIC',
-    eyebrow: 'Masjid Complex · Cultural & Heritage Centre',
-    text: 'A place of worship, learning and heritage, built for the community and for generations to come.',
-    tags: ['Faith', 'Knowledge', 'Community', 'Legacy'],
-  },
-  {
-    id: 'sukoon',
-    cta: 'Explore Sukoon Village',
-    eyebrow: 'Seniors Living · Lifestyle · Childcare',
-    text: 'A calm, connected village designed around care and belonging, for every stage of life.',
-    tags: ['Seniors Living', 'Lifestyle Centre', 'Childcare Centre'],
-  },
+const halves = [
+  { id: 'bic', cta: 'Explore BIC', line: 'Masjid · QMCHC · Community Hall' },
+  { id: 'sukoon', cta: 'Explore Sukoon Village', line: 'Seniors Living · Lifestyle · Childcare' },
 ]
 
 const Crescent = (props) => (
@@ -29,24 +17,13 @@ const Crescent = (props) => (
 )
 
 /**
- * Starting page: two full-height "doors", one per website, each in its own
- * identity. The whole door is the link. When a photo is supplied (see
- * ./media.js) it becomes the background of the text block (with a soft shade
- * so the white text stays readable); otherwise a framed placeholder is shown.
- * With portal-aerial.* present, that aerial photo fills the page behind both
- * doors, graded cool (BIC) on the left and warm (Sukoon) on the right.
+ * Starting page: the screen split into two full-height photos, one per
+ * website (stacked on phones). The whole half is the link.
  */
 export default function Portal() {
   return (
-    <main className={`portal${aerialImage ? ' portal--aerial' : ''}`}>
+    <main className="portal">
       <title>{import.meta.env.VITE_SITE_NAME}</title>
-
-      {aerialImage && (
-        <div className="portal__aerial" aria-hidden="true">
-          <img src={aerialImage} alt="" fetchPriority="high" decoding="async" />
-          <span className="portal__grade" />
-        </div>
-      )}
 
       <header className="portal__bar">
         <Crescent className="portal__bar-mark" />
@@ -57,61 +34,28 @@ export default function Portal() {
       </header>
 
       <div className="portal__split">
-        {doors.map((d, i) => {
-          const s = sites[d.id]
-          const image = portalImage(d.id)
+        {halves.map((h, i) => {
+          const s = sites[h.id]
+          const image = portalImage(h.id)
           return (
-            <a
-              key={d.id}
-              href={urls[d.id]}
-              className={`door door--${d.id}${image ? ' door--photo' : ''}`}
-              style={{ '--i': i }}
-              aria-label={`Enter the ${s.name} website`}
-            >
-              <Pattern className="door__pattern" opacity={0.07} scale={88} />
-              <span className="door__glow" aria-hidden="true" />
-              {image && (
-                <span className="door__backdrop" aria-hidden="true">
-                  <img src={image} alt="" decoding="async" />
-                </span>
+            <a key={h.id} href={urls[h.id]} className={`half half--${h.id}`} style={{ '--i': i }} aria-label={`Enter the ${s.name} website`}>
+              {image ? (
+                <img className="half__photo" src={image} alt="" fetchPriority="high" decoding="async" />
+              ) : (
+                <Pattern className="half__pattern" opacity={0.08} scale={88} />
               )}
-
-              <span className="door__inner">
-                {image && (
-                  <>
-                    <img className="door__photo" src={image} alt="" fetchPriority={i === 0 ? 'high' : undefined} decoding="async" />
-                    <span className="door__photo-shade" aria-hidden="true" />
-                  </>
-                )}
-                <span className="door__logo">
-                  <Logo project={d.id} tone={image ? 'dark' : 'light'} height={d.id === 'sukoon' ? 62 : 58} decorative />
-                </span>
-                <span className="door__eyebrow">{d.eyebrow}</span>
-
-                {!image && (
-                  <span className="door__frame">
-                    <span className="door__placeholder">
-                      <Pattern className="door__placeholder-pattern" opacity={0.22} scale={56} />
-                      <Crescent className="door__placeholder-mark" />
-                    </span>
-                  </span>
-                )}
-
-                <span className="door__text">{d.text}</span>
-                <span className="door__tags">
-                  {d.tags.map((t) => <span key={t}>{t}</span>)}
-                </span>
-                <span className="door__cta">
-                  {d.cta} <Icon name="arrow" size={18} />
+              <span className="half__shade" aria-hidden="true" />
+              <span className="half__content">
+                <Logo project={h.id} tone="dark" height={h.id === 'sukoon' ? 70 : 60} decorative />
+                <span className="half__line">{h.line}</span>
+                <span className="half__cta">
+                  {h.cta} <Icon name="arrow" size={18} />
                 </span>
               </span>
             </a>
           )
         })}
-
-        <span className="portal__medallion" aria-hidden="true">
-          <Crescent />
-        </span>
+        <span className="portal__medallion" aria-hidden="true"><Crescent /></span>
       </div>
 
       <footer className="portal__foot">

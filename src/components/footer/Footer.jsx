@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { site, urls } from '../../site'
+import { externalHref, site, urls } from '../../site'
 import { formatPhoneHref } from '../../utils/format'
 import Logo from '../common/Logo'
 import Button from '../common/Button'
@@ -44,7 +44,12 @@ export default function Footer() {
           {groups.map((g) => (
             <nav key={g.label} aria-label={g.label} className="footer__col">
               <p className="footer__heading">{g.label}</p>
-              <ul>{g.children.map((l) => <li key={l.to}><Link to={l.to}>{l.label}</Link></li>)}</ul>
+              <ul>
+                {g.children.map((l) => {
+                  const href = externalHref(l.site, l.to)
+                  return <li key={l.label}>{href ? <a href={href}>{l.label}</a> : <Link to={l.to}>{l.label}</Link>}</li>
+                })}
+              </ul>
             </nav>
           ))}
 

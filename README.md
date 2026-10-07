@@ -5,7 +5,7 @@ websites**, each with its own interface, navigation, routes, fonts and build,
 developed from one shared React codebase:
 
 ```text
-/          Starting page: two boxes, "Brisbane Islamic Centre" and "Sukoon Village"
+/          Starting page: screen split into two full-height photos, BIC and Sukoon Village
 /bic/      Brisbane Islamic Centre website
 /sukoon/   Sukoon Village website
 ```
@@ -15,7 +15,7 @@ developed from one shared React codebase:
 | --- | --- | --- |
 | Character | Light & frosted white, navy text, official navy logo | Light, calm, residential, warm gold |
 | Navigation | Frosted white bar, 4 dropdowns | Light floating bar, 2 dropdowns |
-| Home hero | Light frosted hero, navy text, framed aerial render | Split layout with an arched image window |
+| Home hero | Full-screen render / film, short headline | Full-screen render / film, short headline |
 | Interior heroes | Light split, rounded image frame | Split, light, arched image |
 | Fonts | Fraunces + Manrope | Cormorant Garamond + Nunito Sans (17px base) |
 | Main action | **Donate** | **Enquire** |
@@ -51,15 +51,20 @@ built; `src/main.jsx` loads only that app (`src/portal/Portal.jsx`,
 contains only its own code. `VITE_BASE` sets the path each site is served
 under (`/bic/`, `/sukoon/`); routing, assets and canonical URLs follow it.
 
-### Starting page images
-- `src/assets/images/portal-aerial.jpg`: one aerial photo of both sites, used as
-  the full-page background, graded cool blue on the BIC (left) side and warm
-  gold on the Sukoon (right) side.
-- `site-300DPIbicM-50kb.jpg` / `site-300DPISukoon-50kb.jpg`: the photos at the
-  top of the BIC and Sukoon cards (also the BIC home hero).
+### Photos and renders (drop-in)
+Put JPG, PNG or WebP files in `src/assets/images/` with these names and they
+appear automatically (until then a labelled placeholder is shown):
 
-Replace any of them by uploading a new file with the same name. A wider
-version of the aerial photo (about 2400px) will look sharper on large screens.
+| File name starts with | Where it shows |
+| --- | --- |
+| `portal-bic`, `portal-sukoon` | Starting page, full-screen halves (falls back to the `site-300DPI…` renders) |
+| `hero-bic`, `hero-sukoon` | Full-screen home hero (falls back to the `site-300DPI…` renders) |
+| `facility-masjid`, `facility-qmchc`, `facility-community-hall`, `facility-cafe`, `facility-gyms`, `facility-childcare` | "Everything in one place" facility tiles |
+| `progress-sukoon-drive`, `progress-existing-structure`, `progress-underground-tank` | "Already built" panels |
+
+Use wide images (about 2400px) for the hero and starting page. Videos (MP4
+URL or file) go in `src/data/videos.js`: `hero` and `sukoon` play full screen
+behind the home heroes, `masjid` and `sukoon` are the home page films.
 
 ### Deployment
 **One domain (default):** upload the whole `dist/` folder.
@@ -93,6 +98,7 @@ Paths below are relative to each site's base (`/bic/…`, `/sukoon/…`).
 **Brisbane Islamic Centre**
 ```text
 /  /about  /vision  /masjid-complex  /cultural-heritage-centre
+/community-hall  /cafe  /gyms
 /project-status  /project-updates  /project-funding
 /events  /honoured-guests  /donate  /contact
 ```
@@ -154,7 +160,9 @@ them with official artwork (ideally SVG) if available.
 | What | File |
 | --- | --- |
 | Per-site name, menu, CTA, contact details, socials, legal, enquiry topics, features | `data/sites.js` |
-| Facilities (Masjid, Heritage Centre, Seniors Living, Lifestyle, Childcare) | `data/facilities.js` |
+| Facilities (Masjid, QMCHC, Community Hall, Café, Gyms, Seniors Living, Lifestyle, Childcare) | `data/facilities.js` |
+| Facility tiles on both home pages | `data/discover.js` |
+| Completed works ("Already built") | `data/progress.js` |
 | Masterplans (one per site; hotspots, shapes, official image) | `data/masterplan.js` |
 | Project updates (each tagged `project: 'bic' \| 'sukoon'`) | `data/updates.js` |
 | Timelines (per site) | `data/timeline.js` |

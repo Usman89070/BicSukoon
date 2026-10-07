@@ -7,6 +7,7 @@ import './styles/components.css'
 import './styles/sections.css'
 import './styles/sukoon.css'
 import './styles/bic.css'
+import './styles/showcase.css'
 import './styles/portal.css'
 
 // VITE_SITE is replaced with a literal at build time, so only one of these

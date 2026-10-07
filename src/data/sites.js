@@ -41,10 +41,15 @@ export const sites = {
         ],
       },
       {
-        label: 'The Centre',
+        label: 'Facilities',
         children: [
           { label: 'Masjid Complex', to: '/masjid-complex', text: 'The spiritual heart of the centre' },
-          { label: 'Cultural & Heritage Centre', to: '/cultural-heritage-centre', text: 'Queensland Muslim Cultural & Heritage Centre' },
+          { label: 'QMCHC', to: '/cultural-heritage-centre', text: 'Museum · Library · Theatre' },
+          { label: 'Community Hall', to: '/community-hall', text: 'Gatherings & events' },
+          { label: 'Café', to: '/cafe', text: 'Meet & unwind' },
+          { label: 'Gyms', to: '/gyms', text: 'Health & fitness' },
+          { label: 'Childcare', site: 'sukoon', to: '/childcare-centre', text: 'At Sukoon Village' },
+          { label: 'Sukoon Village', site: 'sukoon', to: '/', text: 'Seniors living & lifestyle' },
         ],
       },
       {
@@ -96,6 +101,7 @@ export const sites = {
           { label: 'Seniors Living', to: '/seniors-living', text: 'Dignity, comfort and connection' },
           { label: 'Lifestyle Centre', to: '/lifestyle-centre', text: 'The heart of village life' },
           { label: 'Childcare Centre', to: '/childcare-centre', text: 'Care for the next generation' },
+          { label: 'Masjid & QMCHC', site: 'bic', to: '/', text: 'At the Brisbane Islamic Centre' },
         ],
       },
       {

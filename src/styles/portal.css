@@ -1,11 +1,11 @@
 /* ==========================================================================
    STARTING PAGE (portal) — <html data-site="portal">
-   A full-height split: two "doors", each dressed in its website's identity.
-   Left: Brisbane Islamic Centre (frosted white + navy).
-   Right: Sukoon Village (warm cream + gold).
+   The screen split into two full-height photos, one per website:
+   Brisbane Islamic Centre (navy) on the left, Sukoon Village (gold) on the
+   right. Stacked on phones.
    ========================================================================== */
 :root[data-site='portal'] body {
-  background: #fbfbfe;
+  background: #0a0820;
 }
 
 .portal {
@@ -13,6 +13,7 @@
   min-height: 100svh;
   overflow: hidden;
   isolation: isolate;
+  background: #0a0820;
 }
 
 /* ---- Welcome bar (frosted pill, top centre) ---------------------------- */
@@ -25,14 +26,15 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  width: max-content;
+  max-width: calc(100% - 32px);
   padding: 10px 26px 10px 14px;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.82);
   border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 14px 40px -22px rgba(10, 8, 32, 0.4);
+  box-shadow: 0 14px 40px -22px rgba(10, 8, 32, 0.5);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   backdrop-filter: blur(16px) saturate(140%);
-  white-space: nowrap;
   animation: bar-in 0.9s var(--ease-out) 0.1s both;
 }
 @keyframes bar-in {
@@ -42,6 +44,7 @@
   }
 }
 .portal__bar-mark {
+  flex: none;
   width: 34px;
   height: 34px;
   padding: 7px;
@@ -65,374 +68,180 @@
   color: var(--bic-primary);
 }
 
-/* ---- Split ------------------------------------------------------------- */
+/* ---- Two full-height halves -------------------------------------------- */
 .portal__split {
   position: relative;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   min-height: 100svh;
 }
 @media (min-width: 900px) {
   .portal__split {
-    grid-template-columns: 1fr 1fr;
+    flex-direction: row;
+    height: 100svh;
   }
 }
 
-.door {
+.half {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
+  flex: 1 1 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding: clamp(6.5rem, 13vh, 8rem) clamp(1.25rem, 4vw, 4rem) clamp(4rem, 9vh, 5.5rem);
+  min-height: 50svh;
+  overflow: hidden;
+  padding: clamp(5.5rem, 12vh, 7rem) clamp(1.25rem, 4vw, 4rem) clamp(4.5rem, 10vh, 6.5rem);
+  color: #ffffff;
   text-decoration: none;
-  animation: door-in 1s var(--ease-out) both;
+  transition: flex-grow 900ms var(--ease-out);
+  animation: half-in 1.1s var(--ease-out) both;
   animation-delay: calc(var(--i) * 0.12s);
 }
-@keyframes door-in {
+.half--bic {
+  background: linear-gradient(160deg, var(--bic-primary-light), var(--bic-primary-dark));
+}
+.half--sukoon {
+  background: linear-gradient(160deg, #6b5032, #2a1f13);
+}
+@keyframes half-in {
   from {
     opacity: 0;
-    transform: translateX(calc((var(--i) * 2 - 1) * 28px));
   }
 }
-.door__pattern {
+@media (min-width: 900px) and (hover: hover) {
+  .portal__split:hover .half {
+    flex-grow: 0.85;
+  }
+  .portal__split .half:hover,
+  .portal__split .half:focus-visible {
+    flex-grow: 1.15;
+  }
+}
+.half__photo {
   position: absolute;
   inset: 0;
   z-index: -2;
-  transition: transform 1.4s var(--ease-out);
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  transform: scale(1.04);
+  transition: transform 1.6s var(--ease-out), filter 900ms var(--ease-out);
+  animation: photo-in 2s var(--ease-out) both;
 }
-.door__glow {
+@keyframes photo-in {
+  from {
+    transform: scale(1.12);
+  }
+}
+.half:hover .half__photo,
+.half:focus-visible .half__photo {
+  transform: scale(1.09);
+}
+.half__pattern {
   position: absolute;
+  inset: 0;
+  z-index: -2;
+  color: #ffffff;
+}
+.half__shade {
+  position: absolute;
+  inset: 0;
   z-index: -1;
-  width: 70%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  filter: blur(70px);
-  opacity: 0.38;
-  transition: opacity 700ms var(--ease-out), transform 1.2s var(--ease-out);
+  transition: opacity 900ms var(--ease-out);
 }
-.door:hover .door__glow,
-.door:focus-visible .door__glow {
-  opacity: 0.85;
-  transform: scale(1.12);
+.half--bic .half__shade {
+  background: linear-gradient(180deg, rgba(17, 12, 58, 0.25) 0%, rgba(17, 12, 58, 0) 30%, rgba(17, 12, 58, 0.35) 55%, rgba(17, 12, 58, 0.9) 100%);
 }
-.door:hover .door__pattern {
-  transform: scale(1.05);
+.half--sukoon .half__shade {
+  background: linear-gradient(180deg, rgba(42, 31, 19, 0.25) 0%, rgba(42, 31, 19, 0) 30%, rgba(42, 31, 19, 0.35) 55%, rgba(42, 31, 19, 0.9) 100%);
 }
-.door:focus-visible {
+.half:focus-visible {
   outline: 3px solid var(--sv-primary);
   outline-offset: -8px;
 }
 
-.door__inner {
+.half__content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: clamp(0.8rem, 1.8vh, 1.2rem);
   text-align: center;
-  gap: clamp(0.7rem, 1.6vh, 1.1rem);
-  max-width: 520px;
-  transition: opacity 500ms var(--ease-out);
 }
-.door__inner > * {
+.half__content > * {
   animation: fade-up 0.9s var(--ease-out) both;
+  animation-delay: calc(0.35s + var(--i) * 0.12s);
 }
-.door__inner > :nth-child(1) { animation-delay: calc(0.25s + var(--i) * 0.12s); }
-.door__inner > :nth-child(2) { animation-delay: calc(0.32s + var(--i) * 0.12s); }
-.door__inner > :nth-child(3) { animation-delay: calc(0.4s + var(--i) * 0.12s); }
-.door__inner > :nth-child(4) { animation-delay: calc(0.48s + var(--i) * 0.12s); }
-.door__inner > :nth-child(5) { animation-delay: calc(0.54s + var(--i) * 0.12s); }
-.door__inner > :nth-child(6) { animation-delay: calc(0.6s + var(--i) * 0.12s); }
-
-/* the door you're not pointing at softens slightly */
-@media (hover: hover) {
-  .portal__split:has(.door:hover) .door:not(:hover) .door__inner {
-    opacity: 0.86;
-  }
-}
-
-.door__logo {
-  /* same height on both doors so the rows below line up */
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: clamp(62px, 9vh, 82px);
-}
-.door__logo .logo {
-  height: clamp(44px, 6.4vh, 58px);
+.half__content .logo {
+  height: clamp(44px, 6.4vh, 60px);
   width: auto;
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.55));
 }
-.door--sukoon .door__logo .logo {
-  height: clamp(58px, 8.4vh, 78px);
+.half--sukoon .half__content .logo {
+  height: clamp(56px, 8vh, 74px);
 }
-.door__eyebrow {
-  font-size: var(--fs-xs);
+.half__line {
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
 }
-
-/* Picture frame — always the render's full proportions, never cropped */
-.door__frame {
-  display: block;
-  width: min(460px, 34vw, calc(36svh * 1.3624));
-  border-radius: 26px;
-  overflow: hidden;
-  border: 6px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 30px 70px -36px rgba(10, 8, 32, 0.55);
-  transition: transform 600ms var(--ease-out), box-shadow 600ms var(--ease-out);
+.half--bic .half__line {
+  color: #dcd8fb;
 }
-.door:hover .door__frame,
-.door:focus-visible .door__frame {
-  transform: translateY(-6px);
-  box-shadow: 0 44px 90px -40px rgba(10, 8, 32, 0.6);
+.half--sukoon .half__line {
+  color: var(--sv-accent, #ecd2a8);
 }
-.door__frame img,
-.door__placeholder {
-  /* proportions set on the picture itself (inside the border) so it is never cropped */
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1500 / 1101;
-  object-fit: cover;
-}
-.door__placeholder {
-  position: relative;
-  display: grid;
-  place-items: center;
-}
-.door__placeholder-pattern {
-  position: absolute;
-  inset: 0;
-}
-.door__placeholder-mark {
-  position: relative;
-  width: 64px;
-  height: 64px;
-  opacity: 0.9;
-}
-
-.door__text {
-  max-width: 40ch;
-  font-size: var(--fs-md);
-  line-height: 1.55;
-}
-.door__tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-}
-.door__tags span {
-  padding: 4px 12px;
-  border-radius: var(--radius-pill);
-  font-size: var(--fs-xs);
-  font-weight: 600;
-  background: rgba(255, 255, 255, 0.55);
-}
-.door__cta {
+.half__cta {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 4px;
-  padding: 14px 30px;
+  gap: 0.6em;
+  margin-top: 0.4rem;
+  padding: 0.85em 1.8em;
   border-radius: var(--radius-pill);
   font-weight: 700;
   font-size: var(--fs-sm);
-  letter-spacing: 0.02em;
-  transition: gap var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+  box-shadow: 0 16px 36px -18px rgba(0, 0, 0, 0.7);
+  transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
 }
-.door:hover .door__cta,
-.door:focus-visible .door__cta {
-  gap: 16px;
-}
-
-/* ---- BIC door ---------------------------------------------------------- */
-.door--bic {
-  color: var(--bic-primary);
-  background: linear-gradient(160deg, #ffffff 0%, #f6f5fc 55%, #ebe8f8 100%);
-}
-.door--bic .door__pattern {
-  color: var(--bic-primary);
-}
-.door--bic .door__glow {
-  background: #b4aeeb;
-  top: -20%;
-  left: -15%;
-}
-.door--bic .door__eyebrow {
-  color: var(--bic-primary);
-}
-.door--bic .door__text {
-  color: #4a4766;
-}
-.door--bic .door__tags span {
-  border: 1px solid rgba(28, 21, 92, 0.18);
-  color: var(--bic-primary);
-}
-.door--bic .door__placeholder {
-  color: var(--sv-primary);
-  background: linear-gradient(150deg, var(--bic-primary-light), var(--bic-primary) 55%, var(--bic-primary-dark));
-}
-.door--bic .door__placeholder-pattern {
-  color: #b4aeeb;
-}
-.door--bic .door__cta {
-  background: linear-gradient(135deg, var(--bic-primary-light), var(--bic-primary) 60%, var(--bic-primary-dark));
-  color: #ffffff;
-  box-shadow: 0 12px 30px -14px var(--bic-primary);
-}
-
-/* ---- Sukoon door ------------------------------------------------------- */
-.door--sukoon {
-  color: #2a1f13;
-  background: linear-gradient(200deg, #fffdf9 0%, #fbf5ec 55%, #f3e5d1 100%);
-}
-.door--sukoon .door__pattern {
-  color: var(--sv-primary);
-}
-.door--sukoon .door__glow {
-  background: var(--sv-primary-light);
-  bottom: -20%;
-  right: -15%;
-}
-.door--sukoon .door__eyebrow {
-  color: var(--sv-ink);
-}
-.door--sukoon .door__text {
-  color: #6b5a45;
-}
-.door--sukoon .door__tags span {
-  border: 1px solid rgba(203, 155, 97, 0.45);
-  color: var(--sv-ink);
-}
-.door--sukoon .door__placeholder {
-  color: #fbf8f3;
-  background: linear-gradient(150deg, var(--sv-primary-light), var(--sv-primary) 55%, var(--sv-primary-dark));
-}
-.door--sukoon .door__placeholder-pattern {
-  color: #fbf8f3;
-}
-.door--sukoon .door__cta {
-  background: #2a1f13;
-  color: #fbf8f3;
-  box-shadow: 0 12px 30px -14px rgba(42, 31, 19, 0.6);
-}
-
-/* ---- Text block with a photo background -------------------------------- */
-.door--photo .door__inner {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  justify-content: flex-end;
-  width: min(540px, 100%);
-  min-height: clamp(440px, 66vh, 620px);
-  padding: clamp(1.5rem, 3vh, 2.25rem) clamp(1.5rem, 3vw, 2.5rem);
-  border-radius: 32px;
-  border: 6px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 36px 90px -40px rgba(10, 8, 32, 0.6);
-  color: #ffffff;
-  transition: transform 600ms var(--ease-out), box-shadow 600ms var(--ease-out), opacity 500ms var(--ease-out);
-}
-.door--photo:hover .door__inner,
-.door--photo:focus-visible .door__inner {
-  transform: translateY(-6px);
-  box-shadow: 0 48px 100px -42px rgba(10, 8, 32, 0.65);
-}
-.door__photo {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
-  transition: transform 1.6s var(--ease-out);
-}
-.door--photo:hover .door__photo {
-  transform: scale(1.05);
-}
-.door__photo-shade {
-  /* clear at the top (the buildings), darker where the text sits */
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-}
-.door--bic .door__photo-shade {
-  background: linear-gradient(180deg, rgba(17, 12, 58, 0) 14%, rgba(17, 12, 58, 0.62) 40%, rgba(17, 12, 58, 0.92) 100%);
-}
-.door--sukoon .door__photo-shade {
-  background: linear-gradient(180deg, rgba(42, 31, 19, 0) 14%, rgba(42, 31, 19, 0.62) 40%, rgba(42, 31, 19, 0.92) 100%);
-}
-.door--photo .door__logo {
-  height: auto;
-}
-.door--photo .door__logo .logo {
-  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.55));
-}
-.door--photo .door__eyebrow,
-.door--photo .door__text {
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
-}
-.door--photo .door__logo .logo {
-  height: clamp(38px, 5.2vh, 48px);
-}
-.door--sukoon.door--photo .door__logo .logo {
-  height: clamp(52px, 7.2vh, 66px);
-}
-.door--photo .door__inner {
-  gap: clamp(0.55rem, 1.2vh, 0.85rem);
-}
-.door--photo .door__text {
-  color: rgba(255, 255, 255, 0.92);
-}
-.door--bic.door--photo .door__eyebrow {
-  color: #d4d0f7;
-}
-.door--sukoon.door--photo .door__eyebrow {
-  color: var(--sv-accent);
-}
-.door--photo .door__tags span {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
-.door--bic.door--photo .door__cta {
+.half--bic .half__cta {
   background: #ffffff;
   color: var(--bic-primary);
 }
-.door--sukoon.door--photo .door__cta {
+.half--sukoon .half__cta {
   background: linear-gradient(135deg, var(--sv-primary-light), var(--sv-primary));
   color: #2a1f13;
 }
-@media (max-width: 899px) {
-  .door--photo .door__inner {
-    /* taller block so the photo shows above the text on phones */
-    min-height: 0;
-    padding-top: clamp(170px, 48vw, 260px);
-  }
-  .door--bic .door__photo-shade {
-    background: linear-gradient(180deg, rgba(17, 12, 58, 0) 10%, rgba(17, 12, 58, 0.7) 34%, rgba(17, 12, 58, 0.94) 100%);
-  }
-  .door--sukoon .door__photo-shade {
-    background: linear-gradient(180deg, rgba(42, 31, 19, 0) 10%, rgba(42, 31, 19, 0.7) 34%, rgba(42, 31, 19, 0.94) 100%);
-  }
+.half:hover .half__cta,
+.half:focus-visible .half__cta {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 44px -18px rgba(0, 0, 0, 0.8);
+}
+.half__cta svg {
+  transition: transform var(--dur) var(--ease-out);
+}
+.half:hover .half__cta svg {
+  transform: translateX(4px);
 }
 
-/* ---- Centre medallion -------------------------------------------------- */
+/* ---- Centre medallion (desktop) ---------------------------------------- */
 .portal__medallion {
   display: none;
 }
 @media (min-width: 900px) {
   .portal__split::after {
-    /* thin divider between the two doors */
     content: '';
     position: absolute;
     top: 0;
     bottom: 0;
     left: 50%;
     width: 1px;
-    background: linear-gradient(180deg, transparent, rgba(28, 21, 92, 0.14) 20%, rgba(203, 155, 97, 0.3) 80%, transparent);
+    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.45) 25%, rgba(255, 255, 255, 0.45) 75%, transparent);
     pointer-events: none;
+    transition: left 900ms var(--ease-out);
   }
   .portal__medallion {
     position: absolute;
@@ -447,16 +256,26 @@
     transform: translate(-50%, -50%);
     background: rgba(255, 255, 255, 0.85);
     border: 1px solid rgba(255, 255, 255, 0.95);
-    box-shadow: 0 16px 40px -18px rgba(10, 8, 32, 0.4);
+    box-shadow: 0 16px 40px -18px rgba(10, 8, 32, 0.5);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     color: var(--sv-primary);
     pointer-events: none;
+    transition: left 900ms var(--ease-out);
     animation: medallion-in 1s var(--ease-out) 0.5s both;
   }
   .portal__medallion svg {
     width: 28px;
     height: 28px;
+  }
+  /* follow the divider when a half grows on hover (flex 0.85 : 1.15) */
+  .portal__split:has(.half--bic:hover) .portal__medallion,
+  .portal__split:has(.half--bic:hover)::after {
+    left: 57.5%;
+  }
+  .portal__split:has(.half--sukoon:hover) .portal__medallion,
+  .portal__split:has(.half--sukoon:hover)::after {
+    left: 42.5%;
   }
 }
 @keyframes medallion-in {
@@ -475,383 +294,56 @@
   right: 0;
   text-align: center;
   font-size: var(--fs-xs);
-  color: #4a4766;
+  color: rgba(255, 255, 255, 0.85);
   pointer-events: none;
 }
 .portal__foot p {
-  /* small frosted pill so it stays readable over photos */
   display: inline-block;
   padding: 5px 14px;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(10, 8, 32, 0.35);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
-/* ---- Mobile / tablet: stacked doors ----------------------------------- */
+/* ---- Phones / tablets: stacked halves ---------------------------------- */
 @media (max-width: 899px) {
-  .portal__bar {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    margin: 16px auto 0;
-    width: fit-content;
-    max-width: calc(100% - 32px);
-    white-space: normal;
-    animation: fade-up 0.9s var(--ease-out) both;
+  .half {
+    min-height: max(62svh, 440px);
+    padding-bottom: clamp(2.5rem, 6vh, 3.5rem);
   }
-  .portal {
-    background: linear-gradient(180deg, #ffffff, #f6f5fc);
-  }
-  .portal__split {
-    min-height: 0;
-    gap: 0;
-  }
-  .door {
-    padding: var(--space-7) var(--space-5) var(--space-8);
-    animation-name: fade-up;
-  }
-  .door__frame {
-    width: min(100%, 460px);
+  .half--sukoon {
+    padding-top: 3rem;
   }
   .portal__foot {
     position: static;
     padding: var(--space-5) 0 var(--space-6);
-    background: #f3e5d1;
+    background: #2a1f13;
+  }
+  .portal__foot p {
+    background: transparent;
+  }
+}
+@media (max-width: 480px) {
+  .portal__bar {
+    padding: 8px 18px 8px 10px;
+    gap: 10px;
+  }
+  .portal__bar-title {
+    font-size: 1rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .door,
-  .door__inner > *,
+  .half,
+  .half__photo,
+  .half__content > *,
   .portal__bar,
   .portal__medallion {
     animation: none;
   }
-}
-
-/* ==========================================================================
-   AERIAL BACKGROUND (.portal--aerial)
-   One aerial photo behind both doors: cool blue on the BIC (left) side,
-   warm golden on the Sukoon (right) side, with the photo-cards on top.
-   ========================================================================== */
-.portal__aerial {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  background: #1c2a3a;
-}
-.portal__aerial img {
-  width: 100%;
-  max-width: none;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 62%;
-  filter: saturate(1.12) contrast(1.04);
-  animation: aerial-in 1.8s var(--ease-out) both;
-}
-@keyframes aerial-in {
-  from {
-    opacity: 0;
-    transform: scale(1.05);
-  }
-}
-.portal__grade {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(10, 20, 50, 0.18), transparent 30%, transparent 75%, rgba(10, 8, 32, 0.28)),
-    linear-gradient(90deg, rgba(60, 120, 240, 0.6) 0%, rgba(60, 120, 240, 0.42) 49.6%, rgba(255, 180, 80, 0.48) 50.4%, rgba(255, 170, 70, 0.62) 100%);
-  mix-blend-mode: soft-light;
-}
-.portal--aerial .portal__grade::after {
-  /* a little extra warmth / coolness on top of the blend */
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(120, 170, 240, 0.28) 0%, transparent 22%),
-    linear-gradient(90deg, rgba(90, 145, 235, 0.14) 0%, rgba(90, 145, 235, 0.08) 49.8%, rgba(255, 205, 140, 0.14) 50.2%, rgba(255, 195, 120, 0.2) 100%);
-  mix-blend-mode: normal;
-}
-.portal--aerial .door {
-  background: transparent;
-}
-.portal--aerial .door__pattern,
-.portal--aerial .door__glow {
-  display: none;
-}
-.portal--aerial .portal__split::after {
-  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35) 25%, rgba(255, 255, 255, 0.35) 75%, transparent);
-}
-.portal--aerial .door--photo .door__inner {
-  width: min(430px, 29vw);
-  min-height: clamp(420px, 62vh, 560px);
-}
-.portal--aerial .door--photo .door__tags {
-  flex-wrap: nowrap;
-  gap: 6px;
-}
-.portal--aerial .door--photo .door__tags span {
-  padding: 4px 10px;
-  font-size: 0.68rem;
-  white-space: nowrap;
-}
-.portal--aerial .door--photo .door__eyebrow {
-  font-size: 0.66rem;
-}
-.portal--aerial .door--photo .door__text {
-  font-size: var(--fs-sm);
-}
-.portal--aerial .portal__foot {
-  color: #4a4766;
-}
-@media (max-width: 1100px) and (min-width: 900px) {
-  .portal--aerial .door--photo .door__tags {
-    flex-wrap: wrap;
-  }
-}
-@media (max-width: 899px) {
-  .portal--aerial {
-    background: transparent;
-  }
-  .portal--aerial .door--photo .door__tags {
-    flex-wrap: wrap;
-  }
-  .portal--aerial .door--photo .door__inner {
-    width: min(480px, 100%);
-  }
-  .portal--aerial .portal__foot {
-    background: transparent;
-  }
-}
-
-/* ---- Match the reference design exactly (aerial version, desktop) ------ */
-@media (min-width: 900px) {
-  .portal--aerial .portal__bar {
-    top: 10px;
-    padding: 8px 24px 8px 12px;
-  }
-  .portal--aerial .portal__bar-mark {
-    width: 34px;
-    height: 34px;
-  }
-  .portal--aerial .portal__bar-eyebrow {
-    font-size: 0.6rem;
-    color: #6f6b8a;
-  }
-  .portal--aerial .portal__bar-title {
-    font-size: 1.05rem;
-  }
-  .portal--aerial .portal__split::after,
-  .portal--aerial .portal__foot {
-    display: none;
-  }
-  .portal--aerial .door {
-    align-items: center;
-    padding: 0;
-  }
-  .portal--aerial .portal__medallion {
-    top: 48.6%;
-    width: 54px;
-    height: 54px;
-  }
-  .portal--aerial .portal__medallion svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  /* cards: 24% wide, 58% tall, photo bright at the top */
-  .portal--aerial .door--photo .door__inner {
-    width: clamp(330px, 24vw, 400px);
-    min-height: 0;
-    height: clamp(420px, 58.4svh, 560px);
-    padding: 0 clamp(1rem, 1.6vw, 1.6rem) clamp(1.4rem, 3.4vh, 1.9rem);
-    gap: 0;
-    border-width: 5px;
-    border-radius: 22px;
-  }
-  .portal--aerial .door__photo {
-    object-position: center 18%;
-    filter: saturate(1.15) contrast(1.05);
-  }
-  .portal--aerial .door--bic .door__photo-shade {
-    background: linear-gradient(180deg, transparent 0%, transparent 34%, rgba(30, 22, 80, 0.72) 50%, rgba(28, 20, 78, 0.94) 66%, rgba(24, 17, 68, 0.97) 100%);
-  }
-  .portal--aerial .door--sukoon .door__photo-shade {
-    background: linear-gradient(180deg, transparent 0%, transparent 34%, rgba(64, 48, 26, 0.7) 50%, rgba(60, 45, 24, 0.92) 66%, rgba(52, 39, 20, 0.96) 100%);
-  }
-  .portal--aerial .door--photo .door__logo .logo {
-    height: clamp(40px, 6vh, 50px);
-    filter: none;
-  }
-  .portal--aerial .door--sukoon.door--photo .door__logo .logo {
-    height: clamp(52px, 7.6vh, 64px);
-  }
-  .portal--aerial .door--photo .door__eyebrow {
-    margin-top: clamp(0.6rem, 1.6vh, 0.9rem);
-    font-size: 0.56rem;
-    letter-spacing: 0.16em;
-    white-space: nowrap;
-    color: rgba(255, 255, 255, 0.82);
-    text-shadow: none;
-  }
-  .portal--aerial .door--sukoon.door--photo .door__eyebrow {
-    color: rgba(255, 255, 255, 0.82);
-  }
-  .portal--aerial .door--photo .door__text {
-    margin-top: clamp(0.5rem, 1.3vh, 0.75rem);
-    font-size: 0.84rem;
-    line-height: 1.55;
-    color: #ffffff;
-    text-shadow: none;
-  }
-  .portal--aerial .door--photo .door__tags {
-    margin-top: clamp(0.9rem, 2.6vh, 1.4rem);
-  }
-  .portal--aerial .door--photo .door__tags span {
-    padding: 4px 11px;
-    font-size: 0.62rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.92);
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.28);
-  }
-  .portal--aerial .door--photo .door__cta {
-    margin-top: clamp(1.2rem, 3.2vh, 1.7rem);
-    padding: 11px 34px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    gap: 22px;
-  }
-  .portal--aerial .door--photo:hover .door__cta {
-    gap: 28px;
-  }
-  .portal--aerial .door--bic.door--photo .door__cta {
-    padding-inline: 34px;
-  }
-  .portal--aerial .door--sukoon.door--photo .door__cta {
-    background: #e9c48f;
-    color: #2a1f13;
-  }
-}
-
-/* richer, clearer background: blue sky on the BIC side, warm gold on the Sukoon side */
-.portal--aerial .portal__aerial img {
-  filter: saturate(1.35) contrast(1.12) brightness(1.04);
-}
-.portal--aerial .portal__grade {
-  background:
-    linear-gradient(90deg, rgba(40, 110, 255, 0.55) 0%, rgba(40, 110, 255, 0.4) 50%, rgba(255, 165, 60, 0.5) 50%, rgba(255, 160, 50, 0.62) 100%);
-}
-.portal--aerial .portal__grade::after {
-  background:
-    linear-gradient(180deg, rgba(95, 160, 235, 0.55) 0%, rgba(95, 160, 235, 0.2) 10%, transparent 18%) left / 50% 100% no-repeat,
-    linear-gradient(180deg, rgba(250, 215, 160, 0.6) 0%, rgba(250, 210, 150, 0.2) 10%, transparent 18%) right / 50% 100% no-repeat,
-    linear-gradient(90deg, rgba(80, 140, 235, 0.1) 0% 50%, rgba(255, 190, 110, 0.14) 50% 100%);
-}
-@media (min-width: 900px) {
-  .portal--aerial .door--photo .door__text {
-    max-width: none;
-    font-size: 0.8rem;
-    padding-inline: 0.2rem;
-  }
-  .portal--aerial .door--photo .door__tags {
-    margin-top: clamp(1rem, 3.6vh, 1.7rem);
-  }
-  .portal--aerial .door--photo .door__cta {
-    margin-top: clamp(1.2rem, 3.8vh, 1.9rem);
-  }
-}
-.portal--aerial .portal__aerial img {
-  filter: saturate(1.28) contrast(1.06) brightness(1.03);
-}
-.portal--aerial .portal__grade {
-  background: linear-gradient(90deg, rgba(40, 110, 255, 0.36) 0%, rgba(40, 110, 255, 0.28) 50%, rgba(255, 165, 60, 0.5) 50%, rgba(255, 160, 50, 0.6) 100%);
-}
-.portal--aerial .portal__grade::after {
-  background:
-    linear-gradient(180deg, rgba(72, 140, 228, 0.92) 0%, rgba(110, 165, 232, 0.75) 9%, rgba(140, 185, 235, 0.35) 15%, transparent 19%) left / 50% 100% no-repeat,
-    linear-gradient(180deg, rgba(240, 222, 186, 0.92) 0%, rgba(245, 215, 170, 0.72) 9%, rgba(245, 205, 150, 0.32) 15%, transparent 19%) right / 50% 100% no-repeat,
-    linear-gradient(90deg, rgba(80, 140, 235, 0.08) 0% 50%, rgba(255, 190, 110, 0.14) 50% 100%);
-}
-@media (min-width: 900px) {
-  /* spacing measured from the reference (at 788px tall) */
-  .portal--aerial .door--photo .door__eyebrow {
-    margin-top: clamp(0.5rem, 1.3vh, 0.75rem);
-  }
-  .portal--aerial .door--photo .door__text {
-    margin-top: clamp(0.7rem, 2vh, 1.1rem);
-  }
-  .portal--aerial .door--photo .door__tags {
-    margin-top: clamp(0.9rem, 2.8vh, 1.5rem);
-  }
-  .portal--aerial .door--photo .door__cta {
-    margin-top: clamp(0.75rem, 2vh, 1.1rem);
-    padding-block: 12px;
-  }
-}
-
-/* ---- Phones / tablets: each door gets its own photo as background ------
-   The doors stack vertically, so instead of one aerial photo behind both,
-   each door shows its own project photo behind its card. */
-.door__backdrop {
-  display: none;
-}
-@media (max-width: 899px) {
-  .portal--aerial .portal__aerial {
-    display: none;
-  }
-  .portal--aerial {
-    background: #110e2e;
-  }
-  .door__backdrop {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    display: block;
-    overflow: hidden;
-  }
-  .door__backdrop img {
-    width: 100%;
-    max-width: none;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
-    transform: scale(1.08);
-    filter: blur(3px) saturate(1.2);
-  }
-  .door__backdrop::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-  }
-  .door--bic .door__backdrop::after {
-    background: linear-gradient(180deg, rgba(28, 21, 92, 0.35), rgba(28, 21, 92, 0.6));
-  }
-  .door--sukoon .door__backdrop::after {
-    background: linear-gradient(180deg, rgba(120, 82, 38, 0.35), rgba(66, 46, 24, 0.62));
-  }
-  .portal--aerial .portal__bar {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    top: 16px;
-    width: max-content;
-    max-width: calc(100% - 32px);
-    animation: none;
-  }
-  .portal--aerial .door--bic {
-    padding-top: calc(var(--space-7) + 72px);
-  }
-  .portal--aerial .portal__foot {
-    background: #2a1f13;
-    color: rgba(255, 255, 255, 0.8);
-  }
-  .portal--aerial .portal__foot p {
-    background: transparent;
+  .half,
+  .half__photo {
+    transition: none;
   }
 }

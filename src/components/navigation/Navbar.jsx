@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { site } from '../../site'
+import { externalHref, site } from '../../site'
 import { useScrolled } from '../../hooks/useScrolled'
 import { useLockBody } from '../../hooks/useLockBody'
 import { useEscape } from '../../hooks/useEscape'
@@ -72,7 +72,7 @@ export default function Navbar() {
     }
     setOpenMenu((m) => (m === label ? null : label))
   }
-  const groupActive = (item) => item.children.some((c) => pathname === c.to)
+  const groupActive = (item) => item.children.some((c) => !externalHref(c.site, c.to) && pathname === c.to)
 
   return (
     <header className={cx('nav', `nav--${tone}`, scrolled && 'nav--scrolled', mobileOpen && 'nav--mobile-open')} ref={navRef}>
@@ -99,14 +99,24 @@ export default function Navbar() {
                   </button>
                   <div id={`menu-${item.label}`} className={cx('dropdown', openMenu === item.label && 'is-open')}>
                     <ul>
-                      {item.children.map((c) => (
-                        <li key={c.to}>
-                          <NavLink to={c.to} end className="dropdown__link">
+                      {item.children.map((c) => {
+                        const body = (
+                          <>
                             <span className="dropdown__label">{c.label}</span>
                             {c.text && <span className="dropdown__text">{c.text}</span>}
-                          </NavLink>
-                        </li>
-                      ))}
+                          </>
+                        )
+                        const href = externalHref(c.site, c.to)
+                        return (
+                          <li key={c.label}>
+                            {href ? (
+                              <a href={href} className="dropdown__link">{body}</a>
+                            ) : (
+                              <NavLink to={c.to} end className="dropdown__link">{body}</NavLink>
+                            )}
+                          </li>
+                        )
+                      })}
                     </ul>
                   </div>
                 </li>
@@ -154,9 +164,10 @@ export default function Navbar() {
                     </button>
                     <div className={cx('mobile-menu__sub', mobileSection === item.label && 'is-open')}>
                       <ul>
-                        {item.children.map((c) => (
-                          <li key={c.to}><NavLink to={c.to} end>{c.label}</NavLink></li>
-                        ))}
+                        {item.children.map((c) => {
+                          const href = externalHref(c.site, c.to)
+                          return <li key={c.label}>{href ? <a href={href}>{c.label}</a> : <NavLink to={c.to} end>{c.label}</NavLink>}</li>
+                        })}
                       </ul>
                     </div>
                   </>
