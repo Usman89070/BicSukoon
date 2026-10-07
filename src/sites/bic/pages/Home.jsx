@@ -1,8 +1,5 @@
-import { Link } from 'react-router-dom'
 import { bicHome as c } from '../../../data/home'
 import { videos } from '../../../data/videos'
-import { externalHref } from '../../../site'
-import { imageFor } from '../../../utils/images'
 import Seo from '../../../components/common/Seo'
 import SectionHeader from '../../../components/common/SectionHeader'
 import Reveal from '../../../components/common/Reveal'
@@ -14,6 +11,7 @@ import Masterplan from '../../../components/masterplan/Masterplan'
 import VideoFeature from '../../../components/video/VideoFeature'
 import StageHero from '../../../components/showcase/StageHero'
 import CompletedWorks from '../../../components/showcase/CompletedWorks'
+import ExploreCard from '../../../components/showcase/ExploreCard'
 import { heroImage } from '../images'
 
 const Crescent = () => (
@@ -21,35 +19,6 @@ const Crescent = () => (
     <path d="M38 14a19 19 0 1 0 0 36 22 22 0 0 1 0-36z" fill="currentColor" />
   </svg>
 )
-
-/** A card that links within this site or across to Sukoon Village. */
-function ExploreCard({ item, index }) {
-  const href = externalHref(item.site, item.path)
-  const inner = (
-    <>
-      <Media src={imageFor(item.image)} label={item.title} showLabel={false} className="explore-card__media" />
-      <span className="explore-card__shade" aria-hidden="true" />
-      <span className="explore-card__num" aria-hidden="true">0{index + 1}</span>
-      <span className="explore-card__body">
-        <span className="explore-card__title">{item.title}</span>
-        <span className="explore-card__text">{item.text}</span>
-        <span className="explore-card__more">Discover <Icon name="arrow" size={16} /></span>
-      </span>
-    </>
-  )
-  return (
-    <Reveal as="li" delay={index * 80} className={`explore-card explore-card--${item.id}`}>
-      {href ? <a href={href} className="explore-card__link">{inner}</a> : <Link to={item.path} className="explore-card__link">{inner}</Link>}
-      {item.links && (
-        <ul className="explore-card__chips" aria-label={`${item.title}: pages`}>
-          {item.links.map((l) => (
-            <li key={l.label}><Link to={l.path}>{l.label}</Link></li>
-          ))}
-        </ul>
-      )}
-    </Reveal>
-  )
-}
 
 /** BIC home: official copy, big visuals. */
 export default function BicHome() {

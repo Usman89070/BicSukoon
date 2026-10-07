@@ -1,3 +1,6 @@
+import { seniors } from './seniors'
+import { childcare } from './childcare'
+
 /**
  * BIC home page copy — official wording supplied by the project team.
  * Edit here; the layout is in src/sites/bic/pages/Home.jsx.
@@ -90,4 +93,33 @@ export const bicHome = {
     body: 'It is a place where communities gather, knowledge is shared, children are nurtured and our elders remain connected.',
     closing: 'Together, we are building a legacy that will serve this generation and every generation to come.',
   },
+}
+
+/**
+ * Sukoon Village home page — built from the official Seniors Living copy
+ * (src/data/seniors.js) so wording stays in one place.
+ */
+export const sukoonHome = {
+  hero: { eyebrow: 'Sukoon Village Seniors Living', title: seniors.heading },
+  welcome: {
+    title: 'Welcome to Sukoon Village',
+    lead: seniors.intro[0],
+    body: [seniors.intro[1], seniors.belong],
+    pillars: ['Comfort', 'Independence', 'Community', 'Family', 'Faith'],
+  },
+  facts: seniors.facts,
+  explore: {
+    title: 'Explore the Village',
+    body: [seniors.dignity.lead, seniors.connected.lead],
+    items: [
+      { id: 'seniors', title: 'Seniors Living', text: seniors.dignity.body[1], site: 'sukoon', path: '/seniors-living', image: ['facility-seniors-living', 'site-300DPISukoon'] },
+      { id: 'lifestyle', title: 'Lifestyle Centre', text: `${seniors.lifestyle.lead} ${seniors.lifestyle.body[1]}`, site: 'sukoon', path: '/lifestyle-centre', image: 'facility-lifestyle-centre' },
+      { id: 'bic', title: 'Brisbane Islamic Centre', text: seniors.connected.body[0], site: 'bic', path: '/', image: ['hero-bic', 'site-300DPIbic'] },
+      { id: 'childcare', title: 'Childcare Centre', text: childcare.intro[0], site: 'bic', path: '/childcare-centre', image: 'facility-childcare' },
+    ],
+  },
+  connected: seniors.connected,
+  chapter: seniors.chapter,
+  ahead: seniors.ahead,
+  values: seniors.values,
 }

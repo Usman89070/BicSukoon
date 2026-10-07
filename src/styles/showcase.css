@@ -1744,3 +1744,27 @@
   border-radius: var(--radius-lg, 20px);
   overflow: hidden;
 }
+
+/* ---- Sukoon home: warm versions of the shared home sections ------------- */
+:root[data-site='sukoon'] .home-welcome__mark {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--sv-primary-light, #e3c08f), var(--sv-primary, #cb9b61));
+}
+:root[data-site='sukoon'] .home-welcome__pillars li:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #2a1f13;
+}
+:root[data-site='sukoon'] .explore-card__shade {
+  background: linear-gradient(180deg, rgba(42, 31, 19, 0.1) 0%, transparent 30%, rgba(42, 31, 19, 0.55) 55%, rgba(42, 31, 19, 0.92) 100%);
+}
+:root[data-site='sukoon'] .explore-card--bic .explore-card__shade {
+  background: linear-gradient(180deg, rgba(8, 6, 26, 0.1) 0%, transparent 30%, rgba(8, 6, 26, 0.55) 55%, rgba(8, 6, 26, 0.92) 100%);
+}
+:root[data-site='sukoon'] .done__shade {
+  background: linear-gradient(180deg, rgba(42, 31, 19, 0.25), transparent 30%, transparent 50%, rgba(42, 31, 19, 0.85));
+}
+.home-welcome + .sl-facts,
+.home-welcome .sl-facts {
+  margin-top: var(--space-8);
+}
