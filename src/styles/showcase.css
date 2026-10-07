@@ -1781,3 +1781,8 @@
   background: #fbf7f1;
   border-color: rgba(203, 155, 97, 0.4);
 }
+
+/* Childcare render: show the coloured shade sails in tall cards */
+.explore-card--childcare .explore-card__media img {
+  object-position: 12% 50%;
+}
