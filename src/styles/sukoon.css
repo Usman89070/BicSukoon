@@ -1,6 +1,6 @@
 /* ==========================================================================
    SUKOON VILLAGE INTERFACE
-   Light, calm and residential: warm white grounds, gold accents, arched
+   Light, calm and residential: warm white grounds, gold accents, framed
    "window" imagery, a light floating navigation and softer typography.
    Everything here is scoped to <html data-site="sukoon">.
    ========================================================================== */
@@ -161,7 +161,7 @@
 }
 .sv-hero__arch {
   aspect-ratio: 4 / 5;
-  border-radius: 999px 999px var(--radius-xl) var(--radius-xl);
+  border-radius: var(--radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   border: 6px solid var(--surface);
@@ -259,7 +259,7 @@
 .sv-card__arch {
   width: 100%;
   aspect-ratio: 3 / 4;
-  border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
   transition: transform var(--dur) var(--ease-out), box-shadow var(--dur);
@@ -336,16 +336,17 @@
 }
 .page-hero-split__visual {
   justify-self: center;
-  width: min(100%, 440px);
-  aspect-ratio: 4 / 5;
-  border-radius: 999px 999px var(--radius-xl) var(--radius-xl);
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-xl);
   overflow: hidden;
   border: 6px solid var(--surface);
   box-shadow: var(--shadow-lg);
   animation: fade-up 1.2s var(--ease-out) 0.15s both;
 }
 .page-hero-split--sm .page-hero-split__visual {
-  width: min(100%, 340px);
+  max-width: 440px;
 }
 .page-hero-split__visual video,
 .page-hero-split__visual .media {
@@ -357,7 +358,7 @@
   .page-hero-split__visual {
     aspect-ratio: 16 / 10;
     width: 100%;
-    border-radius: 200px 200px var(--radius-lg) var(--radius-lg);
+    border-radius: var(--radius-lg);
   }
 }
 
@@ -372,10 +373,10 @@
 }
 :root[data-site='sukoon'] .feature__media,
 :root[data-site='sukoon'] .vision-chapter__media {
-  border-radius: 280px 280px var(--radius-xl) var(--radius-xl);
+  border-radius: var(--radius-xl);
 }
 :root[data-site='sukoon'] .pillar {
-  border-radius: 200px 200px var(--radius-lg) var(--radius-lg);
+  border-radius: var(--radius-lg);
 }
 :root[data-site='sukoon'] .chip.is-active,
 :root[data-site='sukoon'] .tag--project,
