@@ -1,6 +1,8 @@
 import { lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import SiteLayout from '../../layouts/SiteLayout'
+import ExternalRedirect from '../../templates/ExternalRedirect'
+import { externalHref } from '../../site'
 import SukoonHome from './pages/Home'
 
 const FacilityPage = lazy(() => import('../../templates/FacilityPage'))
@@ -19,7 +21,7 @@ export default function SukoonApp() {
         <Route path="vision" element={<VisionPage />} />
         <Route path="seniors-living" element={<FacilityPage id="seniors-living" />} />
         <Route path="lifestyle-centre" element={<FacilityPage id="lifestyle-centre" />} />
-        <Route path="childcare-centre" element={<FacilityPage id="childcare-centre" />} />
+        <Route path="childcare-centre" element={<ExternalRedirect href={externalHref('bic', '/childcare-centre')} label="the Brisbane Islamic Centre website" />} />
         <Route path="project-status" element={<StatusPage />} />
         <Route path="project-updates" element={<UpdatesPage />} />
         <Route path="contact" element={<ContactPage />} />

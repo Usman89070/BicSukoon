@@ -29,7 +29,7 @@ export const allocations = [
   { id: 'sukoon-village', title: 'Sukoon Village', project: 'sukoon', text: 'Supporting the village as a whole — from early childhood to later years.' },
   { id: 'seniors-living', title: 'Seniors Living', project: 'sukoon', facility: 'seniors-living' },
   { id: 'lifestyle-centre', title: 'Lifestyle Centre', project: 'sukoon', facility: 'lifestyle-centre' },
-  { id: 'childcare-centre', title: 'Childcare Centre', project: 'sukoon', facility: 'childcare-centre' },
+  { id: 'childcare-centre', title: 'Childcare Centre', project: 'bic', facility: 'childcare-centre' },
   { id: 'future-development', title: 'Future Development', project: 'bic', text: 'Helping the centre grow with the needs of the community.' },
 ]
 

@@ -48,7 +48,7 @@ export const sites = {
           { label: 'Community Hall', to: '/community-hall', text: 'Gatherings & events' },
           { label: 'Café', to: '/cafe', text: 'Meet & unwind' },
           { label: 'Gyms', to: '/gyms', text: 'Health & fitness' },
-          { label: 'Childcare', site: 'sukoon', to: '/childcare-centre', text: 'At Sukoon Village' },
+          { label: 'Childcare Centre', to: '/childcare-centre', text: 'Nurturing the next generation' },
           { label: 'Sukoon Village', site: 'sukoon', to: '/', text: 'Seniors living & lifestyle' },
         ],
       },
@@ -71,7 +71,7 @@ export const sites = {
     ],
     cta: { label: 'Donate', to: '/donate', icon: 'heart' },
     features: { donate: true, funding: true, events: true, guests: true },
-    enquiryTopics: ['General enquiry', 'Masjid Complex', 'Cultural & Heritage Centre', 'Donations & funding', 'Events', 'Media'],
+    enquiryTopics: ['General enquiry', 'Masjid Complex', 'Cultural & Heritage Centre', 'Childcare Centre', 'Donations & funding', 'Events', 'Media'],
 
     contact: { address: null, phone: null, email: null, hours: null, mapEmbedUrl: null },
     socials: socialSlots(),
@@ -100,7 +100,7 @@ export const sites = {
         children: [
           { label: 'Seniors Living', to: '/seniors-living', text: 'Dignity, comfort and connection' },
           { label: 'Lifestyle Centre', to: '/lifestyle-centre', text: 'The heart of village life' },
-          { label: 'Childcare Centre', to: '/childcare-centre', text: 'Care for the next generation' },
+          { label: 'Childcare Centre', site: 'bic', to: '/childcare-centre', text: 'At the Brisbane Islamic Centre' },
           { label: 'Masjid & QMCHC', site: 'bic', to: '/', text: 'At the Brisbane Islamic Centre' },
         ],
       },

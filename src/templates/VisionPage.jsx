@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { pillars } from '../data/vision'
 import { facilities } from '../data/facilities'
 import { SITE_ID, site } from '../site'
@@ -9,6 +8,7 @@ import Icon from '../components/common/Icon'
 import Masterplan from '../components/masterplan/Masterplan'
 import PageShell from './PageShell'
 import CtaBand from './CtaBand'
+import FacilityLink from '../components/common/FacilityLink'
 
 export default function VisionPage() {
   return (
@@ -35,7 +35,7 @@ export default function VisionPage() {
                 <ul className="vision-chapter__links">
                   {p.facilities.map((id) => (
                     <li key={id}>
-                      <Link to={facilities[id].path}>{facilities[id].title} <Icon name="arrow" size={14} /></Link>
+                      <FacilityLink facility={facilities[id]}>{facilities[id].title} <Icon name="arrow" size={14} /></FacilityLink>
                     </li>
                   ))}
                 </ul>

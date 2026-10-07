@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom'
 import { SITE_ID } from '../../site'
 import { allocations } from '../../data/donation'
 import { facilities } from '../../data/facilities'
 import Media from '../common/Media'
 import Reveal from '../common/Reveal'
 import Icon from '../common/Icon'
+import FacilityLink from '../common/FacilityLink'
 
 export default function AllocationCards() {
   return (
@@ -18,7 +18,7 @@ export default function AllocationCards() {
               <span className="alloc-card__icon"><Icon name="heart" size={18} /></span>
               <h3 className="alloc-card__title">{a.title}</h3>
               <p className="alloc-card__text">{a.text ?? f?.summary}</p>
-              {f && <Link to={f.path} className="alloc-card__link">About this area <Icon name="arrow" size={14} /></Link>}
+              {f && <FacilityLink facility={f} className="alloc-card__link">About this area <Icon name="arrow" size={14} /></FacilityLink>}
             </div>
           </Reveal>
         )

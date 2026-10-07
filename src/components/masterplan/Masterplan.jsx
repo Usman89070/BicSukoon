@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { masterplans } from '../../data/masterplan'
 import { facilities } from '../../data/facilities'
 import { SITE_ID, site } from '../../site'
@@ -9,6 +8,7 @@ import Icon from '../common/Icon'
 import Media from '../common/Media'
 import { Value } from '../common/Pending'
 import MasterplanSchematic, { VIEW_W, VIEW_H } from './MasterplanSchematic'
+import FacilityLink from '../common/FacilityLink'
 
 /** Resolve a location against its facility so wording lives in one place. */
 function resolve(loc) {
@@ -21,6 +21,7 @@ function resolve(loc) {
     status: loc.status !== undefined ? loc.status : f?.status ?? null,
     image: loc.image ?? f?.media.image ?? null,
     path: loc.path ?? f?.path ?? null,
+    project: loc.path ? undefined : f?.project,
     x: loc.x ?? (s ? ((s.x + s.w / 2) / VIEW_W) * 100 : 50),
     y: loc.y ?? (s ? ((s.y + s.h / 2) / VIEW_H) * 100 : 50),
   }
@@ -98,9 +99,9 @@ export default function Masterplan() {
                   <dd><Value value={active.status} fallback="Status to be confirmed" /></dd>
                 </dl>
                 {active.path && (
-                  <Link to={active.path} className="btn btn--primary btn--sm">
+                  <FacilityLink to={active.path} project={active.project} className="btn btn--primary btn--sm">
                     <span>Learn more</span> <Icon name="arrow" size={16} className="btn__icon" />
-                  </Link>
+                  </FacilityLink>
                 )}
               </div>
             </>

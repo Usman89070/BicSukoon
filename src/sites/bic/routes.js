@@ -8,6 +8,7 @@ export const routes = [
   '/community-hall',
   '/cafe',
   '/gyms',
+  '/childcare-centre',
   '/project-status',
   '/project-updates',
   '/project-funding',

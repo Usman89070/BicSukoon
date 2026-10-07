@@ -54,7 +54,7 @@ export const bicHome = {
         id: 'childcare',
         title: 'Childcare Centre',
         text: 'A nurturing environment where young minds can learn, grow and thrive within a values-based community.',
-        site: 'sukoon',
+        site: 'bic',
         path: '/childcare-centre',
         image: 'facility-childcare',
       },

@@ -127,12 +127,12 @@ export const facilities = {
   },
   'childcare-centre': {
     id: 'childcare-centre',
-    project: 'sukoon',
+    project: 'bic',
     title: 'Childcare Centre',
     path: '/childcare-centre',
-    eyebrow: 'Sukoon Village',
+    eyebrow: 'Brisbane Islamic Centre',
     pillar: 'Legacy',
-    summary: 'Early learning and care for the next generation, at the heart of the village.',
+    summary: 'A safe, welcoming and nurturing environment where children can learn, grow and thrive during their most important early years.',
     status: null,
     media: { image: null, video: null, label: 'Childcare Centre render' },
     sections: [

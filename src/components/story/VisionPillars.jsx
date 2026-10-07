@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom'
 import { pillars } from '../../data/vision'
 import { SITE_ID } from '../../site'
 import { facilities } from '../../data/facilities'
 import { cx } from '../../utils/format'
 import Media from '../common/Media'
 import Reveal from '../common/Reveal'
+import FacilityLink from '../common/FacilityLink'
 
 /** The four themes as premium cards. `detailed` adds facility links. */
 export default function VisionPillars({ detailed = false, className }) {
@@ -25,7 +25,7 @@ export default function VisionPillars({ detailed = false, className }) {
                 <ul className="pillar__links">
                   {p.facilities.map((id) => (
                     <li key={id}>
-                      <Link to={facilities[id].path}>{facilities[id].shortTitle ?? facilities[id].title}</Link>
+                      <FacilityLink facility={facilities[id]}>{facilities[id].shortTitle ?? facilities[id].title}</FacilityLink>
                     </li>
                   ))}
                 </ul>
