@@ -1,4 +1,7 @@
+import { timeline, timelineIntro } from '../../../data/timeline'
 import SectionHeader from '../../../components/common/SectionHeader'
+import Button from '../../../components/common/Button'
+import Timeline from '../../../components/timeline/Timeline'
 import Reveal from '../../../components/common/Reveal'
 import Pending from '../../../components/common/Pending'
 import VisionPillars from '../../../components/story/VisionPillars'
@@ -20,7 +23,15 @@ export default function BicAbout() {
           <Reveal variant="scale"><VideoFeature id="about" /></Reveal>
         </div>
       </section>
-      <section className="section section--muted">
+      <section className="section section--muted" aria-labelledby="history-title">
+        <div className="container split">
+          <SectionHeader eyebrow="Our history" title={<span id="history-title">{timelineIntro.bic.title}</span>} intro={timelineIntro.bic.text} className="status-timeline__head">
+            <Button to="/project-status" variant="ghost" icon="arrow">Project status</Button>
+          </SectionHeader>
+          <Timeline items={timeline.bic} />
+        </div>
+      </section>
+      <section className="section">
         <div className="container">
           <SectionHeader eyebrow="What we stand for" title="Faith, Knowledge, Community, Legacy" />
           <VisionPillars />

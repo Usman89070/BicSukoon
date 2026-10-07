@@ -130,7 +130,7 @@ export default function BicHome() {
             <SectionHeader eyebrow="Progress" title={<span id="updates-title">{c.updates.title}</span>}>
               <div className="btn-row">
                 <Button to="/project-updates" variant="primary" icon="arrow">All updates</Button>
-                <Button to="/project-status" variant="glass">Project status</Button>
+                <Button to="/project-status" variant="glass">Project timeline</Button>
               </div>
             </SectionHeader>
             <Reveal className="home-updates__text" delay={100}>

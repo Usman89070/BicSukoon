@@ -998,3 +998,17 @@
     transform: scale(1.05);
   }
 }
+
+/* ---- Project timeline (official dates shown as written) ------------------ */
+.timeline__when {
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+@media (min-width: 960px) {
+  .status-timeline__head {
+    position: sticky;
+    top: calc(var(--nav-h) + 40px);
+    align-self: start;
+  }
+}

@@ -1,4 +1,4 @@
-import { timeline } from '../data/timeline'
+import { timeline, timelineIntro } from '../data/timeline'
 import { SITE_ID, site } from '../site'
 import SectionHeader from '../components/common/SectionHeader'
 import Reveal from '../components/common/Reveal'
@@ -10,6 +10,7 @@ import PageShell from './PageShell'
 import CtaBand from './CtaBand'
 
 export default function StatusPage() {
+  const intro = timelineIntro[SITE_ID]
   return (
     <PageShell
       title="Project Status"
@@ -19,7 +20,12 @@ export default function StatusPage() {
     >
       <section className="section">
         <div className="container split">
-          <SectionHeader eyebrow="Timeline" title="Milestones" intro="Completed, current and upcoming stages — published as they are officially confirmed." />
+          <SectionHeader
+            eyebrow="Timeline"
+            title={intro?.title ?? 'Milestones'}
+            intro={intro?.text ?? 'Completed, current and upcoming stages — published as they are officially confirmed.'}
+            className="status-timeline__head"
+          />
           <Timeline items={timeline[SITE_ID]} />
         </div>
       </section>
