@@ -10,3 +10,6 @@ dist
 
 # Admin panel data when testing the PHP panel locally
 bic-data/
+
+# Stray screenshots from local testing
+/*.png
