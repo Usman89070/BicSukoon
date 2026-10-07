@@ -1,12 +1,14 @@
-import { guests, guestsIntro } from '../../../data/guests'
+import { guestsIntro } from '../../../data/guests'
 import SectionHeader from '../../../components/common/SectionHeader'
 import Reveal from '../../../components/common/Reveal'
 import GuestGrid from '../../../components/guests/GuestGrid'
+import { useGuests } from '../../../hooks/useGuests'
 import VideoFeature from '../../../components/video/VideoFeature'
 import PageShell from '../../../templates/PageShell'
 import { heroImage } from '../images'
 
 export default function BicGuests() {
+  const guests = useGuests()
   return (
     <PageShell
       title="Honoured Guests"
@@ -20,7 +22,7 @@ export default function BicGuests() {
             <SectionHeader eyebrow="With gratitude" title={guestsIntro.title} />
             <Reveal className="guests-intro__text" delay={80}><p>{guestsIntro.text}</p></Reveal>
           </div>
-          <GuestGrid />
+          <GuestGrid guests={guests} />
         </div>
       </section>
       <section className="section section--dark">

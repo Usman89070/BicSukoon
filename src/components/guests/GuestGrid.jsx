@@ -1,4 +1,3 @@
-import { guests } from '../../data/guests'
 import Reveal from '../common/Reveal'
 import EmptyState from '../common/EmptyState'
 
@@ -15,7 +14,8 @@ const initials = (name) => {
   return ((words[0]?.[0] ?? '') + (words.length > 1 ? words[words.length - 1][0] : '')).toUpperCase()
 }
 
-export default function GuestGrid() {
+/** Portrait grid. `guests` comes from useGuests() (admin panel or built-in list). */
+export default function GuestGrid({ guests }) {
   if (!guests.length) {
     return (
       <EmptyState icon="star" title="Honoured guests will be featured here">
@@ -26,7 +26,7 @@ export default function GuestGrid() {
   return (
     <ul className="guests">
       {guests.map((g, i) => {
-        const photo = photoFor(g.id)
+        const photo = g.photoUrl ?? photoFor(g.id)
         return (
           <Reveal as="li" key={g.id} delay={(i % 4) * 70} className="guest">
             <div className="guest__frame">

@@ -7,3 +7,6 @@ dist
 !.env.portal
 *.log
 .DS_Store
+
+# Admin panel data when testing the PHP panel locally
+bic-data/
