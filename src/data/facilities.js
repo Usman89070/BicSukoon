@@ -99,7 +99,7 @@ export const facilities = {
     path: '/seniors-living',
     eyebrow: 'Sukoon Village',
     pillar: 'Community',
-    summary: 'Seniors living designed around dignity, comfort and connection to community.',
+    summary: 'A place where comfort, independence and community come together: thirty-six modern townhouses for independent seniors.',
     status: null,
     media: { image: null, video: null, label: 'Seniors Living render' },
     sections: [
