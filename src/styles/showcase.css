@@ -47,6 +47,8 @@
   max-width: none;
   height: 100%;
   object-fit: cover;
+}
+.stage-hero__bg > .media {
   animation: stage-zoom 14s var(--ease-out) both;
 }
 @keyframes stage-zoom {
@@ -357,10 +359,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .stage-hero__bg > .media,
   .stage-hero__bg img,
   .stage-hero__bg video,
   .stage-hero__scroll::after {
     animation: none;
+    transition: none;
   }
 }
 
@@ -743,4 +747,157 @@
 }
 .home-journey .btn--glass:hover {
   background: rgba(255, 255, 255, 0.24);
+}
+
+/* ==========================================================================
+   HOVER ANIMATIONS (mouse / trackpad only)
+   ========================================================================== */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  /* Hero: the picture zooms in a little and drifts with the mouse */
+  .stage-hero {
+    --mx: 0;
+    --my: 0;
+  }
+  .stage-hero__bg img,
+  .stage-hero__bg video {
+    transform: scale(1) translate3d(0, 0, 0);
+    transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .stage-hero:hover .stage-hero__bg img,
+  .stage-hero:hover .stage-hero__bg video {
+    transform: scale(1.06) translate3d(calc(var(--mx) * -1.6%), calc(var(--my) * -1.6%), 0);
+  }
+  .stage-hero__shade {
+    transition: opacity 900ms var(--ease-out);
+  }
+  .stage-hero:hover .stage-hero__shade {
+    opacity: 0.85;
+  }
+  .stage-hero__title .stage-hero__line {
+    transition: transform 700ms var(--ease-out);
+  }
+  .stage-hero:hover .stage-hero__line:nth-child(1) { transform: translateX(6px); }
+  .stage-hero:hover .stage-hero__line:nth-child(2) { transform: translateX(12px); transition-delay: 60ms; }
+  .stage-hero:hover .stage-hero__line:nth-child(3) { transform: translateX(18px); transition-delay: 120ms; }
+
+  /* Buttons: lift, and a light sweep across the white button */
+  .stage-hero .btn,
+  .home-journey .btn {
+    transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out), background var(--dur) var(--ease-out);
+  }
+  .stage-hero .btn:hover,
+  .home-journey .btn:hover {
+    transform: translateY(-3px);
+  }
+  .btn--light {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn--light::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(203, 155, 97, 0.35) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 800ms var(--ease-out);
+    pointer-events: none;
+  }
+  .btn--light:hover::after {
+    transform: translateX(120%);
+  }
+
+  /* Welcome tags */
+  .home-welcome__pillars li {
+    transition: transform 300ms var(--ease-out), background 300ms var(--ease-out), color 300ms var(--ease-out), border-color 300ms var(--ease-out);
+  }
+  .home-welcome__pillars li:hover {
+    transform: translateY(-3px);
+    background: var(--bic-primary);
+    border-color: var(--bic-primary);
+    color: #ffffff;
+  }
+  .home-welcome__mark {
+    transition: transform 900ms var(--ease-out);
+  }
+  .home-welcome__head:hover .home-welcome__mark {
+    transform: rotate(-20deg) scale(1.08);
+  }
+
+  /* Explore cards: lift, deeper shadow, text rises */
+  .explore-card__link {
+    transition: transform 500ms var(--ease-out), box-shadow 500ms var(--ease-out);
+  }
+  .explore-card:hover .explore-card__link {
+    transform: translateY(-8px);
+    box-shadow: 0 34px 60px -30px rgba(10, 8, 32, 0.6);
+  }
+  .explore-card__body {
+    transition: transform 500ms var(--ease-out);
+  }
+  .explore-card:hover .explore-card__body {
+    transform: translateY(-6px);
+  }
+  .explore-card__num {
+    transition: color 400ms var(--ease-out), transform 500ms var(--ease-out);
+  }
+  .explore-card:hover .explore-card__num {
+    color: var(--sv-primary-light, #e3c08f);
+    transform: scale(1.15);
+  }
+  .explore-card__chips {
+    transition: transform 500ms var(--ease-out);
+  }
+  .explore-card:hover .explore-card__chips {
+    transform: translateY(-8px);
+  }
+
+  /* Completed works: zoom, badge glow */
+  .done__item {
+    transition: transform 500ms var(--ease-out), box-shadow 500ms var(--ease-out);
+  }
+  .done__item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px -30px rgba(10, 8, 32, 0.6);
+  }
+  .done__media img,
+  .done__media .media__arch {
+    transition: transform 1.2s var(--ease-out);
+  }
+  .done__item:hover .done__media img,
+  .done__item:hover .done__media .media__arch {
+    transform: scale(1.06);
+  }
+  .done__badge {
+    transition: box-shadow 400ms var(--ease-out);
+  }
+  .done__item:hover .done__badge {
+    box-shadow: 0 0 0 6px rgba(201, 242, 214, 0.25);
+  }
+
+  /* Facility tiles: lift */
+  .discover__link {
+    transition: transform 500ms var(--ease-out), box-shadow 500ms var(--ease-out);
+  }
+  .discover__link:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px -30px rgba(10, 8, 32, 0.6);
+  }
+
+  /* Project updates highlight */
+  .home-updates__highlight {
+    transition: transform 400ms var(--ease-out), box-shadow 400ms var(--ease-out);
+  }
+  .home-updates__highlight:hover {
+    transform: translateX(6px);
+    box-shadow: 0 16px 34px -22px rgba(156, 116, 67, 0.7);
+  }
+
+  /* Join us: background drifts in */
+  .home-journey__bg img {
+    transition: transform 2s var(--ease-out);
+  }
+  .home-journey:hover .home-journey__bg img {
+    transform: scale(1.05);
+  }
 }

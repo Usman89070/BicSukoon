@@ -1,13 +1,26 @@
 import Button from '../common/Button'
 import Media from '../common/Media'
 
+/** Mouse position over the hero as --mx / --my (-1 … 1) for the hover pan. */
+const track = (e) => {
+  if (e.pointerType !== 'mouse') return
+  const r = e.currentTarget.getBoundingClientRect()
+  e.currentTarget.style.setProperty('--mx', (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3))
+  e.currentTarget.style.setProperty('--my', (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3))
+}
+const reset = (e) => {
+  e.currentTarget.style.setProperty('--mx', 0)
+  e.currentTarget.style.setProperty('--my', 0)
+}
+
 /**
  * Full-screen home hero: one big render (or a muted looping film when
  * supplied) with a short headline and two actions. Little text by design.
+ * On hover the picture zooms in slightly and drifts with the mouse.
  */
 export default function StageHero({ id = 'hero-title', className, eyebrow, title, image, film, label, actions = [] }) {
   return (
-    <section className={className ? `stage-hero ${className}` : 'stage-hero'} aria-labelledby={id}>
+    <section className={className ? `stage-hero ${className}` : 'stage-hero'} aria-labelledby={id} onPointerMove={track} onPointerLeave={reset}>
       <div className="stage-hero__bg">
         {film?.src ? (
           <video autoPlay muted loop playsInline preload="metadata" poster={film.poster ?? image ?? undefined} aria-hidden="true">
