@@ -20,7 +20,7 @@ export const about = {
 
   boardTitle: 'Brisbane Islamic Centre Board of Directors',
   board: [
-    { id: 'kemal-omar', name: 'Kemal Omar', role: 'In Memoriam', memoriam: true },
+    { id: 'kemal-omar', name: 'Kemal Omar', role: null, memoriam: true },
     { id: 'faisal-hatia', name: 'Faisal Hatia', role: 'President' },
     { id: 'iqbal-sultan', name: 'Dr Iqbal Sultan', role: 'Vice President' },
     { id: 'imraan-price', name: 'Imraan Price', role: 'Secretary' },

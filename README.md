@@ -83,11 +83,11 @@ build command `npm run build`, output directory `dist`. No environment
 variables are required. The build writes `dist/.htaccess`, which routes
 `/bic/*` and `/sukoon/*` to their own app so page links and refreshes work.
 
-### Admin panel (Honoured Guests)
+### Admin panel (Honoured Guests, Board of Directors)
 `/admin/` is a small PHP panel (in `server/`, copied into `dist/` by the
-build) for adding, editing, reordering, hiding and deleting honoured guests
-and uploading their portraits. Changes show on `/bic/honoured-guests`
-immediately; no rebuild needed.
+build) with a tab for each list: add, edit, reorder, hide or delete honoured
+guests or board members and upload their portraits. Changes show on
+`/bic/honoured-guests` and `/bic/about` immediately; no rebuild needed.
 
 - Needs PHP 8 (Hostinger web hosting has it). Sign in with username `admin`;
   the starting password is given separately. Change it under "Change password".
@@ -95,8 +95,8 @@ immediately; no rebuild needed.
   so redeploying never wipes them. If that folder cannot be created, create it
   in Hostinger's File Manager (the panel shows a warning until then).
 - "Download backup" exports the list as JSON.
-- Until the first change is saved, the website shows the list built from
-  `src/data/guests.js`.
+- Until the first change is saved in a tab, the website shows the list built
+  from `src/data/guests.js` / `src/data/about.js`.
 
 **Optional form endpoints:** `VITE_CONTACT_ENDPOINT` and
 `VITE_DONATION_ENDPOINT` (any URL that accepts a JSON POST, e.g. Formspree).

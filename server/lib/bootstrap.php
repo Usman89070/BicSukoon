@@ -27,7 +27,6 @@ function data_dir(): string
             if ($i > 0 && !file_exists($candidate . '/.htaccess')) {
                 file_put_contents($candidate . '/.htaccess', "Require all denied\n");
             }
-            @mkdir($candidate . '/guest-photos', 0750, true);
             return $dir = $candidate;
         }
     }
@@ -54,23 +53,62 @@ function write_json(string $file, $data): void
     rename($tmp, $file);
 }
 
-/** Saved guests, or the list the website was built with on first use. */
-function load_guests(): array
+/**
+ * The lists managed in the admin panel. Each has its own JSON file, seed
+ * file (written by the build) and photo folder in the data folder.
+ */
+const COLLECTIONS = [
+    'guests' => ['label' => 'Honoured Guests', 'one' => 'guest', 'photos' => 'guest-photos', 'page' => '../bic/honoured-guests'],
+    'board' => ['label' => 'Board of Directors', 'one' => 'board member', 'photos' => 'board-photos', 'page' => '../bic/about#board'],
+];
+
+function collection(string $type): array
 {
-    $saved = read_json(data_dir() . '/guests.json', null);
-    if (is_array($saved) && isset($saved['guests'])) return $saved['guests'];
-    $seed = read_json(dirname(__DIR__) . '/api/guests-seed.json', ['guests' => []]);
-    return array_map(fn ($g) => $g + ['photo' => null, 'hidden' => false], $seed['guests'] ?? []);
+    if (!isset(COLLECTIONS[$type])) throw new InvalidArgumentException('Unknown list');
+    return COLLECTIONS[$type];
 }
 
-function save_guests(array $guests): void
+/** Saved items, or the list the website was built with on first use. */
+function load_items(string $type): array
 {
-    write_json(data_dir() . '/guests.json', ['updated' => date('c'), 'guests' => array_values($guests)]);
+    collection($type);
+    $saved = read_json(data_dir() . "/$type.json", null);
+    if (is_array($saved) && isset($saved['items'])) return $saved['items'];
+    if ($type === 'guests' && is_array($saved) && isset($saved['guests'])) return $saved['guests']; // older format
+    $seed = read_json(dirname(__DIR__) . "/api/$type-seed.json", ['items' => []]);
+    return array_map(fn ($g) => $g + ['photo' => null, 'hidden' => false], $seed['items'] ?? $seed['guests'] ?? []);
 }
 
-function has_saved_guests(): bool
+function save_items(string $type, array $items): void
 {
-    return is_file(data_dir() . '/guests.json');
+    collection($type);
+    write_json(data_dir() . "/$type.json", ['updated' => date('c'), 'items' => array_values($items)]);
+}
+
+function has_saved(string $type): bool
+{
+    collection($type);
+    return is_file(data_dir() . "/$type.json");
+}
+
+function photo_dir(string $type): string
+{
+    $dir = data_dir() . '/' . collection($type)['photos'] . '/';
+    if (!is_dir($dir)) @mkdir($dir, 0750, true);
+    return $dir;
+}
+
+/** Public JSON for the website: visible items only, photo as a URL path. */
+function public_items(string $type): array
+{
+    $items = array_values(array_filter(load_items($type), fn ($g) => empty($g['hidden'])));
+    return array_map(fn ($g) => [
+        'id' => (string) $g['id'],
+        'name' => (string) $g['name'],
+        'role' => ($g['role'] ?? '') !== '' ? (string) $g['role'] : null,
+        'memoriam' => !empty($g['memoriam']),
+        'photo' => !empty($g['photo']) ? 'photo.php?t=' . $type . '&f=' . rawurlencode($g['photo']) : null,
+    ], $items);
 }
 
 function slugify(string $text): string
@@ -88,7 +126,7 @@ function valid_photo_name(string $name): bool
  * Validates an uploaded image, shrinks it to PHOTO_MAX_WIDTH and stores it
  * as a JPEG. Returns the stored file name or throws with a friendly message.
  */
-function store_photo(array $file, string $id): string
+function store_photo(array $file, string $id, string $type = 'guests'): string
 {
     if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) throw new RuntimeException('The photo could not be uploaded. Please try again.');
     if ($file['size'] > MAX_UPLOAD_BYTES) throw new RuntimeException('The photo is larger than 8 MB.');
@@ -97,7 +135,7 @@ function store_photo(array $file, string $id): string
     if (!$info || !isset($types[$info[2]])) throw new RuntimeException('Please upload a JPG, PNG or WebP image.');
 
     $name = slugify($id) . '-' . bin2hex(random_bytes(3));
-    $dir = data_dir() . '/guest-photos/';
+    $dir = photo_dir($type);
 
     if (function_exists('imagecreatetruecolor')) {
         $src = match ($info[2]) {
@@ -127,7 +165,7 @@ function store_photo(array $file, string $id): string
     return $name;
 }
 
-function delete_photo(?string $name): void
+function delete_photo(?string $name, string $type = 'guests'): void
 {
-    if ($name && valid_photo_name($name)) @unlink(data_dir() . '/guest-photos/' . $name);
+    if ($name && valid_photo_name($name)) @unlink(photo_dir($type) . $name);
 }

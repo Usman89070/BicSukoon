@@ -108,3 +108,14 @@ label.check input { width: auto; }
   .form__grid { grid-template-columns: 1fr; }
   .form__photo { width: 140px; }
 }
+
+/* list tabs */
+.top__tabs { display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(255, 255, 255, 0.1); }
+.top__tabs a { padding: 6px 14px; border-radius: 999px; color: rgba(255, 255, 255, 0.85); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+.top__tabs a:hover { color: #fff; background: rgba(255, 255, 255, 0.12); }
+.top__tabs a[aria-current='page'] { background: #fff; color: var(--navy); }
+.tag--memoriam { background: #2a2740; color: #fff; }
+@media (max-width: 700px) {
+  .top__tabs { order: 3; width: 100%; }
+  .top__tabs a { flex: 1; text-align: center; }
+}

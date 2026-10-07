@@ -8,6 +8,7 @@ import Media from '../../../components/common/Media'
 import Timeline from '../../../components/timeline/Timeline'
 import PageShell from '../../../templates/PageShell'
 import { heroImage } from '../images'
+import { useBoard } from '../../../hooks/useGuests'
 
 const boardPhotos = import.meta.glob('../../../assets/images/board/*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' })
 const boardPhoto = (id) => {
@@ -26,6 +27,7 @@ const initials = (name) =>
 
 /** About BIC — the Board's vision, the Board of Directors and the project history. */
 export default function BicAbout() {
+  const board = useBoard()
   return (
     <PageShell
       title="About Us"
@@ -77,8 +79,8 @@ export default function BicAbout() {
         <div className="container container--wide">
           <SectionHeader eyebrow="Our people" title={<span id="board-title">{c.boardTitle}</span>} align="center" />
           <ul className="guests ab-board">
-            {c.board.map((m, i) => {
-              const photo = boardPhoto(m.id)
+            {board.map((m, i) => {
+              const photo = m.photoUrl ?? boardPhoto(m.id)
               return (
                 <Reveal as="li" key={m.id} delay={(i % 4) * 70} className={`guest${m.memoriam ? ' guest--memoriam' : ''}`}>
                   <div className="guest__frame">

@@ -1,8 +1,8 @@
 <?php
 /**
- * Honoured Guests — admin panel.
- * Sign in, then add, edit, reorder, hide or delete guests and upload their
- * portraits. Changes appear on the website immediately.
+ * Admin panel for the lists on the website (Honoured Guests, Board of
+ * Directors). Sign in, then add, edit, reorder, hide or delete people and
+ * upload their portraits. Changes appear on the website immediately.
  */
 declare(strict_types=1);
 require dirname(__DIR__) . '/lib/bootstrap.php';
@@ -26,7 +26,13 @@ if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(32));
 function e(?string $s): string { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); }
 function csrf_field(): string { return '<input type="hidden" name="csrf" value="' . e($_SESSION['csrf']) . '">'; }
 function flash(string $msg, string $type = 'ok'): void { $_SESSION['flash'] = [$msg, $type]; }
-function go(string $query = ''): never { header('Location: ./' . ($query ? '?' . $query : '')); exit; }
+function go(string $query = ''): never
+{
+    global $type;
+    $q = 'list=' . $type . ($query !== '' && $query[0] !== '#' ? '&' . $query : '') . ($query !== '' && $query[0] === '#' ? $query : '');
+    header('Location: ./?' . $q);
+    exit;
+}
 
 function password_hash_current(): string
 {
@@ -53,7 +59,11 @@ function record_attempt(bool $ok): void
 }
 
 /* ----------------------------------------------------------------- actions */
-$guests = load_guests();
+$type = (string) ($_POST['list'] ?? $_GET['list'] ?? 'guests');
+if (!isset(COLLECTIONS[$type])) $type = 'guests';
+$meta = COLLECTIONS[$type];
+$isBoard = $type === 'board';
+$guests = load_items($type);
 $find = function (string $id) use (&$guests): ?int {
     foreach ($guests as $i => $g) if ($g['id'] === $id) return $i;
     return null;
@@ -107,21 +117,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $base = slugify($name);
                 $id = $base;
                 for ($n = 2; $find($id) !== null; $n++) $id = $base . '-' . $n;
-                $guest = ['id' => $id, 'name' => $name, 'role' => $role, 'photo' => null, 'hidden' => false];
+                $guest = ['id' => $id, 'name' => $name, 'role' => $role, 'photo' => null, 'hidden' => false, 'memoriam' => false];
             } else {
                 $guest = $guests[$i];
                 $guest['name'] = $name;
                 $guest['role'] = $role;
             }
             $guest['hidden'] = !empty($_POST['hidden']);
+            if ($isBoard) $guest['memoriam'] = !empty($_POST['memoriam']);
             try {
                 if (!empty($_POST['remove_photo'])) {
-                    delete_photo($guest['photo']);
+                    delete_photo($guest['photo'], $type);
                     $guest['photo'] = null;
                 }
                 if (($_FILES['photo']['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
-                    $new = store_photo($_FILES['photo'], $guest['id']);
-                    delete_photo($guest['photo']);
+                    $new = store_photo($_FILES['photo'], $guest['id'], $type);
+                    delete_photo($guest['photo'], $type);
                     $guest['photo'] = $new;
                 }
             } catch (RuntimeException $ex) {
@@ -133,16 +144,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $guests[$i] = $guest;
             }
-            save_guests($guests);
+            save_items($type, $guests);
             flash('Saved “' . $name . '”.');
             go();
 
         case 'delete':
             if (($i = $find((string) ($_POST['id'] ?? ''))) !== null) {
                 $name = $guests[$i]['name'];
-                delete_photo($guests[$i]['photo']);
+                delete_photo($guests[$i]['photo'], $type);
                 array_splice($guests, $i, 1);
-                save_guests($guests);
+                save_items($type, $guests);
                 flash('Deleted “' . $name . '”.');
             }
             go();
@@ -152,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $j = ($_POST['dir'] ?? '') === 'up' ? $i - 1 : $i + 1;
                 if ($j >= 0 && $j < count($guests)) {
                     [$guests[$i], $guests[$j]] = [$guests[$j], $guests[$i]];
-                    save_guests($guests);
+                    save_items($type, $guests);
                 }
             }
             go('#g-' . urlencode((string) $_POST['id']));
@@ -160,13 +171,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'toggle':
             if (($i = $find((string) ($_POST['id'] ?? ''))) !== null) {
                 $guests[$i]['hidden'] = empty($guests[$i]['hidden']);
-                save_guests($guests);
+                save_items($type, $guests);
                 flash(($guests[$i]['hidden'] ? 'Hidden: ' : 'Shown: ') . $guests[$i]['name']);
             }
             go();
 
         case 'publish':
-            save_guests($guests);
+            save_items($type, $guests);
             flash('The list is now managed from this panel.');
             go();
 
@@ -190,8 +201,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 if ($authed && isset($_GET['export'])) {
     header('Content-Type: application/json; charset=utf-8');
-    header('Content-Disposition: attachment; filename="honoured-guests-' . date('Y-m-d') . '.json"');
-    echo json_encode(['exported' => date('c'), 'guests' => $guests], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    header('Content-Disposition: attachment; filename="' . $type . '-' . date('Y-m-d') . '.json"');
+    echo json_encode(['exported' => date('c'), 'list' => $type, 'items' => $guests], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
 }
 
@@ -202,7 +213,8 @@ $editing = null;
 if ($authed && isset($_GET['edit']) && ($i = $find((string) $_GET['edit'])) !== null) $editing = $guests[$i];
 $creating = $authed && isset($_GET['new']);
 $changingPassword = $authed && isset($_GET['password']);
-$photoUrl = fn (?string $p) => $p ? '../api/photo.php?f=' . rawurlencode($p) : null;
+$photoUrl = fn (?string $p) => $p ? '../api/photo.php?t=' . $type . '&f=' . rawurlencode($p) : null;
+$listField = '<input type="hidden" name="list" value="' . e($type) . '">';
 $initials = function (string $name): string {
     $skip = '/^(her|his|the|most|eminent|right|honourable|excellency|mr|mrs|ms|dr|sheikh|sheikha|shaykh|sheik|imam|mufti|moulana|senator|councillor|inspector|of|bin|al|ibn|mp|ac|psm|phd)$/i';
     $w = array_values(array_filter(preg_split('/\s+/', preg_replace('/[^\p{L}\s\'-]/u', ' ', $name)), fn ($x) => $x !== '' && !preg_match($skip, $x)));
@@ -216,7 +228,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Honoured Guests · Admin · Brisbane Islamic Centre</title>
+  <title><?= e($authed ? $meta['label'] . ' · ' : '') ?>Admin · Brisbane Islamic Centre</title>
   <link rel="stylesheet" href="admin.css">
 </head>
 <body>
@@ -226,7 +238,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
       <p class="eyebrow">Brisbane Islamic Centre</p>
       <h1>Admin sign in</h1>
       <?php if ($flash): ?><p class="flash flash--<?= e($flash[1]) ?>" role="alert"><?= e($flash[0]) ?></p><?php endif; ?>
-      <?= csrf_field() ?>
+      <?= csrf_field() ?><?= $listField ?? '' ?>
       <input type="hidden" name="action" value="login">
       <label>Username <input name="username" required autocomplete="username" autofocus></label>
       <label>Password <input name="password" type="password" required autocomplete="current-password"></label>
@@ -236,12 +248,17 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
 <?php else: ?>
   <header class="top">
     <div class="top__inner">
-      <a class="top__brand" href="./"><span class="mark" aria-hidden="true">☾</span> Honoured Guests <small>Admin</small></a>
+      <a class="top__brand" href="./?list=<?= e($type) ?>"><span class="mark" aria-hidden="true">☾</span> BIC <small>Admin</small></a>
+      <nav class="top__tabs" aria-label="Lists">
+        <?php foreach (COLLECTIONS as $key => $c): ?>
+          <a href="./?list=<?= e($key) ?>" <?= $key === $type ? 'aria-current="page"' : '' ?>><?= e($c['label']) ?></a>
+        <?php endforeach; ?>
+      </nav>
       <nav class="top__nav">
-        <a href="../bic/honoured-guests" target="_blank" rel="noopener">View page ↗</a>
-        <a href="?export=1">Download backup</a>
-        <a href="?password=1">Change password</a>
-        <form method="post"><?= csrf_field() ?><input type="hidden" name="action" value="logout"><button class="link" type="submit">Sign out</button></form>
+        <a href="<?= e($meta['page']) ?>" target="_blank" rel="noopener">View page ↗</a>
+        <a href="?list=<?= e($type) ?>&amp;export=1">Download backup</a>
+        <a href="?list=<?= e($type) ?>&amp;password=1">Change password</a>
+        <form method="post"><?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="logout"><button class="link" type="submit">Sign out</button></form>
       </nav>
     </div>
   </header>
@@ -256,48 +273,53 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
     <?php if ($changingPassword): ?>
       <form class="card form" method="post">
         <h2>Change password</h2>
-        <?= csrf_field() ?><input type="hidden" name="action" value="password">
+        <?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="password">
         <label>Current password <input name="current" type="password" required autocomplete="current-password"></label>
         <label>New password <small>(at least 10 characters)</small> <input name="next" type="password" minlength="10" required autocomplete="new-password"></label>
         <label>Repeat new password <input name="confirm" type="password" minlength="10" required autocomplete="new-password"></label>
-        <div class="form__actions"><button class="btn btn--primary" type="submit">Change password</button><a class="btn" href="./">Cancel</a></div>
+        <div class="form__actions"><button class="btn btn--primary" type="submit">Change password</button><a class="btn" href="./?list=<?= e($type) ?>">Cancel</a></div>
       </form>
 
-    <?php elseif ($creating || $editing): $g = $editing ?? ['id' => '', 'name' => '', 'role' => '', 'photo' => null, 'hidden' => false]; ?>
+    <?php elseif ($creating || $editing): $g = $editing ?? ['id' => '', 'name' => '', 'role' => '', 'photo' => null, 'hidden' => false, 'memoriam' => false]; ?>
       <form class="card form" method="post" enctype="multipart/form-data">
-        <h2><?= $editing ? 'Edit guest' : 'Add a guest' ?></h2>
-        <?= csrf_field() ?><input type="hidden" name="action" value="save"><input type="hidden" name="id" value="<?= e($g['id']) ?>">
+        <h2><?= $editing ? 'Edit ' . e($meta['one']) : 'Add a ' . e($meta['one']) ?></h2>
+        <?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="save"><input type="hidden" name="id" value="<?= e($g['id']) ?>">
         <div class="form__grid">
           <div class="form__photo">
             <?php if ($g['photo']): ?><img src="<?= e($photoUrl($g['photo'])) ?>" alt=""><?php else: ?><span class="mono"><?= e($initials($g['name']) ?: '?') ?></span><?php endif; ?>
           </div>
           <div class="form__fields">
-            <label>Name <input name="name" value="<?= e($g['name']) ?>" required maxlength="200" placeholder="e.g. Sheikh Ahmad Ali"></label>
-            <label>Title / description <textarea name="role" rows="3" maxlength="300" placeholder="e.g. President of …"><?= e($g['role'] ?? '') ?></textarea></label>
+            <label>Name <input name="name" value="<?= e($g['name']) ?>" required maxlength="200" placeholder="<?= $isBoard ? 'e.g. Faisal Hatia' : 'e.g. Sheikh Ahmad Ali' ?>"></label>
+            <?php if ($isBoard): ?>
+              <label>Position <small>(optional)</small> <input name="role" value="<?= e($g['role'] ?? '') ?>" maxlength="300" placeholder="e.g. President, Secretary"></label>
+              <label class="check"><input type="checkbox" name="memoriam" value="1" <?= !empty($g['memoriam']) ? 'checked' : '' ?>> In memoriam (shown with “In Memoriam” and a softened photo)</label>
+            <?php else: ?>
+              <label>Title / description <textarea name="role" rows="3" maxlength="300" placeholder="e.g. President of …"><?= e($g['role'] ?? '') ?></textarea></label>
+            <?php endif; ?>
             <label>Photo <small>(JPG, PNG or WebP, up to 8 MB; portrait crops look best)</small> <input name="photo" type="file" accept="image/jpeg,image/png,image/webp"></label>
             <?php if ($g['photo']): ?><label class="check"><input type="checkbox" name="remove_photo" value="1"> Remove current photo</label><?php endif; ?>
             <label class="check"><input type="checkbox" name="hidden" value="1" <?= !empty($g['hidden']) ? 'checked' : '' ?>> Hide from the website</label>
             <?php if (!$editing): ?>
-              <label>Position <select name="position"><option value="end">At the end of the list</option><option value="start">At the top of the list</option></select></label>
+              <label>Place in the list <select name="position"><option value="end">At the end of the list</option><option value="start">At the top of the list</option></select></label>
             <?php endif; ?>
           </div>
         </div>
-        <div class="form__actions"><button class="btn btn--primary" type="submit">Save</button><a class="btn" href="./">Cancel</a></div>
+        <div class="form__actions"><button class="btn btn--primary" type="submit">Save</button><a class="btn" href="./?list=<?= e($type) ?>">Cancel</a></div>
       </form>
 
     <?php else: ?>
       <div class="head">
         <div>
-          <h1>Honoured Guests</h1>
-          <p class="muted"><?= count($guests) ?> guests · <?= $shown ?> shown on the website</p>
+          <h1><?= e($meta['label']) ?></h1>
+          <p class="muted"><?= count($guests) ?> <?= $isBoard ? 'members' : 'guests' ?> · <?= $shown ?> shown on the website</p>
         </div>
-        <a class="btn btn--primary" href="?new=1">+ Add a guest</a>
+        <a class="btn btn--primary" href="?list=<?= e($type) ?>&amp;new=1">+ Add a <?= e($meta['one']) ?></a>
       </div>
 
-      <?php if (!has_saved_guests()): ?>
+      <?php if (!has_saved($type)): ?>
         <form class="flash flash--info" method="post">
           This is the list the website was built with. It is used as-is until you save a change here.
-          <?= csrf_field() ?><input type="hidden" name="action" value="publish">
+          <?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="publish">
           <button class="link" type="submit">Start managing it here</button>
         </form>
       <?php endif; ?>
@@ -310,15 +332,16 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
             <span class="row__text">
               <strong><?= e($g['name']) ?></strong>
               <?php if (!empty($g['role'])): ?><span class="muted"><?= e($g['role']) ?></span><?php endif; ?>
+              <?php if (!empty($g['memoriam'])): ?><span class="tag tag--memoriam">In memoriam</span><?php endif; ?>
               <?php if (!empty($g['hidden'])): ?><span class="tag">Hidden</span><?php endif; ?>
               <?php if (!$g['photo']): ?><span class="tag tag--soft">No photo</span><?php endif; ?>
             </span>
             <span class="row__actions">
-              <form method="post"><?= csrf_field() ?><input type="hidden" name="action" value="move"><input type="hidden" name="id" value="<?= e($g['id']) ?>"><input type="hidden" name="dir" value="up"><button class="icon" type="submit" title="Move up" aria-label="Move <?= e($g['name']) ?> up" <?= $i === 0 ? 'disabled' : '' ?>>↑</button></form>
-              <form method="post"><?= csrf_field() ?><input type="hidden" name="action" value="move"><input type="hidden" name="id" value="<?= e($g['id']) ?>"><input type="hidden" name="dir" value="down"><button class="icon" type="submit" title="Move down" aria-label="Move <?= e($g['name']) ?> down" <?= $i === count($guests) - 1 ? 'disabled' : '' ?>>↓</button></form>
-              <a class="btn btn--sm" href="?edit=<?= e(urlencode($g['id'])) ?>">Edit</a>
-              <form method="post"><?= csrf_field() ?><input type="hidden" name="action" value="toggle"><input type="hidden" name="id" value="<?= e($g['id']) ?>"><button class="btn btn--sm" type="submit"><?= !empty($g['hidden']) ? 'Show' : 'Hide' ?></button></form>
-              <form method="post" class="js-confirm" data-confirm="Delete <?= e($g['name']) ?>? This cannot be undone."><?= csrf_field() ?><input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?= e($g['id']) ?>"><button class="btn btn--sm btn--danger" type="submit">Delete</button></form>
+              <form method="post"><?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="move"><input type="hidden" name="id" value="<?= e($g['id']) ?>"><input type="hidden" name="dir" value="up"><button class="icon" type="submit" title="Move up" aria-label="Move <?= e($g['name']) ?> up" <?= $i === 0 ? 'disabled' : '' ?>>↑</button></form>
+              <form method="post"><?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="move"><input type="hidden" name="id" value="<?= e($g['id']) ?>"><input type="hidden" name="dir" value="down"><button class="icon" type="submit" title="Move down" aria-label="Move <?= e($g['name']) ?> down" <?= $i === count($guests) - 1 ? 'disabled' : '' ?>>↓</button></form>
+              <a class="btn btn--sm" href="?list=<?= e($type) ?>&amp;edit=<?= e(urlencode($g['id'])) ?>">Edit</a>
+              <form method="post"><?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="toggle"><input type="hidden" name="id" value="<?= e($g['id']) ?>"><button class="btn btn--sm" type="submit"><?= !empty($g['hidden']) ? 'Show' : 'Hide' ?></button></form>
+              <form method="post" class="js-confirm" data-confirm="Delete <?= e($g['name']) ?>? This cannot be undone."><?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?= e($g['id']) ?>"><button class="btn btn--sm btn--danger" type="submit">Delete</button></form>
             </span>
           </li>
         <?php endforeach; ?>

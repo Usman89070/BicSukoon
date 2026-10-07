@@ -1,14 +1,15 @@
 <?php
-/** Serves a guest portrait uploaded through the admin panel. */
+/** Serves a portrait uploaded through the admin panel. */
 declare(strict_types=1);
 require dirname(__DIR__) . '/lib/bootstrap.php';
 
+$type = (string) ($_GET['t'] ?? 'guests');
 $name = (string) ($_GET['f'] ?? '');
-$path = data_dir() . '/guest-photos/' . $name;
-if (!valid_photo_name($name) || !is_file($path)) {
+if (!isset(COLLECTIONS[$type]) || !valid_photo_name($name) || !is_file(photo_dir($type) . $name)) {
     http_response_code(404);
     exit;
 }
+$path = photo_dir($type) . $name;
 
 $types = ['jpg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'];
 header('Content-Type: ' . $types[pathinfo($name, PATHINFO_EXTENSION)]);
