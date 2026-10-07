@@ -1,6 +1,6 @@
 /**
  * Optional BIC photography from src/assets/images/ (JPG, PNG or WebP):
- *   hero-bic.*                  home hero image (shown whole, uncropped; set heroRatio below)
+ *   hero-bic.*                  home hero image (high-resolution render)
  *   site-300DPIbicM-50kb.jpg    BIC aerial render (also on the starting page)
  *   portal-bic.*                older name for the aerial render
  */
@@ -16,5 +16,3 @@ const find = (name) => {
 
 export const heroImage = find('hero-bic') ?? find('site-300DPIbic') ?? find('portal-bic')
 
-/** Width / height of the hero image, so it is shown whole. hero-bic.jpg is 2400 × 1762. */
-export const heroRatio = find('hero-bic') ? '2400 / 1762' : '1200 / 881'

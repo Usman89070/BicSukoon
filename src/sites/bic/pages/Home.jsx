@@ -14,7 +14,7 @@ import Masterplan from '../../../components/masterplan/Masterplan'
 import VideoFeature from '../../../components/video/VideoFeature'
 import StageHero from '../../../components/showcase/StageHero'
 import CompletedWorks from '../../../components/showcase/CompletedWorks'
-import { heroImage, heroRatio } from '../images'
+import { heroImage } from '../images'
 
 const Crescent = () => (
   <svg viewBox="0 0 64 64" aria-hidden="true">
@@ -60,7 +60,6 @@ export default function BicHome() {
         eyebrow={c.hero.eyebrow}
         title={c.hero.lines.map((l, i) => <span key={l} className="stage-hero__line">{i === 2 ? <em>{l}</em> : l}</span>)}
         className="stage-hero--long"
-        ratio={heroRatio}
         image={heroImage}
         film={videos.hero}
         label="BIC aerial render"
