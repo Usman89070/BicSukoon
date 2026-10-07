@@ -5,9 +5,9 @@ import Media from '../common/Media'
  * Full-screen home hero: one big render (or a muted looping film when
  * supplied) with a short headline and two actions. Little text by design.
  */
-export default function StageHero({ id = 'hero-title', eyebrow, title, image, film, label, actions = [] }) {
+export default function StageHero({ id = 'hero-title', className, eyebrow, title, image, film, label, actions = [] }) {
   return (
-    <section className="stage-hero" aria-labelledby={id}>
+    <section className={className ? `stage-hero ${className}` : 'stage-hero'} aria-labelledby={id}>
       <div className="stage-hero__bg">
         {film?.src ? (
           <video autoPlay muted loop playsInline preload="metadata" poster={film.poster ?? image ?? undefined} aria-hidden="true">
