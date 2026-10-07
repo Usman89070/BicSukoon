@@ -1,8 +1,19 @@
 import { guests } from '../../data/guests'
-import { formatDate, sortByDateDesc } from '../../utils/format'
-import Media from '../common/Media'
 import Reveal from '../common/Reveal'
 import EmptyState from '../common/EmptyState'
+
+const photos = import.meta.glob('../../assets/images/guests/*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' })
+const photoFor = (id) => {
+  const key = Object.keys(photos).find((k) => new RegExp(`/${id}\\.[a-z]+$`, 'i').test(k))
+  return key ? photos[key] : null
+}
+
+/** Initials for the monogram shown until a portrait is supplied. */
+const initials = (name) => {
+  const skip = /^(her|his|the|most|eminent|right|honourable|excellency|mr|mrs|ms|dr|sheikh|sheikha|shaykh|sheik|imam|mufti|moulana|senator|councillor|inspector|of|bin|al|ibn|mp|ac|psm|phd)$/i
+  const words = name.replace(/[^\p{L}\s'-]/gu, ' ').split(/\s+/).map((w) => w.replace(/^al-/i, '')).filter((w) => w && !skip.test(w))
+  return ((words[0]?.[0] ?? '') + (words.length > 1 ? words[words.length - 1][0] : '')).toUpperCase()
+}
 
 export default function GuestGrid() {
   if (!guests.length) {
@@ -13,19 +24,23 @@ export default function GuestGrid() {
     )
   }
   return (
-    <div className="guest-grid">
-      {sortByDateDesc(guests).map((g, i) => (
-        <Reveal as="article" key={g.id} delay={i * 80} className="guest-card">
-          <Media src={g.photo?.src} alt={g.photo?.alt ?? g.name} label="Guest portrait" ratio="4 / 5" className="guest-card__photo" />
-          <div className="guest-card__body glass">
-            {g.date && <time dateTime={g.date} className="guest-card__date">{formatDate(g.date)}</time>}
-            <h3 className="guest-card__name">{g.name}</h3>
-            {g.position && <p className="guest-card__role">{g.position}</p>}
-            {g.context && <p className="guest-card__context">{g.context}</p>}
-            {g.description && <p className="guest-card__text">{g.description}</p>}
-          </div>
-        </Reveal>
-      ))}
-    </div>
+    <ul className="guests">
+      {guests.map((g, i) => {
+        const photo = photoFor(g.id)
+        return (
+          <Reveal as="li" key={g.id} delay={(i % 4) * 70} className="guest">
+            <div className="guest__frame">
+              {photo ? (
+                <img className="guest__photo" src={photo} alt={g.name} loading="lazy" decoding="async" />
+              ) : (
+                <span className="guest__monogram" aria-hidden="true">{initials(g.name)}</span>
+              )}
+            </div>
+            <h3 className="guest__name">{g.name}</h3>
+            {g.role && <p className="guest__role">{g.role}</p>}
+          </Reveal>
+        )
+      })}
+    </ul>
   )
 }
