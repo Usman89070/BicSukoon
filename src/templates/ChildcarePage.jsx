@@ -1,22 +1,27 @@
 import { Link } from 'react-router-dom'
-import { childcare as c } from '../../../data/childcare'
-import { externalHref } from '../../../site'
-import { imageFor } from '../../../utils/images'
-import SectionHeader from '../../../components/common/SectionHeader'
-import Reveal from '../../../components/common/Reveal'
-import Button from '../../../components/common/Button'
-import Media from '../../../components/common/Media'
-import Icon from '../../../components/common/Icon'
-import PageShell from '../../../templates/PageShell'
-import { heroImage } from '../images'
+import { childcare as c } from '../data/childcare'
+import { SITE_ID, externalHref } from '../site'
+import { imageFor } from '../utils/images'
+import SectionHeader from '../components/common/SectionHeader'
+import Reveal from '../components/common/Reveal'
+import Button from '../components/common/Button'
+import Media from '../components/common/Media'
+import Icon from '../components/common/Icon'
+import PageShell from './PageShell'
+
+/** Closing background: each website uses its own render. */
+const closingImage = SITE_ID === 'sukoon' ? imageFor(['hero-sukoon', 'site-300DPISukoon']) : imageFor(['hero-bic', 'site-300DPIbic'])
 
 const SiteLink = ({ site, path, children, ...rest }) => {
   const href = externalHref(site, path)
   return href ? <a href={href} {...rest}>{children}</a> : <Link to={path} {...rest}>{children}</Link>
 }
 
-/** Childcare Centre — official copy, laid out around large images. */
-export default function Childcare() {
+/**
+ * Childcare Centre — official copy, laid out around large images.
+ * Shown on both websites (/childcare-centre), in each site's own colours.
+ */
+export default function ChildcarePage() {
   return (
     <PageShell
       title={c.title}
@@ -92,7 +97,7 @@ export default function Childcare() {
 
       {/* Looking ahead */}
       <section className="home-journey cc-ahead" aria-labelledby="ahead-title">
-        <div className="home-journey__bg" aria-hidden="true"><Media src={heroImage} showLabel={false} /></div>
+        <div className="home-journey__bg" aria-hidden="true"><Media src={closingImage} showLabel={false} /></div>
         <div className="container home-journey__inner">
           <Reveal>
             <p className="eyebrow eyebrow--light">{c.ahead.title}</p>

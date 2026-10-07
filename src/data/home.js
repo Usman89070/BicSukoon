@@ -115,7 +115,7 @@ export const sukoonHome = {
       { id: 'seniors', title: 'Seniors Living', text: seniors.dignity.body[1], site: 'sukoon', path: '/seniors-living', image: ['facility-seniors-living', 'site-300DPISukoon'] },
       { id: 'lifestyle', title: 'Lifestyle Centre', text: `${seniors.lifestyle.lead} ${seniors.lifestyle.body[1]}`, site: 'sukoon', path: '/lifestyle-centre', image: 'facility-lifestyle-centre' },
       { id: 'bic', title: 'Brisbane Islamic Centre', text: seniors.connected.body[0], site: 'bic', path: '/', image: ['hero-bic', 'site-300DPIbic'] },
-      { id: 'childcare', title: 'Childcare Centre', text: childcare.intro[0], site: 'bic', path: '/childcare-centre', image: 'facility-childcare' },
+      { id: 'childcare', title: 'Childcare Centre', text: childcare.intro[0], site: 'sukoon', path: '/childcare-centre', image: 'facility-childcare' },
     ],
   },
   connected: seniors.connected,

@@ -1769,3 +1769,15 @@
 .home-welcome .sl-facts {
   margin-top: var(--space-8);
 }
+
+/* Sukoon's dark sections are espresso: keep body text and the diagram readable */
+:root[data-site='sukoon'] .section--dark .cc-split__text p {
+  color: rgba(255, 255, 255, 0.82);
+}
+:root[data-site='sukoon'] .section--dark .cc-split__text .cc-lead {
+  color: #ffffff;
+}
+:root[data-site='sukoon'] .section--dark .cc-connect {
+  background: #fbf7f1;
+  border-color: rgba(203, 155, 97, 0.4);
+}

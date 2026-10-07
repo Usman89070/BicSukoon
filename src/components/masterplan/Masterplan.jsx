@@ -21,7 +21,7 @@ function resolve(loc) {
     status: loc.status !== undefined ? loc.status : f?.status ?? null,
     image: loc.image ?? f?.media.image ?? null,
     path: loc.path ?? f?.path ?? null,
-    project: loc.path ? undefined : f?.project,
+    project: loc.path ? undefined : f?.sites?.includes(SITE_ID) ? SITE_ID : f?.project,
     x: loc.x ?? (s ? ((s.x + s.w / 2) / VIEW_W) * 100 : 50),
     y: loc.y ?? (s ? ((s.y + s.h / 2) / VIEW_H) * 100 : 50),
   }

@@ -4,6 +4,7 @@ export const routes = [
   '/vision',
   '/seniors-living',
   '/lifestyle-centre',
+  '/childcare-centre',
   '/project-status',
   '/project-updates',
   '/contact',
