@@ -4,7 +4,6 @@ import SiteLayout from '../../layouts/SiteLayout'
 import BicHome from './pages/Home'
 
 const FacilityPage = lazy(() => import('../../templates/FacilityPage'))
-const VisionPage = lazy(() => import('../../templates/VisionPage'))
 const StatusPage = lazy(() => import('../../templates/StatusPage'))
 const UpdatesPage = lazy(() => import('../../templates/UpdatesPage'))
 const ContactPage = lazy(() => import('../../templates/ContactPage'))
@@ -16,6 +15,7 @@ const Guests = lazy(() => import('./pages/Guests'))
 const Donate = lazy(() => import('./pages/Donate'))
 const Childcare = lazy(() => import('./pages/Childcare'))
 const Qmchc = lazy(() => import('./pages/Qmchc'))
+const Vision = lazy(() => import('./pages/Vision'))
 
 /** Brisbane Islamic Centre website. */
 export default function BicApp() {
@@ -24,7 +24,7 @@ export default function BicApp() {
       <Route element={<SiteLayout />}>
         <Route index element={<BicHome />} />
         <Route path="about" element={<About />} />
-        <Route path="vision" element={<VisionPage />} />
+        <Route path="vision" element={<Vision />} />
         <Route path="masjid-complex" element={<FacilityPage id="masjid-complex" />} />
         <Route path="cultural-heritage-centre" element={<Qmchc />} />
         <Route path="community-hall" element={<FacilityPage id="community-hall" />} />
