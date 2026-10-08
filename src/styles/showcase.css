@@ -1943,3 +1943,17 @@
   font-size: var(--fs-sm);
   color: var(--text-secondary);
 }
+.donate-square {
+  min-width: 0;
+}
+.donate-square__btn {
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+@media (max-width: 480px) {
+  .donate-square__btn {
+    width: 100%;
+    padding-inline: 1.2em;
+  }
+}
