@@ -3,11 +3,12 @@ import { videos } from '../../data/videos'
 import { cx } from '../../utils/format'
 import Icon from '../common/Icon'
 import Media from '../common/Media'
+import { useVideoSrc } from '../../hooks/useVideoSrc'
 
 /**
  * Reusable video block: poster first, video loaded only on play (lazy).
  * Supports native controls + fullscreen. Shows an elegant placeholder
- * until the final video file is supplied in data/videos.js.
+ * until the video file is on the server (see data/videos.js).
  */
 export default function VideoFeature({ id, title, caption, className, ratio = '16 / 9' }) {
   const data = videos[id] ?? {}
@@ -15,7 +16,8 @@ export default function VideoFeature({ id, title, caption, className, ratio = '1
   const sub = caption ?? data.caption
   const [playing, setPlaying] = useState(false)
   const ref = useRef(null)
-  const hasVideo = Boolean(data.src || data.sources?.length || data.youtubeId)
+  const src = useVideoSrc(data.src)
+  const hasVideo = Boolean(src || data.sources?.length || data.youtubeId)
 
   const play = () => {
     if (!hasVideo) return
@@ -42,7 +44,7 @@ export default function VideoFeature({ id, title, caption, className, ratio = '1
         />
       ) : playing ? (
         <video ref={ref} className="video__el" controls playsInline preload="none" poster={data.poster ?? undefined}>
-          {data.sources?.length ? data.sources.map((s) => <source key={s.src} src={s.src} type={s.type} />) : <source src={data.src} />}
+          {data.sources?.length ? data.sources.map((s) => <source key={s.src} src={s.src} type={s.type} />) : <source src={src} />}
           Your browser does not support embedded video.
         </video>
       ) : (

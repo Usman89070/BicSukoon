@@ -1,5 +1,6 @@
 import Button from '../common/Button'
 import Media from '../common/Media'
+import { useVideoSrc } from '../../hooks/useVideoSrc'
 
 /** Mouse position over the hero as --mx / --my (-1 … 1) for the hover pan. */
 const track = (e) => {
@@ -19,12 +20,13 @@ const reset = (e) => {
  * On hover the picture zooms in slightly and drifts with the mouse.
  */
 export default function StageHero({ id = 'hero-title', className, eyebrow, title, image, film, label, actions = [] }) {
+  const filmSrc = useVideoSrc(film?.background ? film.src : null)
   return (
     <section className={className ? `stage-hero ${className}` : 'stage-hero'} aria-labelledby={id} onPointerMove={track} onPointerLeave={reset}>
       <div className="stage-hero__bg">
-        {film?.src ? (
+        {filmSrc ? (
           <video autoPlay muted loop playsInline preload="metadata" poster={film.poster ?? image ?? undefined} aria-hidden="true">
-            <source src={film.src} />
+            <source src={filmSrc} />
           </video>
         ) : (
           <Media src={image ?? film?.poster} label={label} eager alt="" />

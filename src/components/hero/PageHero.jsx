@@ -5,6 +5,7 @@ import { useParallax } from '../../hooks/useParallax'
 import Breadcrumbs from '../common/Breadcrumbs'
 import Media from '../common/Media'
 import Pattern from '../common/Pattern'
+import { useVideoSrc } from '../../hooks/useVideoSrc'
 
 /**
  * Interior page hero. Style follows the website:
@@ -16,13 +17,14 @@ export default function PageHero({ eyebrow, title, lead, media, breadcrumbs, chi
   const ref = useParallax(0.1)
   // media.video may be an id from data/videos.js or a direct file URL.
   const film = media?.video ? videos[media.video] : null
-  const videoSrc = film ? film.src : media?.video && /[/.]/.test(media.video) ? media.video : null
+  // Only background films autoplay in a page hero; other films show their poster.
+  const videoSrc = useVideoSrc(film ? (film.background ? film.src : null) : media?.video && /[/.]/.test(media.video) ? media.video : null)
   const visual = videoSrc ? (
     <video autoPlay muted loop playsInline preload="metadata" poster={film?.poster ?? media.poster} aria-hidden="true">
       <source src={videoSrc} />
     </video>
   ) : (
-    <Media src={media?.image} label={media?.label} eager />
+    <Media src={media?.image ?? film?.poster} label={media?.label} eager />
   )
 
   const text = (

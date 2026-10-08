@@ -62,9 +62,15 @@ appear automatically (until then a labelled placeholder is shown):
 | `facility-masjid`, `facility-qmchc`, `facility-community-hall`, `facility-cafe`, `facility-gyms`, `facility-childcare` | "Everything in one place" facility tiles |
 | `progress-existing-structure`, `progress-underground-tank` | "Already built" panels |
 
-Use wide images (about 2400px) for the hero and starting page. Videos (MP4
-URL or file) go in `src/data/videos.js`: `hero` and `sukoon` play full screen
-behind the home heroes, `masjid` and `sukoon` are the home page films.
+Use wide images (about 2400px) for the hero and starting page.
+
+### Videos
+Videos are not bundled (too large for GitHub). Upload them to the server as
+`public_html/videos/<name>` or, better, `bic-videos/<name>` next to
+`public_html` (kept on redeploys). The expected names are listed in
+`videos/README.md` (e.g. `BIC(centreH).mp4` for the Masjid Complex film) and
+set in `src/data/videos.js`. Until a file is there, a "Video coming soon"
+placeholder shows.
 
 ### Deployment
 **One domain (default):** upload the whole `dist/` folder.
