@@ -72,7 +72,7 @@ export default function PinMap() {
         <button
           key={p.id}
           type="button"
-          className={`pinmap__pin${open === p.id ? ' is-open' : ''}`}
+          className={`pinmap__pin${p.narrow ? ` pinmap__pin--${p.narrow}` : ''}${open === p.id ? ' is-open' : ''}`}
           style={{ left: `${p.x}%`, top: `${p.y * crop}%` }}
           aria-label={`${p.n}. ${p.title}: show video`}
           aria-expanded={open === p.id}

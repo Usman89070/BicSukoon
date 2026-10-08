@@ -2370,6 +2370,7 @@
   border-radius: 8px;
 }
 .pinmap__tip {
+  /* always-on label above the pin */
   position: absolute;
   bottom: calc(100% + 6px);
   left: 50%;
@@ -2379,19 +2380,18 @@
   white-space: nowrap;
   font-size: 0.75rem;
   font-weight: 700;
+  letter-spacing: 0.01em;
   color: var(--bic-primary, #1c155c);
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 8px 20px -10px rgba(10, 8, 32, 0.5);
-  opacity: 0;
   pointer-events: none;
-  transition: opacity 200ms var(--ease-out);
+  transition: background 200ms var(--ease-out), color 200ms var(--ease-out);
 }
 .pinmap__pin:hover .pinmap__tip,
-.pinmap__pin:focus-visible .pinmap__tip {
-  opacity: 1;
-}
+.pinmap__pin:focus-visible .pinmap__tip,
 .pinmap__pin.is-open .pinmap__tip {
-  opacity: 0;
+  color: #ffffff;
+  background: var(--bic-primary, #1c155c);
 }
 
 /* card with the film */
@@ -2556,7 +2556,14 @@
     font-size: 0.6rem;
   }
   .pinmap__tip {
-    display: none;
+    bottom: calc(100% + 3px);
+    padding: 2px 7px;
+    font-size: 0.6rem;
+  }
+  .pinmap__pin--below .pinmap__tip {
+    /* sits under the pin where labels would collide */
+    bottom: auto;
+    top: calc(100% + 5px);
   }
   .pinmap__card {
     left: 8px;
