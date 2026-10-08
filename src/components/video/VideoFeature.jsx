@@ -20,8 +20,8 @@ export default function VideoFeature({ id, title, caption, className, ratio = '1
   const ref = useRef(null)
   const src = useVideoSrc(data.src)
   const hasVideo = Boolean(src || data.sources?.length || data.youtubeId)
-  // Thumbnail carries the logo of the website the film belongs to (its videos folder).
-  const brand = data.file?.startsWith('sukoon/') ? 'sukoon' : data.file?.startsWith('bic/') ? 'bic' : SITE_ID === 'sukoon' ? 'sukoon' : 'bic'
+  // Thumbnail carries the logo of the website it is shown on.
+  const brand = SITE_ID === 'sukoon' ? 'sukoon' : 'bic'
 
   const play = () => {
     if (!hasVideo) return

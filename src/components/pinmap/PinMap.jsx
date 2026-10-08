@@ -16,16 +16,15 @@ const crop = pinmap.height / pinmap.visibleHeight // pins are given on the full 
 function PinFilm({ pin }) {
   const film = videos[pin.video]
   const src = useVideoSrc(film?.src)
+  const [started, setStarted] = useState(false)
   return (
     <div className="pinmap__film">
-      {src ? (
-        <video key={src} src={src} autoPlay muted loop playsInline controls preload="metadata" />
-      ) : (
-        <div className="pinmap__film-thumb">
-          <Logo project={SITE_ID} tone="dark" height={34} decorative />
-          <span><Icon name="play" size={14} /> Video coming soon</span>
-        </div>
-      )}
+      {src && <video key={src} src={src} autoPlay muted loop playsInline controls preload="metadata" onPlaying={() => setStarted(true)} />}
+      {/* the website's logo shows until the film is actually playing */}
+      <div className={`pinmap__film-thumb${started ? ' is-hidden' : ''}`} aria-hidden={src ? true : undefined}>
+        <Logo project={SITE_ID} tone="dark" height={34} decorative />
+        <span><Icon name="play" size={14} /> {src ? 'Loading video' : 'Video coming soon'}</span>
+      </div>
     </div>
   )
 }
@@ -100,7 +99,7 @@ export default function PinMap() {
           onPointerEnter={(e) => e.pointerType === 'mouse' && show(active.id)}
           onPointerLeave={(e) => e.pointerType === 'mouse' && hideSoon()}
         >
-          <PinFilm pin={active} />
+          <PinFilm key={active.id} pin={active} />
           <div className="pinmap__card-body">
             <span className="pinmap__card-num">{active.n}</span>
             <h3 className="pinmap__card-title">{active.title}</h3>
