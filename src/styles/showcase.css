@@ -780,33 +780,13 @@
    HOVER ANIMATIONS (mouse / trackpad only)
    ========================================================================== */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  /* Hero: the picture zooms in a little and drifts with the mouse */
-  .stage-hero {
-    --mx: 0;
-    --my: 0;
-  }
-  .stage-hero__bg img,
-  .stage-hero__bg video {
-    transform: scale(1) translate3d(0, 0, 0);
-    transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform;
-  }
-  .stage-hero:hover .stage-hero__bg img,
-  .stage-hero:hover .stage-hero__bg video {
-    transform: scale(1.06) translate3d(calc(var(--mx) * -1.6%), calc(var(--my) * -1.6%), 0);
-  }
+  /* Hero: the shade lightens a little on hover (picture and text stay still) */
   .stage-hero__shade {
     transition: opacity 900ms var(--ease-out);
   }
   .stage-hero:hover .stage-hero__shade {
     opacity: 0.85;
   }
-  .stage-hero__title .stage-hero__line {
-    transition: transform 700ms var(--ease-out);
-  }
-  .stage-hero:hover .stage-hero__line:nth-child(1) { transform: translateX(6px); }
-  .stage-hero:hover .stage-hero__line:nth-child(2) { transform: translateX(12px); transition-delay: 60ms; }
-  .stage-hero:hover .stage-hero__line:nth-child(3) { transform: translateX(18px); transition-delay: 120ms; }
 
   /* Buttons: lift, and a light sweep across the white button */
   .stage-hero .btn,
