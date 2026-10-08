@@ -13,6 +13,9 @@ import StageHero from '../../../components/showcase/StageHero'
 import CompletedWorks from '../../../components/showcase/CompletedWorks'
 import ExploreCard from '../../../components/showcase/ExploreCard'
 import { heroImage } from '../images'
+import { imageFor } from '../../../utils/images'
+
+const welcomeImage = imageFor('bic-welcome')
 import { donateLink } from '../../../data/donation'
 
 const Crescent = () => (
@@ -40,7 +43,12 @@ export default function BicHome() {
       />
 
       {/* Welcome */}
-      <section className="section home-welcome" aria-labelledby="welcome-title">
+      <section className={`section home-welcome${welcomeImage ? ' home-welcome--photo' : ''}`} aria-labelledby="welcome-title">
+        {welcomeImage && (
+          <div className="home-welcome__bg" aria-hidden="true">
+            <img src={welcomeImage} alt="" loading="lazy" decoding="async" />
+          </div>
+        )}
         <div className="container home-welcome__inner">
           <Reveal className="home-welcome__head">
             <span className="home-welcome__mark"><Crescent /></span>
