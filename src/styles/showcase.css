@@ -1786,3 +1786,63 @@
 .explore-card--childcare .explore-card__media img {
   object-position: 12% 50%;
 }
+
+/* ---- BIC home hero: text in the BIC navy / lavender scheme --------------
+   (gold belongs to Sukoon; BIC uses its logo navy and its light tint) */
+:root[data-site='bic'] .stage-hero__shade {
+  background:
+    linear-gradient(180deg, rgba(17, 12, 58, 0.35) 0%, transparent 22%, transparent 42%, rgba(17, 12, 58, 0.82) 100%),
+    linear-gradient(90deg, rgba(17, 12, 58, 0.62), rgba(28, 21, 92, 0.25) 45%, transparent 70%);
+}
+:root[data-site='bic'] .stage-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 16px 7px 12px;
+  border-radius: var(--radius-pill);
+  color: #e4e1ff;
+  background: rgba(28, 21, 92, 0.55);
+  border: 1px solid rgba(180, 174, 235, 0.45);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+:root[data-site='bic'] .stage-hero__eyebrow::before {
+  /* small crescent, as in the logo */
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: inset -4px 0 0 0 #b4aeeb;
+  transform: rotate(-20deg);
+}
+:root[data-site='bic'] .stage-hero__title {
+  color: #ffffff;
+  text-shadow: 0 2px 30px rgba(17, 12, 58, 0.55);
+}
+:root[data-site='bic'] .stage-hero__title em {
+  color: #c9c4f7;
+  background: linear-gradient(100deg, #e4e1ff 0%, #b4aeeb 55%, #8f87de 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 18px rgba(17, 12, 58, 0.6));
+}
+:root[data-site='bic'] .stage-hero__title .stage-hero__line:last-child {
+  padding-bottom: 0.08em; /* room for the italic descenders with clipped text */
+}
+:root[data-site='bic'] .stage-hero .btn--light {
+  color: var(--bic-primary);
+}
+:root[data-site='bic'] .stage-hero .btn--glass {
+  background: rgba(28, 21, 92, 0.45);
+  border-color: rgba(180, 174, 235, 0.6);
+  color: #ffffff;
+}
+:root[data-site='bic'] .stage-hero .btn--glass:hover {
+  background: rgba(28, 21, 92, 0.7);
+  border-color: #e4e1ff;
+}
+:root[data-site='bic'] .btn--light::after {
+  background: linear-gradient(110deg, transparent 30%, rgba(180, 174, 235, 0.55) 50%, transparent 70%);
+}
