@@ -27,7 +27,7 @@ for (const folder of ['bic', 'sukoon']) {
   mkdirSync(`dist/videos/${folder}`, { recursive: true })
   writeFileSync(
     `dist/videos/${folder}/README.txt`,
-    `Upload the ${folder === 'bic' ? 'Brisbane Islamic Centre' : 'Sukoon Village'} videos here (or to bic-videos/${folder}/ next to public_html) with these exact names:\n\n${slots.filter(([f]) => f === folder).map(([, n]) => n).join('\n')}\n`,
+    `Upload the ${folder === 'bic' ? 'Brisbane Islamic Centre' : 'Sukoon Village'} videos to bic-videos/${folder}/ NEXT TO public_html (kept on every redeploy; files put here in public_html/videos/ can be lost when the site is replaced) with these exact names:\n\n${slots.filter(([f]) => f === folder).map(([, n]) => n).join('\n')}\n`,
   )
 }
 if (existsSync('videos')) cpSync('videos', 'dist/videos', { recursive: true, filter: (f) => !/(README\.md|\.gitkeep)$/.test(f) })
