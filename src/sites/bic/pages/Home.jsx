@@ -7,7 +7,7 @@ import Button from '../../../components/common/Button'
 import Media from '../../../components/common/Media'
 import Icon from '../../../components/common/Icon'
 import SocialLinks from '../../../components/common/SocialLinks'
-import Masterplan from '../../../components/masterplan/Masterplan'
+import PinMap from '../../../components/pinmap/PinMap'
 import VideoFeature from '../../../components/video/VideoFeature'
 import StageHero from '../../../components/showcase/StageHero'
 import CompletedWorks from '../../../components/showcase/CompletedWorks'
@@ -97,7 +97,7 @@ export default function BicHome() {
               {c.vision.body.map((p) => <p key={p}>{p}</p>)}
             </Reveal>
           </div>
-          <Reveal className="home-vision__plan"><Masterplan /></Reveal>
+          <Reveal className="home-vision__plan"><PinMap /></Reveal>
         </div>
       </section>
 

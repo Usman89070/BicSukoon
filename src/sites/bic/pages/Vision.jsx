@@ -6,7 +6,7 @@ import Button from '../../../components/common/Button'
 import Media from '../../../components/common/Media'
 import Icon from '../../../components/common/Icon'
 import FacilityLink from '../../../components/common/FacilityLink'
-import Masterplan from '../../../components/masterplan/Masterplan'
+import PinMap from '../../../components/pinmap/PinMap'
 import PageShell from '../../../templates/PageShell'
 import { heroImage } from '../images'
 import { donateLink } from '../../../data/donation'
@@ -87,7 +87,7 @@ export default function BicVision() {
               {c.revised.body.map((p) => <p key={p}>{p}</p>)}
             </Reveal>
           </div>
-          <Reveal className="home-vision__plan"><Masterplan /></Reveal>
+          <Reveal className="home-vision__plan"><PinMap /></Reveal>
         </div>
       </section>
 

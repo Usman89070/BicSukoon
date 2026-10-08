@@ -36,6 +36,11 @@ export const videos = {
   about: film('bic', 'About Us', 'Our story', 'bic-about.mp4'),
   contact: film('bic', 'Contact Us', 'Get in touch', 'bic-contact.mp4'),
   tank: film('bic', '200,000L underground tank', 'Completed works', '20KL(watertank).mp4'),
+  // Site-picture pins (BIC home and Vision): played when a pin is hovered or tapped
+  pinCommunityHall: film('bic', 'Community Hall', 'Site film', 'pin-community-hall.mp4', { poster: bicPoster }),
+  pinQmchc: film('bic', 'Queensland Muslim Cultural and Heritage Centre', 'Site film', 'pin-qmchc.mp4', { poster: bicPoster }),
+  pinMasjid: film('bic', 'Masjid', 'Site film', 'pin-masjid.mp4', { poster: bicPoster }),
+  pinCafe: film('bic', 'Café, outdoor dining area and gyms', 'Site film', 'pin-cafe-gyms.mp4', { poster: bicPoster }),
   sukoon: film('sukoon', 'Sukoon Village', 'Village film', 'sukooonFull.mp4', { poster: sukoonPoster }),
   sukoonHero: film('sukoon', 'Sukoon Village', 'Hero film', 'sukoon-hero.mp4', { poster: sukoonPoster, background: true }),
 }

@@ -2264,3 +2264,310 @@
     linear-gradient(90deg, rgba(255, 252, 247, 0.9) 0%, rgba(255, 252, 247, 0.76) 40%, rgba(255, 252, 247, 0.66) 100%),
     radial-gradient(70% 90% at 65% 40%, rgba(255, 252, 247, 0.3), transparent 75%);
 }
+
+/* ==========================================================================
+   SITE PICTURE WITH PINS (BIC)
+   ========================================================================== */
+.pinmap {
+  position: relative;
+}
+.pinmap__frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl, 28px);
+  background: #1c155c;
+  box-shadow: 0 40px 90px -50px rgba(10, 8, 32, 0.6);
+}
+.pinmap__img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+}
+.pinmap__pin {
+  position: absolute;
+  z-index: 2;
+  width: 34px;
+  height: 44px;
+  margin: -44px 0 0 -17px; /* the tip of the pin touches the point */
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  filter: drop-shadow(0 6px 10px rgba(10, 8, 32, 0.45));
+  transform-origin: 50% 100%;
+  animation: pin-drop 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: transform 300ms var(--ease-out);
+}
+.pinmap__pin:nth-of-type(2) { animation-delay: 80ms; }
+.pinmap__pin:nth-of-type(3) { animation-delay: 160ms; }
+.pinmap__pin:nth-of-type(4) { animation-delay: 240ms; }
+@keyframes pin-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+}
+.pinmap__pin svg {
+  width: 100%;
+  height: 100%;
+  fill: #e53935;
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+.pinmap__num {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #b71c1c;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.pinmap__pin::after {
+  /* soft pulse at the point */
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 14px;
+  height: 6px;
+  margin-left: -7px;
+  border-radius: 50%;
+  background: rgba(229, 57, 53, 0.45);
+  animation: pin-pulse 2s ease-out infinite;
+}
+@keyframes pin-pulse {
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+.pinmap__pin:hover,
+.pinmap__pin:focus-visible,
+.pinmap__pin.is-open {
+  transform: scale(1.18);
+  z-index: 3;
+}
+.pinmap__pin.is-open svg,
+.pinmap__pin:hover svg {
+  fill: var(--bic-primary, #1c155c);
+}
+.pinmap__pin.is-open .pinmap__num,
+.pinmap__pin:hover .pinmap__num {
+  color: var(--bic-primary, #1c155c);
+}
+.pinmap__pin:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+.pinmap__tip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--bic-primary, #1c155c);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 20px -10px rgba(10, 8, 32, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms var(--ease-out);
+}
+.pinmap__pin:hover .pinmap__tip,
+.pinmap__pin:focus-visible .pinmap__tip {
+  opacity: 1;
+}
+.pinmap__pin.is-open .pinmap__tip {
+  opacity: 0;
+}
+
+/* card with the film */
+.pinmap__card {
+  position: absolute;
+  z-index: 5;
+  left: clamp(8px, calc(var(--x) - 170px), calc(100% - 348px));
+  width: min(340px, calc(100% - 16px));
+  overflow: hidden;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 30px 70px -25px rgba(10, 8, 32, 0.6);
+  animation: card-in 260ms var(--ease-out) both;
+}
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+.pinmap__film {
+  aspect-ratio: 16 / 9;
+  background: #0d0a2c;
+}
+.pinmap__film video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pinmap__film-thumb {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  background:
+    radial-gradient(60% 70% at 50% 35%, rgba(155, 148, 227, 0.3), transparent 70%),
+    linear-gradient(160deg, #2a2378, #1c155c 45%, #0d0a2c);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.pinmap__film-thumb .logo {
+  width: auto;
+  height: 34px;
+}
+.pinmap__film-thumb span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.pinmap__card-body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 4px 12px;
+  padding: 14px 16px 16px;
+}
+.pinmap__card-num {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: var(--bic-primary, #1c155c);
+  font-weight: 800;
+}
+.pinmap__card-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+.pinmap__card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--bic-primary, #1c155c);
+  text-decoration: none;
+}
+.pinmap__card-link:hover {
+  text-decoration: underline;
+}
+.pinmap__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  color: #ffffff;
+  background: rgba(13, 10, 44, 0.6);
+  cursor: pointer;
+}
+
+/* legend under the picture */
+.pinmap__legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: var(--space-5);
+  padding: 0;
+  list-style: none;
+}
+.pinmap__legend button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 6px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease-out);
+}
+.pinmap__legend button span {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #e53935;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+.pinmap__legend button:hover,
+.pinmap__legend button.is-open {
+  background: rgba(255, 255, 255, 0.2);
+}
+:root[data-site='bic'] .section:not(.section--dark) .pinmap__legend button {
+  border-color: var(--border);
+  background: #ffffff;
+}
+@media (max-width: 600px) {
+  .pinmap__pin {
+    width: 26px;
+    height: 34px;
+    margin: -34px 0 0 -13px;
+  }
+  .pinmap__num {
+    top: 5px;
+    width: 14px;
+    height: 14px;
+    margin-left: -7px;
+    font-size: 0.6rem;
+  }
+  .pinmap__tip {
+    display: none;
+  }
+  .pinmap__card {
+    left: 8px;
+    right: 8px;
+    width: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pinmap__pin,
+  .pinmap__pin::after,
+  .pinmap__card {
+    animation: none;
+  }
+}
