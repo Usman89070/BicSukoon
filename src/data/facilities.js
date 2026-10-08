@@ -42,7 +42,7 @@ export const facilities = {
     pillar: 'Knowledge',
     summary: 'A place where history is preserved, knowledge is shared and understanding is encouraged: library, Islamic Museum and theatre.',
     status: null,
-    media: { image: null, video: null, label: 'Cultural Heritage Centre render' },
+    media: { image: null, video: 'pinQmchc', label: 'Cultural Heritage Centre render' },
     sections: [
       { heading: 'Cultural purpose', body: 'A home for the cultural life of Queensland’s Muslim communities — open to everyone who wishes to learn and connect.' },
       { heading: 'Educational role', body: 'A place for learning, exhibitions and programmes that build understanding across communities and generations.' },
@@ -59,7 +59,7 @@ export const facilities = {
     pillar: 'Community',
     summary: 'A hall for gatherings, celebrations and community events.',
     status: null,
-    media: { image: null, video: null, label: 'Community Hall render' },
+    media: { image: null, video: 'pinCommunityHall', label: 'Community Hall render' },
     sections: [
       { heading: 'Purpose', body: 'A welcoming space for the community to come together. Details will be published once officially confirmed.' },
     ],
@@ -73,7 +73,7 @@ export const facilities = {
     pillar: 'Community',
     summary: 'A café for families and visitors to meet and unwind.',
     status: null,
-    media: { image: null, video: null, label: 'Café render' },
+    media: { image: null, video: 'pinCafe', label: 'Café render' },
     sections: [
       { heading: 'Purpose', body: 'An everyday meeting place for the community. Details will be published once officially confirmed.' },
     ],

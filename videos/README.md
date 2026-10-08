@@ -12,10 +12,10 @@ Manager) into the right folder, using **exactly** these file names:
 | `sukoon/sukooonFull.mp4` | The Sukoon Village film: Sukoon home page and Sukoon Project Status page |
 | `sukoon/sukoon-hero.mp4` | Short silent background film behind the Sukoon home hero |
 | `bic/20KL(watertank).mp4` | "200,000L underground tank" panel in Already built (both websites) |
-| `bic/pin-community-hall.mp4` | Pin 1 on the BIC site picture (Community Hall) |
-| `bic/pin-qmchc.mp4` | Pin 2 on the BIC site picture (QMCHC) |
+| `bic/Community hall short (c).mp4` | Pin 1 on the BIC site picture, and the Community Hall page |
+| `bic/QMCHC.mp4` | Pin 2 on the BIC site picture, and the Cultural Heritage Centre (QMCHC) page |
 | `bic/pin-masjid.mp4` | Pin 3 on the BIC site picture (Masjid) |
-| `bic/pin-cafe-gyms.mp4` | Pin 4 on the BIC site picture (Café, outdoor dining and gyms) |
+| `bic/cafe short ( c).mp4` | Pin 4 on the BIC site picture (Café, outdoor dining and gyms), and the Café page |
 | `sukoon/pin-childcare.mp4` | Pin A on the Sukoon site picture (Childcare Centre) |
 | `sukoon/pin-seniors-living.mp4` | Pin B on the Sukoon site picture (Seniors Living) |
 | `bic/bic-project-status.mp4` | Project Status page |

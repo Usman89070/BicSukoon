@@ -5,6 +5,7 @@ import Reveal from '../../../components/common/Reveal'
 import Button from '../../../components/common/Button'
 import Media from '../../../components/common/Media'
 import Icon from '../../../components/common/Icon'
+import VideoFeature from '../../../components/video/VideoFeature'
 import PageShell from '../../../templates/PageShell'
 import { heroImage } from '../images'
 import { donateLink } from '../../../data/donation'
@@ -41,6 +42,13 @@ export default function Qmchc() {
               </Reveal>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* Film (same as pin 2 on the site picture) */}
+      <section className="section section--tight" aria-label="Film">
+        <div className="container">
+          <Reveal variant="scale"><VideoFeature id="pinQmchc" title="Queensland Muslim Cultural Heritage Centre" caption="Centre film" /></Reveal>
         </div>
       </section>
 
