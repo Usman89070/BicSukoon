@@ -10,6 +10,9 @@ const halves = [
   { id: 'sukoon', cta: 'Explore Sukoon Village', line: 'Seniors Living · Lifestyle · Childcare' },
 ]
 
+// Open the website's own index.html, so the link works on any host.
+const entry = (url) => (url.endsWith('/') ? `${url}index.html` : url)
+
 const Crescent = (props) => (
   <svg viewBox="0 0 64 64" aria-hidden="true" {...props}>
     <path d="M38 14a19 19 0 1 0 0 36 22 22 0 0 1 0-36z" fill="currentColor" />
@@ -38,7 +41,7 @@ export default function Portal() {
           const s = sites[h.id]
           const image = portalImage(h.id)
           return (
-            <a key={h.id} href={urls[h.id]} className={`half half--${h.id}`} style={{ '--i': i }} aria-label={`Enter the ${s.name} website`}>
+            <a key={h.id} href={entry(urls[h.id])} className={`half half--${h.id}`} style={{ '--i': i }} aria-label={`Enter the ${s.name} website`}>
               {image ? (
                 <img className="half__photo" src={image} alt="" fetchPriority="high" decoding="async" />
               ) : (

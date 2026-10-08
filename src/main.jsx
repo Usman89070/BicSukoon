@@ -20,6 +20,14 @@ const app =
       ? import('./sites/sukoon/App')
       : import('./sites/bic/App')
 
+// The starting page links to "<site>/index.html" so the buttons open the right
+// website on any host (some hosts do not serve a folder's index.html for
+// "/bic/"). Tidy the address back to "/bic/" before the router reads it.
+if (mode !== 'portal' && /\/index\.html$/.test(window.location.pathname)) {
+  const { pathname, search, hash } = window.location
+  window.history.replaceState(null, '', pathname.replace(/index\.html$/, '') + search + hash)
+}
+
 const root = createRoot(document.getElementById('root'))
 
 app.then(({ default: App }) => {
