@@ -30,7 +30,7 @@ export const qmchc = {
         'Through carefully curated displays, visitors will have the opportunity to explore the faith, culture and legacy of Islam while gaining a deeper appreciation of its contribution to society.',
         'The museum aims to encourage curiosity, promote understanding and strengthen connections between communities.',
       ],
-      image: 'qmchc-museum',
+      image: ['qmchc-museum', 'about-gallery-2'], // museum interior render
     },
     {
       id: 'theatre',
