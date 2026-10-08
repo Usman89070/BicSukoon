@@ -123,8 +123,8 @@ function valid_photo_name(string $name): bool
 }
 
 /**
- * Validates an uploaded image, shrinks it to PHOTO_MAX_WIDTH and stores it
- * as a JPEG. Returns the stored file name or throws with a friendly message.
+ * Validates an uploaded image and stores it: as uploaded when it is already
+ * small enough, otherwise shrunk to PHOTO_MAX_WIDTH as a JPEG. Returns the stored file name or throws with a friendly message.
  */
 function store_photo(array $file, string $id, string $type = 'guests'): string
 {
@@ -144,6 +144,7 @@ function store_photo(array $file, string $id, string $type = 'guests'): string
             IMAGETYPE_WEBP => @imagecreatefromwebp($file['tmp_name']),
         };
         if (!$src) throw new RuntimeException('This image could not be read.');
+        $o = 1;
         if ($info[2] === IMAGETYPE_JPEG && function_exists('exif_read_data')) {
             $o = (@exif_read_data($file['tmp_name'])['Orientation'] ?? 1);
             if ($o === 3) $src = imagerotate($src, 180, 0);
@@ -151,12 +152,19 @@ function store_photo(array $file, string $id, string $type = 'guests'): string
             if ($o === 8) $src = imagerotate($src, 90, 0);
         }
         [$w, $h] = [imagesx($src), imagesy($src)];
+        // Small, upright photos are kept exactly as uploaded: re-encoding
+        // would only lose quality.
+        if ($w <= PHOTO_MAX_WIDTH && !in_array($o, [3, 6, 8], true)) {
+            $name .= '.' . $types[$info[2]];
+            if (!move_uploaded_file($file['tmp_name'], $dir . $name)) throw new RuntimeException('The photo could not be saved.');
+            return $name;
+        }
         $nw = min($w, PHOTO_MAX_WIDTH);
         $nh = (int) round($h * $nw / $w);
         $dst = imagecreatetruecolor($nw, $nh);
         imagefill($dst, 0, 0, imagecolorallocate($dst, 255, 255, 255));
         imagecopyresampled($dst, $src, 0, 0, 0, 0, $nw, $nh, $w, $h);
-        imagejpeg($dst, $dir . $name . '.jpg', 84);
+        imagejpeg($dst, $dir . $name . '.jpg', 90);
         return $name . '.jpg';
     }
 

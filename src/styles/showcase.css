@@ -1723,6 +1723,21 @@
 .ab-board {
   margin-top: var(--space-7);
 }
+/* Board photos are small landscape portraits (about 250 x 166): show them in
+   their own 3:2 shape and close to their real size so they stay sharp. */
+.ab-board .guest__frame {
+  aspect-ratio: 3 / 2;
+  width: 100%;
+  max-width: 264px; /* ~ the photo's own width */
+  margin-inline: auto;
+  border-radius: 18px;
+}
+.ab-board .guest__photo {
+  object-position: center 30%;
+}
+.ab-board .guest:hover .guest__photo {
+  transform: none; /* no zoom: it would enlarge a small photo further */
+}
 .guest--memoriam .guest__frame {
   filter: grayscale(0.6);
   border-color: rgba(10, 8, 32, 0.4);
