@@ -68,7 +68,6 @@ export const seniors = {
   },
   ahead: {
     title: 'Looking Ahead',
-    highlight: 'Insha’Allah, construction is expected to commence later this year.',
     lead: 'Sukoon Village is more than a residential development.',
     closing: 'It is a commitment to providing a safe, welcoming and connected community where our elders can continue to live with dignity, purpose and peace of mind for generations to come.',
   },

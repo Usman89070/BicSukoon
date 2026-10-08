@@ -114,7 +114,6 @@ export default function BicHome() {
             <Reveal className="home-updates__text" delay={100}>
               <p className="home-updates__lead">{c.updates.lead}</p>
               <p>{c.updates.body}</p>
-              <p className="home-updates__highlight"><Icon name="calendar" size={20} /> {c.updates.highlight}</p>
             </Reveal>
           </div>
           <CompletedWorks />

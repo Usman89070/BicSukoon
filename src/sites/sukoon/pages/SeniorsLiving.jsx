@@ -130,7 +130,6 @@ export default function SeniorsLiving() {
         <div className="container home-journey__inner">
           <Reveal>
             <p className="eyebrow eyebrow--light">{c.ahead.title}</p>
-            <p className="sl-ahead__highlight"><Icon name="calendar" size={18} /> {c.ahead.highlight}</p>
             <h2 id="ahead-title" className="home-journey__lines"><span>{c.ahead.lead}</span></h2>
             <p className="home-journey__body">{c.ahead.closing}</p>
             <div className="home-journey__ctas">

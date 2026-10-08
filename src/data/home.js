@@ -84,7 +84,6 @@ export const bicHome = {
     title: 'Project Updates',
     lead: 'Brisbane Islamic Centre continues to move forward.',
     body: 'As the project progresses, we remain committed to keeping our community informed through regular updates, key milestones and important announcements.',
-    highlight: 'Construction is expected to commence later this year, Insha’Allah.',
   },
 
   journey: {

@@ -123,7 +123,6 @@ export default function SukoonHome() {
             <Reveal className="home-updates__text" delay={100}>
               <p className="home-updates__lead">{c.chapter.body[0]}</p>
               <p>{c.chapter.body[1]}</p>
-              <p className="home-updates__highlight"><Icon name="calendar" size={20} /> {c.ahead.highlight}</p>
             </Reveal>
           </div>
           <CompletedWorks />
