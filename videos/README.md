@@ -8,7 +8,8 @@ Manager), using **exactly** these file names:
 | --- | --- |
 | `BIC(centreH).mp4` | The Masjid Complex film: BIC home page and Masjid Complex page |
 | `bic-hero.mp4` | Silent background film behind the BIC home hero |
-| `sukoon-village.mp4` | Sukoon home background film and Sukoon village film |
+| `sukooonFull.mp4` | The Sukoon Village film: Sukoon home page and Sukoon Project Status page |
+| `sukoon-hero.mp4` | Short silent background film behind the Sukoon home hero |
 | `bic-project-status.mp4` | Project Status page |
 | `bic-update-2026.mp4` | Project update film |
 | `bic-funding.mp4` | Project Funding page |
@@ -28,7 +29,7 @@ Manager), using **exactly** these file names:
 Until a file is uploaded, the site shows a "Video coming soon" placeholder.
 MP4 (H.264) plays in every browser. For the web, about 1080p and under
 50 MB per minute is plenty; the background films (`bic-hero.mp4`,
-`sukoon-village.mp4`) should be short, silent loops, ideally under 15 MB.
+`sukoon-hero.mp4`) should be short, silent loops, ideally under 15 MB.
 
 Small videos may also be committed into this folder; the build copies them
 to the site.

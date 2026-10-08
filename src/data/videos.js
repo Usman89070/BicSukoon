@@ -33,5 +33,6 @@ export const videos = {
   events: film('Events', 'Community moments', 'bic-events.mp4'),
   about: film('About Us', 'Our story', 'bic-about.mp4'),
   contact: film('Contact Us', 'Get in touch', 'bic-contact.mp4'),
-  sukoon: film('Sukoon Village', 'Village film', 'sukoon-village.mp4', { poster: sukoonPoster, background: true }),
+  sukoon: film('Sukoon Village', 'Village film', 'sukooonFull.mp4', { poster: sukoonPoster }),
+  sukoonHero: film('Sukoon Village', 'Hero film', 'sukoon-hero.mp4', { poster: sukoonPoster, background: true }),
 }

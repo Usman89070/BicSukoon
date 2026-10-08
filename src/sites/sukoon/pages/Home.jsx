@@ -31,7 +31,7 @@ export default function SukoonHome() {
         eyebrow={c.hero.eyebrow}
         title={<>A Place to <em>Call Home.</em></>}
         image={heroImage}
-        film={videos.sukoon}
+        film={videos.sukoonHero}
         label="Village render"
         actions={[
           { label: 'Explore the village', href: '#explore', variant: 'light', icon: 'arrow' },
