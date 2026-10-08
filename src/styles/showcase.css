@@ -2240,3 +2240,24 @@
   background: rgba(255, 255, 255, 0.88);
   text-shadow: none;
 }
+
+/* ---- Welcome: a little more blur and veil so the text reads easily ------- */
+.home-welcome--photo .home-welcome__bg img {
+  filter: blur(4px) saturate(1.05);
+  transform: scale(1.06); /* hides the blurred edges */
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .home-welcome--photo:hover .home-welcome__bg img {
+    transform: scale(1.09);
+  }
+}
+:root[data-site='bic'] .home-welcome__bg::after {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.86) 0%, rgba(255, 255, 255, 0.68) 40%, rgba(255, 255, 255, 0.56) 100%),
+    radial-gradient(70% 90% at 65% 40%, rgba(255, 255, 255, 0.3), transparent 75%);
+}
+:root[data-site='sukoon'] .home-welcome__bg::after {
+  background:
+    linear-gradient(90deg, rgba(255, 252, 247, 0.86) 0%, rgba(255, 252, 247, 0.68) 40%, rgba(255, 252, 247, 0.56) 100%),
+    radial-gradient(70% 90% at 65% 40%, rgba(255, 252, 247, 0.3), transparent 75%);
+}
