@@ -21,7 +21,7 @@ const Crescent = (props) => (
 
 /**
  * Starting page: the screen split into two full-height photos, one per
- * website (stacked on phones). The whole half is the link.
+ * website (stacked on phones). Only the button in each half is a link.
  */
 export default function Portal() {
   return (
@@ -41,7 +41,7 @@ export default function Portal() {
           const s = sites[h.id]
           const image = portalImage(h.id)
           return (
-            <a key={h.id} href={entry(urls[h.id])} className={`half half--${h.id}`} style={{ '--i': i }} aria-label={`Enter the ${s.name} website`}>
+            <div key={h.id} className={`half half--${h.id}`} style={{ '--i': i }}>
               {image ? (
                 <img className="half__photo" src={image} alt="" fetchPriority="high" decoding="async" />
               ) : (
@@ -51,11 +51,11 @@ export default function Portal() {
               <span className="half__content">
                 <Logo project={h.id} tone="dark" height={h.id === 'sukoon' ? 70 : 60} decorative />
                 <span className="half__line">{h.line}</span>
-                <span className="half__cta">
+                <a className="half__cta" href={entry(urls[h.id])} aria-label={`${h.cta}: enter the ${s.name} website`}>
                   {h.cta} <Icon name="arrow" size={18} />
-                </span>
+                </a>
               </span>
-            </a>
+            </div>
           )
         })}
         <span className="portal__medallion" aria-hidden="true"><Crescent /></span>
