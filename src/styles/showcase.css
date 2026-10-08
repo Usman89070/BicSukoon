@@ -660,7 +660,7 @@
   padding: 16px 20px;
   border-radius: var(--radius-md, 14px);
   border-left: 4px solid var(--sv-primary);
-  background: linear-gradient(90deg, rgba(203, 155, 97, 0.16), rgba(203, 155, 97, 0.04));
+  background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.16), rgba(var(--accent-rgb), 0.04));
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -799,7 +799,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(110deg, transparent 30%, rgba(203, 155, 97, 0.35) 50%, transparent 70%);
+    background: linear-gradient(110deg, transparent 30%, rgba(var(--accent-rgb), 0.35) 50%, transparent 70%);
     transform: translateX(-120%);
     transition: transform 800ms var(--ease-out);
     pointer-events: none;
@@ -891,7 +891,7 @@
   }
   .home-updates__highlight:hover {
     transform: translateX(6px);
-    box-shadow: 0 16px 34px -22px rgba(156, 116, 67, 0.7);
+    box-shadow: 0 16px 34px -22px rgba(var(--accent-rgb), 0.7);
   }
 
   /* Join us: background drifts in */
@@ -948,11 +948,11 @@
   aspect-ratio: 4 / 5;
   overflow: hidden;
   border-radius: 22px;
-  border: 1px solid rgba(203, 155, 97, 0.55);
+  border: 1px solid rgba(var(--accent-rgb), 0.55);
   outline: 6px solid rgba(255, 255, 255, 0.85);
   outline-offset: -7px;
   background:
-    radial-gradient(80% 60% at 50% 30%, rgba(203, 155, 97, 0.18), transparent 70%),
+    radial-gradient(80% 60% at 50% 30%, rgba(var(--accent-rgb), 0.18), transparent 70%),
     linear-gradient(160deg, var(--bic-primary-light, #3b3290), var(--bic-primary-dark, #110e2e));
   box-shadow: 0 24px 50px -32px rgba(10, 8, 32, 0.55);
 }
@@ -1101,7 +1101,7 @@
   right: 25%;
   top: calc(clamp(1.5rem, 3vw, 2.5rem) + 46px);
   height: 52px;
-  border: 2px dashed rgba(203, 155, 97, 0.7);
+  border: 2px dashed rgba(var(--accent-rgb), 0.7);
   border-bottom: 0;
   border-radius: 18px 18px 0 0;
 }
@@ -1136,7 +1136,7 @@
   margin-top: 36px;
   color: #6b4d26;
   background: #fbf3e8;
-  border: 1px solid rgba(203, 155, 97, 0.45);
+  border: 1px solid rgba(var(--accent-rgb), 0.45);
 }
 .cc-connect__people {
   grid-area: people;
@@ -1691,7 +1691,7 @@
   padding: 18px 22px;
   border-radius: var(--radius-md, 14px);
   border-left: 4px solid var(--sv-primary);
-  background: linear-gradient(90deg, rgba(203, 155, 97, 0.16), rgba(203, 155, 97, 0.04));
+  background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.16), rgba(var(--accent-rgb), 0.04));
   color: var(--text-primary) !important;
 }
 .ab-board {
@@ -1779,7 +1779,7 @@
 }
 :root[data-site='sukoon'] .section--dark .cc-connect {
   background: #fbf7f1;
-  border-color: rgba(203, 155, 97, 0.4);
+  border-color: rgba(var(--accent-rgb), 0.4);
 }
 
 /* Childcare render: show the coloured shade sails in tall cards */
@@ -1886,4 +1886,19 @@
 }
 .done__item.is-playing .done__badge {
   display: none;
+}
+
+/* ---- BIC: remaining warm (Sukoon) tones → BIC navy -----------------------
+   The Sukoon Village card keeps its warm shade on purpose (it is Sukoon). */
+:root[data-site='bic'] .explore-card--childcare .explore-card__shade {
+  background: linear-gradient(180deg, rgba(8, 6, 26, 0.1) 0%, transparent 30%, rgba(17, 12, 58, 0.55) 55%, rgba(17, 12, 58, 0.92) 100%);
+}
+:root[data-site='bic'] .cc-card--future .cc-card__shade {
+  background: linear-gradient(180deg, transparent 20%, rgba(59, 50, 144, 0.6) 50%, rgba(17, 12, 58, 0.94));
+}
+:root[data-site='bic'] .ab-ahead li:last-child {
+  color: #110c3a;
+}
+:root[data-site='bic'] .stage-hero__title em {
+  -webkit-text-fill-color: transparent;
 }

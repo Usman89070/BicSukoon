@@ -56,6 +56,7 @@
   --primary-dark: var(--bic-primary-dark);
   --secondary: var(--bic-secondary);
   --accent: var(--sv-primary); /* family gold for highlights on navy */
+  --accent-rgb: 203, 155, 97; /* = gold, for translucent accent tints */
   --primary-ink: var(--bic-ink);
   --on-primary: var(--bic-on-primary);
 
@@ -136,6 +137,21 @@
    Gold + white from the logo; darks are deep espresso shades of the gold
    (the official white-and-gold logo sits on them exactly as designed).
    ========================================================================== */
+:root[data-site='bic'] {
+  /* BIC uses only its own logo colours: every "gold" accent the shared
+     components reach for becomes a lavender/indigo tint of the logo navy.
+     (Sukoon and the starting page keep the real gold.) */
+  --sv-primary: #9b94e3;
+  --sv-primary-light: #c9c4f7;
+  --sv-primary-dark: #4a41a8;
+  --sv-accent: #d4d0f7;
+  --sv-ink: #3b3290;
+  --sv-on-primary: #110c3a;
+  --secondary: var(--bic-accent);
+  --accent: #9b94e3;
+  --accent-rgb: 155, 148, 227;
+}
+
 :root[data-site='sukoon'] {
   font-size: 106.25%; /* 17px base — easier reading for seniors and families */
 
