@@ -2164,3 +2164,47 @@
     border-color: var(--bic-primary);
   }
 }
+
+/* ---- Centre the box rows ------------------------------------------------- */
+.container > .sl-facts,
+.home-welcome .sl-facts {
+  margin-left: auto;
+  margin-right: auto;
+}
+.home-journey .ab-ahead {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---- Sukoon Welcome: white veil over the village render, espresso text -- */
+:root[data-site='sukoon'] .home-welcome--photo {
+  color: var(--text-primary);
+}
+:root[data-site='sukoon'] .home-welcome__bg::after {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.86) 45%, rgba(255, 255, 255, 0.72) 100%),
+    linear-gradient(180deg, rgba(251, 248, 243, 0.6), rgba(251, 248, 243, 0.35));
+}
+:root[data-site='sukoon'] .home-welcome--photo .section-title,
+:root[data-site='sukoon'] .home-welcome--photo .home-welcome__text .home-welcome__lead {
+  color: var(--text-primary);
+}
+:root[data-site='sukoon'] .home-welcome--photo .home-welcome__text p {
+  color: var(--text-secondary);
+}
+:root[data-site='sukoon'] .home-welcome--photo .home-welcome__text p:last-of-type {
+  color: var(--primary-ink);
+}
+:root[data-site='sukoon'] .home-welcome--photo .home-welcome__pillars li {
+  color: var(--primary-ink);
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(125, 88, 40, 0.25);
+}
+:root[data-site='sukoon'] .home-welcome--photo .sl-fact {
+  border-color: rgba(203, 155, 97, 0.45);
+  box-shadow: 0 24px 50px -30px rgba(42, 31, 19, 0.35);
+}
+.container > .qm-index {
+  margin-left: auto;
+  margin-right: auto;
+}
