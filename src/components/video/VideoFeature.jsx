@@ -2,11 +2,13 @@ import { useRef, useState } from 'react'
 import { videos } from '../../data/videos'
 import { cx } from '../../utils/format'
 import Icon from '../common/Icon'
-import Media from '../common/Media'
+import Logo from '../common/Logo'
+import { SITE_ID } from '../../site'
 import { useVideoSrc } from '../../hooks/useVideoSrc'
 
 /**
- * Reusable video block: poster first, video loaded only on play (lazy).
+ * Reusable video block: a branded thumbnail (the website's logo) first,
+ * video loaded only on play (lazy).
  * Supports native controls + fullscreen. Shows an elegant placeholder
  * until the video file is on the server (see data/videos.js).
  */
@@ -18,6 +20,8 @@ export default function VideoFeature({ id, title, caption, className, ratio = '1
   const ref = useRef(null)
   const src = useVideoSrc(data.src)
   const hasVideo = Boolean(src || data.sources?.length || data.youtubeId)
+  // Thumbnail carries the logo of the website the film belongs to (its videos folder).
+  const brand = data.file?.startsWith('sukoon/') ? 'sukoon' : data.file?.startsWith('bic/') ? 'bic' : SITE_ID === 'sukoon' ? 'sukoon' : 'bic'
 
   const play = () => {
     if (!hasVideo) return
@@ -43,13 +47,18 @@ export default function VideoFeature({ id, title, caption, className, ratio = '1
           allowFullScreen
         />
       ) : playing ? (
-        <video ref={ref} className="video__el" controls playsInline preload="none" poster={data.poster ?? undefined}>
+        <video ref={ref} className="video__el" controls playsInline preload="none">
           {data.sources?.length ? data.sources.map((s) => <source key={s.src} src={s.src} type={s.type} />) : <source src={src} />}
           Your browser does not support embedded video.
         </video>
       ) : (
         <>
-          <Media src={data.poster} alt="" label={hasVideo ? undefined : `${label} video`} className="video__poster" showLabel={false} />
+          <div className={`video__thumb video__thumb--${brand}`} aria-hidden="true">
+            {data.poster && <img className="video__thumb-photo" src={data.poster} alt="" loading="lazy" decoding="async" />}
+            <span className="video__thumb-logo">
+              <Logo project={brand} tone="dark" height={brand === 'sukoon' ? 96 : 80} decorative />
+            </span>
+          </div>
           <div className="video__overlay">
             <button type="button" className="video__play" onClick={play} disabled={!hasVideo} aria-label={hasVideo ? `Play video: ${label}` : `${label} video — coming soon`}>
               <span className="video__play-ring" aria-hidden="true" />

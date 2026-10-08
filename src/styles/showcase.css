@@ -2044,3 +2044,89 @@
 .home-welcome--photo .sl-facts {
   position: relative;
 }
+
+/* ---- Video thumbnails: the website's logo on its brand colours ----------- */
+.video__thumb {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.video__thumb--bic {
+  background:
+    radial-gradient(60% 70% at 50% 35%, rgba(155, 148, 227, 0.28), transparent 70%),
+    linear-gradient(160deg, #2a2378 0%, #1c155c 45%, #0d0a2c 100%);
+}
+.video__thumb--sukoon {
+  background:
+    radial-gradient(60% 70% at 50% 35%, rgba(221, 184, 135, 0.3), transparent 70%),
+    linear-gradient(160deg, #5a4128 0%, #3a2a18 45%, #1e150b 100%);
+}
+.video__thumb-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.22;
+  mix-blend-mode: luminosity;
+  transition: transform 1.2s var(--ease-out), opacity 600ms var(--ease-out);
+}
+.video__thumb-logo {
+  position: relative;
+  /* sits above the centred play button */
+  transform: translateY(-62%);
+  filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.45));
+  transition: transform 700ms var(--ease-out);
+}
+.video__thumb-logo .logo {
+  width: auto;
+  height: clamp(44px, 8vw, 96px);
+}
+.video__thumb--sukoon .video__thumb-logo .logo {
+  height: clamp(56px, 10vw, 118px);
+}
+.video:hover .video__thumb-photo {
+  transform: scale(1.04);
+  opacity: 0.3;
+}
+.video:hover .video__thumb-logo {
+  transform: translateY(-66%);
+}
+.video__thumb + .video__overlay {
+  background: linear-gradient(180deg, transparent 55%, rgba(var(--ink-deep-rgb), 0.55));
+}
+.video__thumb + .video__overlay .video__play {
+  margin-top: clamp(48px, 9vw, 110px);
+}
+@media (max-width: 600px) {
+  .video__thumb-logo {
+    transform: translateY(-55%);
+  }
+  .video__thumb + .video__overlay .video__play {
+    margin-top: 40px;
+  }
+}
+@media (max-width: 600px) {
+  .video.video--wide {
+    aspect-ratio: 4 / 3 !important;
+  }
+  .video__thumb-logo {
+    transform: translateY(-120%);
+  }
+  .video__thumb-logo .logo {
+    height: 40px;
+  }
+  .video__thumb--sukoon .video__thumb-logo .logo {
+    height: 52px;
+  }
+  .video__thumb + .video__overlay .video__play {
+    margin-top: 10px;
+    transform: scale(0.82);
+  }
+  .video__thumb ~ .video__overlay .video__caption {
+    padding: 8px 12px;
+  }
+}
