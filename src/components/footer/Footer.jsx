@@ -29,7 +29,7 @@ export default function Footer() {
             </p>
           </div>
           <div className="footer__cta-actions">
-            <Button to={site.cta.to} variant="primary" icon={site.cta.icon}>{site.features.donate ? 'Donate Now' : 'Enquire Now'}</Button>
+            <Button to={site.cta.to} href={site.cta.href} target={site.cta.target} rel={site.cta.rel} variant="primary" icon={site.cta.icon}>{site.features.donate ? 'Donate Now' : 'Enquire Now'}</Button>
             <Button to="/project-updates" variant="glass">Project Updates</Button>
           </div>
         </div>

@@ -13,6 +13,7 @@ import StageHero from '../../../components/showcase/StageHero'
 import CompletedWorks from '../../../components/showcase/CompletedWorks'
 import ExploreCard from '../../../components/showcase/ExploreCard'
 import { heroImage } from '../images'
+import { donateLink } from '../../../data/donation'
 
 const Crescent = () => (
   <svg viewBox="0 0 64 64" aria-hidden="true">
@@ -34,7 +35,7 @@ export default function BicHome() {
         label="BIC aerial render"
         actions={[
           { label: 'Explore the development', href: '#explore', variant: 'light', icon: 'arrow' },
-          { label: 'Donate', to: '/donate', variant: 'glass', icon: 'heart' },
+          { label: 'Donate', ...donateLink, variant: 'glass', icon: 'heart' },
         ]}
       />
 
@@ -126,7 +127,7 @@ export default function BicHome() {
             <p className="home-journey__body">{c.journey.body}</p>
             <p className="home-journey__closing">{c.journey.closing}</p>
             <div className="home-journey__ctas">
-              <Button to="/donate" variant="light" icon="heart">Donate</Button>
+              <Button {...donateLink} variant="light" icon="heart">Donate</Button>
               <Button to="/contact" variant="glass" icon="mail">Get in touch</Button>
             </div>
           </Reveal>

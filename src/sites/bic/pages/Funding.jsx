@@ -9,11 +9,12 @@ import AllocationCards from '../../../components/donation/AllocationCards'
 import VideoFeature from '../../../components/video/VideoFeature'
 import PageShell from '../../../templates/PageShell'
 import CtaBand from '../../../templates/CtaBand'
+import { donateLink } from '../../../data/donation'
 
 export default function BicFunding() {
   return (
     <PageShell title="Project Funding" description="Why funding is needed, what it supports and how the community can help build the Brisbane Islamic Centre." lead="Why funding is needed, what it supports and how you can help."
-      heroActions={<Button to="/donate" variant="primary" icon="heart">Donate Now</Button>}>
+      heroActions={<Button {...donateLink} variant="primary" icon="heart">Donate Now</Button>}>
       <section className="section">
         <div className="container split">
           <div className="stack">

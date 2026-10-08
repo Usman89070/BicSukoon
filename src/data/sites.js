@@ -1,3 +1,5 @@
+import { donateLink } from './donation'
+
 /**
  * The two websites. Each is built separately (npm run build:bic / build:sukoon)
  * and has its own navigation, footer, contact details and social accounts.
@@ -69,7 +71,7 @@ export const sites = {
       },
       { label: 'Contact', to: '/contact' },
     ],
-    cta: { label: 'Donate', to: '/donate', icon: 'heart' },
+    cta: { label: 'Donate', ...donateLink, icon: 'heart' },
     features: { donate: true, funding: true, events: true, guests: true },
     enquiryTopics: ['General enquiry', 'Masjid Complex', 'Cultural Heritage Centre', 'Childcare Centre', 'Donations & funding', 'Events', 'Media'],
 

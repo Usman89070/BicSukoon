@@ -14,8 +14,9 @@ export const donation = {
   recurringSupported: false, // set true once the payment provider supports it
 
   payment: {
-    provider: null, // e.g. 'stripe' | 'paypal' | 'givenow' — not yet confirmed
-    checkoutUrl: null, // hosted checkout link, if used
+    provider: 'square',
+    // Official Square checkout link supplied by the project team
+    checkoutUrl: 'https://checkout.square.site/merchant/MLFQSZJ44G9Z6/checkout/R7BVDYRL433URKU75QOVGGDZ',
     bankTransfer: null, // { accountName, bsb, accountNumber, reference } — official only
   },
 
@@ -43,3 +44,8 @@ export const transparency = {
   milestones: [], // { id, title, date }
   financialUpdates: [], // { id, title, date, summary }
 }
+
+/** Props for any "Donate" link: opens the official checkout in a new tab. */
+export const donateLink = donation.payment.checkoutUrl
+  ? { href: donation.payment.checkoutUrl, target: '_blank', rel: 'noopener noreferrer' }
+  : { to: '/donate' }

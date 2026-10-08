@@ -2,13 +2,14 @@ import { site } from '../site'
 import Button from '../components/common/Button'
 import Pattern from '../components/common/Pattern'
 import Reveal from '../components/common/Reveal'
+import { donateLink } from '../data/donation'
 
 const defaults = {
   bic: {
     eyebrow: 'Support the Vision',
     title: 'Help build the future.',
     text: 'Every contribution helps bring the Brisbane Islamic Centre closer for our community and for generations to come.',
-    primary: { label: 'Donate Now', to: '/donate', icon: 'heart' },
+    primary: { label: 'Donate Now', ...donateLink, icon: 'heart' },
     secondary: { label: 'Project Updates', to: '/project-updates' },
   },
   sukoon: {
@@ -32,7 +33,7 @@ export default function CtaBand(props) {
             <h2 className="cta-band__title">{title}</h2>
             <p className="cta-band__text">{text}</p>
             <div className="cta-band__actions">
-              <Button to={primary.to} variant="primary" icon={primary.icon}>{primary.label}</Button>
+              <Button to={primary.to} href={primary.href} target={primary.target} rel={primary.rel} variant="primary" icon={primary.icon}>{primary.label}</Button>
               {secondary && <Button to={secondary.to} variant="glass">{secondary.label}</Button>}
             </div>
           </div>

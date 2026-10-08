@@ -9,6 +9,7 @@ import Timeline from '../../../components/timeline/Timeline'
 import PageShell from '../../../templates/PageShell'
 import { heroImage } from '../images'
 import { useBoard } from '../../../hooks/useGuests'
+import { donateLink } from '../../../data/donation'
 
 const boardPhotos = import.meta.glob('../../../assets/images/board/*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' })
 const boardPhoto = (id) => {
@@ -97,7 +98,7 @@ export default function BicAbout() {
             {c.memoriam.map((p) => <p key={p}>{p}</p>)}
           </Reveal>
           <div className="ab-donate">
-            <Button to="/donate" variant="primary" icon="heart">Donate Now</Button>
+            <Button {...donateLink} variant="primary" icon="heart">Donate Now</Button>
           </div>
         </div>
       </section>

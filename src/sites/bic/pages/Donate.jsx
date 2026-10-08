@@ -1,6 +1,6 @@
 import { pillars } from '../../../data/vision'
 import { SITE_ID } from '../../../site'
-import { impactStats, transparency, donation } from '../../../data/donation'
+import { impactStats, transparency, donateLink } from '../../../data/donation'
 import { formatDate } from '../../../utils/format'
 import Seo from '../../../components/common/Seo'
 import SectionHeader from '../../../components/common/SectionHeader'
@@ -11,7 +11,6 @@ import Icon from '../../../components/common/Icon'
 import PageHero from '../../../components/hero/PageHero'
 import VideoFeature from '../../../components/video/VideoFeature'
 import AllocationCards from '../../../components/donation/AllocationCards'
-import DonationForm from '../../../components/donation/DonationForm'
 import FundingProgress from '../../../components/donation/FundingProgress'
 import CtaBand from '../../../templates/CtaBand'
 
@@ -37,7 +36,7 @@ export default function Donate() {
         breadcrumbs={[{ label: 'Home', to: '/' }, { label: 'Donate' }]}
         size="lg"
       >
-        <Button href="#donate-form" variant="primary" icon="heart" size="lg">Donate Now</Button>
+        <Button {...donateLink} variant="primary" icon="heart" size="lg">Donate Now</Button>
         <Button href="#where" variant="glass">Where your support goes</Button>
       </PageHero>
 
@@ -73,15 +72,16 @@ export default function Donate() {
       <section className="section section--muted donate-section" id="donate-form">
         <div className="container donate-layout">
           <div className="donate-layout__aside">
-            <SectionHeader eyebrow="Make a donation" title="Simple, secure giving." intro="Choose an amount, add your details and continue to secure payment." />
-            <ul className="assurance">
-              <li><Icon name="check" size={18} /> One-time {donation.recurringSupported ? 'or monthly' : ''} giving</li>
-              <li><Icon name="check" size={18} /> Direct your support to a specific area</li>
-              <li><Icon name="check" size={18} /> Secure payment via the official provider</li>
-            </ul>
+            <SectionHeader eyebrow="Make a donation" title="Simple, secure giving." intro="Donations are made through the Brisbane Islamic Centre's official Square checkout." />
             <FundingProgress />
           </div>
-          <Reveal><DonationForm /></Reveal>
+          <Reveal className="donate-square glass-panel">
+            <span className="donate-square__icon" aria-hidden="true"><Icon name="heart" size={28} /></span>
+            <h3 className="donate-square__title">Donate to Brisbane Islamic Centre</h3>
+            <p className="donate-square__text">You will be taken to Square's secure checkout to choose your amount and complete your donation.</p>
+            <Button {...donateLink} variant="primary" icon="arrow" size="lg" className="donate-square__btn">Donate securely with Square</Button>
+            <p className="donate-square__note"><Icon name="check" size={16} /> Opens in a new tab · Secure payment by Square</p>
+          </Reveal>
         </div>
       </section>
 
@@ -117,7 +117,7 @@ export default function Donate() {
         </div>
       </section>
 
-      <CtaBand eyebrow="Support the Vision" title="Help Build the Future." primary={{ label: 'Donate Now', to: '/donate#donate-form' }} secondary={{ label: 'Explore the Vision', to: '/vision' }} />
+      <CtaBand eyebrow="Support the Vision" title="Help Build the Future." primary={{ label: 'Donate Now', ...donateLink, icon: 'heart' }} secondary={{ label: 'Explore the Vision', to: '/vision' }} />
     </>
   )
 }

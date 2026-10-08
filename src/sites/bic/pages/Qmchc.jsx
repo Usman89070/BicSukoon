@@ -7,6 +7,7 @@ import Media from '../../../components/common/Media'
 import Icon from '../../../components/common/Icon'
 import PageShell from '../../../templates/PageShell'
 import { heroImage } from '../images'
+import { donateLink } from '../../../data/donation'
 
 /** Queensland Muslim Cultural Heritage Centre — official copy, three spaces with large images. */
 export default function Qmchc() {
@@ -81,7 +82,7 @@ export default function Qmchc() {
             <h2 id="ahead-title" className="home-journey__lines"><span>Preserving the Past.</span><span>Inspiring the Future.</span></h2>
             {c.ahead.body.map((p) => <p key={p} className="home-journey__body">{p}</p>)}
             <div className="home-journey__ctas">
-              <Button to="/donate" variant="light" icon="heart">Support the Centre</Button>
+              <Button {...donateLink} variant="light" icon="heart">Support the Centre</Button>
               <Button to="/contact" variant="glass" icon="mail">Get in touch</Button>
             </div>
           </Reveal>

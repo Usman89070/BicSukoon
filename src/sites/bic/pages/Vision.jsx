@@ -9,6 +9,7 @@ import FacilityLink from '../../../components/common/FacilityLink'
 import Masterplan from '../../../components/masterplan/Masterplan'
 import PageShell from '../../../templates/PageShell'
 import { heroImage } from '../images'
+import { donateLink } from '../../../data/donation'
 
 /** BIC Vision — official copy laid out around big visuals. */
 export default function BicVision() {
@@ -119,7 +120,7 @@ export default function BicVision() {
               {c.ahead.lines.map((l) => <li key={l}>{l}</li>)}
             </ul>
             <div className="home-journey__ctas">
-              <Button to="/donate" variant="light" icon="heart">Donate</Button>
+              <Button {...donateLink} variant="light" icon="heart">Donate</Button>
               <Button to="/contact" variant="glass" icon="mail">Get in touch</Button>
             </div>
           </Reveal>

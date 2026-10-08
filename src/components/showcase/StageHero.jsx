@@ -38,7 +38,7 @@ export default function StageHero({ id = 'hero-title', className, eyebrow, title
         <h1 id={id} className="stage-hero__title">{title}</h1>
         <div className="stage-hero__ctas">
           {actions.map((a) => (
-            <Button key={a.label} to={a.to} href={a.href} variant={a.variant ?? 'glass'} icon={a.icon}>{a.label}</Button>
+            <Button key={a.label} to={a.to} href={a.href} target={a.target} rel={a.rel} variant={a.variant ?? 'glass'} icon={a.icon}>{a.label}</Button>
           ))}
         </div>
       </div>
