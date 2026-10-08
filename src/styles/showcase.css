@@ -2022,3 +2022,25 @@
 .home-welcome--photo .home-welcome__pillars {
   margin-top: var(--space-6);
 }
+
+/* Sukoon: Welcome section photo under a warm espresso veil */
+:root[data-site='sukoon'] .home-welcome__bg::after {
+  background:
+    linear-gradient(90deg, rgba(42, 31, 19, 0.88) 0%, rgba(42, 31, 19, 0.72) 45%, rgba(42, 31, 19, 0.5) 100%),
+    linear-gradient(180deg, rgba(42, 31, 19, 0.2), rgba(30, 21, 12, 0.5));
+}
+:root[data-site='sukoon'] .home-welcome--photo .home-welcome__mark {
+  color: #2a1f13;
+  background: linear-gradient(135deg, var(--sv-primary-light), var(--sv-primary));
+  border-color: transparent;
+}
+:root[data-site='sukoon'] .home-welcome--photo .home-welcome__text p:last-of-type {
+  color: var(--sv-accent);
+  font-style: italic;
+}
+:root[data-site='sukoon'] .home-welcome--photo .home-welcome__pillars li:hover {
+  color: #2a1f13;
+}
+.home-welcome--photo .sl-facts {
+  position: relative;
+}

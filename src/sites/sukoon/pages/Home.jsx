@@ -15,6 +15,7 @@ import CompletedWorks from '../../../components/showcase/CompletedWorks'
 import ExploreCard from '../../../components/showcase/ExploreCard'
 
 const heroImage = imageFor(['hero-sukoon', 'site-300DPISukoon', 'portal-sukoon'])
+const welcomeImage = imageFor('sukoon-welcome')
 
 const Crescent = () => (
   <svg viewBox="0 0 64 64" aria-hidden="true">
@@ -40,7 +41,12 @@ export default function SukoonHome() {
       />
 
       {/* Welcome */}
-      <section className="section home-welcome" aria-labelledby="welcome-title">
+      <section className={`section home-welcome${welcomeImage ? ' home-welcome--photo' : ''}`} aria-labelledby="welcome-title">
+        {welcomeImage && (
+          <div className="home-welcome__bg" aria-hidden="true">
+            <img src={welcomeImage} alt="" loading="lazy" decoding="async" />
+          </div>
+        )}
         <div className="container home-welcome__inner">
           <Reveal className="home-welcome__head">
             <span className="home-welcome__mark"><Crescent /></span>
