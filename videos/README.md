@@ -11,6 +11,7 @@ Manager) into the right folder, using **exactly** these file names:
 | `bic/bic-hero.mp4` | Silent background film behind the BIC home hero |
 | `sukoon/sukooonFull.mp4` | The Sukoon Village film: Sukoon home page and Sukoon Project Status page |
 | `sukoon/sukoon-hero.mp4` | Short silent background film behind the Sukoon home hero |
+| `bic/20KL(watertank).mp4` | "200,000L underground tank" panel in Already built (both websites) |
 | `bic/bic-project-status.mp4` | Project Status page |
 | `bic/bic-update-2026.mp4` | Project update film |
 | `bic/bic-funding.mp4` | Project Funding page |

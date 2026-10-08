@@ -16,5 +16,5 @@ export const completedWorks = [
     image: { bic: 'progress-existing-structure', sukoon: ['sukoon-existing-structure', 'progress-existing-structure'] },
     label: 'Existing structure photo',
   },
-  { id: 'underground-tank', title: '200,000L underground tank', image: 'progress-underground-tank', label: 'Underground tank photo' },
+  { id: 'underground-tank', title: '200,000L underground tank', image: 'progress-underground-tank', video: 'tank', label: 'Underground tank photo' },
 ]
