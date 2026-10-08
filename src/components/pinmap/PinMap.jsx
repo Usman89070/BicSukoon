@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { pinmap } from '../../data/pinmap'
+import { pinmaps } from '../../data/pinmap'
+import { SITE_ID } from '../../site'
 import { videos } from '../../data/videos'
 import { imageFor } from '../../utils/images'
 import { useVideoSrc } from '../../hooks/useVideoSrc'
 import Icon from '../common/Icon'
 import Logo from '../common/Logo'
 
+const pinmap = pinmaps[SITE_ID]
 const image = imageFor(pinmap.image)
 const crop = pinmap.height / pinmap.visibleHeight // pins are given on the full render
 
@@ -20,7 +22,7 @@ function PinFilm({ pin }) {
         <video key={src} src={src} autoPlay muted loop playsInline controls preload="metadata" />
       ) : (
         <div className="pinmap__film-thumb">
-          <Logo project="bic" tone="dark" height={34} decorative />
+          <Logo project={SITE_ID} tone="dark" height={34} decorative />
           <span><Icon name="play" size={14} /> Video coming soon</span>
         </div>
       )}
@@ -65,7 +67,7 @@ export default function PinMap() {
   return (
     <div className="pinmap" ref={root}>
       <div className="pinmap__frame" style={{ aspectRatio: `${pinmap.width} / ${pinmap.visibleHeight}` }}>
-        {image && <img className="pinmap__img" src={image} alt="Aerial render of the Brisbane Islamic Centre with its main areas marked" loading="lazy" decoding="async" />}
+        {image && <img className="pinmap__img" src={image} alt={`Aerial render of ${pinmap.name} with its main areas marked`} loading="lazy" decoding="async" />}
       </div>
 
       {pinmap.pins.map((p) => (

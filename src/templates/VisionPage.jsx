@@ -5,7 +5,7 @@ import SectionHeader from '../components/common/SectionHeader'
 import Reveal from '../components/common/Reveal'
 import Media from '../components/common/Media'
 import Icon from '../components/common/Icon'
-import Masterplan from '../components/masterplan/Masterplan'
+import PinMap from '../components/pinmap/PinMap'
 import PageShell from './PageShell'
 import CtaBand from './CtaBand'
 import FacilityLink from '../components/common/FacilityLink'
@@ -47,7 +47,7 @@ export default function VisionPage() {
       <section className="section section--dark">
         <div className="container">
           <SectionHeader eyebrow="Masterplan" title="How the vision takes shape." />
-          <Masterplan />
+          <PinMap />
         </div>
       </section>
       <CtaBand />

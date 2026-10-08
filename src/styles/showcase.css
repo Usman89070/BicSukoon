@@ -2266,16 +2266,22 @@
 }
 
 /* ==========================================================================
-   SITE PICTURE WITH PINS (BIC)
+   SITE PICTURE WITH PINS (both sites)
    ========================================================================== */
 .pinmap {
+  --pin-ink: var(--bic-primary, #1c155c);
+  --pin-glow: 155, 148, 227;
   position: relative;
+}
+:root[data-site='sukoon'] .pinmap {
+  --pin-ink: #15122e; /* Sukoon navy, with a gold glow */
+  --pin-glow: 203, 155, 97;
 }
 .pinmap__frame {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-xl, 28px);
-  background: #1c155c;
+  background: var(--pin-ink);
   box-shadow: 0 40px 90px -50px rgba(10, 8, 32, 0.6);
 }
 .pinmap__img {
@@ -2358,11 +2364,11 @@
 }
 .pinmap__pin.is-open svg,
 .pinmap__pin:hover svg {
-  fill: var(--bic-primary, #1c155c);
+  fill: var(--pin-ink);
 }
 .pinmap__pin.is-open .pinmap__num,
 .pinmap__pin:hover .pinmap__num {
-  color: var(--bic-primary, #1c155c);
+  color: var(--pin-ink);
 }
 .pinmap__pin:focus-visible {
   outline: 3px solid #ffffff;
@@ -2381,7 +2387,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.01em;
-  color: var(--bic-primary, #1c155c);
+  color: var(--pin-ink);
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 8px 20px -10px rgba(10, 8, 32, 0.5);
   pointer-events: none;
@@ -2391,7 +2397,7 @@
 .pinmap__pin:focus-visible .pinmap__tip,
 .pinmap__pin.is-open .pinmap__tip {
   color: #ffffff;
-  background: var(--bic-primary, #1c155c);
+  background: var(--pin-ink);
 }
 
 /* card with the film */
@@ -2429,8 +2435,8 @@
   align-content: center;
   gap: 10px;
   background:
-    radial-gradient(60% 70% at 50% 35%, rgba(155, 148, 227, 0.3), transparent 70%),
-    linear-gradient(160deg, #2a2378, #1c155c 45%, #0d0a2c);
+    radial-gradient(60% 70% at 50% 35%, rgba(var(--pin-glow), 0.3), transparent 70%),
+    linear-gradient(160deg, color-mix(in srgb, var(--pin-ink) 80%, #ffffff 12%), var(--pin-ink) 45%, #0d0a2c);
   color: rgba(255, 255, 255, 0.85);
   font-size: 0.78rem;
   font-weight: 600;
@@ -2461,7 +2467,7 @@
   height: 32px;
   border-radius: 50%;
   color: #ffffff;
-  background: var(--bic-primary, #1c155c);
+  background: var(--pin-ink);
   font-weight: 800;
 }
 .pinmap__card-title {
@@ -2469,7 +2475,7 @@
   font-weight: 400;
   font-size: 1.1rem;
   line-height: 1.25;
-  color: var(--text-primary);
+  color: var(--pin-ink); /* the card is always white, even in dark sections */
 }
 .pinmap__card-link {
   display: inline-flex;
@@ -2477,7 +2483,7 @@
   gap: 6px;
   font-size: var(--fs-sm);
   font-weight: 700;
-  color: var(--bic-primary, #1c155c);
+  color: var(--pin-ink);
   text-decoration: none;
 }
 .pinmap__card-link:hover {
