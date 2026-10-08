@@ -1,14 +1,18 @@
 <?php
 /**
- * Serves videos kept OUTSIDE the website folder, in bic-videos/ next to
- * public_html, so they survive redeploys. /videos/<file> is routed here by
- * .htaccess only when the file is not in public_html/videos/.
+ * Serves videos kept OUTSIDE the website folder, in bic-videos/bic/ and
+ * bic-videos/sukoon/ next to public_html, so they survive redeploys.
+ * /videos/<folder>/<file> is routed here by .htaccess only when the file is
+ * not in public_html/videos/.
  * Supports HTTP Range requests so browsers can stream and seek.
  */
 declare(strict_types=1);
 
-$name = basename((string) ($_GET['f'] ?? ''));
-$dir = dirname(__DIR__, 2) . '/bic-videos/';
+// Only "<folder>/<file>" with folder bic or sukoon is accepted (no other paths).
+$parts = explode('/', str_replace('\\', '/', (string) ($_GET['f'] ?? '')));
+$folder = count($parts) === 2 && in_array($parts[0], ['bic', 'sukoon'], true) ? $parts[0] : null;
+$name = $folder ? basename($parts[1]) : '';
+$dir = dirname(__DIR__, 2) . '/bic-videos/' . $folder . '/';
 $types = ['mp4' => 'video/mp4', 'm4v' => 'video/mp4', 'webm' => 'video/webm', 'mov' => 'video/quicktime'];
 $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
 $path = $dir . $name;

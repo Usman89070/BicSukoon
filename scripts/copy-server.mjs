@@ -18,11 +18,18 @@ const seed = (name, items) =>
   )
 seed('guests', guests)
 seed('board', about.board)
-// Videos folder: any videos committed to videos/, plus a list of the expected
-// file names (from src/data/videos.js) for whoever uploads them by hand.
-mkdirSync('dist/videos', { recursive: true })
-if (existsSync('videos')) cpSync('videos', 'dist/videos', { recursive: true, filter: (f) => !f.endsWith('README.md') })
-const names = [...readFileSync('src/data/videos.js', 'utf8').matchAll(/film\([^)]*?'([^']+\.(?:mp4|webm|mov|m4v))'/g)].map((m) => m[1])
-writeFileSync('dist/videos/README.txt', `Upload videos here (or to bic-videos/ next to public_html) with these exact names:\n\n${names.join('\n')}\n`)
+// Videos: one folder per website. Copies any videos committed to videos/,
+// plus a list of the expected file names (from src/data/videos.js) for
+// whoever uploads them by hand.
+const slots = [...readFileSync('src/data/videos.js', 'utf8').matchAll(/film\('(bic|sukoon)',[^)]*?'([^']+\.(?:mp4|webm|mov|m4v))'/g)].map((m) => [m[1], m[2]])
+const names = slots.map(([, n]) => n)
+for (const folder of ['bic', 'sukoon']) {
+  mkdirSync(`dist/videos/${folder}`, { recursive: true })
+  writeFileSync(
+    `dist/videos/${folder}/README.txt`,
+    `Upload the ${folder === 'bic' ? 'Brisbane Islamic Centre' : 'Sukoon Village'} videos here (or to bic-videos/${folder}/ next to public_html) with these exact names:\n\n${slots.filter(([f]) => f === folder).map(([, n]) => n).join('\n')}\n`,
+  )
+}
+if (existsSync('videos')) cpSync('videos', 'dist/videos', { recursive: true, filter: (f) => !/(README\.md|\.gitkeep)$/.test(f) })
 
 console.log(`[server] Copied admin panel + API, seeded ${guests.length} guests and ${about.board.length} board members; ${names.length} video slots`)

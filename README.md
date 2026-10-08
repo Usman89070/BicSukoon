@@ -65,10 +65,12 @@ appear automatically (until then a labelled placeholder is shown):
 Use wide images (about 2400px) for the hero and starting page.
 
 ### Videos
-Videos are not bundled (too large for GitHub). Upload them to the server as
-`public_html/videos/<name>` or, better, `bic-videos/<name>` next to
-`public_html` (kept on redeploys). The expected names are listed in
-`videos/README.md` (e.g. `BIC(centreH).mp4` for the Masjid Complex film) and
+Videos are not bundled (too large for GitHub). Each website has its own
+folder: upload BIC videos to `public_html/videos/bic/` and Sukoon videos to
+`public_html/videos/sukoon/`, or, better, to the same folders inside
+`bic-videos/` next to `public_html` (kept on redeploys). The expected names
+are listed in `videos/README.md` (e.g. `bic/BIC(centreH).mp4` for the Masjid
+Complex film, `sukoon/sukooonFull.mp4` for the Sukoon Village film) and
 set in `src/data/videos.js`. Until a file is there, a "Video coming soon"
 placeholder shows.
 
