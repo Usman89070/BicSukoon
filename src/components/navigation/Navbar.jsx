@@ -126,7 +126,7 @@ export default function Navbar() {
                         )
                         const href = externalHref(c.site, c.to)
                         return (
-                          <li key={c.label}>
+                          <li key={c.to + c.label} className={c.sub ? 'dropdown__sub' : undefined}>
                             {href ? (
                               <a href={href} className="dropdown__link">{body}</a>
                             ) : (
@@ -185,7 +185,7 @@ export default function Navbar() {
                         {item.to && <li><NavLink to={item.to} end>{item.allLabel ?? item.label}</NavLink></li>}
                         {item.children.map((c) => {
                           const href = externalHref(c.site, c.to)
-                          return <li key={c.label}>{href ? <a href={href}>{c.label}</a> : <NavLink to={c.to} end>{c.label}</NavLink>}</li>
+                          return <li key={c.to + c.label} className={c.sub ? 'mobile-menu__subitem' : undefined}>{href ? <a href={href}>{c.label}</a> : <NavLink to={c.to} end>{c.label}</NavLink>}</li>
                         })}
                       </ul>
                     </div>

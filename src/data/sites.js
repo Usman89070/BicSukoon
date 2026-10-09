@@ -40,7 +40,6 @@ export const sites = {
         children: [
           { label: 'About Us', to: '/about', text: 'Our story and purpose' },
           { label: 'Vision', to: '/vision', text: 'Faith, Knowledge, Community, Legacy' },
-          { label: 'Honoured Guests', to: '/honoured-guests', text: 'Distinguished visitors' },
         ],
       },
       {
@@ -64,11 +63,12 @@ export const sites = {
         ],
       },
       {
-        label: 'Events',
-        to: '/events', // the label opens the Events page
-        allLabel: 'All events',
-        dynamic: 'events', // the menu lists every event added in the admin panel (hooks/useNav.js)
-        children: [],
+        label: 'Community',
+        dynamic: 'events', // each event added in the admin panel is listed under Events (hooks/useNav.js)
+        children: [
+          { label: 'Events', to: '/events', text: 'Gatherings and open days' },
+          { label: 'Honoured Guests', to: '/honoured-guests', text: 'Distinguished visitors' },
+        ],
       },
       {
         label: 'Gallery',
