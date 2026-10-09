@@ -6,12 +6,13 @@ import Logo from '../common/Logo'
 import { SITE_ID } from '../../site'
 import { useVideoSrc } from '../../hooks/useVideoSrc'
 import { enterFullscreen } from '../../utils/fullscreen'
+import VideoLightbox from './VideoLightbox'
 
 /**
  * Reusable video block: a branded thumbnail (the website's logo) first,
  * video loaded only on play (lazy).
- * Pressing play opens the film fullscreen, except for the large
- * full-width films (`video--wide`), which play in place.
+ * Pressing play opens the film in the gallery-style viewer, except for the
+ * large full-width films (`video--wide`), which play in place.
  * Supports native controls + fullscreen. Shows an elegant placeholder
  * until the video file is on the server (see data/videos.js).
  */
@@ -20,6 +21,7 @@ export default function VideoFeature({ id, title, caption, className, ratio = '1
   const label = title ?? data.title
   const sub = caption ?? data.caption
   const [playing, setPlaying] = useState(false)
+  const [viewing, setViewing] = useState(false)
   const ref = useRef(null)
   const src = useVideoSrc(data.src)
   const hasVideo = Boolean(src || data.sources?.length || data.youtubeId)
@@ -30,11 +32,12 @@ export default function VideoFeature({ id, title, caption, className, ratio = '1
 
   const play = () => {
     if (!hasVideo) return
+    if (!playsInPlace) {
+      setViewing(true)
+      return
+    }
     setPlaying(true)
-    requestAnimationFrame(() => {
-      if (!playsInPlace) enterFullscreen(ref.current)
-      ref.current?.play?.()
-    })
+    requestAnimationFrame(() => ref.current?.play?.())
   }
 
   const fullscreen = () => enterFullscreen(ref.current)
@@ -78,6 +81,9 @@ export default function VideoFeature({ id, title, caption, className, ratio = '1
         <button type="button" className="video__fs glass" onClick={fullscreen} aria-label="View fullscreen">
           <Icon name="expand" size={18} />
         </button>
+      )}
+      {viewing && (
+        <VideoLightbox title={label} tag={sub} src={src} sources={data.sources} youtubeId={data.youtubeId} poster={data.poster} project={brand} onClose={() => setViewing(false)} />
       )}
     </figure>
   )

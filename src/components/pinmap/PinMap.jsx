@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { pinmaps } from '../../data/pinmap'
-import { SITE_ID } from '../../site'
+import { SITE_ID, site } from '../../site'
 import { videos } from '../../data/videos'
 import { imageFor } from '../../utils/images'
 import { useVideoSrc } from '../../hooks/useVideoSrc'
-import { enterFullscreen } from '../../utils/fullscreen'
+import VideoLightbox from '../video/VideoLightbox'
 import Icon from '../common/Icon'
 import Logo from '../common/Logo'
 
@@ -14,30 +14,11 @@ const image = imageFor(pinmap.image)
 const crop = pinmap.height / pinmap.visibleHeight // pins are given on the full render
 
 /** The film (or a branded "coming soon" card) for one pin. */
-function PinFilm({ pin }) {
+function PinFilm({ pin, onWatch }) {
   const film = videos[pin.video]
   const src = useVideoSrc(film?.src)
   const [started, setStarted] = useState(false)
 
-  // The card plays a silent preview; a click opens it fullscreen with sound
-  // and controls, and it goes back to the silent preview on exit.
-  const openFull = (e) => {
-    const v = e.currentTarget
-    v.controls = true
-    v.muted = false
-    v.play?.()
-    const back = () => {
-      if (document.fullscreenElement || document.webkitFullscreenElement) return
-      v.controls = false
-      v.muted = true
-      document.removeEventListener('fullscreenchange', back)
-      document.removeEventListener('webkitfullscreenchange', back)
-    }
-    document.addEventListener('fullscreenchange', back)
-    document.addEventListener('webkitfullscreenchange', back)
-    v.addEventListener('webkitendfullscreen', () => { v.controls = false; v.muted = true }, { once: true })
-    enterFullscreen(v)
-  }
   return (
     <div className="pinmap__film">
       {src && (
@@ -49,9 +30,9 @@ function PinFilm({ pin }) {
           loop
           playsInline
           preload="metadata"
-          title="Click to watch full screen"
+          title="Click to watch with sound"
           onPlaying={() => setStarted(true)}
-          onClick={openFull}
+          onClick={() => onWatch({ title: pin.title, src, poster: film?.poster })}
         />
       )}
       {/* the website's logo shows until the film is actually playing */}
@@ -70,6 +51,8 @@ function PinFilm({ pin }) {
  */
 export default function PinMap() {
   const [open, setOpen] = useState(null)
+  // film opened from a card, shown in the gallery-style viewer (outlives the card)
+  const [watching, setWatching] = useState(null)
   const timer = useRef(null)
   const root = useRef(null)
   const hovered = useRef(false) // a mouse click on a hovered pin keeps its card open
@@ -80,8 +63,7 @@ export default function PinMap() {
   }
   const hideSoon = () => {
     clearTimeout(timer.current)
-    // keep the card (and its film) while the film is fullscreen
-    timer.current = setTimeout(() => !(document.fullscreenElement || document.webkitFullscreenElement) && setOpen(null), 280)
+    timer.current = setTimeout(() => setOpen(null), 280)
   }
 
   useEffect(() => {
@@ -134,7 +116,7 @@ export default function PinMap() {
           onPointerEnter={(e) => e.pointerType === 'mouse' && show(active.id)}
           onPointerLeave={(e) => e.pointerType === 'mouse' && hideSoon()}
         >
-          <PinFilm key={active.id} pin={active} />
+          <PinFilm key={active.id} pin={active} onWatch={(f) => { setWatching(f); setOpen(null) }} />
           <div className="pinmap__card-body">
             <span className="pinmap__card-num">{active.n}</span>
             <h3 className="pinmap__card-title">{active.title}</h3>
@@ -155,6 +137,8 @@ export default function PinMap() {
           </li>
         ))}
       </ol>
+
+      {watching && <VideoLightbox title={watching.title} tag={site.name} src={watching.src} poster={watching.poster} onClose={() => setWatching(null)} />}
     </div>
   )
 }
