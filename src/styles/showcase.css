@@ -3267,3 +3267,43 @@
 .gallery-card--video .gallery-card__zoom {
   display: none;
 }
+
+/* last step of the home-page viewer: go to the full gallery */
+.lightbox__end {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  padding: 24px;
+  text-align: center;
+  color: #ffffff;
+  animation: lightbox-in 300ms var(--ease-out) both;
+}
+.lightbox__end-text {
+  font-size: var(--fs-sm);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+.lightbox__end-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.9em 1.8em;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2.2rem);
+  color: #15122e;
+  background: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.8);
+  transition: transform 300ms var(--ease-out);
+}
+.lightbox__end-link:hover {
+  transform: translateY(-3px);
+}
+button.home-gallery__card {
+  padding: 0;
+  border: 0;
+  cursor: zoom-in;
+  text-align: left;
+}

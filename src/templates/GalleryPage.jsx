@@ -2,45 +2,14 @@ import { useCallback, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { galleries } from '../data/gallery'
 import { useGallery } from '../hooks/useGallery'
-import { GalleryFull, GalleryThumb } from '../components/gallery/GalleryMedia'
-import { useEscape } from '../hooks/useEscape'
-import { useLockBody } from '../hooks/useLockBody'
+import { GalleryThumb } from '../components/gallery/GalleryMedia'
+import GalleryLightbox from '../components/gallery/GalleryLightbox'
 import Button from '../components/common/Button'
 import Icon from '../components/common/Icon'
 import Reveal from '../components/common/Reveal'
 import PageShell from './PageShell'
 
 const order = ['bic', 'sukoon']
-
-/** Full-screen viewer with previous / next, Escape and arrow keys. */
-function Lightbox({ items, index, onClose, onGo }) {
-  const item = items[index]
-  const step = useCallback((d) => onGo((index + d + items.length) % items.length), [index, items.length, onGo])
-  useLockBody(true)
-  useEscape(true, onClose)
-  const onKey = (e) => {
-    if (e.key === 'ArrowRight') step(1)
-    if (e.key === 'ArrowLeft') step(-1)
-  }
-  return (
-    <div className="lightbox" role="dialog" aria-modal="true" aria-label={item.title} onKeyDown={onKey} onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <figure className="lightbox__figure">
-        <GalleryFull item={item} />
-        <figcaption className="lightbox__caption">
-          <span className={`lightbox__tag lightbox__tag--${item.project}`}>{galleries[item.project].title}</span>
-          {item.title}
-        </figcaption>
-      </figure>
-      <button type="button" className="lightbox__btn lightbox__close" onClick={onClose} aria-label="Close" autoFocus><Icon name="close" size={22} /></button>
-      {items.length > 1 && (
-        <>
-          <button type="button" className="lightbox__btn lightbox__prev" onClick={() => step(-1)} aria-label="Previous"><Icon name="arrow" size={22} /></button>
-          <button type="button" className="lightbox__btn lightbox__next" onClick={() => step(1)} aria-label="Next"><Icon name="arrow" size={22} /></button>
-        </>
-      )}
-    </div>
-  )
-}
 
 function Grid({ items, onOpen, offset = 0 }) {
   return (
@@ -113,7 +82,7 @@ export default function GalleryPage({ project }) {
         </div>
       </section>
 
-      {open !== null && visible[open] && <Lightbox items={visible} index={open} onClose={close} onGo={setOpen} />}
+      {open !== null && visible[open] && <GalleryLightbox items={visible} index={open} onClose={close} onGo={setOpen} />}
     </PageShell>
   )
 }
