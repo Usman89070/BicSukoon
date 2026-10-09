@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { galleries, galleryItems } from '../data/gallery'
 import { useEscape } from '../hooks/useEscape'
 import { useLockBody } from '../hooks/useLockBody'
+import Button from '../components/common/Button'
 import Icon from '../components/common/Icon'
 import Logo from '../components/common/Logo'
 import Reveal from '../components/common/Reveal'
@@ -96,11 +97,13 @@ export default function GalleryPage({ project }) {
           {blocks.map(({ id, items, start }) => {
             return (
               <div key={id} className="gallery__block" aria-labelledby={`gallery-${id}`}>
-                <header className="gallery__head">
-                  <Logo project={id} tone="light" height={id === 'sukoon' ? 44 : 34} decorative />
-                  <h2 id={`gallery-${id}`} className="gallery__title">{galleries[id].title}</h2>
-                  <span className="gallery__count">{items.length} {items.length === 1 ? 'photo' : 'photos'}</span>
-                  {!project && <Link to={galleries[id].path} className="gallery__only">Only this gallery <Icon name="arrow" size={14} /></Link>}
+                <header className="home-gallery__head gallery__head">
+                  <div className="home-gallery__name">
+                    <Logo project={id} tone="light" height={id === 'sukoon' ? 46 : 36} decorative />
+                    <h2 id={`gallery-${id}`} className="home-gallery__title">{galleries[id].title}</h2>
+                    <span className="gallery__count">{items.length} {items.length === 1 ? 'photo' : 'photos'}</span>
+                  </div>
+                  {!project && <Button to={galleries[id].path} variant="ghost" icon="arrow" className="home-gallery__more">View {galleries[id].title}</Button>}
                 </header>
                 {items.length ? <Grid items={items} onOpen={setOpen} offset={start} /> : <p className="gallery__empty">Photos coming soon.</p>}
               </div>
