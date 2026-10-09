@@ -1728,6 +1728,15 @@
 .ab-board .guest:hover .guest__photo {
   transform: none; /* no zoom: it would enlarge a small photo further */
 }
+/* Phones: guests and directors one per row, photo the full width */
+@media (max-width: 699px) {
+  .guests {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ab-board .guest__frame {
+    max-width: none;
+  }
+}
 .guest--memoriam .guest__frame {
   filter: grayscale(0.6);
   border-color: rgba(10, 8, 32, 0.4);
