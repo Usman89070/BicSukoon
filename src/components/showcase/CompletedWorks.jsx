@@ -4,6 +4,7 @@ import { videos } from '../../data/videos'
 import { SITE_ID } from '../../site'
 import { imageFor } from '../../utils/images'
 import { useVideoSrc } from '../../hooks/useVideoSrc'
+import { enterFullscreen } from '../../utils/fullscreen'
 import Icon from '../common/Icon'
 import Logo from '../common/Logo'
 import Media from '../common/Media'
@@ -15,7 +16,7 @@ const imageOf = (w) => imageFor(w.image && !Array.isArray(w.image) && typeof w.i
 /**
  * One panel. With a `video` (see data/videos.js) that is on the server, the
  * panel shows the website's logo and a play button, and plays the film
- * inside the panel; the video is only downloaded when the visitor presses play.
+ * fullscreen; the video is only downloaded when the visitor presses play.
  */
 function Work({ w, index }) {
   const film = w.video ? videos[w.video] : null
@@ -25,7 +26,10 @@ function Work({ w, index }) {
 
   const play = () => {
     setPlaying(true)
-    requestAnimationFrame(() => ref.current?.play?.())
+    requestAnimationFrame(() => {
+      enterFullscreen(ref.current)
+      ref.current?.play?.()
+    })
   }
 
   return (

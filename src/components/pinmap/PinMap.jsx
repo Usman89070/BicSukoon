@@ -5,6 +5,7 @@ import { SITE_ID } from '../../site'
 import { videos } from '../../data/videos'
 import { imageFor } from '../../utils/images'
 import { useVideoSrc } from '../../hooks/useVideoSrc'
+import { enterFullscreen } from '../../utils/fullscreen'
 import Icon from '../common/Icon'
 import Logo from '../common/Logo'
 
@@ -17,9 +18,42 @@ function PinFilm({ pin }) {
   const film = videos[pin.video]
   const src = useVideoSrc(film?.src)
   const [started, setStarted] = useState(false)
+
+  // The card plays a silent preview; a click opens it fullscreen with sound
+  // and controls, and it goes back to the silent preview on exit.
+  const openFull = (e) => {
+    const v = e.currentTarget
+    v.controls = true
+    v.muted = false
+    v.play?.()
+    const back = () => {
+      if (document.fullscreenElement || document.webkitFullscreenElement) return
+      v.controls = false
+      v.muted = true
+      document.removeEventListener('fullscreenchange', back)
+      document.removeEventListener('webkitfullscreenchange', back)
+    }
+    document.addEventListener('fullscreenchange', back)
+    document.addEventListener('webkitfullscreenchange', back)
+    v.addEventListener('webkitendfullscreen', () => { v.controls = false; v.muted = true }, { once: true })
+    enterFullscreen(v)
+  }
   return (
     <div className="pinmap__film">
-      {src && <video key={src} src={src} autoPlay muted loop playsInline controls preload="metadata" onPlaying={() => setStarted(true)} />}
+      {src && (
+        <video
+          key={src}
+          src={src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          title="Click to watch full screen"
+          onPlaying={() => setStarted(true)}
+          onClick={openFull}
+        />
+      )}
       {/* the website's logo shows until the film is actually playing */}
       <div className={`pinmap__film-thumb${started ? ' is-hidden' : ''}`} aria-hidden={src ? true : undefined}>
         <Logo project={SITE_ID} tone="dark" height={34} decorative />
@@ -46,7 +80,8 @@ export default function PinMap() {
   }
   const hideSoon = () => {
     clearTimeout(timer.current)
-    timer.current = setTimeout(() => setOpen(null), 280)
+    // keep the card (and its film) while the film is fullscreen
+    timer.current = setTimeout(() => !(document.fullscreenElement || document.webkitFullscreenElement) && setOpen(null), 280)
   }
 
   useEffect(() => {

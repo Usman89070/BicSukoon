@@ -5,10 +5,13 @@ import Icon from '../common/Icon'
 import Logo from '../common/Logo'
 import { SITE_ID } from '../../site'
 import { useVideoSrc } from '../../hooks/useVideoSrc'
+import { enterFullscreen } from '../../utils/fullscreen'
 
 /**
  * Reusable video block: a branded thumbnail (the website's logo) first,
  * video loaded only on play (lazy).
+ * Pressing play opens the film fullscreen, except for the large
+ * full-width films (`video--wide`), which play in place.
  * Supports native controls + fullscreen. Shows an elegant placeholder
  * until the video file is on the server (see data/videos.js).
  */
@@ -23,18 +26,18 @@ export default function VideoFeature({ id, title, caption, className, ratio = '1
   // Thumbnail carries the logo of the website it is shown on.
   const brand = SITE_ID === 'sukoon' ? 'sukoon' : 'bic'
 
+  const playsInPlace = Boolean(className?.split(' ').includes('video--wide'))
+
   const play = () => {
     if (!hasVideo) return
     setPlaying(true)
-    requestAnimationFrame(() => ref.current?.play?.())
+    requestAnimationFrame(() => {
+      if (!playsInPlace) enterFullscreen(ref.current)
+      ref.current?.play?.()
+    })
   }
 
-  const fullscreen = () => {
-    const el = ref.current
-    if (!el) return
-    if (el.requestFullscreen) el.requestFullscreen()
-    else if (el.webkitEnterFullscreen) el.webkitEnterFullscreen()
-  }
+  const fullscreen = () => enterFullscreen(ref.current)
 
   return (
     <figure className={cx('video', playing && 'is-playing', className)} style={{ aspectRatio: ratio }}>
