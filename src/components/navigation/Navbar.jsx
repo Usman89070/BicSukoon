@@ -179,7 +179,7 @@ export default function Navbar() {
                     </button>
                     <div className={cx('mobile-menu__sub', mobileSection === item.label && 'is-open')}>
                       <ul>
-                        {item.to && <li><NavLink to={item.to} end>All {item.label.toLowerCase()}</NavLink></li>}
+                        {item.to && <li><NavLink to={item.to} end>{item.allLabel ?? item.label}</NavLink></li>}
                         {item.children.map((c) => {
                           const href = externalHref(c.site, c.to)
                           return <li key={c.label}>{href ? <a href={href}>{c.label}</a> : <NavLink to={c.to} end>{c.label}</NavLink>}</li>

@@ -72,6 +72,7 @@ export const sites = {
       {
         label: 'Gallery',
         to: '/gallery', // the label opens both galleries; the menu opens one
+        allLabel: 'All galleries', // first entry in the mobile menu
         children: [
           { label: 'BIC Gallery', to: '/gallery/bic', text: 'Brisbane Islamic Centre' },
           { label: 'Sukoon Gallery', to: '/gallery/sukoon', text: 'Sukoon Village' },
@@ -124,6 +125,7 @@ export const sites = {
       {
         label: 'Gallery',
         to: '/gallery', // the label opens both galleries; the menu opens one
+        allLabel: 'All galleries', // first entry in the mobile menu
         children: [
           { label: 'BIC Gallery', to: '/gallery/bic', text: 'Brisbane Islamic Centre' },
           { label: 'Sukoon Gallery', to: '/gallery/sukoon', text: 'Sukoon Village' },
