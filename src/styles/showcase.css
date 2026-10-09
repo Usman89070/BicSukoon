@@ -3390,3 +3390,57 @@ button.home-gallery__card {
 .footer__phone {
   white-space: nowrap;
 }
+
+/* Facility cards with a film: logo card + play button in place of the picture */
+.facility-card--video {
+  display: flex;
+  flex-direction: column;
+}
+.facility-card__film {
+  position: relative;
+  inset: auto;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+}
+.facility-card__logo {
+  position: relative;
+  transform: translateY(-34%);
+  filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.45));
+}
+.facility-card__logo .logo {
+  width: auto;
+}
+.facility-card__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  margin: 6px 0 0 -30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: transform 300ms var(--ease-out), background 300ms var(--ease-out);
+}
+.facility-card__film:hover .facility-card__play,
+.facility-card__film:focus-visible .facility-card__play {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.3);
+}
+.facility-card__film:focus-visible {
+  outline: 3px solid rgba(var(--accent-rgb), 0.9);
+  outline-offset: -3px;
+}
+.facility-card--video .facility-card__link {
+  flex: 1;
+}

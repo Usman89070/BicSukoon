@@ -87,7 +87,7 @@ export const facilities = {
     pillar: 'Community',
     summary: 'Gyms supporting the health and wellbeing of the community.',
     status: null,
-    media: { image: null, video: null, label: 'Gym render' },
+    media: { image: null, video: 'pinCafe', label: 'Gym render' }, // the café film also shows the gyms,
     sections: [
       { heading: 'Purpose', body: 'Facilities for health and fitness. Details will be published once officially confirmed.' },
     ],
@@ -101,7 +101,7 @@ export const facilities = {
     pillar: 'Community',
     summary: 'A place where comfort, independence and community come together: thirty-six modern townhouses for independent seniors.',
     status: null,
-    media: { image: null, video: null, label: 'Seniors Living render' },
+    media: { image: null, video: 'pinSeniorsLiving', label: 'Seniors Living render' },
     sections: [
       { heading: 'Purpose', body: 'Providing seniors with a place to live that honours their values and keeps them close to family and community.' },
       { heading: 'Lifestyle', body: 'A calm, supportive environment that encourages wellbeing, independence and daily connection.' },
@@ -135,7 +135,7 @@ export const facilities = {
     pillar: 'Legacy',
     summary: 'A safe, welcoming and nurturing environment where children can learn, grow and thrive during their most important early years.',
     status: null,
-    media: { image: null, video: null, label: 'Childcare Centre render' },
+    media: { image: null, video: 'pinChildcare', label: 'Childcare Centre render' },
     sections: [
       { heading: 'Purpose', body: 'A nurturing environment for early learning and care, close to home and community.' },
       { heading: 'Community benefit', body: 'Supporting local families and creating everyday moments where young and old share the same village.' },
