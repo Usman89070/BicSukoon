@@ -4,6 +4,7 @@ import { externalHref, site } from '../../site'
 import { useScrolled } from '../../hooks/useScrolled'
 import { useLockBody } from '../../hooks/useLockBody'
 import { useEscape } from '../../hooks/useEscape'
+import { useNav } from '../../hooks/useNav'
 import { cx } from '../../utils/format'
 import Icon from '../common/Icon'
 import Logo from '../common/Logo'
@@ -23,6 +24,8 @@ export default function Navbar() {
   const hoverOpened = useRef(false)
   const navRef = useRef(null)
   const tone = site.navTone
+  // a menu with no entries yet (e.g. Events before any is added) is a plain link
+  const nav = useNav().map((n) => (n.children && !n.children.length ? { label: n.label, to: n.to } : n))
 
   const closeAll = useCallback(() => {
     setOpenMenu(null)
@@ -84,7 +87,7 @@ export default function Navbar() {
 
         <nav className="nav__primary" aria-label="Primary">
           <ul className="nav__list">
-            {site.nav.map((item) =>
+            {nav.map((item) =>
               item.children ? (
                 <li key={item.label} className="nav__item" onMouseEnter={() => open(item.label)} onMouseLeave={scheduleClose}>
                   {item.to ? (
@@ -164,7 +167,7 @@ export default function Navbar() {
       <div id="mobile-menu" className={cx('mobile-menu', mobileOpen && 'is-open')} aria-hidden={!mobileOpen} inert={!mobileOpen}>
         <nav aria-label="Mobile" className="mobile-menu__inner">
           <ul>
-            {site.nav.map((item, i) => (
+            {nav.map((item, i) => (
               <li key={item.label} style={{ '--i': i }}>
                 {item.children ? (
                   <>

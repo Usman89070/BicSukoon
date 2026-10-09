@@ -19,21 +19,22 @@ const normalise = (e) => ({
  * the panel has answered (or failed), so pages can wait before saying
  * "not found".
  */
+// one request per visit, shared by the menu, footer and pages
+let request = null
+const load = () =>
+  (request ??= fetch(`${API}/events.php`, { headers: { Accept: 'application/json' } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((data) => (Array.isArray(data?.events) ? data.events.map((e) => normalise({ ...e, photos: e.photos.map((p) => `${API}/${p}`) })) : null))
+    .catch(() => null))
+
 export function useEvents() {
   const [state, setState] = useState({ events: builtIn.filter((e) => !e.project || e.project === SITE_ID).map(normalise), loaded: false })
   useEffect(() => {
-    const ctrl = new AbortController()
-    fetch(`${API}/events.php`, { signal: ctrl.signal, headers: { Accept: 'application/json' } })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data) => {
-        if (Array.isArray(data?.events)) {
-          setState({ events: data.events.map((e) => normalise({ ...e, photos: e.photos.map((p) => `${API}/${p}`) })), loaded: true })
-        } else {
-          setState((s) => ({ ...s, loaded: true }))
-        }
-      })
-      .catch(() => setState((s) => (ctrl.signal.aborted ? s : { ...s, loaded: true })))
-    return () => ctrl.abort()
+    let alive = true
+    load().then((list) => alive && setState((st) => (list ? { events: list, loaded: true } : { ...st, loaded: true })))
+    return () => {
+      alive = false
+    }
   }, [])
   return state
 }

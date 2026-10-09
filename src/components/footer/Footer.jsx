@@ -7,12 +7,14 @@ import Icon from '../common/Icon'
 import SocialLinks from '../common/SocialLinks'
 import Pattern from '../common/Pattern'
 import { Value } from '../common/Pending'
+import { useNav } from '../../hooks/useNav'
 
 /** Footer for the current website. The sister project appears only as a single outbound link. */
 export default function Footer() {
   const year = new Date().getFullYear()
-  const groups = site.nav.filter((n) => n.children)
-  const singles = site.nav.filter((n) => !n.children && n.to !== '/')
+  const nav = useNav()
+  const groups = nav.filter((n) => n.children?.length)
+  const singles = nav.filter((n) => !n.children?.length && n.to && n.to !== '/')
   const { contact, legal, sister } = site
   const sisterUrl = sister.url ?? urls[sister.id]
   const tone = site.footerTone === 'light' ? 'light' : 'dark'
