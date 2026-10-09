@@ -11,6 +11,7 @@ const ContactPage = lazy(() => import('../../templates/ContactPage'))
 const SeniorsLiving = lazy(() => import('./pages/SeniorsLiving'))
 const ChildcarePage = lazy(() => import('../../templates/ChildcarePage'))
 const NotFound = lazy(() => import('../../templates/NotFound'))
+const GalleryPage = lazy(() => import('../../templates/GalleryPage'))
 
 /** Sukoon Village website. */
 export default function SukoonApp() {
@@ -24,6 +25,9 @@ export default function SukoonApp() {
         <Route path="childcare-centre" element={<ChildcarePage />} />
         <Route path="project-status" element={<StatusPage />} />
         <Route path="project-updates" element={<UpdatesPage />} />
+        <Route path="gallery" element={<GalleryPage />} />
+        <Route path="gallery/bic" element={<GalleryPage project="bic" />} />
+        <Route path="gallery/sukoon" element={<GalleryPage project="sukoon" />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>

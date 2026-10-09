@@ -8,6 +8,7 @@ const StatusPage = lazy(() => import('../../templates/StatusPage'))
 const UpdatesPage = lazy(() => import('../../templates/UpdatesPage'))
 const ContactPage = lazy(() => import('../../templates/ContactPage'))
 const NotFound = lazy(() => import('../../templates/NotFound'))
+const GalleryPage = lazy(() => import('../../templates/GalleryPage'))
 const About = lazy(() => import('./pages/About'))
 const Funding = lazy(() => import('./pages/Funding'))
 const Events = lazy(() => import('./pages/Events'))
@@ -37,6 +38,9 @@ export default function BicApp() {
         <Route path="events" element={<Events />} />
         <Route path="honoured-guests" element={<Guests />} />
         <Route path="donate" element={<Donate />} />
+        <Route path="gallery" element={<GalleryPage />} />
+        <Route path="gallery/bic" element={<GalleryPage project="bic" />} />
+        <Route path="gallery/sukoon" element={<GalleryPage project="sukoon" />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>

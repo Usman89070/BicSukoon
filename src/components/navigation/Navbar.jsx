@@ -87,16 +87,31 @@ export default function Navbar() {
             {site.nav.map((item) =>
               item.children ? (
                 <li key={item.label} className="nav__item" onMouseEnter={() => open(item.label)} onMouseLeave={scheduleClose}>
-                  <button
-                    type="button"
-                    className={cx('nav__link', groupActive(item) && 'is-active')}
-                    aria-expanded={openMenu === item.label}
-                    aria-controls={`menu-${item.label}`}
-                    onClick={() => onToggle(item.label)}
-                  >
-                    {item.label}
-                    <Icon name="chevron" size={14} className="nav__chev" />
-                  </button>
+                  {item.to ? (
+                    // a menu whose label is itself a page (Gallery): click opens the page
+                    <NavLink
+                      to={item.to}
+                      className={({ isActive }) => cx('nav__link', (isActive || groupActive(item)) && 'is-active')}
+                      aria-haspopup="true"
+                      aria-expanded={openMenu === item.label}
+                      aria-controls={`menu-${item.label}`}
+                      onFocus={() => open(item.label)}
+                    >
+                      {item.label}
+                      <Icon name="chevron" size={14} className="nav__chev" />
+                    </NavLink>
+                  ) : (
+                    <button
+                      type="button"
+                      className={cx('nav__link', groupActive(item) && 'is-active')}
+                      aria-expanded={openMenu === item.label}
+                      aria-controls={`menu-${item.label}`}
+                      onClick={() => onToggle(item.label)}
+                    >
+                      {item.label}
+                      <Icon name="chevron" size={14} className="nav__chev" />
+                    </button>
+                  )}
                   <div id={`menu-${item.label}`} className={cx('dropdown', openMenu === item.label && 'is-open')}>
                     <ul>
                       {item.children.map((c) => {
@@ -164,6 +179,7 @@ export default function Navbar() {
                     </button>
                     <div className={cx('mobile-menu__sub', mobileSection === item.label && 'is-open')}>
                       <ul>
+                        {item.to && <li><NavLink to={item.to} end>All {item.label.toLowerCase()}</NavLink></li>}
                         {item.children.map((c) => {
                           const href = externalHref(c.site, c.to)
                           return <li key={c.label}>{href ? <a href={href}>{c.label}</a> : <NavLink to={c.to} end>{c.label}</NavLink>}</li>

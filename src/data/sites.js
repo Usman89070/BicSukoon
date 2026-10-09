@@ -69,6 +69,14 @@ export const sites = {
           { label: 'Honoured Guests', to: '/honoured-guests', text: 'Distinguished visitors' },
         ],
       },
+      {
+        label: 'Gallery',
+        to: '/gallery', // the label opens both galleries; the menu opens one
+        children: [
+          { label: 'BIC Gallery', to: '/gallery/bic', text: 'Brisbane Islamic Centre' },
+          { label: 'Sukoon Gallery', to: '/gallery/sukoon', text: 'Sukoon Village' },
+        ],
+      },
       { label: 'Contact', to: '/contact' },
     ],
     cta: { label: 'Donate', ...donateLink, icon: 'heart' },
@@ -111,6 +119,14 @@ export const sites = {
         children: [
           { label: 'Project Status', to: '/project-status', text: 'Milestones and current stage' },
           { label: 'Project Updates', to: '/project-updates', text: 'News from the village' },
+        ],
+      },
+      {
+        label: 'Gallery',
+        to: '/gallery', // the label opens both galleries; the menu opens one
+        children: [
+          { label: 'BIC Gallery', to: '/gallery/bic', text: 'Brisbane Islamic Centre' },
+          { label: 'Sukoon Gallery', to: '/gallery/sukoon', text: 'Sukoon Village' },
         ],
       },
       { label: 'Contact', to: '/contact' },
