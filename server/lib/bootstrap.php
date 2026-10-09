@@ -61,6 +61,7 @@ const COLLECTIONS = [
     'guests' => ['label' => 'Honoured Guests', 'one' => 'guest', 'photos' => 'guest-photos', 'page' => '../bic/honoured-guests'],
     'board' => ['label' => 'Board of Directors', 'one' => 'board member', 'photos' => 'board-photos', 'page' => '../bic/about#board'],
     'gallery' => ['label' => 'Gallery', 'one' => 'photo or video', 'photos' => 'gallery-photos', 'page' => '../bic/gallery'],
+    'events' => ['label' => 'Events', 'one' => 'event', 'photos' => 'event-photos', 'page' => '../bic/events'],
 ];
 
 const GALLERY_PROJECTS = ['bic' => 'BIC Gallery', 'sukoon' => 'Sukoon Gallery'];
@@ -82,6 +83,7 @@ function load_items(string $type): array
     if ($type === 'guests' && is_array($saved) && isset($saved['guests'])) return $saved['guests']; // older format
     $seed = read_json(dirname(__DIR__) . "/api/$type-seed.json", ['items' => []]);
     $defaults = ['photo' => null, 'hidden' => false];
+    if ($type === 'events') $defaults += ['date' => '', 'time' => '', 'location' => '', 'body' => '', 'photos' => []];
     if ($type === 'gallery') $defaults += ['project' => 'bic', 'kind' => 'photo', 'builtin' => null, 'video' => null, 'video_uploaded' => false, 'youtube' => null];
     return array_map(fn ($g) => $g + $defaults, $seed['items'] ?? $seed['guests'] ?? []);
 }
@@ -109,6 +111,17 @@ function photo_dir(string $type): string
 function public_items(string $type): array
 {
     $items = array_values(array_filter(load_items($type), fn ($g) => empty($g['hidden'])));
+    if ($type === 'events') {
+        return array_map(fn ($g) => [
+            'id' => (string) $g['id'],
+            'title' => (string) $g['name'],
+            'date' => ($g['date'] ?? '') !== '' ? (string) $g['date'] : null,
+            'time' => ($g['time'] ?? '') !== '' ? (string) $g['time'] : null,
+            'location' => ($g['location'] ?? '') !== '' ? (string) $g['location'] : null,
+            'body' => (string) ($g['body'] ?? ''),
+            'photos' => array_values(array_map(fn ($f) => 'photo.php?t=events&f=' . rawurlencode($f), array_filter($g['photos'] ?? [], 'valid_photo_name'))),
+        ], $items);
+    }
     if ($type === 'gallery') {
         return array_map(fn ($g) => [
             'id' => (string) $g['id'],
@@ -149,8 +162,8 @@ function valid_photo_name(string $name): bool
 function store_photo(array $file, string $id, string $type = 'guests'): string
 {
     if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) throw new RuntimeException('The photo could not be uploaded. Please try again.');
-    $maxBytes = $type === 'gallery' ? 20 * 1024 * 1024 : MAX_UPLOAD_BYTES;
-    $maxWidth = $type === 'gallery' ? GALLERY_PHOTO_MAX_WIDTH : PHOTO_MAX_WIDTH;
+    $maxBytes = in_array($type, ['gallery', 'events'], true) ? 20 * 1024 * 1024 : MAX_UPLOAD_BYTES;
+    $maxWidth = in_array($type, ['gallery', 'events'], true) ? GALLERY_PHOTO_MAX_WIDTH : PHOTO_MAX_WIDTH;
     if ($file['size'] > $maxBytes) throw new RuntimeException('The photo is larger than ' . ($maxBytes >> 20) . ' MB.');
     $info = @getimagesize($file['tmp_name']);
     $types = [IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png', IMAGETYPE_WEBP => 'webp'];
@@ -260,4 +273,17 @@ function youtube_id(string $text): ?string
     if (preg_match('~^[A-Za-z0-9_-]{11}$~', $text)) return $text;
     if (preg_match('~(?:youtube\.com/(?:watch\?(?:.*&)?v=|embed/|shorts/|live/)|youtu\.be/)([A-Za-z0-9_-]{11})~', $text, $m)) return $m[1];
     return null;
+}
+
+/** $_FILES['x'] from <input type=file multiple name="x[]"> as a list of single files. */
+function uploaded_files(string $field): array
+{
+    $f = $_FILES[$field] ?? null;
+    if (!$f || !is_array($f['name'])) return [];
+    $out = [];
+    foreach ($f['name'] as $i => $name) {
+        if (($f['error'][$i] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) continue;
+        $out[] = ['name' => $name, 'type' => $f['type'][$i], 'tmp_name' => $f['tmp_name'][$i], 'error' => $f['error'][$i], 'size' => $f['size'][$i]];
+    }
+    return $out;
 }

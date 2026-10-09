@@ -64,6 +64,7 @@ if (!isset(COLLECTIONS[$type])) $type = 'guests';
 $meta = COLLECTIONS[$type];
 $isBoard = $type === 'board';
 $isGallery = $type === 'gallery';
+$isEvents = $type === 'events';
 $guests = load_items($type);
 $find = function (string $id) use (&$guests): ?int {
     foreach ($guests as $i => $g) if ($g['id'] === $id) return $i;
@@ -73,7 +74,7 @@ $find = function (string $id) use (&$guests): ?int {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && (int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 0) {
     // The upload was bigger than the server accepts, so PHP dropped the whole form.
     flash('That file is larger than the server allows (' . ini_get('post_max_size') . '). For a big video, upload it with Hostinger’s File Manager into bic-videos/bic/ or bic-videos/sukoon/ and type its file name in the form instead.', 'error');
-    go($isGallery ? 'new=1' : '');
+    go($isGallery || $isEvents ? 'new=1' : '');
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -112,6 +113,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             go();
 
         case 'save':
+            if ($isEvents) {
+                $title = trim((string) ($_POST['name'] ?? ''));
+                $date = trim((string) ($_POST['date'] ?? ''));
+                $id = (string) ($_POST['id'] ?? '');
+                $back = $id !== '' ? 'edit=' . urlencode($id) : 'new=1';
+                if ($title === '' || mb_strlen($title) > 200 || ($date !== '' && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $date))) {
+                    flash('Please enter a title (up to 200 characters) and a valid date.', 'error');
+                    go($back);
+                }
+                $i = $id !== '' ? $find($id) : null;
+                if ($i === null) {
+                    $base = slugify($title);
+                    $id = $base;
+                    for ($n = 2; $find($id) !== null; $n++) $id = $base . '-' . $n;
+                    $item = ['id' => $id, 'name' => $title, 'photos' => [], 'hidden' => false, 'photo' => null];
+                } else {
+                    $item = $guests[$i] + ['photos' => []];
+                    $item['name'] = $title;
+                }
+                $item['date'] = $date;
+                $item['time'] = mb_substr(trim((string) ($_POST['time'] ?? '')), 0, 80);
+                $item['location'] = mb_substr(trim((string) ($_POST['location'] ?? '')), 0, 200);
+                $item['body'] = mb_substr(trim(str_replace("\r", '', (string) ($_POST['body'] ?? ''))), 0, 5000);
+                $item['hidden'] = !empty($_POST['hidden']);
+                // remove ticked photos, then put the chosen cover first
+                $remove = array_map('strval', (array) ($_POST['remove'] ?? []));
+                foreach ($item['photos'] as $f) if (in_array($f, $remove, true)) delete_photo($f, $type);
+                $item['photos'] = array_values(array_filter($item['photos'], fn ($f) => !in_array($f, $remove, true)));
+                $cover = (string) ($_POST['cover'] ?? '');
+                if ($cover !== '' && in_array($cover, $item['photos'], true)) {
+                    $item['photos'] = array_values(array_merge([$cover], array_filter($item['photos'], fn ($f) => $f !== $cover)));
+                }
+                $added = 0;
+                $problems = [];
+                foreach (uploaded_files('photos') as $file) {
+                    try {
+                        $item['photos'][] = store_photo($file, $item['id'], $type);
+                        $added++;
+                    } catch (RuntimeException $ex) {
+                        $problems[] = $file['name'] . ': ' . $ex->getMessage();
+                    }
+                }
+                if ($i === null) {
+                    array_unshift($guests, $item);
+                } else {
+                    $guests[$i] = $item;
+                }
+                save_items($type, $guests);
+                if ($problems) {
+                    flash('Saved “' . $title . '”, but some photos were not added — ' . implode(' · ', $problems), 'error');
+                    go('edit=' . urlencode($item['id']));
+                }
+                flash('Saved “' . $title . '”' . ($added ? " with $added new photo" . ($added === 1 ? '' : 's') : '') . '.');
+                go();
+            }
             if ($isGallery) {
                 $title = trim((string) ($_POST['name'] ?? ''));
                 $project = (string) ($_POST['project'] ?? 'bic');
@@ -248,6 +304,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $name = $guests[$i]['name'];
                 delete_photo($guests[$i]['photo'], $type);
                 if ($isGallery) delete_gallery_video($guests[$i]);
+                if ($isEvents) foreach ($guests[$i]['photos'] ?? [] as $f) delete_photo($f, $type);
                 array_splice($guests, $i, 1);
                 save_items($type, $guests);
                 flash('Deleted “' . $name . '”.');
@@ -311,7 +368,11 @@ $creating = $authed && isset($_GET['new']);
 $changingPassword = $authed && isset($_GET['password']);
 $photoUrl = fn (?string $p) => $p ? '../api/photo.php?t=' . $type . '&f=' . rawurlencode($p) : null;
 // picture shown for a row: uploaded photo, else the built-in render
-$thumbOf = fn (array $g): ?string => $g['photo'] ? $photoUrl($g['photo']) : (!empty($g['thumb']) ? '../gallery-builtin/' . rawurlencode($g['thumb']) : null);
+$thumbOf = function (array $g) use ($photoUrl): ?string {
+    if (!empty($g['photos'])) return $photoUrl($g['photos'][0]);                       // event cover
+    if (!empty($g['photo'])) return $photoUrl($g['photo']);
+    return !empty($g['thumb']) ? '../gallery-builtin/' . rawurlencode($g['thumb']) : null; // built-in render
+};
 $listField = '<input type="hidden" name="list" value="' . e($type) . '">';
 $initials = function (string $name): string {
     $skip = '/^(her|his|the|most|eminent|right|honourable|excellency|mr|mrs|ms|dr|sheikh|sheikha|shaykh|sheik|imam|mufti|moulana|senator|councillor|inspector|of|bin|al|ibn|mp|ac|psm|phd)$/i';
@@ -382,7 +443,33 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
       <form class="card form" method="post" enctype="multipart/form-data" action="./?list=<?= e($type) ?>">
         <h2><?= $editing ? 'Edit ' . e($meta['one']) : 'Add a ' . e($meta['one']) ?></h2>
         <?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="save"><input type="hidden" name="id" value="<?= e($g['id']) ?>">
-        <?php if ($isGallery): $g += ['project' => 'bic', 'kind' => 'photo', 'video' => null, 'youtube' => null, 'thumb' => null]; $thumb = $thumbOf($g); ?>
+        <?php if ($isEvents): $g += ['date' => '', 'time' => '', 'location' => '', 'body' => '', 'photos' => []]; ?>
+        <div class="form__fields">
+          <label>Event title <small>(shown as the heading)</small> <input name="name" value="<?= e($g['name']) ?>" required maxlength="200" placeholder="e.g. Brisbane’s Lord Mayor Visits Site"></label>
+          <div class="form__row">
+            <label>Date <small>(optional)</small> <input name="date" type="date" value="<?= e($g['date']) ?>"></label>
+            <label>Time <small>(optional)</small> <input name="time" value="<?= e($g['time']) ?>" maxlength="80" placeholder="e.g. 6:00 pm"></label>
+          </div>
+          <label>Location <small>(optional)</small> <input name="location" value="<?= e($g['location']) ?>" maxlength="200" placeholder="e.g. Display centre, 161 Underwood Road"></label>
+          <label>Description <small>(a blank line starts a new paragraph)</small> <textarea name="body" rows="5" maxlength="5000" placeholder="e.g. Brisbane’s Lord Mayor joined BIC committee members and guests for a visit to the display centre and construction site…"><?= e($g['body']) ?></textarea></label>
+          <?php if ($g['photos']): ?>
+            <fieldset class="photos">
+              <legend>Photos <small>(choose the cover, tick to remove)</small></legend>
+              <div class="photos__grid">
+                <?php foreach ($g['photos'] as $n => $f): ?>
+                  <div class="photos__item">
+                    <img src="<?= e($photoUrl($f)) ?>" alt="" loading="lazy">
+                    <label class="check"><input type="radio" name="cover" value="<?= e($f) ?>" <?= $n === 0 ? 'checked' : '' ?>> Cover</label>
+                    <label class="check check--danger"><input type="checkbox" name="remove[]" value="<?= e($f) ?>"> Remove</label>
+                  </div>
+                <?php endforeach; ?>
+              </div>
+            </fieldset>
+          <?php endif; ?>
+          <label>Add photos <small>(select many at once; JPG, PNG or WebP, up to 20 MB each — this server accepts <?= e(ini_get('post_max_size')) ?> per save, so add large sets in a few goes)</small> <input name="photos[]" type="file" accept="image/jpeg,image/png,image/webp" multiple></label>
+          <label class="check"><input type="checkbox" name="hidden" value="1" <?= !empty($g['hidden']) ? 'checked' : '' ?>> Hide from the website</label>
+        </div>
+        <?php elseif ($isGallery): $g += ['project' => 'bic', 'kind' => 'photo', 'video' => null, 'youtube' => null, 'thumb' => null]; $thumb = $thumbOf($g); ?>
         <div class="form__grid">
           <div class="form__photo form__photo--wide">
             <?php if ($thumb): ?><img src="<?= e($thumb) ?>" alt=""><?php else: ?><span class="mono"><?= $g['kind'] === 'video' ? '▶' : '?' ?></span><?php endif; ?>
@@ -441,7 +528,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
       <div class="head">
         <div>
           <h1><?= e($meta['label']) ?></h1>
-          <p class="muted"><?= count($guests) ?> <?= $isGallery ? 'photos and videos' : ($isBoard ? 'members' : 'guests') ?> · <?= $shown ?> shown on the website</p>
+          <p class="muted"><?= count($guests) ?> <?= $isEvents ? 'events' : ($isGallery ? 'photos and videos' : ($isBoard ? 'members' : 'guests')) ?> · <?= $shown ?> shown on the website</p>
         </div>
         <a class="btn btn--primary" href="?list=<?= e($type) ?>&amp;new=1">+ Add a <?= e($meta['one']) ?></a>
       </div>
@@ -456,16 +543,19 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
 
       <ol class="list">
         <?php foreach ($guests as $i => $g): ?>
-          <li class="row<?= $isGallery ? ' row--gallery' : '' ?><?= !empty($g['hidden']) ? ' row--hidden' : '' ?>" id="g-<?= e($g['id']) ?>">
+          <li class="row<?= $isGallery || $isEvents ? ' row--gallery' : '' ?><?= !empty($g['hidden']) ? ' row--hidden' : '' ?>" id="g-<?= e($g['id']) ?>">
             <span class="row__num"><?= $i + 1 ?></span>
             <?php $thumb = $thumbOf($g); ?>
-            <span class="row__thumb<?= $isGallery ? ' row__thumb--wide' : '' ?>"><?php if ($thumb): ?><img src="<?= e($thumb) ?>" alt="" loading="lazy"><?php else: ?><span class="mono"><?= $isGallery ? '▶' : e($initials($g['name'])) ?></span><?php endif; ?></span>
+            <span class="row__thumb<?= $isGallery || $isEvents ? ' row__thumb--wide' : '' ?>"><?php if ($thumb): ?><img src="<?= e($thumb) ?>" alt="" loading="lazy"><?php else: ?><span class="mono"><?= $isGallery ? '▶' : ($isEvents ? '✦' : e($initials($g['name']))) ?></span><?php endif; ?></span>
             <span class="row__text">
               <strong><?= e($g['name']) ?></strong>
               <?php if (!empty($g['role'])): ?><span class="muted"><?= e($g['role']) ?></span><?php endif; ?>
               <?php if (!empty($g['memoriam'])): ?><span class="tag tag--memoriam">In memoriam</span><?php endif; ?>
               <?php if (!empty($g['hidden'])): ?><span class="tag">Hidden</span><?php endif; ?>
-              <?php if ($isGallery): ?>
+              <?php if ($isEvents): ?>
+                <?php if (!empty($g['date'])): ?><span class="muted"><?= e(date('j F Y', strtotime($g['date']))) ?></span><?php endif; ?>
+                <span class="tag"><?= count($g['photos'] ?? []) ?> photos</span>
+              <?php elseif ($isGallery): ?>
                 <span class="tag"><?= e(GALLERY_PROJECTS[$g['project'] ?? 'bic'] ?? 'BIC Gallery') ?></span>
                 <?php if (($g['kind'] ?? '') === 'video'): ?><span class="tag tag--video">Video<?= !empty($g['youtube']) ? ' · YouTube' : '' ?></span><?php endif; ?>
               <?php elseif (!$g['photo']): ?><span class="tag tag--soft">No photo</span><?php endif; ?>

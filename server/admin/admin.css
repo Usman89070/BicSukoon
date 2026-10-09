@@ -131,3 +131,14 @@ label.check input { width: auto; }
 .video-fields__title { margin: 0; font-weight: 700; }
 .video-fields[hidden] { display: none; }
 @media (max-width: 640px) { .row--gallery { grid-template-columns: 64px 1fr; } .row__thumb--wide { width: 64px; height: 48px; } }
+
+/* Events tab */
+.form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.photos { border: 0; padding: 0; margin: 0; }
+.photos legend { font-weight: 600; margin-bottom: 8px; padding: 0; }
+.photos__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+.photos__item { display: grid; gap: 4px; padding: 6px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+.photos__item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; }
+.photos__item .check { font-size: 0.82rem; }
+.check--danger { color: #b3261e; }
+@media (max-width: 640px) { .form__row { grid-template-columns: 1fr; } }

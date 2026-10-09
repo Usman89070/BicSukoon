@@ -64,7 +64,7 @@ export default function GalleryLightbox({ items, index, onClose, onGo, end }) {
         <figure className="lightbox__figure">
           <GalleryFull item={item} />
           <figcaption className="lightbox__caption">
-            <span className={`lightbox__tag lightbox__tag--${item.project}`}>{galleries[item.project].title}</span>
+            <span className={`lightbox__tag lightbox__tag--${item.project}`}>{item.tag ?? galleries[item.project]?.title}</span>
             {item.title}
           </figcaption>
         </figure>

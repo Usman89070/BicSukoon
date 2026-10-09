@@ -12,6 +12,7 @@ const GalleryPage = lazy(() => import('../../templates/GalleryPage'))
 const About = lazy(() => import('./pages/About'))
 const Funding = lazy(() => import('./pages/Funding'))
 const Events = lazy(() => import('./pages/Events'))
+const EventPage = lazy(() => import('./pages/EventPage'))
 const Guests = lazy(() => import('./pages/Guests'))
 const Donate = lazy(() => import('./pages/Donate'))
 const ChildcarePage = lazy(() => import('../../templates/ChildcarePage'))
@@ -36,6 +37,7 @@ export default function BicApp() {
         <Route path="project-updates" element={<UpdatesPage />} />
         <Route path="project-funding" element={<Funding />} />
         <Route path="events" element={<Events />} />
+        <Route path="events/:id" element={<EventPage />} />
         <Route path="honoured-guests" element={<Guests />} />
         <Route path="donate" element={<Donate />} />
         <Route path="gallery" element={<GalleryPage />} />
