@@ -27,7 +27,6 @@ function Lightbox({ items, index, onClose, onGo }) {
         <figcaption className="lightbox__caption">
           <span className={`lightbox__tag lightbox__tag--${item.project}`}>{galleries[item.project].title}</span>
           {item.title}
-          <span className="lightbox__count">{index + 1} / {items.length}</span>
         </figcaption>
       </figure>
       <button type="button" className="lightbox__btn lightbox__close" onClick={onClose} aria-label="Close" autoFocus><Icon name="close" size={22} /></button>
@@ -101,7 +100,6 @@ export default function GalleryPage({ project }) {
                     <span className="home-gallery__kicker">{galleries[id].name}</span>
                     <h2 id={`gallery-${id}`} className="home-gallery__title">{galleries[id].title}</h2>
                     <span className="home-gallery__rule" aria-hidden="true" />
-                    <span className="gallery__count">{items.length} {items.length === 1 ? 'photo' : 'photos'}</span>
                   </div>
                   {!project && <Button to={galleries[id].path} variant="ghost" icon="arrow" className="home-gallery__more">View {galleries[id].title}</Button>}
                 </header>

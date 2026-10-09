@@ -2674,10 +2674,6 @@
   padding-bottom: var(--space-5);
   border-bottom: 1px solid var(--border);
 }
-.gallery__count {
-  font-size: var(--fs-sm);
-  color: var(--text-secondary);
-}
 .gallery__empty {
   color: var(--text-secondary);
 }
@@ -2824,11 +2820,6 @@
 .lightbox__tag--sukoon {
   background: #cb9b61;
   color: #15122e;
-}
-.lightbox__count {
-  font-family: var(--font-body, inherit);
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.6);
 }
 .lightbox__btn {
   position: absolute;
