@@ -2986,12 +2986,6 @@
   text-decoration: none;
   transition: transform 400ms var(--ease-out), box-shadow 400ms var(--ease-out);
 }
-.home-gallery__view--bic {
-  border: 2px solid rgba(155, 148, 227, 0.7);
-}
-.home-gallery__view--sukoon {
-  border: 2px solid rgba(203, 155, 97, 0.7);
-}
 .home-gallery__view-label {
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
