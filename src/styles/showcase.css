@@ -3447,3 +3447,74 @@ button.home-gallery__card {
 .pinmap__stage {
   position: relative;
 }
+
+/* ==========================================================================
+   VIDEO THUMBNAILS: the logo is a soft layer behind the play button, and the
+   play button sits exactly in the centre (all films, both websites).
+   ========================================================================== */
+.video__thumb-logo,
+.video:hover .video__thumb-logo,
+.done__thumb .video__thumb-logo,
+.facility-card__logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.38;
+  filter: none;
+  pointer-events: none;
+}
+.video__thumb-logo .logo,
+.facility-card__logo .logo {
+  height: clamp(64px, 11vw, 140px);
+}
+.video__thumb--sukoon .video__thumb-logo .logo,
+.video__thumb--sukoon .facility-card__logo .logo {
+  height: clamp(80px, 14vw, 170px);
+}
+.facility-card__logo .logo {
+  height: 84px;
+}
+.video__thumb--sukoon .facility-card__logo .logo {
+  height: 100px;
+}
+.video__thumb + .video__overlay .video__play,
+.done__thumb ~ .done__play {
+  margin: 0;
+}
+.done__thumb ~ .done__play {
+  margin: -38px 0 0 -38px;
+}
+.facility-card__play {
+  margin: -30px 0 0 -30px;
+}
+.done__soon {
+  top: auto;
+  bottom: 22%;
+  margin-top: 0;
+}
+.gallery-card__placeholder {
+  padding-bottom: 0;
+}
+.gallery-card__placeholder .logo {
+  opacity: 0.38;
+}
+.gallery-card__placeholder ~ .gallery-card__play {
+  margin-top: -32px;
+}
+@media (max-width: 600px) {
+  .video__thumb-logo,
+  .video:hover .video__thumb-logo {
+    transform: translate(-50%, -50%);
+  }
+  .video__thumb-logo .logo {
+    height: 64px;
+  }
+  .video__thumb--sukoon .video__thumb-logo .logo {
+    height: 80px;
+  }
+  .video__thumb + .video__overlay .video__play {
+    margin: 0;
+    transform: none;
+  }
+}
