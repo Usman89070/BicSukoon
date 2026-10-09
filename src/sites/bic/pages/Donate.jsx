@@ -1,6 +1,6 @@
 import { pillars } from '../../../data/vision'
 import { SITE_ID } from '../../../site'
-import { impactStats, transparency, donateLink } from '../../../data/donation'
+import { impactStats, transparency, checkoutLink } from '../../../data/donation'
 import { formatDate } from '../../../utils/format'
 import Seo from '../../../components/common/Seo'
 import SectionHeader from '../../../components/common/SectionHeader'
@@ -36,7 +36,7 @@ export default function Donate() {
         breadcrumbs={[{ label: 'Home', to: '/' }, { label: 'Donate' }]}
         size="lg"
       >
-        <Button {...donateLink} variant="primary" icon="heart" size="lg">Donate Now</Button>
+        <Button {...checkoutLink} variant="primary" icon="heart" size="lg">Donate Now</Button>
         <Button href="#where" variant="glass">Where your support goes</Button>
       </PageHero>
 
@@ -79,7 +79,7 @@ export default function Donate() {
             <span className="donate-square__icon" aria-hidden="true"><Icon name="heart" size={28} /></span>
             <h3 className="donate-square__title">Donate to Brisbane Islamic Centre</h3>
             <p className="donate-square__text">You will be taken to Square's secure checkout to choose your amount and complete your donation.</p>
-            <Button {...donateLink} variant="primary" icon="arrow" size="lg" className="donate-square__btn">Donate securely with Square</Button>
+            <Button {...checkoutLink} variant="primary" icon="arrow" size="lg" className="donate-square__btn">Donate securely with Square</Button>
             <p className="donate-square__note"><Icon name="check" size={16} /> Opens in a new tab · Secure payment by Square</p>
           </Reveal>
         </div>
@@ -117,7 +117,7 @@ export default function Donate() {
         </div>
       </section>
 
-      <CtaBand eyebrow="Support the Vision" title="Help Build the Future." primary={{ label: 'Donate Now', ...donateLink, icon: 'heart' }} secondary={{ label: 'Explore the Vision', to: '/vision' }} />
+      <CtaBand eyebrow="Support the Vision" title="Help Build the Future." primary={{ label: 'Donate Now', ...checkoutLink, icon: 'heart' }} secondary={{ label: 'Explore the Vision', to: '/vision' }} />
     </>
   )
 }

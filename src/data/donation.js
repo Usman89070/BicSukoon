@@ -45,7 +45,10 @@ export const transparency = {
   financialUpdates: [], // { id, title, date, summary }
 }
 
-/** Props for any "Donate" link: opens the official checkout in a new tab. */
-export const donateLink = donation.payment.checkoutUrl
+/** Every "Donate" button on the site opens the Donate page. */
+export const donateLink = { to: '/donate' }
+
+/** The Square checkout (new tab): used only by the buttons on the Donate page. */
+export const checkoutLink = donation.payment.checkoutUrl
   ? { href: donation.payment.checkoutUrl, target: '_blank', rel: 'noopener noreferrer' }
-  : { to: '/donate' }
+  : { href: '#donate-form' }
