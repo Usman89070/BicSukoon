@@ -33,7 +33,6 @@ function GalleryBlock({ id }) {
         <Reveal as="li" delay={photos.length * 70}>
           <Link to={g.path} className={`home-gallery__view home-gallery__view--${id}`}>
             <span className="home-gallery__view-label">View {g.title}</span>
-            <span className="home-gallery__view-count">{all.length} {all.length === 1 ? 'photo' : 'photos'}</span>
             <span className="home-gallery__view-arrow" aria-hidden="true"><Icon name="arrow" size={22} /></span>
           </Link>
         </Reveal>

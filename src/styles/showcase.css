@@ -2997,10 +2997,6 @@
   font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
   line-height: 1.2;
 }
-.home-gallery__view-count {
-  font-size: var(--fs-sm);
-  color: var(--text-secondary);
-}
 .home-gallery__view-arrow {
   display: grid;
   place-items: center;
