@@ -84,7 +84,17 @@ export const sites = {
     features: { donate: true, funding: true, events: true, guests: true },
     enquiryTopics: ['General enquiry', 'Masjid Complex', 'Cultural Heritage Centre', 'Childcare Centre', 'Donations & funding', 'Events', 'Media'],
 
-    contact: { address: null, phone: null, email: null, hours: null, mapEmbedUrl: null },
+    // Official details (from the BIC website, bic.org.au/contact-us)
+    contact: {
+      address: '161 Underwood Road, Eight Mile Plains, Brisbane, Queensland 4113, Australia',
+      shortAddress: '161 Underwood Road, Eight Mile Plains QLD 4113', // footer
+      postalAddress: 'Brisbane Islamic Centre, PO Box 250, Underwood, Brisbane, Queensland 4119, Australia',
+      phone: '+61 468 825 786',
+      email: 'info@bic.org.au',
+      secretaryEmail: 'secretary@bic.org.au',
+      hours: null,
+      mapEmbedUrl: 'https://www.google.com/maps?q=161+Underwood+Road,+Eight+Mile+Plains+QLD+4113,+Australia&output=embed',
+    },
     socials: socialSlots(),
     legal: { name: null, registrationNumber: null, copyrightHolder: null, links: [] },
 

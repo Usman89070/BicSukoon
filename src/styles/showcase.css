@@ -3307,3 +3307,86 @@ button.home-gallery__card {
   cursor: zoom-in;
   text-align: left;
 }
+
+/* Contact details: small labels, and the bank transfer card */
+.contact-card__label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.contact-card__note {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+.bank {
+  padding: clamp(22px, 3vw, 32px);
+  border-radius: var(--radius-xl, 24px);
+}
+.bank.contact-card {
+  padding: var(--space-5);
+  border-radius: var(--radius-lg, 20px);
+}
+.bank__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--space-4);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-lg);
+  color: var(--text-primary);
+}
+.bank__title svg {
+  color: var(--primary-ink);
+}
+.bank__list {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+}
+.bank__row {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.8fr) 1.2fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.bank__row:last-child {
+  border-bottom: 0;
+}
+.bank__row dt {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+.bank__row dd {
+  margin: 0;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.bank__row dd small {
+  display: block;
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+.donate-layout__bank {
+  grid-column: 2;
+}
+@media (max-width: 999px) {
+  .donate-layout__bank {
+    grid-column: auto;
+  }
+}
+@media (max-width: 420px) {
+  .bank__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+}
+.footer__phone {
+  white-space: nowrap;
+}

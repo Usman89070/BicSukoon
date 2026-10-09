@@ -58,9 +58,9 @@ export default function Footer() {
             <ul>{singles.map((l) => <li key={l.to}><Link to={l.to}>{l.label}</Link></li>)}</ul>
             <p className="footer__heading footer__heading--spaced">Contact</p>
             <address className="footer__contact">
-              <span><Value value={contact.address} fallback="Address to be confirmed" /></span>
+              <span><Value value={contact.shortAddress ?? contact.address} fallback="Address to be confirmed" /></span>
               <span>{contact.email ? <a href={`mailto:${contact.email}`}>{contact.email}</a> : <Value value={null} fallback="Email to be confirmed" />}</span>
-              {contact.phone && <a href={formatPhoneHref(contact.phone)}>{contact.phone}</a>}
+              {contact.phone && <a className="footer__phone" href={formatPhoneHref(contact.phone)}>{contact.phone}</a>}
             </address>
           </div>
         </div>

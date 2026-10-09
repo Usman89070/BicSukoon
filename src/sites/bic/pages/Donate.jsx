@@ -13,6 +13,7 @@ import VideoFeature from '../../../components/video/VideoFeature'
 import AllocationCards from '../../../components/donation/AllocationCards'
 import FundingProgress from '../../../components/donation/FundingProgress'
 import CtaBand from '../../../templates/CtaBand'
+import BankDetails from '../../../components/donate/BankDetails'
 
 function TransparencyColumn({ title, items, empty, render }) {
   return (
@@ -81,6 +82,9 @@ export default function Donate() {
             <p className="donate-square__text">You will be taken to Square's secure checkout to choose your amount and complete your donation.</p>
             <Button {...checkoutLink} variant="primary" icon="arrow" size="lg" className="donate-square__btn">Donate securely with Square</Button>
             <p className="donate-square__note"><Icon name="check" size={16} /> Opens in a new tab · Secure payment by Square</p>
+          </Reveal>
+          <Reveal delay={100} className="donate-layout__bank">
+            <BankDetails />
           </Reveal>
         </div>
       </section>

@@ -17,7 +17,14 @@ export const donation = {
     provider: 'square',
     // Official Square checkout link supplied by the project team
     checkoutUrl: 'https://checkout.square.site/merchant/MLFQSZJ44G9Z6/checkout/R7BVDYRL433URKU75QOVGGDZ',
-    bankTransfer: null, // { accountName, bsb, accountNumber, reference } — official only
+    // Official bank details (from the BIC website, bic.org.au/contact-us)
+    bankTransfer: {
+      accountName: 'Brisbane Islamic Centre',
+      bank: 'Suncorp Bank',
+      bsb: '484 799',
+      accountNumber: '480 458 040',
+      swift: 'METWAU4B',
+    },
   },
 
   taxDeductibleStatement: null, // official wording only
