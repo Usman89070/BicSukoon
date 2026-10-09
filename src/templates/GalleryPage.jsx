@@ -95,10 +95,12 @@ export default function GalleryPage({ project }) {
 
           {blocks.map(({ id, items, start }) => {
             return (
-              <div key={id} className="gallery__block" aria-labelledby={`gallery-${id}`}>
+              <div key={id} className={`gallery__block home-gallery__block home-gallery__block--${id}`} aria-labelledby={`gallery-${id}`}>
                 <header className="home-gallery__head gallery__head">
                   <div className="home-gallery__name">
+                    <span className="home-gallery__kicker">{galleries[id].name}</span>
                     <h2 id={`gallery-${id}`} className="home-gallery__title">{galleries[id].title}</h2>
+                    <span className="home-gallery__rule" aria-hidden="true" />
                     <span className="gallery__count">{items.length} {items.length === 1 ? 'photo' : 'photos'}</span>
                   </div>
                   {!project && <Button to={galleries[id].path} variant="ghost" icon="arrow" className="home-gallery__more">View {galleries[id].title}</Button>}

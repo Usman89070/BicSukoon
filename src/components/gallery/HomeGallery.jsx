@@ -15,7 +15,9 @@ function GalleryBlock({ id }) {
     <div className={`home-gallery__block home-gallery__block--${id}`} aria-labelledby={`home-gallery-${id}`}>
       <header className="home-gallery__head">
         <div className="home-gallery__name">
+          <span className="home-gallery__kicker">{g.name}</span>
           <h3 id={`home-gallery-${id}`} className="home-gallery__title">{g.title}</h3>
+          <span className="home-gallery__rule" aria-hidden="true" />
         </div>
         <Button to={g.path} variant="ghost" icon="arrow" className="home-gallery__more">View {g.title}</Button>
       </header>
