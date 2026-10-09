@@ -5,10 +5,11 @@ import Button from '../common/Button'
 import Icon from '../common/Icon'
 import Reveal from '../common/Reveal'
 
-/** One project's gallery block: centred title, three large photos and a button (right) to the full gallery. */
+/** One project's gallery block: centred title, up to five photos and a same-size 'View … Gallery' tile. */
 function GalleryBlock({ id }) {
   const g = galleries[id]
-  const photos = galleryItems.filter((p) => p.project === id).slice(0, 3)
+  const all = galleryItems.filter((p) => p.project === id)
+  const photos = all.slice(0, 5)
   if (!photos.length) return null
   return (
     <div className={`home-gallery__block home-gallery__block--${id}`} aria-labelledby={`home-gallery-${id}`}>
@@ -29,6 +30,13 @@ function GalleryBlock({ id }) {
             </Link>
           </Reveal>
         ))}
+        <Reveal as="li" delay={photos.length * 70}>
+          <Link to={g.path} className={`home-gallery__view home-gallery__view--${id}`}>
+            <span className="home-gallery__view-label">View {g.title}</span>
+            <span className="home-gallery__view-count">{all.length} {all.length === 1 ? 'photo' : 'photos'}</span>
+            <span className="home-gallery__view-arrow" aria-hidden="true"><Icon name="arrow" size={22} /></span>
+          </Link>
+        </Reveal>
       </ul>
     </div>
   )
