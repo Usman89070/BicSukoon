@@ -5,7 +5,6 @@ import { useEscape } from '../hooks/useEscape'
 import { useLockBody } from '../hooks/useLockBody'
 import Button from '../components/common/Button'
 import Icon from '../components/common/Icon'
-import Logo from '../components/common/Logo'
 import Reveal from '../components/common/Reveal'
 import PageShell from './PageShell'
 
@@ -99,7 +98,6 @@ export default function GalleryPage({ project }) {
               <div key={id} className="gallery__block" aria-labelledby={`gallery-${id}`}>
                 <header className="home-gallery__head gallery__head">
                   <div className="home-gallery__name">
-                    <Logo project={id} tone="light" height={id === 'sukoon' ? 46 : 36} decorative />
                     <h2 id={`gallery-${id}`} className="home-gallery__title">{galleries[id].title}</h2>
                     <span className="gallery__count">{items.length} {items.length === 1 ? 'photo' : 'photos'}</span>
                   </div>

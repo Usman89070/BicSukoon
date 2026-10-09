@@ -3,10 +3,9 @@ import { galleries, galleryItems } from '../../data/gallery'
 import { SITE_ID } from '../../site'
 import Button from '../common/Button'
 import Icon from '../common/Icon'
-import Logo from '../common/Logo'
 import Reveal from '../common/Reveal'
 
-/** One project's gallery block: centred heading, three large photos and a button (right) to the full gallery. */
+/** One project's gallery block: centred title, three large photos and a button (right) to the full gallery. */
 function GalleryBlock({ id }) {
   const g = galleries[id]
   const photos = galleryItems.filter((p) => p.project === id).slice(0, 3)
@@ -15,7 +14,6 @@ function GalleryBlock({ id }) {
     <div className={`home-gallery__block home-gallery__block--${id}`} aria-labelledby={`home-gallery-${id}`}>
       <header className="home-gallery__head">
         <div className="home-gallery__name">
-          <Logo project={id} tone="light" height={id === 'sukoon' ? 46 : 36} decorative />
           <h3 id={`home-gallery-${id}`} className="home-gallery__title">{g.title}</h3>
         </div>
         <Button to={g.path} variant="ghost" icon="arrow" className="home-gallery__more">View {g.title}</Button>
