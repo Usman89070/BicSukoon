@@ -17,6 +17,7 @@ import { imageFor } from '../../../utils/images'
 
 const welcomeImage = imageFor('bic-welcome')
 import { donateLink } from '../../../data/donation'
+import HomeGallery from '../../../components/gallery/HomeGallery'
 
 const Crescent = () => (
   <svg viewBox="0 0 64 64" aria-hidden="true">
@@ -119,6 +120,9 @@ export default function BicHome() {
           <CompletedWorks />
         </div>
       </section>
+
+      {/* Gallery preview */}
+      <HomeGallery />
 
       {/* Join us */}
       <section className="home-journey" aria-labelledby="journey-title">

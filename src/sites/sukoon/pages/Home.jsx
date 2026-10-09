@@ -13,6 +13,7 @@ import VideoFeature from '../../../components/video/VideoFeature'
 import StageHero from '../../../components/showcase/StageHero'
 import CompletedWorks from '../../../components/showcase/CompletedWorks'
 import ExploreCard from '../../../components/showcase/ExploreCard'
+import HomeGallery from '../../../components/gallery/HomeGallery'
 
 const heroImage = imageFor(['hero-sukoon', 'site-300DPISukoon', 'portal-sukoon'])
 const welcomeImage = imageFor('sukoon-welcome')
@@ -128,6 +129,9 @@ export default function SukoonHome() {
           <CompletedWorks />
         </div>
       </section>
+
+      {/* Gallery preview */}
+      <HomeGallery />
 
       {/* More than seniors living */}
       <section className="home-journey" aria-labelledby="journey-title">
