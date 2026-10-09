@@ -3444,3 +3444,6 @@ button.home-gallery__card {
 .facility-card--video .facility-card__link {
   flex: 1;
 }
+.pinmap__stage {
+  position: relative;
+}

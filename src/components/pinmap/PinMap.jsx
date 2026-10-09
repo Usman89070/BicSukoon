@@ -82,51 +82,55 @@ export default function PinMap() {
 
   return (
     <div className="pinmap" ref={root}>
-      <div className="pinmap__frame" style={{ aspectRatio: `${pinmap.width} / ${pinmap.visibleHeight}` }}>
-        {image && <img className="pinmap__img" src={image} alt={`Aerial render of ${pinmap.name} with its main areas marked`} loading="lazy" decoding="async" />}
-      </div>
-
-      {pinmap.pins.map((p) => (
-        <button
-          key={p.id}
-          type="button"
-          className={`pinmap__pin${p.narrow ? ` pinmap__pin--${p.narrow}` : ''}${open === p.id ? ' is-open' : ''}`}
-          style={{ left: `${p.x}%`, top: `${p.y * crop}%` }}
-          aria-label={`${p.n}. ${p.title}: show video`}
-          aria-expanded={open === p.id}
-          onPointerEnter={(e) => { if (e.pointerType === 'mouse') { hovered.current = true; show(p.id) } }}
-          onPointerLeave={(e) => { if (e.pointerType === 'mouse') { hovered.current = false; hideSoon() } }}
-          onFocus={(e) => e.currentTarget.matches(':focus-visible') && show(p.id)}
-          onClick={() => (open === p.id && !hovered.current ? setOpen(null) : show(p.id))}
-        >
-          <svg viewBox="0 0 32 42" aria-hidden="true">
-            <path d="M16 0C7.2 0 0 7 0 15.7 0 27.5 16 42 16 42s16-14.5 16-26.3C32 7 24.8 0 16 0z" />
-          </svg>
-          <span className="pinmap__num">{p.n}</span>
-          <span className="pinmap__tip">{p.short ?? p.title}</span>
-        </button>
-      ))}
-
-      {active && (
-        <div
-          className="pinmap__card"
-          role="dialog"
-          aria-label={active.title}
-          style={{ '--x': `${active.x}%`, top: `calc(${active.y * crop}% + 14px)` }}
-          onPointerEnter={(e) => e.pointerType === 'mouse' && show(active.id)}
-          onPointerLeave={(e) => e.pointerType === 'mouse' && hideSoon()}
-        >
-          <PinFilm key={active.id} pin={active} onWatch={(f) => { setWatching(f); setOpen(null) }} />
-          <div className="pinmap__card-body">
-            <span className="pinmap__card-num">{active.n}</span>
-            <h3 className="pinmap__card-title">{active.title}</h3>
-            <Link to={active.path} className="pinmap__card-link">Learn more <Icon name="arrow" size={14} /></Link>
-          </div>
-          <button type="button" className="pinmap__close" aria-label="Close" onClick={() => setOpen(null)}>
-            <Icon name="close" size={16} />
-          </button>
+      {/* pins and card are placed over the picture only (not the legend below) */}
+      <div className="pinmap__stage">
+        <div className="pinmap__frame" style={{ aspectRatio: `${pinmap.width} / ${pinmap.visibleHeight}` }}>
+          {image && <img className="pinmap__img" src={image} alt={`Aerial render of ${pinmap.name} with its main areas marked`} loading="lazy" decoding="async" />}
         </div>
-      )}
+
+        {pinmap.pins.map((p) => (
+          <button
+            key={p.id}
+            type="button"
+            className={`pinmap__pin${p.narrow ? ` pinmap__pin--${p.narrow}` : ''}${open === p.id ? ' is-open' : ''}`}
+            style={{ left: `${p.x}%`, top: `${p.y * crop}%` }}
+            aria-label={`${p.n}. ${p.title}: show video`}
+            aria-expanded={open === p.id}
+            onPointerEnter={(e) => { if (e.pointerType === 'mouse') { hovered.current = true; show(p.id) } }}
+            onPointerLeave={(e) => { if (e.pointerType === 'mouse') { hovered.current = false; hideSoon() } }}
+            onFocus={(e) => e.currentTarget.matches(':focus-visible') && show(p.id)}
+            onClick={() => (open === p.id && !hovered.current ? setOpen(null) : show(p.id))}
+          >
+            <svg viewBox="0 0 32 42" aria-hidden="true">
+              <path d="M16 0C7.2 0 0 7 0 15.7 0 27.5 16 42 16 42s16-14.5 16-26.3C32 7 24.8 0 16 0z" />
+            </svg>
+            <span className="pinmap__num">{p.n}</span>
+            <span className="pinmap__tip">{p.short ?? p.title}</span>
+          </button>
+        ))}
+
+        {active && (
+          <div
+            className="pinmap__card"
+            role="dialog"
+            aria-label={active.title}
+            style={{ '--x': `${active.x}%`, top: `calc(${active.y * crop}% + 14px)` }}
+            onPointerEnter={(e) => e.pointerType === 'mouse' && show(active.id)}
+            onPointerLeave={(e) => e.pointerType === 'mouse' && hideSoon()}
+          >
+            <PinFilm key={active.id} pin={active} onWatch={(f) => { setWatching(f); setOpen(null) }} />
+            <div className="pinmap__card-body">
+              <span className="pinmap__card-num">{active.n}</span>
+              <h3 className="pinmap__card-title">{active.title}</h3>
+              <Link to={active.path} className="pinmap__card-link">Learn more <Icon name="arrow" size={14} /></Link>
+            </div>
+            <button type="button" className="pinmap__close" aria-label="Close" onClick={() => setOpen(null)}>
+              <Icon name="close" size={16} />
+            </button>
+          </div>
+        )}
+
+      </div>
 
       <ol className="pinmap__legend">
         {pinmap.pins.map((p) => (
