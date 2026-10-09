@@ -1,44 +1,29 @@
 import { imageFor } from '../utils/images'
+import { galleryBuiltIn, captionFromSlug } from './galleryList'
 
 /**
- * Photo gallery for both websites (/gallery, /gallery/bic, /gallery/sukoon).
+ * Galleries on both websites (/gallery, /gallery/bic, /gallery/sukoon).
  *
- * To add photos, drop them into src/assets/images/ named
- *   gallery-bic-<anything>.jpg     → BIC gallery
- *   gallery-sukoon-<anything>.jpg  → Sukoon gallery
- * The caption is taken from the rest of the file name
- * (gallery-bic-eid-open-day.jpg → "Eid open day"). They appear after the
- * renders listed below.
+ * Photos and videos are managed in the admin panel (Gallery tab). Until
+ * the panel is first used, the built-in photos below are shown: the renders
+ * in data/galleryList.js, plus any file in src/assets/images/ named
+ *   gallery-bic-<anything>.jpg / gallery-sukoon-<anything>.jpg
+ * (caption from the rest of the file name).
  */
 export const galleries = {
   bic: { id: 'bic', title: 'BIC Gallery', name: 'Brisbane Islamic Centre', path: '/gallery/bic' },
   sukoon: { id: 'sukoon', title: 'Sukoon Gallery', name: 'Sukoon Village', path: '/gallery/sukoon' },
 }
 
-const listed = [
-  { project: 'bic', image: 'bic-welcome', title: 'The Brisbane Islamic Centre' },
-  { project: 'bic', image: 'hero-bic', title: 'Aerial view of the centre' },
-  { project: 'bic', image: 'progress-existing-structure', title: 'The existing structure' },
-  { project: 'bic', image: 'about-gallery-3', title: 'Prayer hall interior' },
-  { project: 'bic', image: 'about-gallery-2', title: 'Islamic Museum interior' },
-  { project: 'sukoon', image: 'hero-sukoon', title: 'Aerial view of Sukoon Village' },
-  { project: 'sukoon', image: 'sukoon-welcome', title: 'The village from above' },
-  { project: 'sukoon', image: 'sukoon-existing-structure', title: 'The existing structure' },
-  { project: 'sukoon', image: 'facility-childcare', title: 'Childcare Centre' },
-]
-
 const dropped = import.meta.glob('../assets/images/gallery-{bic,sukoon}-*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' })
-const caption = (slug) => {
-  const text = slug.replace(/[-_]+/g, ' ').trim()
-  return text.charAt(0).toUpperCase() + text.slice(1)
-}
 
+/** Item shape: { id, project, kind: 'photo' | 'video', title, src (photo or video cover), video, youtube } */
 export const galleryItems = [
-  ...listed.map((p) => ({ ...p, src: imageFor(p.image) })).filter((p) => p.src),
+  ...galleryBuiltIn.map((p) => ({ project: p.project, kind: 'photo', title: p.title, src: imageFor(p.image) })).filter((p) => p.src),
   ...Object.entries(dropped)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([file, src]) => {
       const [, project, slug] = file.match(/gallery-(bic|sukoon)-(.+)\.[a-z]+$/i)
-      return { project: project.toLowerCase(), image: file, title: caption(slug), src }
+      return { project: project.toLowerCase(), kind: 'photo', title: captionFromSlug(slug), src }
     }),
-].map((p, i) => ({ ...p, id: `${p.project}-${i}` }))
+].map((p, i) => ({ video: null, youtube: null, ...p, id: `${p.project}-${i}` }))

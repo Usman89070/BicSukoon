@@ -41,3 +41,11 @@ MP4 (H.264) plays in every browser. For the web, about 1080p and under
 
 Small videos may also be committed into this folder; the build copies them
 to the site.
+
+## Gallery videos (admin panel)
+
+Gallery photos and videos are added in the admin panel (`/admin/` →
+**Gallery** tab). A video can be uploaded there (up to the server's upload
+limit), or, for large files, uploaded with the File Manager into
+`bic-videos/bic/` or `bic-videos/sukoon/` and then added in the panel by
+typing its exact file name. A YouTube link also works.

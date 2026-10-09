@@ -1,8 +1,8 @@
 <?php
 /**
  * Admin panel for the lists on the website (Honoured Guests, Board of
- * Directors). Sign in, then add, edit, reorder, hide or delete people and
- * upload their portraits. Changes appear on the website immediately.
+ * Directors, Gallery). Sign in, then add, edit, reorder, hide or delete
+ * people, photos and videos. Changes appear on the website immediately.
  */
 declare(strict_types=1);
 require dirname(__DIR__) . '/lib/bootstrap.php';
@@ -63,11 +63,18 @@ $type = (string) ($_POST['list'] ?? $_GET['list'] ?? 'guests');
 if (!isset(COLLECTIONS[$type])) $type = 'guests';
 $meta = COLLECTIONS[$type];
 $isBoard = $type === 'board';
+$isGallery = $type === 'gallery';
 $guests = load_items($type);
 $find = function (string $id) use (&$guests): ?int {
     foreach ($guests as $i => $g) if ($g['id'] === $id) return $i;
     return null;
 };
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && (int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 0) {
+    // The upload was bigger than the server accepts, so PHP dropped the whole form.
+    flash('That file is larger than the server allows (' . ini_get('post_max_size') . '). For a big video, upload it with Hostinger’s File Manager into bic-videos/bic/ or bic-videos/sukoon/ and type its file name in the form instead.', 'error');
+    go($isGallery ? 'new=1' : '');
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!hash_equals($_SESSION['csrf'], (string) ($_POST['csrf'] ?? ''))) {
@@ -105,6 +112,94 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             go();
 
         case 'save':
+            if ($isGallery) {
+                $title = trim((string) ($_POST['name'] ?? ''));
+                $project = (string) ($_POST['project'] ?? 'bic');
+                $kind = ($_POST['kind'] ?? 'photo') === 'video' ? 'video' : 'photo';
+                $id = (string) ($_POST['id'] ?? '');
+                $back = $id !== '' ? 'edit=' . urlencode($id) : 'new=1';
+                if ($title === '' || mb_strlen($title) > 200 || !isset(GALLERY_PROJECTS[$project])) {
+                    flash('Please enter a title (up to 200 characters) and choose a gallery.', 'error');
+                    go($back);
+                }
+                $i = $id !== '' ? $find($id) : null;
+                if ($i === null) {
+                    $base = slugify($title);
+                    $id = $base;
+                    for ($n = 2; $find($id) !== null; $n++) $id = $base . '-' . $n;
+                    $item = ['id' => $id, 'name' => $title, 'project' => $project, 'kind' => $kind, 'photo' => null, 'builtin' => null, 'thumb' => null, 'video' => null, 'video_uploaded' => false, 'youtube' => null, 'hidden' => false];
+                } else {
+                    $item = $guests[$i] + ['video' => null, 'video_uploaded' => false, 'youtube' => null, 'builtin' => null, 'thumb' => null];
+                    if ($item['project'] !== $project && !empty($item['video_uploaded']) && !empty($item['video'])) {
+                        // keep an uploaded video with its gallery's folder
+                        @rename(gallery_video_dir($item['project']) . $item['video'], gallery_video_dir($project) . $item['video']);
+                    }
+                    $item['name'] = $title;
+                    $item['project'] = $project;
+                    $item['kind'] = $kind;
+                }
+                $item['hidden'] = !empty($_POST['hidden']);
+                try {
+                    if (!empty($_POST['remove_photo'])) {
+                        delete_photo($item['photo'], $type);
+                        $item['photo'] = null;
+                        $item['builtin'] = null;
+                        $item['thumb'] = null;
+                    }
+                    if (($_FILES['photo']['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+                        $new = store_photo($_FILES['photo'], $item['id'], $type);
+                        delete_photo($item['photo'], $type);
+                        $item['photo'] = $new;
+                        $item['builtin'] = null;
+                        $item['thumb'] = null;
+                    }
+                    if ($kind === 'video') {
+                        $yt = trim((string) ($_POST['youtube'] ?? ''));
+                        $file = trim((string) ($_POST['video_name'] ?? ''));
+                        $hasUpload = ($_FILES['video']['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE;
+                        if ($hasUpload) {
+                            $new = store_video($_FILES['video'], $item['id'], $project);
+                            delete_gallery_video($item);
+                            $item['video'] = $new;
+                            $item['video_uploaded'] = true;
+                            $item['youtube'] = null;
+                        } elseif ($file !== '' && $file !== $item['video']) {
+                            if (!gallery_video_exists($project, $file)) throw new RuntimeException('No video named “' . $file . '” was found in bic-videos/' . $project . '/. Check the spelling (including spaces and capitals) or upload it first.');
+                            delete_gallery_video($item);
+                            $item['video'] = $file;
+                            $item['video_uploaded'] = false;
+                            $item['youtube'] = null;
+                        } elseif ($yt !== '') {
+                            $ytId = youtube_id($yt);
+                            if ($ytId === null) throw new RuntimeException('That does not look like a YouTube link.');
+                            if ($ytId !== $item['youtube']) {
+                                delete_gallery_video($item);
+                                $item['video'] = null;
+                                $item['video_uploaded'] = false;
+                            }
+                            $item['youtube'] = $ytId;
+                        }
+                        if (empty($item['video']) && empty($item['youtube'])) throw new RuntimeException('Add the video: upload a file, type the file name of a video already on the server, or paste a YouTube link.');
+                    } else {
+                        delete_gallery_video($item);
+                        $item['video'] = null;
+                        $item['video_uploaded'] = false;
+                        $item['youtube'] = null;
+                        if (empty($item['photo']) && empty($item['builtin'])) throw new RuntimeException('Please choose a photo to upload.');
+                    }
+                } catch (RuntimeException $ex) {
+                    flash($ex->getMessage(), 'error');
+                    go($back);
+                }
+                if ($i === null) {
+                    ($_POST['position'] ?? 'start') === 'start' ? array_unshift($guests, $item) : $guests[] = $item;
+                } else {
+                    $guests[$i] = $item;
+                }
+                save_items($type, $guests);
+                flash('Saved “' . $title . '”.');
+                go();
+            }
             $name = trim((string) ($_POST['name'] ?? ''));
             $role = trim((string) ($_POST['role'] ?? ''));
             $id = (string) ($_POST['id'] ?? '');
@@ -152,6 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (($i = $find((string) ($_POST['id'] ?? ''))) !== null) {
                 $name = $guests[$i]['name'];
                 delete_photo($guests[$i]['photo'], $type);
+                if ($isGallery) delete_gallery_video($guests[$i]);
                 array_splice($guests, $i, 1);
                 save_items($type, $guests);
                 flash('Deleted “' . $name . '”.');
@@ -214,6 +310,8 @@ if ($authed && isset($_GET['edit']) && ($i = $find((string) $_GET['edit'])) !== 
 $creating = $authed && isset($_GET['new']);
 $changingPassword = $authed && isset($_GET['password']);
 $photoUrl = fn (?string $p) => $p ? '../api/photo.php?t=' . $type . '&f=' . rawurlencode($p) : null;
+// picture shown for a row: uploaded photo, else the built-in render
+$thumbOf = fn (array $g): ?string => $g['photo'] ? $photoUrl($g['photo']) : (!empty($g['thumb']) ? '../gallery-builtin/' . rawurlencode($g['thumb']) : null);
 $listField = '<input type="hidden" name="list" value="' . e($type) . '">';
 $initials = function (string $name): string {
     $skip = '/^(her|his|the|most|eminent|right|honourable|excellency|mr|mrs|ms|dr|sheikh|sheikha|shaykh|sheik|imam|mufti|moulana|senator|councillor|inspector|of|bin|al|ibn|mp|ac|psm|phd)$/i';
@@ -281,9 +379,40 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
       </form>
 
     <?php elseif ($creating || $editing): $g = $editing ?? ['id' => '', 'name' => '', 'role' => '', 'photo' => null, 'hidden' => false, 'memoriam' => false]; ?>
-      <form class="card form" method="post" enctype="multipart/form-data">
+      <form class="card form" method="post" enctype="multipart/form-data" action="./?list=<?= e($type) ?>">
         <h2><?= $editing ? 'Edit ' . e($meta['one']) : 'Add a ' . e($meta['one']) ?></h2>
         <?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="save"><input type="hidden" name="id" value="<?= e($g['id']) ?>">
+        <?php if ($isGallery): $g += ['project' => 'bic', 'kind' => 'photo', 'video' => null, 'youtube' => null, 'thumb' => null]; $thumb = $thumbOf($g); ?>
+        <div class="form__grid">
+          <div class="form__photo form__photo--wide">
+            <?php if ($thumb): ?><img src="<?= e($thumb) ?>" alt=""><?php else: ?><span class="mono"><?= $g['kind'] === 'video' ? '▶' : '?' ?></span><?php endif; ?>
+          </div>
+          <div class="form__fields">
+            <label>Title <input name="name" value="<?= e($g['name']) ?>" required maxlength="200" placeholder="e.g. Eid open day 2026"></label>
+            <label>Gallery <select name="project"><?php foreach (GALLERY_PROJECTS as $key => $label): ?><option value="<?= e($key) ?>" <?= $g['project'] === $key ? 'selected' : '' ?>><?= e($label) ?></option><?php endforeach; ?></select></label>
+            <fieldset class="choice">
+              <legend>Type</legend>
+              <label class="check"><input type="radio" name="kind" value="photo" <?= $g['kind'] !== 'video' ? 'checked' : '' ?>> Photo</label>
+              <label class="check"><input type="radio" name="kind" value="video" <?= $g['kind'] === 'video' ? 'checked' : '' ?>> Video</label>
+            </fieldset>
+            <label><span class="js-photo-label">Photo</span> <small>(JPG, PNG or WebP, up to 20 MB. For a video this is the optional cover picture.)</small> <input name="photo" type="file" accept="image/jpeg,image/png,image/webp"></label>
+            <?php if ($thumb): ?><label class="check"><input type="checkbox" name="remove_photo" value="1"> Remove current picture</label><?php endif; ?>
+
+            <div class="video-fields">
+              <p class="video-fields__title">Video <small>— use one of these three ways</small></p>
+              <?php if (!empty($g['video'])): ?><p class="muted">Current video: <code><?= e($g['video']) ?></code></p><?php elseif (!empty($g['youtube'])): ?><p class="muted">Current video: YouTube <code><?= e($g['youtube']) ?></code></p><?php endif; ?>
+              <label>1. Upload a video <small>(MP4, WebM or MOV; this server accepts up to <?= e(ini_get('upload_max_filesize')) ?>)</small> <input name="video" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.m4v,.webm,.mov"></label>
+              <label>2. Or the file name of a video already on the server <small>(uploaded with the File Manager into <code>bic-videos/bic/</code> or <code>bic-videos/sukoon/</code>; best for large videos)</small> <input name="video_name" value="<?= e(empty($g['video_uploaded']) ? (string) $g['video'] : '') ?>" maxlength="200" placeholder="e.g. Eid open day.mp4"></label>
+              <label>3. Or a YouTube link <input name="youtube" value="<?= !empty($g['youtube']) ? e('https://youtu.be/' . $g['youtube']) : '' ?>" maxlength="300" placeholder="https://www.youtube.com/watch?v=…"></label>
+            </div>
+
+            <label class="check"><input type="checkbox" name="hidden" value="1" <?= !empty($g['hidden']) ? 'checked' : '' ?>> Hide from the website</label>
+            <?php if (!$editing): ?>
+              <label>Place in the gallery <select name="position"><option value="start">First (newest at the top)</option><option value="end">Last</option></select></label>
+            <?php endif; ?>
+          </div>
+        </div>
+        <?php else: ?>
         <div class="form__grid">
           <div class="form__photo">
             <?php if ($g['photo']): ?><img src="<?= e($photoUrl($g['photo'])) ?>" alt=""><?php else: ?><span class="mono"><?= e($initials($g['name']) ?: '?') ?></span><?php endif; ?>
@@ -304,6 +433,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
             <?php endif; ?>
           </div>
         </div>
+        <?php endif; ?>
         <div class="form__actions"><button class="btn btn--primary" type="submit">Save</button><a class="btn" href="./?list=<?= e($type) ?>">Cancel</a></div>
       </form>
 
@@ -311,7 +441,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
       <div class="head">
         <div>
           <h1><?= e($meta['label']) ?></h1>
-          <p class="muted"><?= count($guests) ?> <?= $isBoard ? 'members' : 'guests' ?> · <?= $shown ?> shown on the website</p>
+          <p class="muted"><?= count($guests) ?> <?= $isGallery ? 'photos and videos' : ($isBoard ? 'members' : 'guests') ?> · <?= $shown ?> shown on the website</p>
         </div>
         <a class="btn btn--primary" href="?list=<?= e($type) ?>&amp;new=1">+ Add a <?= e($meta['one']) ?></a>
       </div>
@@ -326,15 +456,19 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
 
       <ol class="list">
         <?php foreach ($guests as $i => $g): ?>
-          <li class="row<?= !empty($g['hidden']) ? ' row--hidden' : '' ?>" id="g-<?= e($g['id']) ?>">
+          <li class="row<?= $isGallery ? ' row--gallery' : '' ?><?= !empty($g['hidden']) ? ' row--hidden' : '' ?>" id="g-<?= e($g['id']) ?>">
             <span class="row__num"><?= $i + 1 ?></span>
-            <span class="row__thumb"><?php if ($g['photo']): ?><img src="<?= e($photoUrl($g['photo'])) ?>" alt="" loading="lazy"><?php else: ?><span class="mono"><?= e($initials($g['name'])) ?></span><?php endif; ?></span>
+            <?php $thumb = $thumbOf($g); ?>
+            <span class="row__thumb<?= $isGallery ? ' row__thumb--wide' : '' ?>"><?php if ($thumb): ?><img src="<?= e($thumb) ?>" alt="" loading="lazy"><?php else: ?><span class="mono"><?= $isGallery ? '▶' : e($initials($g['name'])) ?></span><?php endif; ?></span>
             <span class="row__text">
               <strong><?= e($g['name']) ?></strong>
               <?php if (!empty($g['role'])): ?><span class="muted"><?= e($g['role']) ?></span><?php endif; ?>
               <?php if (!empty($g['memoriam'])): ?><span class="tag tag--memoriam">In memoriam</span><?php endif; ?>
               <?php if (!empty($g['hidden'])): ?><span class="tag">Hidden</span><?php endif; ?>
-              <?php if (!$g['photo']): ?><span class="tag tag--soft">No photo</span><?php endif; ?>
+              <?php if ($isGallery): ?>
+                <span class="tag"><?= e(GALLERY_PROJECTS[$g['project'] ?? 'bic'] ?? 'BIC Gallery') ?></span>
+                <?php if (($g['kind'] ?? '') === 'video'): ?><span class="tag tag--video">Video<?= !empty($g['youtube']) ? ' · YouTube' : '' ?></span><?php endif; ?>
+              <?php elseif (!$g['photo']): ?><span class="tag tag--soft">No photo</span><?php endif; ?>
             </span>
             <span class="row__actions">
               <form method="post"><?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="move"><input type="hidden" name="id" value="<?= e($g['id']) ?>"><input type="hidden" name="dir" value="up"><button class="icon" type="submit" title="Move up" aria-label="Move <?= e($g['name']) ?> up" <?= $i === 0 ? 'disabled' : '' ?>>↑</button></form>

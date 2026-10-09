@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom'
-import { galleries, galleryItems } from '../../data/gallery'
+import { galleries } from '../../data/gallery'
+import { useGallery } from '../../hooks/useGallery'
+import { GalleryThumb } from './GalleryMedia'
 import { SITE_ID } from '../../site'
 import Button from '../common/Button'
 import Icon from '../common/Icon'
 import Reveal from '../common/Reveal'
 
 /** One project's gallery block: centred title, up to five photos and a same-size 'View … Gallery' tile. */
-function GalleryBlock({ id }) {
+function GalleryBlock({ id, galleryItems }) {
   const g = galleries[id]
   const all = galleryItems.filter((p) => p.project === id)
   const photos = all.slice(0, 5)
@@ -24,8 +26,8 @@ function GalleryBlock({ id }) {
       <ul className="home-gallery__grid">
         {photos.map((p, i) => (
           <Reveal as="li" key={p.id} delay={i * 70}>
-            <Link to={g.path} className="gallery-card home-gallery__card" aria-label={`${p.title}: open the ${g.title}`}>
-              <img src={p.src} alt="" loading="lazy" decoding="async" className="gallery-card__img" />
+            <Link to={g.path} className={`gallery-card gallery-card--${p.kind} home-gallery__card`} aria-label={`${p.title}: open the ${g.title}`}>
+              <GalleryThumb item={p} />
               <span className="gallery-card__shade" aria-hidden="true" />
               <span className="gallery-card__title">{p.title}</span>
               <span className="gallery-card__zoom" aria-hidden="true"><Icon name="arrow" size={18} /></span>
@@ -48,12 +50,13 @@ function GalleryBlock({ id }) {
  * website's own first.
  */
 export default function HomeGallery() {
+  const galleryItems = useGallery()
   const own = SITE_ID === 'sukoon' ? 'sukoon' : 'bic'
   const order = own === 'bic' ? ['bic', 'sukoon'] : ['sukoon', 'bic']
   return (
     <section className="section section--muted home-gallery" aria-label="Galleries">
       <div className="container container--wide">
-        {order.map((id) => <GalleryBlock key={id} id={id} />)}
+        {order.map((id) => <GalleryBlock key={id} id={id} galleryItems={galleryItems} />)}
         <div className="home-gallery__actions">
           <Button to="/gallery" variant="primary" icon="arrow">View all galleries</Button>
         </div>
