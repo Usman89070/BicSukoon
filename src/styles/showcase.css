@@ -2918,6 +2918,9 @@
   background: var(--surface, #ffffff);
   box-shadow: 0 30px 60px -45px rgba(10, 8, 32, 0.45);
 }
+.home-gallery__block:first-child {
+  margin-top: 0;
+}
 .home-gallery__block--bic {
   border-top: 4px solid #9b94e3;
 }

@@ -5,7 +5,6 @@ import Button from '../common/Button'
 import Icon from '../common/Icon'
 import Logo from '../common/Logo'
 import Reveal from '../common/Reveal'
-import SectionHeader from '../common/SectionHeader'
 
 /** One project's gallery block: heading, a few photos and a button to the full gallery. */
 function GalleryBlock({ id }) {
@@ -43,9 +42,8 @@ export default function HomeGallery() {
   const own = SITE_ID === 'sukoon' ? 'sukoon' : 'bic'
   const order = own === 'bic' ? ['bic', 'sukoon'] : ['sukoon', 'bic']
   return (
-    <section className="section section--muted home-gallery" aria-labelledby="home-gallery-title">
+    <section className="section section--muted home-gallery" aria-label="Galleries">
       <div className="container container--wide">
-        <SectionHeader eyebrow="Gallery" title={<span id="home-gallery-title">See the Projects</span>} align="center" intro="Renders and photos of the Brisbane Islamic Centre and Sukoon Village." />
         {order.map((id) => <GalleryBlock key={id} id={id} />)}
         <div className="home-gallery__actions">
           <Button to="/gallery" variant="primary" icon="arrow">View all galleries</Button>
