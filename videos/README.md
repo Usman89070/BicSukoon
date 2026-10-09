@@ -14,7 +14,7 @@ Manager) into the right folder, using **exactly** these file names:
 | `bic/20KL(watertank).mp4` | "200,000L underground tank" panel in Already built (both websites) |
 | `bic/Community hall short (c).mp4` | Pin 1 on the BIC site picture, and the Community Hall page |
 | `bic/QMCHC.mp4` | Pin 2 on the BIC site picture, and the Cultural Heritage Centre (QMCHC) page |
-| `bic/pin-masjid.mp4` | Pin 3 on the BIC site picture (Masjid) |
+| `bic/masjidBIC.mp4` | Pin 3 on the BIC site picture (Masjid) |
 | `bic/cafe short ( c).mp4` | Pin 4 on the BIC site picture (Café, outdoor dining and gyms), and the Café page |
 | `sukoon/pin-childcare.mp4` | Pin A on the Sukoon site picture (Childcare Centre) |
 | `sukoon/pin-seniors-living.mp4` | Pin B on the Sukoon site picture (Seniors Living) |

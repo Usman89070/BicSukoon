@@ -40,7 +40,7 @@ export const videos = {
   // The Community Hall, QMCHC and café films also play on those facility pages.
   pinCommunityHall: film('bic', 'Community Hall', 'Site film', 'Community hall short (c).mp4', { poster: bicPoster }),
   pinQmchc: film('bic', 'Queensland Muslim Cultural and Heritage Centre', 'Site film', 'QMCHC.mp4', { poster: bicPoster }),
-  pinMasjid: film('bic', 'Masjid', 'Site film', 'pin-masjid.mp4', { poster: bicPoster }),
+  pinMasjid: film('bic', 'Masjid', 'Site film', 'masjidBIC.mp4', { poster: bicPoster }),
   pinCafe: film('bic', 'Café, outdoor dining area and gyms', 'Site film', 'cafe short ( c).mp4', { poster: bicPoster }),
   sukoon: film('sukoon', 'Sukoon Village', 'Village film', 'sukooonFull.mp4', { poster: sukoonPoster }),
   // Site-picture pins (Sukoon home and Vision)
