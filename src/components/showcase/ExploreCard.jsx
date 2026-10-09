@@ -24,11 +24,19 @@ export default function ExploreCard({ item, index }) {
     <Reveal as="li" delay={index * 80} className={`explore-card explore-card--${item.id}`}>
       {href ? <a href={href} className="explore-card__link">{inner}</a> : <Link to={item.path} className="explore-card__link">{inner}</Link>}
       {item.links && (
-        <ul className="explore-card__chips" aria-label={`${item.title}: pages`}>
-          {item.links.map((l) => (
-            <li key={l.label}><Link to={l.path}>{l.label}</Link></li>
-          ))}
-        </ul>
+        <nav className="explore-card__pick" aria-label={`${item.title}: choose a page`}>
+          <p className="explore-card__pick-label"><Icon name="arrow" size={14} /> Choose a facility</p>
+          <ul className="explore-card__chips">
+            {item.links.map((l) => (
+              <li key={l.label}>
+                <Link to={l.path}>
+                  <span>{l.label}</span>
+                  <Icon name="arrow" size={14} />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       )}
     </Reveal>
   )

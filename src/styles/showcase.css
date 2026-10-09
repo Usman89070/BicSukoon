@@ -505,7 +505,8 @@
   flex-direction: column;
 }
 .explore-card:has(.explore-card__chips) .explore-card__link {
-  padding-bottom: 150px;
+  padding-bottom: 268px; /* room for the facility list */
+  padding-top: 64px; /* clear of the number */
 }
 .explore-card:has(.explore-card__chips) .explore-card__more {
   display: none; /* the page links below take its place */
@@ -597,37 +598,74 @@
   outline: 3px solid var(--sv-primary);
   outline-offset: 3px;
 }
-.explore-card__chips {
+.explore-card__pick {
   /* sits inside the card, under its text (links can't nest in the card link) */
   position: absolute;
   left: clamp(18px, 2vw, 26px);
   right: clamp(18px, 2vw, 26px);
   bottom: clamp(18px, 2vw, 22px);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 14px 0 0;
+  padding-top: 14px;
   border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+.explore-card__pick-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sv-primary-light, #ddb887);
+}
+:root[data-site='bic'] .explore-card__pick-label {
+  color: #c9c4f5;
+}
+.explore-card__pick-label svg {
+  transform: rotate(90deg);
+}
+.explore-card__chips {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 0;
   list-style: none;
 }
 .explore-card__chips a {
-  display: inline-block;
-  padding: 4px 11px;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.14);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
-  font-size: 0.74rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.2;
   color: #ffffff;
   text-decoration: none;
-  transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+.explore-card__chips a svg {
+  flex: none;
+  opacity: 0.8;
+  transition: transform var(--dur) var(--ease-out);
 }
 .explore-card__chips a:hover,
 .explore-card__chips a:focus-visible {
   background: #ffffff;
-  color: var(--bic-primary);
+  color: var(--bic-primary, #1c155c);
+  transform: translateY(-2px);
+}
+.explore-card__chips a:hover svg,
+.explore-card__chips a:focus-visible svg {
+  opacity: 1;
+  transform: translateX(3px);
 }
 
 /* ---- Vision ------------------------------------------------------------- */
@@ -866,7 +904,7 @@
     transition: transform 500ms var(--ease-out);
   }
   .explore-card:hover .explore-card__chips {
-    transform: translateY(-8px);
+    transform: none;
   }
 
   /* Completed works: zoom, badge glow */
