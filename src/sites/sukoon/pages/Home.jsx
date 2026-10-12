@@ -51,7 +51,9 @@ export default function SukoonHome() {
         <div className="container home-welcome__inner">
           <Reveal className="home-welcome__head">
             <span className="home-welcome__mark"><Crescent /></span>
-            <h2 id="welcome-title" className="section-title">{c.welcome.title}</h2>
+            <h2 id="welcome-title" className="section-title home-welcome__title">
+              {c.welcome.titleLines ? c.welcome.titleLines.map((l) => <span key={l} className="home-welcome__title-line">{l}</span>) : c.welcome.title}
+            </h2>
           </Reveal>
           <Reveal className="home-welcome__text" delay={100}>
             <p className="home-welcome__lead">{c.welcome.lead}</p>

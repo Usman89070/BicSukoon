@@ -13,6 +13,7 @@ export const bicHome = {
 
   welcome: {
     title: 'Welcome to Brisbane Islamic Centre',
+    titleLines: ['Welcome to', 'Brisbane Islamic Centre'],
     lead: 'Brisbane Islamic Centre is being developed as more than a place of worship.',
     body: [
       'It is a vision for a thriving community precinct where faith is strengthened, knowledge is shared, and people of all backgrounds are welcomed.',
@@ -102,6 +103,7 @@ export const sukoonHome = {
   hero: { eyebrow: 'Sukoon Village Seniors Living', title: seniors.heading },
   welcome: {
     title: 'Welcome to Sukoon Village',
+    titleLines: ['Welcome to', 'Sukoon Village'],
     lead: seniors.intro[0],
     body: [seniors.intro[1], seniors.belong],
     pillars: ['Comfort', 'Independence', 'Community', 'Family', 'Faith'],

@@ -863,15 +863,6 @@
   }
 
   /* Welcome tags */
-  .home-welcome__pillars li {
-    transition: transform 300ms var(--ease-out), background 300ms var(--ease-out), color 300ms var(--ease-out), border-color 300ms var(--ease-out);
-  }
-  .home-welcome__pillars li:hover {
-    transform: translateY(-3px);
-    background: var(--bic-primary);
-    border-color: var(--bic-primary);
-    color: #ffffff;
-  }
   .home-welcome__mark {
     transition: transform 900ms var(--ease-out);
   }
@@ -1828,11 +1819,6 @@
 :root[data-site='sukoon'] .home-welcome__mark {
   color: #ffffff;
   background: linear-gradient(135deg, var(--sv-primary-light, #e3c08f), var(--sv-primary, #cb9b61));
-}
-:root[data-site='sukoon'] .home-welcome__pillars li:hover {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: #2a1f13;
 }
 :root[data-site='sukoon'] .explore-card__shade {
   background: linear-gradient(180deg, rgba(42, 31, 19, 0.1) 0%, transparent 30%, rgba(42, 31, 19, 0.55) 55%, rgba(42, 31, 19, 0.92) 100%);
@@ -3739,4 +3725,90 @@ button.home-gallery__card {
   background: rgba(13, 10, 44, 0.6);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
+}
+
+/* Welcome pillars: labels only (white on blue, not clickable, no hover) */
+.home-welcome .home-welcome__pillars li,
+.home-welcome .home-welcome__pillars li:hover {
+  border-color: var(--bic-primary, #1c155c) !important;
+  color: #ffffff !important;
+  background: var(--bic-primary, #1c155c) !important;
+  text-shadow: none !important;
+  transform: none !important;
+  cursor: default;
+  user-select: none;
+}
+
+/* "Welcome to" on its own line above the name */
+.home-welcome__title-line {
+  display: block;
+}
+.home-welcome__title-line + .home-welcome__title-line {
+  white-space: nowrap; /* the name stays on one line */
+}
+@media (min-width: 900px) {
+  .home-welcome__title {
+    font-size: clamp(2rem, 3.1vw, 3.1rem);
+  }
+}
+
+/* Donate tab fixed to the left edge (BIC) */
+.donate-tab {
+  position: fixed;
+  z-index: 60;
+  left: 0;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 10px;
+  border-radius: 0 14px 14px 0;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%) rotate(180deg);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #ffffff;
+  background: linear-gradient(180deg, var(--bic-primary-light, #3b3290), var(--bic-primary, #1c155c));
+  box-shadow: 0 14px 30px -14px rgba(10, 8, 32, 0.7);
+  transition: padding 300ms var(--ease-out), background 300ms var(--ease-out);
+}
+.donate-tab {
+  border-radius: 14px 0 0 14px; /* rotated 180°, so this rounds the outer side */
+}
+.donate-tab svg {
+  transform: rotate(90deg);
+}
+.donate-tab:hover,
+.donate-tab:focus-visible {
+  padding-right: 16px;
+  background: linear-gradient(180deg, #4a40a8, var(--bic-primary, #1c155c));
+}
+.donate-tab:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+}
+@media (max-width: 600px) {
+  /* phones: a small pill in the bottom-left corner, clear of the text */
+  .donate-tab,
+  .donate-tab:hover {
+    top: auto;
+    bottom: 16px;
+    left: 12px;
+    padding: 10px 16px;
+    border-radius: var(--radius-pill);
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 0.78rem;
+  }
+  .donate-tab svg {
+    transform: none;
+  }
+}
+@media print {
+  .donate-tab {
+    display: none;
+  }
 }
