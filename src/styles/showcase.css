@@ -3791,20 +3791,15 @@ button.home-gallery__card {
   outline-offset: 2px;
 }
 @media (max-width: 600px) {
-  /* phones: a small pill in the bottom-left corner, clear of the text */
-  .donate-tab,
-  .donate-tab:hover {
-    top: auto;
-    bottom: 16px;
-    left: 12px;
-    padding: 10px 16px;
-    border-radius: var(--radius-pill);
-    writing-mode: horizontal-tb;
-    transform: none;
-    font-size: 0.78rem;
+  /* phones: the same sticky tab, a little slimmer */
+  .donate-tab {
+    gap: 6px;
+    padding: 12px 7px;
+    font-size: 0.72rem;
   }
-  .donate-tab svg {
-    transform: none;
+  .donate-tab:hover,
+  .donate-tab:focus-visible {
+    padding-right: 7px;
   }
 }
 @media print {
