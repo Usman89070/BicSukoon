@@ -3702,3 +3702,41 @@ button.home-gallery__card {
   padding-left: 14px;
   font-size: 0.92em;
 }
+
+/* picture inside a timeline item (e.g. the approved Sukoon Drive plan) */
+.timeline__image {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: var(--space-4) 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 16px;
+  cursor: zoom-in;
+  box-shadow: 0 20px 40px -28px rgba(10, 8, 32, 0.6);
+}
+.timeline__image img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  transition: transform 1s var(--ease-out);
+}
+.timeline__image:hover img {
+  transform: scale(1.03);
+}
+.timeline__image-zoom {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: rgba(13, 10, 44, 0.6);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}

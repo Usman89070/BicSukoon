@@ -34,8 +34,12 @@ export const timeline = {
         'An important new chapter in the Brisbane Islamic Centre and Sukoon Village development is taking shape.',
         'The recently approved Sukoon Drive will provide a dedicated new access road from Underwood Road, creating a safer and more direct entry into the precinct.',
         'The road will play an important role in supporting the future Masjid, community facilities, Queensland Muslim Cultural and Heritage Centre, Sukoon Village and the wider development.',
+        'The plans below show the approved road and its connection to the precinct ahead of construction.',
         'More than a new road — Sukoon Drive will become the gateway to a growing community and a legacy for generations to come.',
       ],
+      // the description paragraphs before the plan, then the plan, then the rest
+      imageAfter: 4,
+      image: { key: 'timeline-sukoon-drive', alt: 'Approved Sukoon Drive plan: the new road from Underwood Road into the precinct, with Road 2 and Proposed Lots 1 and 2' },
     },
   ],
   sukoon: [
