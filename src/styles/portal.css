@@ -102,20 +102,11 @@
   background: linear-gradient(160deg, var(--bic-primary-light), var(--bic-primary-dark));
 }
 .half--sukoon {
-  background: linear-gradient(160deg, #6b5032, #2a1f13);
+  background: linear-gradient(160deg, var(--bic-primary-light), var(--bic-primary-dark));
 }
 @keyframes half-in {
   from {
     opacity: 0;
-  }
-}
-@media (min-width: 900px) and (hover: hover) {
-  .portal__split:hover .half {
-    flex-grow: 0.85;
-  }
-  .portal__split .half:hover,
-  .portal__split .half:focus-within {
-    flex-grow: 1.15;
   }
 }
 .half__photo {
@@ -156,7 +147,8 @@
   background: linear-gradient(180deg, rgba(17, 12, 58, 0.25) 0%, rgba(17, 12, 58, 0) 30%, rgba(17, 12, 58, 0.35) 55%, rgba(17, 12, 58, 0.9) 100%);
 }
 .half--sukoon .half__shade {
-  background: linear-gradient(180deg, rgba(42, 31, 19, 0.25) 0%, rgba(42, 31, 19, 0) 30%, rgba(42, 31, 19, 0.35) 55%, rgba(42, 31, 19, 0.9) 100%);
+  /* same navy as BIC (no warm tint) */
+  background: linear-gradient(180deg, rgba(17, 12, 58, 0.25) 0%, rgba(17, 12, 58, 0) 30%, rgba(17, 12, 58, 0.35) 55%, rgba(17, 12, 58, 0.9) 100%);
 }
 .half__cta:focus-visible {
   outline: 3px solid var(--sv-primary);
@@ -193,7 +185,7 @@
   color: #dcd8fb;
 }
 .half--sukoon .half__line {
-  color: var(--sv-accent, #ecd2a8);
+  color: #dcd8fb;
 }
 .half__cta {
   display: inline-flex;
@@ -214,8 +206,8 @@
   color: var(--bic-primary);
 }
 .half--sukoon .half__cta {
-  background: linear-gradient(135deg, var(--sv-primary-light), var(--sv-primary));
-  color: #2a1f13;
+  background: #ffffff;
+  color: var(--bic-primary);
 }
 .half:hover .half__cta,
 .half__cta:focus-visible {
@@ -229,61 +221,25 @@
   transform: translateX(4px);
 }
 
-/* ---- Centre medallion (desktop) ---------------------------------------- */
-.portal__medallion {
-  display: none;
-}
+/* ---- Divider: a plain line down the middle (desktop) ------------------- */
 @media (min-width: 900px) {
   .portal__split::after {
     content: '';
     position: absolute;
+    z-index: 4;
     top: 0;
     bottom: 0;
     left: 50%;
-    width: 1px;
-    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.45) 25%, rgba(255, 255, 255, 0.45) 75%, transparent);
-    pointer-events: none;
-    transition: left 900ms var(--ease-out);
-  }
-  .portal__medallion {
-    position: absolute;
-    z-index: 4;
-    top: 50%;
-    left: 50%;
-    display: grid;
-    place-items: center;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
+    width: 2px;
+    margin-left: -1px;
     background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.95);
-    box-shadow: 0 16px 40px -18px rgba(10, 8, 32, 0.5);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    color: var(--sv-primary);
     pointer-events: none;
-    transition: left 900ms var(--ease-out);
-    animation: medallion-in 1s var(--ease-out) 0.5s both;
-  }
-  .portal__medallion svg {
-    width: 28px;
-    height: 28px;
-  }
-  /* follow the divider when a half grows on hover (flex 0.85 : 1.15) */
-  .portal__split:has(.half--bic:hover) .portal__medallion,
-  .portal__split:has(.half--bic:hover)::after {
-    left: 57.5%;
-  }
-  .portal__split:has(.half--sukoon:hover) .portal__medallion,
-  .portal__split:has(.half--sukoon:hover)::after {
-    left: 42.5%;
   }
 }
-@keyframes medallion-in {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.6);
+/* phones: the same line between the stacked halves */
+@media (max-width: 899px) {
+  .half--sukoon {
+    border-top: 2px solid rgba(255, 255, 255, 0.85);
   }
 }
 
@@ -320,7 +276,7 @@
   .portal__foot {
     position: static;
     padding: var(--space-5) 0 var(--space-6);
-    background: #2a1f13;
+    background: var(--bic-primary-dark, #110e2e);
   }
   .portal__foot p {
     background: transparent;
@@ -340,8 +296,7 @@
   .half,
   .half__photo,
   .half__content > *,
-  .portal__bar,
-  .portal__medallion {
+  .portal__bar {
     animation: none;
   }
   .half,

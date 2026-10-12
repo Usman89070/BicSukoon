@@ -58,7 +58,6 @@ export default function Portal() {
             </div>
           )
         })}
-        <span className="portal__medallion" aria-hidden="true"><Crescent /></span>
       </div>
 
       <footer className="portal__foot">
