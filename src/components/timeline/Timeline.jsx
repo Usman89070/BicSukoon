@@ -23,7 +23,7 @@ export default function Timeline({ items }) {
               )}
             </div>
             <h3 className="timeline__title">{m.title}</h3>
-            {m.description && <p className="timeline__text">{m.description}</p>}
+            {[].concat(m.description ?? []).map((t) => <p key={t} className="timeline__text">{t}</p>)}
             {m.placeholder && <Pending>Placeholder — official milestone required</Pending>}
           </div>
         </Reveal>

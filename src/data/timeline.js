@@ -25,6 +25,18 @@ export const timeline = {
     { id: 'bic-2021-07', state: 'completed', when: 'July 2021', title: 'Awaiting Final operational works from the Council for building operational works to commence' },
     { id: 'bic-2021-09', state: 'completed', when: 'September 2021', title: 'Final Building operational works approved' },
     { id: 'bic-2021-12', state: 'completed', when: 'December 2021', title: 'Construction commenced' },
+    {
+      id: 'bic-sukoon-drive',
+      state: 'current',
+      when: 'New road',
+      title: 'Sukoon Drive – A New Gateway to the Precinct',
+      description: [
+        'An important new chapter in the Brisbane Islamic Centre and Sukoon Village development is taking shape.',
+        'The recently approved Sukoon Drive will provide a dedicated new access road from Underwood Road, creating a safer and more direct entry into the precinct.',
+        'The road will play an important role in supporting the future Masjid, community facilities, Queensland Muslim Cultural and Heritage Centre, Sukoon Village and the wider development.',
+        'More than a new road — Sukoon Drive will become the gateway to a growing community and a legacy for generations to come.',
+      ],
+    },
   ],
   sukoon: [
     { id: 'sv-1', state: 'completed', title: 'Milestone to be confirmed', date: null, description: 'Completed milestones will be listed here.', placeholder: true },
