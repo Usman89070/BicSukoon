@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react'
 import { sites } from '../data/sites'
 import { urls } from '../site'
 import Logo from '../components/common/Logo'
@@ -18,6 +19,26 @@ const Crescent = (props) => (
     <path d="M38 14a19 19 0 1 0 0 36 22 22 0 0 1 0-36z" fill="currentColor" />
   </svg>
 )
+
+// Photo that fades and settles in only once it has loaded, so the
+// entrance never starts on an empty frame.
+function HalfPhoto({ src }) {
+  const [ready, setReady] = useState(false)
+  const ref = useCallback((img) => {
+    if (img?.complete && img.naturalWidth) setReady(true)
+  }, [])
+  return (
+    <img
+      ref={ref}
+      className={`half__photo${ready ? ' is-ready' : ''}`}
+      src={src}
+      alt=""
+      fetchPriority="high"
+      decoding="async"
+      onLoad={() => setReady(true)}
+    />
+  )
+}
 
 /**
  * Starting page: the screen split into two full-height photos, one per
@@ -43,7 +64,7 @@ export default function Portal() {
           return (
             <div key={h.id} className={`half half--${h.id}`} style={{ '--i': i }}>
               {image ? (
-                <img className="half__photo" src={image} alt="" fetchPriority="high" decoding="async" />
+                <HalfPhoto src={image} />
               ) : (
                 <Pattern className="half__pattern" opacity={0.08} scale={88} />
               )}
