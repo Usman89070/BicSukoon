@@ -3752,11 +3752,11 @@ button.home-gallery__card {
   }
 }
 
-/* Sticky Donate button: a pill in the bottom-left corner on every screen (BIC) */
+/* Sticky Donate button: a pill in the bottom-right corner on every screen (BIC) */
 .donate-tab {
   position: fixed;
   z-index: 60;
-  left: clamp(12px, 2vw, 24px);
+  right: clamp(12px, 2vw, 24px);
   bottom: clamp(16px, 2.5vw, 28px);
   display: inline-flex;
   align-items: center;
