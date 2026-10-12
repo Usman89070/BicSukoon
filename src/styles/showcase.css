@@ -3752,54 +3752,40 @@ button.home-gallery__card {
   }
 }
 
-/* Donate tab fixed to the left edge (BIC) */
+/* Sticky Donate button: a pill in the bottom-left corner on every screen (BIC) */
 .donate-tab {
   position: fixed;
   z-index: 60;
-  left: 0;
-  top: 50%;
-  display: flex;
+  left: clamp(12px, 2vw, 24px);
+  bottom: clamp(16px, 2.5vw, 28px);
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 16px 10px;
-  border-radius: 0 14px 14px 0;
-  writing-mode: vertical-rl;
-  transform: translateY(-50%) rotate(180deg);
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
   color: #ffffff;
-  background: linear-gradient(180deg, var(--bic-primary-light, #3b3290), var(--bic-primary, #1c155c));
-  box-shadow: 0 14px 30px -14px rgba(10, 8, 32, 0.7);
-  transition: padding 300ms var(--ease-out), background 300ms var(--ease-out);
-}
-.donate-tab {
-  border-radius: 14px 0 0 14px; /* rotated 180°, so this rounds the outer side */
-}
-.donate-tab svg {
-  transform: rotate(90deg);
+  background: linear-gradient(135deg, var(--bic-primary-light, #3b3290), var(--bic-primary, #1c155c));
+  box-shadow: 0 16px 34px -14px rgba(10, 8, 32, 0.75);
+  transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
 }
 .donate-tab:hover,
 .donate-tab:focus-visible {
-  padding-right: 16px;
-  background: linear-gradient(180deg, #4a40a8, var(--bic-primary, #1c155c));
+  transform: translateY(-3px);
+  box-shadow: 0 22px 40px -14px rgba(10, 8, 32, 0.8);
 }
 .donate-tab:focus-visible {
   outline: 3px solid #ffffff;
   outline-offset: 2px;
 }
 @media (max-width: 600px) {
-  /* phones: the same sticky tab, a little slimmer */
   .donate-tab {
-    gap: 6px;
-    padding: 12px 7px;
-    font-size: 0.72rem;
-  }
-  .donate-tab:hover,
-  .donate-tab:focus-visible {
-    padding-right: 7px;
+    padding: 10px 16px;
+    font-size: 0.78rem;
   }
 }
 @media print {
