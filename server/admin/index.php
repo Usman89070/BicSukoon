@@ -17,7 +17,7 @@ header('X-Frame-Options: DENY');
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: same-origin');
 header('Cache-Control: no-store');
-header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; form-action 'self'; frame-ancestors 'none'");
+header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; form-action 'self'; frame-ancestors 'none'");
 
 $authed = !empty($_SESSION['admin']) && ($_SESSION['expires'] ?? 0) > time();
 if ($authed) $_SESSION['expires'] = time() + SESSION_LIFETIME;
@@ -388,6 +388,9 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title><?= e($authed ? $meta['label'] . ' · ' : '') ?>Admin · Brisbane Islamic Centre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="admin.css">
 </head>
 <body>
