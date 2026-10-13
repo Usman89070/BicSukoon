@@ -2512,6 +2512,16 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+.pinmap__film-still {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  transition: opacity 600ms var(--ease-out);
+}
+.pinmap__film-still.is-hidden,
 .pinmap__film-thumb.is-hidden {
   opacity: 0;
 }
