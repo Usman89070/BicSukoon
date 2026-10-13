@@ -82,8 +82,8 @@
     0 12px 40px -12px color-mix(in srgb, var(--accent) 45%, transparent);
 
   /* ---- TYPOGRAPHY */
-  --font-display: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-body: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --fs-xs: 0.75rem;
   --fs-sm: 0.875rem;
   --fs-base: 1rem;
@@ -188,8 +188,8 @@
   --glass-strong: rgba(42, 31, 19, 0.78);
   --glass-border-light: rgba(42, 31, 19, 0.08);
 
-  --font-display: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-body: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --tracking-wide: 0.14em;
 
   /* Softer, more residential shapes */
