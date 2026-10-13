@@ -1,4 +1,7 @@
-// Generates sitemap.xml + robots.txt for one website: node scripts/generate-sitemap.mjs <bic|sukoon>
+// Static sitemap.xml + robots.txt for one website, for hosts WITHOUT PHP:
+//   node scripts/generate-sitemap.mjs <bic|sukoon>
+// On Hostinger (PHP) these files are not needed: .htaccess sends sitemap.xml and
+// robots.txt to api/sitemap.php and api/robots.php, which use the current domain.
 // Uses VITE_SITE_URL (origin) + VITE_BASE (path) from .env.<site> (or .env.<site>.local / the environment).
 import { writeFileSync, existsSync, readFileSync } from 'node:fs'
 
@@ -17,7 +20,7 @@ const basePath = (env('VITE_BASE') || '/').replace(/\/$/, '')
 const outDir = `dist/${siteId}`
 
 if (!site) {
-  console.warn(`[sitemap:${siteId}] VITE_SITE_URL not set — skipping sitemap.xml.`)
+  console.warn(`[sitemap:${siteId}] VITE_SITE_URL not set — skipping the static sitemap.xml (api/sitemap.php serves it on PHP hosts).`)
   process.exit(0)
 }
 const base = site.replace(/\/$/, '') + basePath

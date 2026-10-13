@@ -21,7 +21,14 @@ DirectoryIndex index.html index.php
   RewriteEngine On
   RewriteBase /
 
-  # Existing files and folders (assets, favicons, sitemap) are served as-is
+  # sitemap.xml and robots.txt are written by PHP for whatever domain the
+  # site is opened on (api/sitemap.php, api/robots.php)
+  RewriteRule ^robots\\.txt$ api/robots.php [L]
+  RewriteRule ^sitemap\\.xml$ api/sitemap.php?site=index [L]
+  RewriteRule ^sitemap-home\\.xml$ api/sitemap.php?site=home [L]
+  RewriteRule ^(bic|sukoon)/sitemap\\.xml$ api/sitemap.php?site=$1 [L]
+
+  # Existing files and folders (assets, favicons) are served as-is
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
