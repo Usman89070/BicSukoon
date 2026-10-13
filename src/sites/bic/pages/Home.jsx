@@ -30,10 +30,17 @@ export default function BicHome() {
   return (
     <>
       <Seo />
+      {/* Site picture with pins, first thing on the page */}
+      <section className="section section--dark home-pinmap-top" aria-label="Site map">
+        <div className="container">
+          <PinMap />
+        </div>
+      </section>
+
       <StageHero
         eyebrow={c.hero.eyebrow}
         title={c.hero.lines.map((l, i) => <span key={l} className="stage-hero__line">{i === 2 ? <em>{l}</em> : l}</span>)}
-        className="stage-hero--long"
+        className="stage-hero--long stage-hero--second"
         image={visionImage ?? heroImage}
         fit="full"
         label="BIC aerial render"
@@ -74,7 +81,7 @@ export default function BicHome() {
         </div>
       </section>
 
-      {/* Vision + masterplan */}
+      {/* Vision */}
       <section className="section section--dark" aria-labelledby="vision-title">
         <div className="container">
           <div className="home-vision">
@@ -85,7 +92,6 @@ export default function BicHome() {
               {c.vision.body.map((p) => <p key={p}>{p}</p>)}
             </Reveal>
           </div>
-          <Reveal className="home-vision__plan"><PinMap /></Reveal>
         </div>
       </section>
 

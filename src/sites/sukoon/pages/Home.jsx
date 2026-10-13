@@ -29,10 +29,18 @@ export default function SukoonHome() {
   return (
     <>
       <Seo />
+      {/* Site picture with pins, first thing on the page */}
+      <section className="section section--dark home-pinmap-top" aria-label="Site map">
+        <div className="container">
+          <PinMap />
+        </div>
+      </section>
+
       <StageHero
         eyebrow={c.hero.eyebrow}
         title="Sukoon Village Seniors Living"
         hideTitle
+        className="stage-hero--second"
         image={heroImage}
         film={videos.sukoonHero}
         label="Village render"
@@ -98,7 +106,7 @@ export default function SukoonHome() {
         </div>
       </section>
 
-      {/* Connected community + masterplan */}
+      {/* Connected community */}
       <section className="section section--dark" aria-labelledby="connected-title">
         <div className="container">
           <div className="home-vision">
@@ -110,7 +118,6 @@ export default function SukoonHome() {
               {c.connected.body.map((p) => <p key={p}>{p}</p>)}
             </Reveal>
           </div>
-          <Reveal className="home-vision__plan"><PinMap /></Reveal>
         </div>
       </section>
 

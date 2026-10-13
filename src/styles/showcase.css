@@ -3771,3 +3771,20 @@ button.home-gallery__card {
     position: static;
   }
 }
+
+/* ---- Home: the pin map opens the page, the hero follows it ---------------- */
+.home-pinmap-top {
+  padding-top: calc(var(--nav-h) + 2.5rem);
+}
+/* the hero no longer sits under the menu bar, so it needs no room for it */
+.stage-hero--full.stage-hero--second {
+  padding-top: 0;
+}
+.stage-hero--second .stage-hero__fill {
+  display: none;
+}
+@media (max-width: 700px) {
+  .stage-hero--full.stage-hero--second .stage-hero__bg {
+    inset: 0;
+  }
+}
