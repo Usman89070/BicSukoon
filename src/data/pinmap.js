@@ -20,8 +20,8 @@ export const pinmaps = {
     pins: [
       { id: 'community-hall', n: 1, title: 'Community Hall', x: 27, y: 26, video: 'pinCommunityHall', path: '/community-hall' },
       { id: 'qmchc', n: 2, title: 'Queensland Muslim Cultural and Heritage Centre (QMCHC)', short: 'QMCHC', narrow: 'below', x: 45.5, y: 28, video: 'pinQmchc', path: '/cultural-heritage-centre' },
-      { id: 'masjid', n: 3, title: 'Masjid', x: 70.5, y: 26, video: 'pinMasjid', image: 'pin-masjid', path: '/masjid-complex' },
-      { id: 'cafe', n: 4, title: 'Café, outdoor dining area and gyms', short: 'Café & gyms', x: 53.5, y: 20.5, video: 'pinCafe', path: '/cafe' },
+      { id: 'masjid', n: 3, title: 'Masjid', x: 70.5, y: 26, video: 'pinMasjid', path: '/masjid-complex' },
+      { id: 'cafe', n: 4, title: 'Café, outdoor dining area and gyms', short: 'Café & gyms', x: 53.5, y: 20.5, video: 'pinCafe', image: 'pin-cafe', path: '/cafe' },
     ],
   },
   sukoon: {
