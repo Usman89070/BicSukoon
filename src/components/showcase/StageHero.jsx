@@ -6,11 +6,15 @@ import { useVideoSrc } from '../../hooks/useVideoSrc'
  * Full-screen home hero: one big render (or a muted looping film when
  * supplied) with a short headline and two actions. Little text by design.
  */
-export default function StageHero({ id = 'hero-title', className, eyebrow, title, image, film, label, actions = [] }) {
+export default function StageHero({ id = 'hero-title', className, eyebrow, title, image, film, label, fit = 'cover', actions = [] }) {
   const filmSrc = useVideoSrc(film?.background ? film.src : null)
+  // fit="contain" shows the whole picture uncropped, with a blurred copy filling the edges
+  const contain = fit === 'contain' && !filmSrc && image
+  const classes = ['stage-hero', className, contain && 'stage-hero--contain'].filter(Boolean).join(' ')
   return (
-    <section className={className ? `stage-hero ${className}` : 'stage-hero'} aria-labelledby={id}>
+    <section className={classes} aria-labelledby={id}>
       <div className="stage-hero__bg">
+        {contain && <img className="stage-hero__fill" src={image} alt="" aria-hidden="true" />}
         {filmSrc ? (
           <video autoPlay muted loop playsInline preload="metadata" poster={film.poster ?? image ?? undefined} aria-hidden="true">
             <source src={filmSrc} />

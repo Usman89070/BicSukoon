@@ -3794,10 +3794,19 @@ button.home-gallery__card {
   }
 }
 
-/* Hero shown exactly as-is: no entrance zoom, no hover zoom */
-.stage-hero--still .stage-hero__bg > .media,
-.stage-hero--still .stage-hero__bg img {
-  animation: none;
-  transform: none !important;
-  transition: none;
+/* Hero showing the whole picture (no crop): blurred copy fills the edges */
+.stage-hero__bg .stage-hero__fill {
+  position: absolute;
+  inset: -40px;
+  width: calc(100% + 80px);
+  height: calc(100% + 80px);
+  max-width: none;
+  object-fit: cover;
+  filter: blur(28px) brightness(0.75);
+}
+.stage-hero--contain .stage-hero__bg > .media {
+  background: transparent;
+}
+.stage-hero--contain .stage-hero__bg > .media img {
+  object-fit: contain;
 }
