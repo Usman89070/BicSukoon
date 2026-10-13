@@ -3840,44 +3840,31 @@ button.home-gallery__card {
   /* stay inside the first screen even when the picture is taller than it */
   bottom: max(clamp(4rem, 11vh, 7rem), calc(100% - 100svh + 3rem));
 }
-/* Phones: the picture sits whole below the menu bar, the text follows it, and
-   a darkened blur of the same picture fills the whole hero behind both. */
+/* Phones: back to the regular full-screen hero (picture fills the screen,
+   text over it), centred on the main masjid building with its dome in view. */
 @media (max-width: 700px) {
   .stage-hero--full {
-    padding-top: calc(var(--nav-h) + 1.25rem);
+    display: flex;
+    min-height: 100svh;
+    padding: calc(var(--nav-h) + 2rem) 0 clamp(4rem, 11vh, 7rem);
   }
-  .stage-hero--full .stage-hero__fill {
-    height: 100%;
-    filter: blur(22px) brightness(0.42) saturate(1.1);
-  }
+  /* drop the picture just enough for the dome (about 7% down it) to clear the
+     menu bar; the blurred copy fills the sliver above it */
   .stage-hero--full .stage-hero__bg {
-    background: none;
+    position: absolute;
+    inset: max(0px, calc(var(--nav-h) + 1.5rem - 7svh)) 0 0;
   }
-  :root .stage-hero--full .stage-hero__shade {
-    background: linear-gradient(180deg, transparent 55%, rgba(8, 6, 26, 0.55) 100%);
+  .stage-hero--full .stage-hero__bg > .media {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+  }
+  .stage-hero--full .stage-hero__bg img {
+    height: 100%;
+    object-fit: cover;
+    object-position: 68% center;
   }
   .stage-hero--full .stage-hero__content {
     position: static;
-    padding-block: 1.75rem 2.75rem;
-  }
-  .stage-hero--full .stage-hero__eyebrow {
-    font-size: 0.68rem;
-  }
-  .stage-hero--full .stage-hero__title {
-    font-size: clamp(2rem, 1.2rem + 3.6vw, 2.5rem);
-    line-height: 1.08;
-  }
-  .stage-hero--full .stage-hero__ctas {
-    margin-top: var(--space-6);
-    flex-wrap: nowrap;
-  }
-  .stage-hero--full .stage-hero__ctas .btn {
-    flex: 1 1 auto;
-    justify-content: center;
-    padding-inline: 1.1rem;
-    white-space: nowrap;
-  }
-  .stage-hero--full .stage-hero__scroll {
-    display: none;
   }
 }
