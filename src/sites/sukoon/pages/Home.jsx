@@ -31,7 +31,8 @@ export default function SukoonHome() {
       <Seo />
       <StageHero
         eyebrow={c.hero.eyebrow}
-        title={<>A Place to <em>Call Home.</em></>}
+        title="Sukoon Village Seniors Living"
+        hideTitle
         image={heroImage}
         film={videos.sukoonHero}
         label="Village render"

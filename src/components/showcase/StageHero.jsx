@@ -6,7 +6,7 @@ import { useVideoSrc } from '../../hooks/useVideoSrc'
  * Full-screen home hero: one big render (or a muted looping film when
  * supplied) with a short headline and two actions. Little text by design.
  */
-export default function StageHero({ id = 'hero-title', className, eyebrow, title, image, film, label, fit = 'cover', actions = [] }) {
+export default function StageHero({ id = 'hero-title', className, eyebrow, title, image, film, label, fit = 'cover', hideTitle = false, actions = [] }) {
   const filmSrc = useVideoSrc(film?.background ? film.src : null)
   // fit="full" shows the whole picture edge to edge, uncropped (the hero takes its height)
   const full = fit === 'full' && !filmSrc && image
@@ -26,7 +26,8 @@ export default function StageHero({ id = 'hero-title', className, eyebrow, title
       </div>
       <div className="container stage-hero__content">
         {eyebrow && <p className="stage-hero__eyebrow">{eyebrow}</p>}
-        <h1 id={id} className="stage-hero__title">{title}</h1>
+        {/* hideTitle keeps the heading for screen readers and search engines only */}
+        <h1 id={id} className={hideTitle ? 'sr-only' : 'stage-hero__title'}>{title}</h1>
         <div className="stage-hero__ctas">
           {actions.map((a) => (
             <Button key={a.label} to={a.to} href={a.href} target={a.target} rel={a.rel} variant={a.variant ?? 'glass'} icon={a.icon}>{a.label}</Button>
