@@ -2,7 +2,8 @@ import { imageFor } from '../utils/images'
 import { galleryBuiltIn, captionFromSlug } from './galleryList'
 
 /**
- * Galleries on both websites (/gallery, /gallery/bic, /gallery/sukoon).
+ * Galleries: each website shows only its own at /gallery (BIC on the BIC
+ * site, Sukoon on the Sukoon site).
  *
  * Photos and videos are managed in the admin panel (Gallery tab). Until
  * the panel is first used, the built-in photos below are shown: the renders
@@ -11,8 +12,8 @@ import { galleryBuiltIn, captionFromSlug } from './galleryList'
  * (caption from the rest of the file name).
  */
 export const galleries = {
-  bic: { id: 'bic', title: 'BIC Gallery', name: 'Brisbane Islamic Centre', path: '/gallery/bic' },
-  sukoon: { id: 'sukoon', title: 'Sukoon Gallery', name: 'Sukoon Village', path: '/gallery/sukoon' },
+  bic: { id: 'bic', title: 'BIC Gallery', name: 'Brisbane Islamic Centre', path: '/gallery' },
+  sukoon: { id: 'sukoon', title: 'Sukoon Gallery', name: 'Sukoon Village', path: '/gallery' },
 }
 
 const dropped = import.meta.glob('../assets/images/gallery-{bic,sukoon}-*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' })

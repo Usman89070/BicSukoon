@@ -2565,7 +2565,7 @@
 }
 
 /* ==========================================================================
-   GALLERY (both websites): /gallery, /gallery/bic, /gallery/sukoon
+   GALLERY: /gallery on each website shows only that site's own gallery
    ========================================================================== */
 .gallery-tabs {
   display: flex;
