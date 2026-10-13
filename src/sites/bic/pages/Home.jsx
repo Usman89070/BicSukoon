@@ -11,7 +11,6 @@ import PinMap from '../../../components/pinmap/PinMap'
 import VideoFeature from '../../../components/video/VideoFeature'
 import StageHero from '../../../components/showcase/StageHero'
 import CompletedWorks from '../../../components/showcase/CompletedWorks'
-import ExploreCard from '../../../components/showcase/ExploreCard'
 import { heroImage } from '../images'
 import { imageFor } from '../../../utils/images'
 
@@ -38,7 +37,7 @@ export default function BicHome() {
         film={videos.hero}
         label="BIC aerial render"
         actions={[
-          { label: 'Explore the development', href: '#explore', variant: 'light', icon: 'arrow' },
+          { label: 'Discover the vision', to: '/vision', variant: 'light', icon: 'arrow' },
           { label: 'Donate', ...donateLink, variant: 'glass', icon: 'heart' },
         ]}
       />
@@ -64,21 +63,6 @@ export default function BicHome() {
               {c.welcome.pillars.map((p) => <li key={p}>{p}</li>)}
             </ul>
           </Reveal>
-        </div>
-      </section>
-
-      {/* Explore the development */}
-      <section id="explore" className="section section--muted" aria-labelledby="explore-title">
-        <div className="container container--wide">
-          <div className="home-explore__head">
-            <SectionHeader eyebrow="The development" title={<span id="explore-title">{c.explore.title}</span>} />
-            <Reveal className="home-explore__intro" delay={80}>
-              {c.explore.body.map((p) => <p key={p}>{p}</p>)}
-            </Reveal>
-          </div>
-          <ul className="explore-grid">
-            {c.explore.items.map((item, i) => <ExploreCard key={item.id} item={item} index={i} />)}
-          </ul>
         </div>
       </section>
 
