@@ -1,5 +1,4 @@
 import { bicHome as c } from '../../../data/home'
-import { videos } from '../../../data/videos'
 import Seo from '../../../components/common/Seo'
 import SectionHeader from '../../../components/common/SectionHeader'
 import Reveal from '../../../components/common/Reveal'
@@ -15,6 +14,8 @@ import { heroImage } from '../images'
 import { imageFor } from '../../../utils/images'
 
 const welcomeImage = imageFor('bic-welcome')
+// Hero uses the same render as the "Our vision" masterplan, shown still (no zoom).
+const visionImage = imageFor('bic-pinmap')
 import { donateLink } from '../../../data/donation'
 import HomeGallery from '../../../components/gallery/HomeGallery'
 
@@ -32,9 +33,8 @@ export default function BicHome() {
       <StageHero
         eyebrow={c.hero.eyebrow}
         title={c.hero.lines.map((l, i) => <span key={l} className="stage-hero__line">{i === 2 ? <em>{l}</em> : l}</span>)}
-        className="stage-hero--long"
-        image={heroImage}
-        film={videos.hero}
+        className="stage-hero--long stage-hero--still"
+        image={visionImage ?? heroImage}
         label="BIC aerial render"
         actions={[
           { label: 'Discover the vision', to: '/vision', variant: 'light', icon: 'arrow' },

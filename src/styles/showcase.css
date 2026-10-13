@@ -3793,3 +3793,11 @@ button.home-gallery__card {
     display: none;
   }
 }
+
+/* Hero shown exactly as-is: no entrance zoom, no hover zoom */
+.stage-hero--still .stage-hero__bg > .media,
+.stage-hero--still .stage-hero__bg img {
+  animation: none;
+  transform: none !important;
+  transition: none;
+}
