@@ -10,8 +10,9 @@
 
    The two websites are separate builds. <html data-site="bic|sukoon"> selects
    a complete identity:
-     Both sites share the BIC navy colour scheme. Sukoon only adds softer
-     shapes and slightly larger type for an older audience.
+     Both sites (and the starting page) share the BIC navy colour scheme.
+     Sukoon only adds softer shapes and slightly larger type for an older
+     audience.
    Tints/shades are derivatives of the sampled colours; nothing else is introduced.
    ========================================================================== */
 
@@ -132,14 +133,14 @@
 }
 
 /* ==========================================================================
-   BIC + SUKOON VILLAGE WEBSITES
-   Both use the BIC colour scheme; Sukoon only changes type size and shapes.
+   ONE COLOUR SCHEME FOR EVERYTHING
+   BIC, Sukoon and the starting page all use the BIC colour scheme; Sukoon
+   only changes type size and shapes.
    ========================================================================== */
-:root[data-site='bic'],
-:root[data-site='sukoon'] {
-  /* Both websites use the BIC logo colours: every "gold" accent the shared
-     components reach for becomes a lavender/indigo tint of the logo navy.
-     (The starting page keeps the real gold.) */
+:root {
+  /* Every page (BIC, Sukoon and the starting page) uses the BIC logo colours:
+     every "gold" accent the shared components reach for becomes a
+     lavender/indigo tint of the logo navy. */
   --sv-primary: #9b94e3;
   --sv-primary-light: #c9c4f7;
   --sv-primary-dark: #4a41a8;

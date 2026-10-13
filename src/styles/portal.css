@@ -1,8 +1,8 @@
 /* ==========================================================================
    STARTING PAGE (portal) — <html data-site="portal">
    The screen split into two full-height photos, one per website:
-   Brisbane Islamic Centre (navy) on the left, Sukoon Village (gold) on the
-   right. Stacked on phones.
+   Brisbane Islamic Centre on the left, Sukoon Village on the right (both in
+   the BIC navy scheme). Stacked on phones.
    ========================================================================== */
 :root[data-site='portal'] body {
   background: #0a0820;
