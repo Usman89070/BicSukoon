@@ -63,11 +63,6 @@
     linear-gradient(180deg, rgba(8, 6, 26, 0.35) 0%, transparent 22%, transparent 45%, rgba(8, 6, 26, 0.78) 100%),
     linear-gradient(90deg, rgba(8, 6, 26, 0.45), transparent 60%);
 }
-:root[data-site='sukoon'] .stage-hero__shade {
-  background:
-    linear-gradient(180deg, rgba(30, 20, 8, 0.3) 0%, transparent 22%, transparent 45%, rgba(30, 20, 8, 0.78) 100%),
-    linear-gradient(90deg, rgba(30, 20, 8, 0.4), transparent 60%);
-}
 .stage-hero__content {
   max-width: 1440px;
 }
@@ -93,7 +88,7 @@
 }
 .stage-hero__title em {
   font-style: italic;
-  color: var(--sv-primary-light, #e3c08f);
+  color: var(--sv-primary-light, #c9c4f7);
 }
 .stage-hero__ctas {
   display: flex;
@@ -554,7 +549,7 @@
 }
 .explore-card--sukoon .explore-card__shade,
 .explore-card--childcare .explore-card__shade {
-  background: linear-gradient(180deg, rgba(42, 31, 19, 0.1) 0%, transparent 30%, rgba(42, 31, 19, 0.55) 55%, rgba(42, 31, 19, 0.92) 100%);
+  background: linear-gradient(180deg, rgba(17, 12, 58, 0.1) 0%, transparent 30%, rgba(17, 12, 58, 0.55) 55%, rgba(17, 12, 58, 0.92) 100%);
 }
 .explore-card__num {
   position: absolute;
@@ -586,7 +581,7 @@
   margin-top: 4px;
   font-size: var(--fs-sm);
   font-weight: 700;
-  color: var(--sv-primary-light, #e3c08f);
+  color: var(--sv-primary-light, #c9c4f7);
 }
 .explore-card__more svg {
   transition: transform var(--dur) var(--ease-out);
@@ -616,9 +611,9 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--sv-primary-light, #ddb887);
+  color: var(--sv-primary-light, #c9c4f7);
 }
-:root[data-site='bic'] .explore-card__pick-label {
+:root:is([data-site='bic'], [data-site='sukoon']) .explore-card__pick-label {
   color: #c9c4f5;
 }
 .explore-card__pick-label svg {
@@ -781,7 +776,7 @@
   display: block;
 }
 .home-journey__lines span + span {
-  color: var(--sv-primary-light, #e3c08f);
+  color: var(--sv-primary-light, #c9c4f7);
   font-style: italic;
 }
 .home-journey__body {
@@ -888,7 +883,7 @@
     transition: color 400ms var(--ease-out), transform 500ms var(--ease-out);
   }
   .explore-card:hover .explore-card__num {
-    color: var(--sv-primary-light, #e3c08f);
+    color: var(--sv-primary-light, #c9c4f7);
     transform: scale(1.15);
   }
   .explore-card__chips {
@@ -1013,7 +1008,7 @@
   font-size: clamp(2.4rem, 1.6rem + 2.6vw, 3.8rem);
   font-weight: 300;
   letter-spacing: 0.04em;
-  color: var(--sv-primary-light, #e3c08f);
+  color: var(--sv-primary-light, #c9c4f7);
 }
 .guest__name {
   margin-top: var(--space-4);
@@ -1237,7 +1232,7 @@
   background: linear-gradient(180deg, transparent 20%, rgba(8, 6, 26, 0.6) 50%, rgba(8, 6, 26, 0.92));
 }
 .cc-card--future .cc-card__shade {
-  background: linear-gradient(180deg, transparent 20%, rgba(42, 31, 19, 0.6) 50%, rgba(42, 31, 19, 0.92));
+  background: linear-gradient(180deg, transparent 20%, rgba(17, 12, 58, 0.6) 50%, rgba(17, 12, 58, 0.92));
 }
 .cc-card__title {
   font-family: var(--font-display);
@@ -1256,7 +1251,7 @@
   font-family: var(--font-display);
   font-size: clamp(1.2rem, 1rem + 0.6vw, 1.5rem);
   line-height: 1.35;
-  color: var(--sv-primary-light, #e3c08f);
+  color: var(--sv-primary-light, #c9c4f7);
 }
 
 /* looking ahead */
@@ -1342,7 +1337,7 @@
   text-align: center;
   background: #ffffff;
   border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
-  box-shadow: 0 24px 50px -36px rgba(42, 31, 19, 0.45);
+  box-shadow: 0 24px 50px -36px rgba(17, 12, 58, 0.45);
 }
 .sl-fact__value {
   font-family: var(--font-display);
@@ -1387,17 +1382,11 @@
   gap: 6px;
   margin-top: var(--space-5);
   font-weight: 700;
-  color: var(--sv-primary-light, #e3c08f);
+  color: var(--sv-primary-light, #c9c4f7);
   text-decoration: none;
 }
 .sl-more:hover {
   text-decoration: underline;
-}
-:root[data-site='sukoon'] .cc-card:not(.sl-chapter) .cc-card__shade {
-  background: linear-gradient(180deg, transparent 20%, rgba(42, 31, 19, 0.55) 48%, rgba(42, 31, 19, 0.94));
-}
-:root[data-site='sukoon'] .sl-chapter .cc-card__shade {
-  background: linear-gradient(180deg, rgba(42, 31, 19, 0.2) 0%, rgba(42, 31, 19, 0.65) 45%, rgba(30, 21, 12, 0.95));
 }
 
 /* values: one line at a time */
@@ -1439,24 +1428,15 @@
   font-size: 0.85rem;
   font-weight: 700;
   color: #ffffff;
-  background: linear-gradient(135deg, var(--sv-primary-light, #e3c08f), var(--sv-primary, #cb9b61));
+  background: linear-gradient(135deg, var(--sv-primary-light, #c9c4f7), var(--sv-primary, #9b94e3));
 }
 .sl-values__list li:last-child {
   color: #ffffff;
   border-color: transparent;
-  background: linear-gradient(135deg, #6b5032, #2a1f13);
+  background: linear-gradient(135deg, #3b3290, #110c3a);
 }
 
 /* looking ahead (warm) */
-:root[data-site='sukoon'] .home-journey {
-  background: #2a1f13;
-}
-:root[data-site='sukoon'] .home-journey__bg::after {
-  background: linear-gradient(180deg, rgba(42, 31, 19, 0.8), rgba(30, 21, 12, 0.9));
-}
-:root[data-site='sukoon'] .home-journey .btn--light {
-  color: #2a1f13;
-}
 .sl-ahead__highlight {
   display: inline-flex;
   align-items: center;
@@ -1465,8 +1445,8 @@
   padding: 10px 18px;
   border-radius: var(--radius-pill);
   font-weight: 700;
-  color: #2a1f13;
-  background: linear-gradient(135deg, var(--sv-primary-light, #e3c08f), var(--sv-primary, #cb9b61));
+  color: #110c3a;
+  background: linear-gradient(135deg, var(--sv-primary-light, #c9c4f7), var(--sv-primary, #9b94e3));
 }
 .sl-ahead .home-journey__lines span {
   color: #ffffff;
@@ -1479,7 +1459,7 @@
   }
   .sl-fact:hover {
     transform: translateY(-5px);
-    box-shadow: 0 30px 56px -34px rgba(42, 31, 19, 0.55);
+    box-shadow: 0 30px 56px -34px rgba(17, 12, 58, 0.55);
   }
   .sl-values__list li:hover {
     transform: translateX(6px);
@@ -1675,9 +1655,9 @@
   color: #ffffff;
 }
 .ab-ahead li:last-child {
-  color: #2a1f13;
+  color: #110c3a;
   border-color: transparent;
-  background: linear-gradient(135deg, var(--sv-primary-light, #e3c08f), var(--sv-primary, #cb9b61));
+  background: linear-gradient(135deg, var(--sv-primary-light, #c9c4f7), var(--sv-primary, #9b94e3));
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .ab-list__link {
@@ -1816,35 +1796,12 @@
 }
 
 /* ---- Sukoon home: warm versions of the shared home sections ------------- */
-:root[data-site='sukoon'] .home-welcome__mark {
-  color: #ffffff;
-  background: linear-gradient(135deg, var(--sv-primary-light, #e3c08f), var(--sv-primary, #cb9b61));
-}
-:root[data-site='sukoon'] .explore-card__shade {
-  background: linear-gradient(180deg, rgba(42, 31, 19, 0.1) 0%, transparent 30%, rgba(42, 31, 19, 0.55) 55%, rgba(42, 31, 19, 0.92) 100%);
-}
-:root[data-site='sukoon'] .explore-card--bic .explore-card__shade {
-  background: linear-gradient(180deg, rgba(8, 6, 26, 0.1) 0%, transparent 30%, rgba(8, 6, 26, 0.55) 55%, rgba(8, 6, 26, 0.92) 100%);
-}
-:root[data-site='sukoon'] .done__shade {
-  background: linear-gradient(180deg, rgba(42, 31, 19, 0.25), transparent 30%, transparent 50%, rgba(42, 31, 19, 0.85));
-}
 .home-welcome + .sl-facts,
 .home-welcome .sl-facts {
   margin-top: var(--space-8);
 }
 
 /* Sukoon's dark sections are espresso: keep body text and the diagram readable */
-:root[data-site='sukoon'] .section--dark .cc-split__text p {
-  color: rgba(255, 255, 255, 0.82);
-}
-:root[data-site='sukoon'] .section--dark .cc-split__text .cc-lead {
-  color: #ffffff;
-}
-:root[data-site='sukoon'] .section--dark .cc-connect {
-  background: #fbf7f1;
-  border-color: rgba(var(--accent-rgb), 0.4);
-}
 
 /* Childcare render: show the coloured shade sails in tall cards */
 .explore-card--childcare .explore-card__media img {
@@ -1852,13 +1809,13 @@
 }
 
 /* ---- BIC home hero: text in the BIC navy / lavender scheme --------------
-   (gold belongs to Sukoon; BIC uses its logo navy and its light tint) */
-:root[data-site='bic'] .stage-hero__shade {
+   (both sites use the BIC logo navy and its light tint) */
+:root:is([data-site='bic'], [data-site='sukoon']) .stage-hero__shade {
   background:
     linear-gradient(180deg, rgba(17, 12, 58, 0.35) 0%, transparent 22%, transparent 42%, rgba(17, 12, 58, 0.82) 100%),
     linear-gradient(90deg, rgba(17, 12, 58, 0.62), rgba(28, 21, 92, 0.25) 45%, transparent 70%);
 }
-:root[data-site='bic'] .stage-hero__eyebrow {
+:root:is([data-site='bic'], [data-site='sukoon']) .stage-hero__eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -1870,7 +1827,7 @@
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
-:root[data-site='bic'] .stage-hero__eyebrow::before {
+:root:is([data-site='bic'], [data-site='sukoon']) .stage-hero__eyebrow::before {
   /* small crescent, as in the logo */
   content: '';
   width: 12px;
@@ -1879,11 +1836,11 @@
   box-shadow: inset -4px 0 0 0 #b4aeeb;
   transform: rotate(-20deg);
 }
-:root[data-site='bic'] .stage-hero__title {
+:root:is([data-site='bic'], [data-site='sukoon']) .stage-hero__title {
   color: #ffffff;
   text-shadow: 0 2px 30px rgba(17, 12, 58, 0.55);
 }
-:root[data-site='bic'] .stage-hero__title em {
+:root:is([data-site='bic'], [data-site='sukoon']) .stage-hero__title em {
   color: #c9c4f7;
   background: linear-gradient(100deg, #e4e1ff 0%, #b4aeeb 55%, #8f87de 100%);
   -webkit-background-clip: text;
@@ -1891,23 +1848,26 @@
   -webkit-text-fill-color: transparent;
   text-shadow: none;
   filter: drop-shadow(0 2px 18px rgba(17, 12, 58, 0.6));
+  padding-right: 0.12em; /* room for the slanted last letter inside the clipped gradient */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
-:root[data-site='bic'] .stage-hero__title .stage-hero__line:last-child {
+:root:is([data-site='bic'], [data-site='sukoon']) .stage-hero__title .stage-hero__line:last-child {
   padding-bottom: 0.08em; /* room for the italic descenders with clipped text */
 }
-:root[data-site='bic'] .stage-hero .btn--light {
+:root:is([data-site='bic'], [data-site='sukoon']) .stage-hero .btn--light {
   color: var(--bic-primary);
 }
-:root[data-site='bic'] .stage-hero .btn--glass {
+:root:is([data-site='bic'], [data-site='sukoon']) .stage-hero .btn--glass {
   background: rgba(28, 21, 92, 0.45);
   border-color: rgba(180, 174, 235, 0.6);
   color: #ffffff;
 }
-:root[data-site='bic'] .stage-hero .btn--glass:hover {
+:root:is([data-site='bic'], [data-site='sukoon']) .stage-hero .btn--glass:hover {
   background: rgba(28, 21, 92, 0.7);
   border-color: #e4e1ff;
 }
-:root[data-site='bic'] .btn--light::after {
+:root:is([data-site='bic'], [data-site='sukoon']) .btn--light::after {
   background: linear-gradient(110deg, transparent 30%, rgba(180, 174, 235, 0.55) 50%, transparent 70%);
 }
 
@@ -1954,16 +1914,16 @@
 
 /* ---- BIC: remaining warm (Sukoon) tones → BIC navy -----------------------
    The Sukoon Village card keeps its warm shade on purpose (it is Sukoon). */
-:root[data-site='bic'] .explore-card--childcare .explore-card__shade {
+:root:is([data-site='bic'], [data-site='sukoon']) .explore-card--childcare .explore-card__shade {
   background: linear-gradient(180deg, rgba(8, 6, 26, 0.1) 0%, transparent 30%, rgba(17, 12, 58, 0.55) 55%, rgba(17, 12, 58, 0.92) 100%);
 }
-:root[data-site='bic'] .cc-card--future .cc-card__shade {
+:root:is([data-site='bic'], [data-site='sukoon']) .cc-card--future .cc-card__shade {
   background: linear-gradient(180deg, transparent 20%, rgba(59, 50, 144, 0.6) 50%, rgba(17, 12, 58, 0.94));
 }
-:root[data-site='bic'] .ab-ahead li:last-child {
+:root:is([data-site='bic'], [data-site='sukoon']) .ab-ahead li:last-child {
   color: #110c3a;
 }
-:root[data-site='bic'] .stage-hero__title em {
+:root:is([data-site='bic'], [data-site='sukoon']) .stage-hero__title em {
   -webkit-text-fill-color: transparent;
 }
 
@@ -2087,24 +2047,6 @@
   margin-top: var(--space-6);
 }
 
-/* Sukoon: Welcome section photo under a warm espresso veil */
-:root[data-site='sukoon'] .home-welcome__bg::after {
-  background:
-    linear-gradient(90deg, rgba(42, 31, 19, 0.88) 0%, rgba(42, 31, 19, 0.72) 45%, rgba(42, 31, 19, 0.5) 100%),
-    linear-gradient(180deg, rgba(42, 31, 19, 0.2), rgba(30, 21, 12, 0.5));
-}
-:root[data-site='sukoon'] .home-welcome--photo .home-welcome__mark {
-  color: #2a1f13;
-  background: linear-gradient(135deg, var(--sv-primary-light), var(--sv-primary));
-  border-color: transparent;
-}
-:root[data-site='sukoon'] .home-welcome--photo .home-welcome__text p:last-of-type {
-  color: var(--sv-accent);
-  font-style: italic;
-}
-:root[data-site='sukoon'] .home-welcome--photo .home-welcome__pillars li:hover {
-  color: #2a1f13;
-}
 .home-welcome--photo .sl-facts {
   position: relative;
 }
@@ -2124,8 +2066,8 @@
 }
 .video__thumb--sukoon {
   background:
-    radial-gradient(60% 70% at 50% 35%, rgba(221, 184, 135, 0.3), transparent 70%),
-    linear-gradient(160deg, #5a4128 0%, #3a2a18 45%, #1e150b 100%);
+    radial-gradient(60% 70% at 50% 35%, rgba(155, 148, 227, 0.28), transparent 70%),
+    linear-gradient(160deg, #2a2378 0%, #1c155c 45%, #0d0a2c 100%);
 }
 .video__thumb-photo {
   position: absolute;
@@ -2196,33 +2138,33 @@
 }
 
 /* ---- BIC Welcome: white veil over the evening render, navy text ---------- */
-:root[data-site='bic'] .home-welcome--photo {
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo {
   color: var(--text-primary);
 }
-:root[data-site='bic'] .home-welcome__bg::after {
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome__bg::after {
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.86) 45%, rgba(255, 255, 255, 0.72) 100%),
     linear-gradient(180deg, rgba(251, 251, 254, 0.6), rgba(251, 251, 254, 0.35));
 }
-:root[data-site='bic'] .home-welcome--photo .section-title,
-:root[data-site='bic'] .home-welcome--photo .home-welcome__text .home-welcome__lead {
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .section-title,
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__text .home-welcome__lead {
   color: var(--bic-primary);
 }
-:root[data-site='bic'] .home-welcome--photo .home-welcome__text p {
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__text p {
   color: var(--text-secondary);
 }
-:root[data-site='bic'] .home-welcome--photo .home-welcome__mark {
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__mark {
   color: #ffffff;
   border-color: transparent;
   background: linear-gradient(135deg, var(--bic-primary-light), var(--bic-primary));
 }
-:root[data-site='bic'] .home-welcome--photo .home-welcome__pillars li {
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__pillars li {
   color: var(--bic-primary);
   background: rgba(255, 255, 255, 0.75);
   border-color: rgba(28, 21, 92, 0.18);
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  :root[data-site='bic'] .home-welcome--photo .home-welcome__pillars li:hover {
+  :root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__pillars li:hover {
     color: #ffffff;
     background: var(--bic-primary);
     border-color: var(--bic-primary);
@@ -2241,32 +2183,11 @@
 }
 
 /* ---- Sukoon Welcome: white veil over the village render, espresso text -- */
-:root[data-site='sukoon'] .home-welcome--photo {
-  color: var(--text-primary);
-}
-:root[data-site='sukoon'] .home-welcome__bg::after {
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.86) 45%, rgba(255, 255, 255, 0.72) 100%),
-    linear-gradient(180deg, rgba(251, 248, 243, 0.6), rgba(251, 248, 243, 0.35));
-}
-:root[data-site='sukoon'] .home-welcome--photo .section-title,
-:root[data-site='sukoon'] .home-welcome--photo .home-welcome__text .home-welcome__lead {
-  color: var(--text-primary);
-}
 :root[data-site='sukoon'] .home-welcome--photo .home-welcome__text p {
   color: var(--text-secondary);
 }
 :root[data-site='sukoon'] .home-welcome--photo .home-welcome__text p:last-of-type {
   color: var(--primary-ink);
-}
-:root[data-site='sukoon'] .home-welcome--photo .home-welcome__pillars li {
-  color: var(--primary-ink);
-  background: rgba(255, 255, 255, 0.75);
-  border-color: rgba(125, 88, 40, 0.25);
-}
-:root[data-site='sukoon'] .home-welcome--photo .sl-fact {
-  border-color: rgba(203, 155, 97, 0.45);
-  box-shadow: 0 24px 50px -30px rgba(42, 31, 19, 0.35);
 }
 .container > .qm-index {
   margin-left: auto;
@@ -2274,59 +2195,28 @@
 }
 
 /* ---- Welcome overlays: lighter so the render is recognisable ------------- */
-:root[data-site='bic'] .home-welcome__bg::after,
-:root[data-site='sukoon'] .home-welcome__bg::after {
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.55) 40%, rgba(255, 255, 255, 0.42) 100%),
-    radial-gradient(70% 90% at 65% 40%, rgba(255, 255, 255, 0.35), transparent 75%);
-}
-:root[data-site='sukoon'] .home-welcome__bg::after {
-  background:
-    linear-gradient(90deg, rgba(255, 252, 247, 0.8) 0%, rgba(255, 252, 247, 0.55) 40%, rgba(255, 252, 247, 0.42) 100%),
-    radial-gradient(70% 90% at 65% 40%, rgba(255, 252, 247, 0.35), transparent 75%);
-}
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome__bg::after,
 .home-welcome--photo .home-welcome__bg img {
   filter: saturate(1.05);
 }
 /* soft white glow keeps every line readable over the picture */
-:root[data-site='bic'] .home-welcome--photo .home-welcome__text,
-:root[data-site='bic'] .home-welcome--photo .home-welcome__head,
-:root[data-site='sukoon'] .home-welcome--photo .home-welcome__text,
-:root[data-site='sukoon'] .home-welcome--photo .home-welcome__head {
-  text-shadow: 0 0 18px rgba(255, 255, 255, 0.95), 0 0 6px rgba(255, 255, 255, 0.9);
-}
-:root[data-site='bic'] .home-welcome--photo .home-welcome__text p,
-:root[data-site='sukoon'] .home-welcome--photo .home-welcome__text p {
-  color: var(--text-primary);
-}
-:root[data-site='bic'] .home-welcome--photo .home-welcome__pillars li,
-:root[data-site='sukoon'] .home-welcome--photo .home-welcome__pillars li {
-  background: rgba(255, 255, 255, 0.88);
-  text-shadow: none;
-}
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__text,
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__head,
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__text p,
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__pillars li,
 
 /* ---- Welcome: a slightly stronger veil so the text reads easily (no blur) -- */
-:root[data-site='bic'] .home-welcome__bg::after {
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome__bg::after {
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.86) 0%, rgba(255, 255, 255, 0.68) 40%, rgba(255, 255, 255, 0.56) 100%),
     radial-gradient(70% 90% at 65% 40%, rgba(255, 255, 255, 0.3), transparent 75%);
 }
-:root[data-site='sukoon'] .home-welcome__bg::after {
-  background:
-    linear-gradient(90deg, rgba(255, 252, 247, 0.86) 0%, rgba(255, 252, 247, 0.68) 40%, rgba(255, 252, 247, 0.56) 100%),
-    radial-gradient(70% 90% at 65% 40%, rgba(255, 252, 247, 0.3), transparent 75%);
-}
 
 /* ---- Welcome: veil one step stronger (sharp render, no blur) ------------- */
-:root[data-site='bic'] .home-welcome__bg::after {
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome__bg::after {
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.76) 40%, rgba(255, 255, 255, 0.66) 100%),
     radial-gradient(70% 90% at 65% 40%, rgba(255, 255, 255, 0.3), transparent 75%);
-}
-:root[data-site='sukoon'] .home-welcome__bg::after {
-  background:
-    linear-gradient(90deg, rgba(255, 252, 247, 0.9) 0%, rgba(255, 252, 247, 0.76) 40%, rgba(255, 252, 247, 0.66) 100%),
-    radial-gradient(70% 90% at 65% 40%, rgba(255, 252, 247, 0.3), transparent 75%);
 }
 
 /* ==========================================================================
@@ -2336,10 +2226,6 @@
   --pin-ink: var(--bic-primary, #1c155c);
   --pin-glow: 155, 148, 227;
   position: relative;
-}
-:root[data-site='sukoon'] .pinmap {
-  --pin-ink: #15122e; /* Sukoon navy, with a gold glow */
-  --pin-glow: 203, 155, 97;
 }
 .pinmap__frame {
   position: relative;
@@ -2626,7 +2512,7 @@
 .pinmap__legend button.is-open {
   background: rgba(255, 255, 255, 0.2);
 }
-:root[data-site='bic'] .section:not(.section--dark) .pinmap__legend button {
+:root:is([data-site='bic'], [data-site='sukoon']) .section:not(.section--dark) .pinmap__legend button {
   border-color: var(--border);
   background: #ffffff;
 }
@@ -2695,10 +2581,6 @@
   background: var(--bic-primary, #1c155c);
   border-color: var(--bic-primary, #1c155c);
   color: #ffffff;
-}
-:root[data-site='sukoon'] .gallery-tabs__link.active {
-  background: #15122e;
-  border-color: #15122e;
 }
 
 .gallery__block + .gallery__block {
@@ -2852,7 +2734,7 @@
   color: #110e2e;
 }
 .lightbox__tag--sukoon {
-  background: #cb9b61;
+  background: #9b94e3;
   color: #15122e;
 }
 .lightbox__btn {
@@ -2925,7 +2807,7 @@
   border-top: 4px solid #9b94e3;
 }
 .home-gallery__block--sukoon {
-  border-top: 4px solid #cb9b61;
+  border-top: 4px solid #9b94e3;
 }
 .home-gallery__head {
   /* name centred, button on the right */
@@ -3060,8 +2942,8 @@
     0 40px 80px -60px rgba(10, 8, 32, 0.55);
 }
 .home-gallery__block--sukoon {
-  --g-accent: 203, 155, 97; /* Sukoon gold */
-  --g-ink: #3a2a18;
+  --g-accent: 155, 148, 227; /* BIC lavender (both sites share the BIC scheme) */
+  --g-ink: #1c155c;
 }
 .gallery__block + .gallery__block,
 .home-gallery__block + .home-gallery__block {
@@ -3173,8 +3055,8 @@
   box-shadow: 0 16px 30px -14px rgba(28, 21, 92, 0.7);
 }
 .home-gallery__block--sukoon .home-gallery__view-arrow {
-  background: linear-gradient(135deg, #ddb887, #cb9b61);
-  color: #2a1f13;
+  background: linear-gradient(135deg, #c9c4f7, #9b94e3);
+  color: #110c3a;
 }
 .home-gallery__view:hover {
   transform: none;
@@ -3254,8 +3136,8 @@
 }
 .gallery-card__placeholder--sukoon {
   background:
-    radial-gradient(60% 70% at 50% 35%, rgba(221, 184, 135, 0.3), transparent 70%),
-    linear-gradient(160deg, #5a4128, #3a2a18 45%, #1e150b);
+    radial-gradient(60% 70% at 50% 35%, rgba(155, 148, 227, 0.3), transparent 70%),
+    linear-gradient(160deg, #2a2378, #1c155c 45%, #0d0a2c);
 }
 .gallery-card__placeholder .logo {
   width: auto;

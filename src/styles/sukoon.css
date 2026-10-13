@@ -75,7 +75,7 @@
   color: var(--primary-ink);
 }
 .nav--light .mobile-menu {
-  background: rgba(251, 248, 243, 0.97);
+  background: rgba(255, 255, 255, 0.97);
 }
 .nav--light .mobile-menu__inner > ul > li {
   border-color: rgba(var(--text-rgb), 0.1);

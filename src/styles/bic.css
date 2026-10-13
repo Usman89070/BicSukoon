@@ -7,41 +7,41 @@
    ========================================================================== */
 
 /* ---- Navigation: frosted white (shares .nav--light with Sukoon) -------- */
-:root[data-site='bic'] .nav--light .nav__bar {
+:root:is([data-site='bic'], [data-site='sukoon']) .nav--light .nav__bar {
   background: rgba(255, 255, 255, 0.84);
   border-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 12px 40px -22px rgba(var(--ink-deep-rgb), 0.4);
 }
-:root[data-site='bic'] .nav--light.nav--scrolled .nav__bar {
+:root:is([data-site='bic'], [data-site='sukoon']) .nav--light.nav--scrolled .nav__bar {
   background: rgba(255, 255, 255, 0.94);
 }
-:root[data-site='bic'] .nav--light .nav__link {
+:root:is([data-site='bic'], [data-site='sukoon']) .nav--light .nav__link {
   color: #3a3566;
 }
-:root[data-site='bic'] .nav--light .nav__link:hover,
-:root[data-site='bic'] .nav--light .nav__link[aria-expanded='true'],
-:root[data-site='bic'] .nav--light .nav__link.is-active {
+:root:is([data-site='bic'], [data-site='sukoon']) .nav--light .nav__link:hover,
+:root:is([data-site='bic'], [data-site='sukoon']) .nav--light .nav__link[aria-expanded='true'],
+:root:is([data-site='bic'], [data-site='sukoon']) .nav--light .nav__link.is-active {
   color: var(--bic-primary);
   background: rgba(28, 21, 92, 0.06);
 }
-:root[data-site='bic'] .nav--light .nav__link.is-active::after {
+:root:is([data-site='bic'], [data-site='sukoon']) .nav--light .nav__link.is-active::after {
   background: var(--bic-primary);
 }
-:root[data-site='bic'] .nav--light .mobile-menu {
+:root:is([data-site='bic'], [data-site='sukoon']) .nav--light .mobile-menu {
   background: rgba(251, 251, 254, 0.96);
 }
-:root[data-site='bic'] .nav--light .mobile-menu__sub > ul {
+:root:is([data-site='bic'], [data-site='sukoon']) .nav--light .mobile-menu__sub > ul {
   border-color: var(--bic-primary);
 }
 /* Donate: solid navy on the white bar */
-:root[data-site='bic'] .nav .btn--primary {
+:root:is([data-site='bic'], [data-site='sukoon']) .nav .btn--primary {
   background: linear-gradient(135deg, var(--bic-primary-light), var(--bic-primary) 60%, var(--bic-primary-dark));
   color: #ffffff;
   box-shadow: 0 10px 28px -14px var(--bic-primary);
 }
 
 /* ---- Former dark sections become light & frosted ---------------------- */
-:root[data-site='bic'] .section--dark {
+:root:is([data-site='bic'], [data-site='sukoon']) .section--dark {
   background:
     radial-gradient(60% 80% at 100% 0%, rgba(59, 50, 144, 0.08), transparent 70%),
     radial-gradient(50% 70% at 0% 100%, rgba(var(--accent-rgb), 0.1), transparent 70%),
@@ -53,74 +53,74 @@
   --dot: var(--bic-primary);
   --border: rgba(28, 21, 92, 0.12);
 }
-:root[data-site='bic'] .section--dark .eyebrow {
+:root:is([data-site='bic'], [data-site='sukoon']) .section--dark .eyebrow {
   color: var(--bic-primary);
 }
-:root[data-site='bic'] .section--dark .glass-panel {
+:root:is([data-site='bic'], [data-site='sukoon']) .section--dark .glass-panel {
   background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.7));
   border-color: rgba(255, 255, 255, 0.9);
   box-shadow: var(--shadow-sm);
 }
-:root[data-site='bic'] .section--dark .btn--primary {
+:root:is([data-site='bic'], [data-site='sukoon']) .section--dark .btn--primary {
   background: linear-gradient(135deg, var(--bic-primary-light), var(--bic-primary) 55%, var(--bic-primary-dark));
   color: #ffffff;
   box-shadow: 0 10px 30px -14px var(--bic-primary);
 }
 
 /* Translucent "glass" buttons on light grounds: white glass, navy text */
-:root[data-site='bic'] :is(.section--dark, .footer, .cta-band, .section, .bic-hero, .page-hero-split) .btn--glass {
+:root:is([data-site='bic'], [data-site='sukoon']) :is(.section--dark, .footer, .cta-band, .section, .bic-hero, .page-hero-split) .btn--glass {
   background: rgba(255, 255, 255, 0.7);
   border-color: rgba(28, 21, 92, 0.18);
   color: var(--bic-primary);
 }
-:root[data-site='bic'] :is(.section--dark, .footer, .cta-band, .section, .bic-hero, .page-hero-split) .btn--glass:hover {
+:root:is([data-site='bic'], [data-site='sukoon']) :is(.section--dark, .footer, .cta-band, .section, .bic-hero, .page-hero-split) .btn--glass:hover {
   background: #ffffff;
   border-color: var(--bic-primary);
 }
 
 /* ---- Masterplan: light map, frosted white panel ----------------------- */
-:root[data-site='bic'] .masterplan__map {
+:root:is([data-site='bic'], [data-site='sukoon']) .masterplan__map {
   border-color: rgba(28, 21, 92, 0.1);
   box-shadow: var(--shadow-md);
 }
-:root[data-site='bic'] .masterplan__panel {
+:root:is([data-site='bic'], [data-site='sukoon']) .masterplan__panel {
   background: rgba(255, 255, 255, 0.9);
   border-color: rgba(255, 255, 255, 0.95);
   color: var(--text-primary);
   box-shadow: var(--shadow-lg);
 }
-:root[data-site='bic'] .masterplan__panel-body .eyebrow {
+:root:is([data-site='bic'], [data-site='sukoon']) .masterplan__panel-body .eyebrow {
   color: var(--bic-primary);
 }
-:root[data-site='bic'] .masterplan__panel-text,
-:root[data-site='bic'] .masterplan__meta dt {
+:root:is([data-site='bic'], [data-site='sukoon']) .masterplan__panel-text,
+:root:is([data-site='bic'], [data-site='sukoon']) .masterplan__meta dt {
   color: var(--text-secondary);
 }
-:root[data-site='bic'] .masterplan__meta .pending {
+:root:is([data-site='bic'], [data-site='sukoon']) .masterplan__meta .pending {
   color: var(--text-secondary);
 }
-:root[data-site='bic'] .masterplan__close {
+:root:is([data-site='bic'], [data-site='sukoon']) .masterplan__close {
   background: rgba(255, 255, 255, 0.85);
   color: var(--bic-primary);
   box-shadow: var(--shadow-sm);
 }
-:root[data-site='bic'] .masterplan__legend button,
-:root[data-site='bic'] .masterplan__note {
+:root:is([data-site='bic'], [data-site='sukoon']) .masterplan__legend button,
+:root:is([data-site='bic'], [data-site='sukoon']) .masterplan__note {
   color: var(--text-secondary);
 }
-:root[data-site='bic'] .masterplan__legend button:hover,
-:root[data-site='bic'] .masterplan__legend button.is-active {
+:root:is([data-site='bic'], [data-site='sukoon']) .masterplan__legend button:hover,
+:root:is([data-site='bic'], [data-site='sukoon']) .masterplan__legend button.is-active {
   color: var(--bic-primary);
 }
-:root[data-site='bic'] .hotspot__dot {
+:root:is([data-site='bic'], [data-site='sukoon']) .hotspot__dot {
   background: var(--bic-primary);
 }
-:root[data-site='bic'] .hotspot__pulse {
+:root:is([data-site='bic'], [data-site='sukoon']) .hotspot__pulse {
   background: rgba(28, 21, 92, 0.35);
 }
 
 /* ---- CTA band: frosted white panel ------------------------------------ */
-:root[data-site='bic'] .cta-band__inner {
+:root:is([data-site='bic'], [data-site='sukoon']) .cta-band__inner {
   color: var(--text-primary);
   background:
     radial-gradient(70% 120% at 100% 0%, rgba(59, 50, 144, 0.16), transparent 62%),
@@ -129,20 +129,20 @@
   border: 1px solid rgba(255, 255, 255, 0.9);
   box-shadow: var(--shadow-md);
 }
-:root[data-site='bic'] .cta-band__pattern {
+:root:is([data-site='bic'], [data-site='sukoon']) .cta-band__pattern {
   color: var(--bic-primary);
   opacity: 0.4;
 }
-:root[data-site='bic'] .cta-band .eyebrow--light {
+:root:is([data-site='bic'], [data-site='sukoon']) .cta-band .eyebrow--light {
   color: var(--bic-primary);
 }
-:root[data-site='bic'] .cta-band__title {
+:root:is([data-site='bic'], [data-site='sukoon']) .cta-band__title {
   color: var(--bic-primary);
 }
-:root[data-site='bic'] .cta-band__text {
+:root:is([data-site='bic'], [data-site='sukoon']) .cta-band__text {
   color: var(--text-secondary);
 }
-:root[data-site='bic'] .cta-band .btn--primary {
+:root:is([data-site='bic'], [data-site='sukoon']) .cta-band .btn--primary {
   background: linear-gradient(135deg, var(--bic-primary-light), var(--bic-primary) 55%, var(--bic-primary-dark));
   color: #ffffff;
 }
@@ -200,11 +200,11 @@
 }
 
 /* ---- Small accents that were gold-on-dark ----------------------------- */
-:root[data-site='bic'] .story-grid__num,
-:root[data-site='bic'] .why-card__num {
+:root:is([data-site='bic'], [data-site='sukoon']) .story-grid__num,
+:root:is([data-site='bic'], [data-site='sukoon']) .why-card__num {
   color: var(--bic-primary-light);
 }
-:root[data-site='bic'] .page-loader {
+:root:is([data-site='bic'], [data-site='sukoon']) .page-loader {
   background: var(--background);
 }
 

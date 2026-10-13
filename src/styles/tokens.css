@@ -10,9 +10,8 @@
 
    The two websites are separate builds. <html data-site="bic|sukoon"> selects
    a complete identity:
-     BIC     → navy foundation, monumental & cinematic, dark navigation.
-     Sukoon  → gold on warm white, light & airy, light navigation, softer
-               shapes and slightly larger type for an older audience.
+     Both sites share the BIC navy colour scheme. Sukoon only adds softer
+     shapes and slightly larger type for an older audience.
    Tints/shades are derivatives of the sampled colours; nothing else is introduced.
    ========================================================================== */
 
@@ -133,14 +132,14 @@
 }
 
 /* ==========================================================================
-   SUKOON VILLAGE WEBSITE
-   Gold + white from the logo; darks are deep espresso shades of the gold
-   (the official white-and-gold logo sits on them exactly as designed).
+   BIC + SUKOON VILLAGE WEBSITES
+   Both use the BIC colour scheme; Sukoon only changes type size and shapes.
    ========================================================================== */
-:root[data-site='bic'] {
-  /* BIC uses only its own logo colours: every "gold" accent the shared
+:root[data-site='bic'],
+:root[data-site='sukoon'] {
+  /* Both websites use the BIC logo colours: every "gold" accent the shared
      components reach for becomes a lavender/indigo tint of the logo navy.
-     (Sukoon and the starting page keep the real gold.) */
+     (The starting page keeps the real gold.) */
   --sv-primary: #9b94e3;
   --sv-primary-light: #c9c4f7;
   --sv-primary-dark: #4a41a8;
@@ -153,40 +152,9 @@
 }
 
 :root[data-site='sukoon'] {
+  /* Uses the BIC colour scheme (defaults above + the shared block); only
+     type size and shapes differ. */
   font-size: 106.25%; /* 17px base — easier reading for seniors and families */
-
-  --primary: var(--sv-primary);
-  --primary-light: var(--sv-primary-light);
-  --primary-dark: var(--sv-primary-dark);
-  --secondary: var(--sv-secondary);
-  --accent: var(--sv-accent);
-  --primary-ink: var(--sv-ink);
-  --on-primary: #2a1f13; /* espresso on gold — 6.4:1 */
-  --sv-on-primary: #2a1f13;
-
-  --ink-950: #1c140b;
-  --ink-900: #2a1f13;
-  --ink-rgb: 42, 31, 19;
-  --ink-deep-rgb: 28, 20, 11;
-  --text-rgb: 42, 31, 19;
-  --ink-800: #3a2b1b;
-  --ink-700: #4d3a25;
-  --stone-500: #8f8170;
-  --ivory: #fbf8f3;
-
-  --background: #fbf8f3;
-  --background-dark: #2a1f13;
-  --surface: #ffffff;
-  --surface-muted: #f3ece1;
-  --text-primary: #2a1f13; /* 15.2:1 */
-  --text-secondary: #6b5a45; /* 6.3:1 */
-  --text-on-dark: #fbf8f3;
-  --text-on-dark-muted: rgba(251, 248, 243, 0.76);
-  --border: rgba(42, 31, 19, 0.12);
-
-  --glass: rgba(42, 31, 19, 0.5);
-  --glass-strong: rgba(42, 31, 19, 0.78);
-  --glass-border-light: rgba(42, 31, 19, 0.08);
 
   --font-display: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -197,12 +165,6 @@
   --radius-md: 18px;
   --radius-lg: 28px;
   --radius-xl: 40px;
-  --shadow-sm: 0 2px 12px -4px rgba(42, 31, 19, 0.14);
-  --shadow-md: 0 16px 44px -20px rgba(42, 31, 19, 0.3);
-  --shadow-lg: 0 30px 80px -34px rgba(42, 31, 19, 0.45);
-
-  --schematic-bg: #3a2b1b;
-  --schematic-line: #fbf8f3;
 }
 
 @media (prefers-reduced-motion: reduce) {
