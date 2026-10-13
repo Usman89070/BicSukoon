@@ -3794,19 +3794,47 @@ button.home-gallery__card {
   }
 }
 
-/* Hero showing the whole picture (no crop): blurred copy fills the edges */
-.stage-hero__bg .stage-hero__fill {
+/* Hero showing the whole picture edge to edge: the hero takes the picture's
+   own height (full width, nothing cropped) and the text sits over its foot. */
+.stage-hero--full {
+  display: block;
+  min-height: 0;
+  padding: 0;
+  background: var(--ink-950, #110e2e);
+}
+.stage-hero--full .stage-hero__bg {
+  position: relative;
+  inset: auto;
+  overflow: hidden;
+}
+.stage-hero--full .stage-hero__bg > .media {
+  position: relative;
+  inset: auto;
+  height: auto;
+  background: none;
+}
+.stage-hero--full .stage-hero__bg img {
+  display: block;
+  height: auto;
+  object-fit: fill;
+}
+.stage-hero--full .stage-hero__content {
   position: absolute;
-  inset: -40px;
-  width: calc(100% + 80px);
-  height: calc(100% + 80px);
-  max-width: none;
-  object-fit: cover;
-  filter: blur(28px) brightness(0.75);
+  left: 0;
+  right: 0;
+  /* stay inside the first screen even when the picture is taller than it */
+  bottom: max(clamp(4rem, 11vh, 7rem), calc(100% - 100svh + 3rem));
 }
-.stage-hero--contain .stage-hero__bg > .media {
-  background: transparent;
-}
-.stage-hero--contain .stage-hero__bg > .media img {
-  object-fit: contain;
+/* Phones: picture edge to edge below the menu bar, text underneath it */
+@media (max-width: 700px) {
+  .stage-hero--full {
+    padding-top: calc(var(--nav-h) + 1.25rem);
+  }
+  .stage-hero--full .stage-hero__content {
+    position: static;
+    padding-block: 1.5rem 3rem;
+  }
+  .stage-hero--full .stage-hero__scroll {
+    display: none;
+  }
 }
