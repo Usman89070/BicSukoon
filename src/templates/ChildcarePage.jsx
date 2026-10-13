@@ -10,7 +10,7 @@ import Icon from '../components/common/Icon'
 import PageShell from './PageShell'
 
 /** Closing background: each website uses its own render. */
-const closingImage = SITE_ID === 'sukoon' ? imageFor(['hero-sukoon', 'site-300DPISukoon']) : imageFor(['hero-bic', 'site-300DPIbic'])
+const closingImage = SITE_ID === 'sukoon' ? imageFor('hero-sukoon') : imageFor('hero-bic')
 
 const SiteLink = ({ site, path, children, ...rest }) => {
   const href = externalHref(site, path)

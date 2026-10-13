@@ -44,7 +44,7 @@ export const bicHome = {
         text: 'The spiritual heart of the development, providing a welcoming place for worship, learning and community.',
         site: 'bic',
         path: '/masjid-complex',
-        image: ['facility-masjid', 'site-300DPIbic'],
+        image: ['facility-masjid', 'hero-bic'],
       },
       {
         id: 'sukoon',
@@ -52,7 +52,7 @@ export const bicHome = {
         text: 'Thoughtfully designed independent living that allows our elders to remain connected to family, faith and community.',
         site: 'sukoon',
         path: '/seniors-living',
-        image: ['facility-seniors-living', 'site-300DPISukoon'],
+        image: ['facility-seniors-living', 'hero-sukoon'],
       },
       {
         id: 'childcare',
@@ -113,9 +113,9 @@ export const sukoonHome = {
     title: 'Explore the Village',
     body: [seniors.dignity.lead, seniors.connected.lead],
     items: [
-      { id: 'seniors', title: 'Seniors Living', text: seniors.dignity.body[1], site: 'sukoon', path: '/seniors-living', image: ['facility-seniors-living', 'site-300DPISukoon'] },
+      { id: 'seniors', title: 'Seniors Living', text: seniors.dignity.body[1], site: 'sukoon', path: '/seniors-living', image: ['facility-seniors-living', 'hero-sukoon'] },
       { id: 'lifestyle', title: 'Lifestyle Centre', text: `${seniors.lifestyle.lead} ${seniors.lifestyle.body[1]}`, site: 'sukoon', path: '/lifestyle-centre', image: 'facility-lifestyle-centre' },
-      { id: 'bic', title: 'Brisbane Islamic Centre', text: seniors.connected.body[0], site: 'bic', path: '/', image: ['hero-bic', 'site-300DPIbic'] },
+      { id: 'bic', title: 'Brisbane Islamic Centre', text: seniors.connected.body[0], site: 'bic', path: '/', image: 'hero-bic' },
       { id: 'childcare', title: 'Childcare Centre', text: childcare.intro[0], site: 'sukoon', path: '/childcare-centre', image: 'facility-childcare' },
     ],
   },

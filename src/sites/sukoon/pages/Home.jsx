@@ -15,7 +15,7 @@ import CompletedWorks from '../../../components/showcase/CompletedWorks'
 import ExploreCard from '../../../components/showcase/ExploreCard'
 import HomeGallery from '../../../components/gallery/HomeGallery'
 
-const heroImage = imageFor(['hero-sukoon', 'site-300DPISukoon', 'portal-sukoon'])
+const heroImage = imageFor(['hero-sukoon', 'portal-sukoon'])
 const welcomeImage = imageFor('sukoon-welcome')
 
 const Crescent = () => (

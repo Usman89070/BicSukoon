@@ -14,8 +14,8 @@ import { heroImage } from '../images'
 import { imageFor } from '../../../utils/images'
 
 const welcomeImage = imageFor('bic-welcome')
-// Hero uses the same render as the "Our vision" masterplan, shown whole, edge to edge.
-const visionImage = imageFor('bic-pinmap')
+// Hero uses the "Our vision" render (hero-bic is the same picture at 2400px), shown whole, edge to edge.
+const visionImage = imageFor(['hero-bic', 'bic-pinmap'])
 import { donateLink } from '../../../data/donation'
 import HomeGallery from '../../../components/gallery/HomeGallery'
 

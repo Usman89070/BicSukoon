@@ -13,7 +13,7 @@
 export const pinmaps = {
   bic: {
     name: 'the Brisbane Islamic Centre',
-    image: 'bic-pinmap',
+    image: ['hero-bic', 'bic-pinmap'], // hero-bic is the same render at 2400px
     width: 1500,
     height: 1101,
     visibleHeight: 860, // crop the motorway at the bottom
@@ -26,7 +26,7 @@ export const pinmaps = {
   },
   sukoon: {
     name: 'Sukoon Village',
-    image: 'sukoon-pinmap',
+    image: ['hero-sukoon', 'sukoon-pinmap'], // hero-sukoon is the same render at 2400px
     width: 1500,
     height: 1084,
     visibleHeight: 760, // crop the road and motorway at the bottom

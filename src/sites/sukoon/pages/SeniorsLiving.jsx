@@ -9,7 +9,7 @@ import Media from '../../../components/common/Media'
 import Icon from '../../../components/common/Icon'
 import PageShell from '../../../templates/PageShell'
 
-const villageImage = imageFor(['hero-sukoon', 'site-300DPISukoon', 'portal-sukoon'])
+const villageImage = imageFor(['hero-sukoon', 'portal-sukoon'])
 
 const SiteLink = ({ site, path, children, ...rest }) => {
   const href = externalHref(site, path)
@@ -25,7 +25,7 @@ export default function SeniorsLiving() {
       heading={c.heading}
       lead={c.intro[0]}
       description={c.intro[1]}
-      media={{ image: imageFor(['facility-seniors-living', 'site-300DPISukoon']), label: 'Sukoon Village render' }}
+      media={{ image: imageFor(['facility-seniors-living', 'hero-sukoon']), label: 'Sukoon Village render' }}
       heroActions={
         <>
           <Button href="#living" variant="primary" icon="arrow">Discover the village</Button>
@@ -55,7 +55,7 @@ export default function SeniorsLiving() {
       <section id="living" className="section section--muted" aria-labelledby="dignity-title">
         <div className="container cc-split">
           <Reveal variant="image" className="cc-split__media">
-            <Media src={imageFor(['seniors-townhouses', 'site-300DPISukoon'])} label="Townhouses render" ratio="4 / 5" />
+            <Media src={imageFor(['seniors-townhouses', 'hero-sukoon'])} label="Townhouses render" ratio="4 / 5" />
           </Reveal>
           <div className="cc-split__text">
             <SectionHeader eyebrow="Independent living" title={<span id="dignity-title">{c.dignity.title}</span>} />
@@ -83,7 +83,7 @@ export default function SeniorsLiving() {
             </Reveal>
           </div>
           <Reveal variant="image" className="cc-split__media">
-            <Media src={imageFor(['seniors-connected', 'hero-bic', 'site-300DPIbic'])} label="Brisbane Islamic Centre render" ratio="4 / 5" />
+            <Media src={imageFor(['seniors-connected', 'hero-bic'])} label="Brisbane Islamic Centre render" ratio="4 / 5" />
           </Reveal>
         </div>
       </section>
