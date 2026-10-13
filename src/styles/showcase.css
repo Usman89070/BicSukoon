@@ -3799,7 +3799,7 @@ button.home-gallery__card {
 .stage-hero--full {
   display: block;
   min-height: 0;
-  padding: 0;
+  padding: calc(var(--nav-h) + 1.25rem) 0 0; /* picture starts below the menu bar */
   background: var(--ink-950, #110e2e);
 }
 .stage-hero--full .stage-hero__bg {
@@ -3825,11 +3825,8 @@ button.home-gallery__card {
   /* stay inside the first screen even when the picture is taller than it */
   bottom: max(clamp(4rem, 11vh, 7rem), calc(100% - 100svh + 3rem));
 }
-/* Phones: picture edge to edge below the menu bar, text underneath it */
+/* Phones: text underneath the picture */
 @media (max-width: 700px) {
-  .stage-hero--full {
-    padding-top: calc(var(--nav-h) + 1.25rem);
-  }
   .stage-hero--full .stage-hero__content {
     position: static;
     padding-block: 1.5rem 3rem;
