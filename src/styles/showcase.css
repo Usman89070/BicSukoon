@@ -2195,15 +2195,26 @@
 }
 
 /* ---- Welcome overlays: lighter so the render is recognisable ------------- */
-:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome__bg::after,
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome__bg::after {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.55) 40%, rgba(255, 255, 255, 0.42) 100%),
+    radial-gradient(70% 90% at 65% 40%, rgba(255, 255, 255, 0.35), transparent 75%);
+}
 .home-welcome--photo .home-welcome__bg img {
   filter: saturate(1.05);
 }
 /* soft white glow keeps every line readable over the picture */
 :root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__text,
-:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__head,
-:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__text p,
-:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__pillars li,
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__head {
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.95), 0 0 6px rgba(255, 255, 255, 0.9);
+}
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__text p {
+  color: var(--text-primary);
+}
+:root:is([data-site='bic'], [data-site='sukoon']) .home-welcome--photo .home-welcome__pillars li {
+  background: rgba(255, 255, 255, 0.88);
+  text-shadow: none;
+}
 
 /* ---- Welcome: a slightly stronger veil so the text reads easily (no blur) -- */
 :root:is([data-site='bic'], [data-site='sukoon']) .home-welcome__bg::after {
