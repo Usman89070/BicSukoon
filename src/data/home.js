@@ -109,6 +109,23 @@ export const sukoonHome = {
     pillars: ['Comfort', 'Independence', 'Community', 'Family', 'Faith'],
   },
   facts: seniors.facts,
+  // Official wording supplied by the client.
+  tranquil: {
+    title: 'Sukoon Village – Tranquil Living, Connected to Everything',
+    body: [
+      'Sukoon means tranquillity — and that’s the heart of Sukoon Village. A peaceful, welcoming community where comfort, independence and connection come together.',
+      'With an on-site childcare centre and the Brisbane Islamic Centre Masjid just a short walk away, residents can enjoy a unique environment that brings generations together.',
+    ],
+    nearbyTitle: 'Everything You Need, Close to Home',
+    nearbyLead: 'Ideally located in Eight Mile Plains, Sukoon Village is close to:',
+    nearby: [
+      { icon: 'shop', name: 'Warrigal Square Shopping Centre', text: 'Shopping, cafés and everyday essentials.' },
+      { icon: 'health', name: 'Eight Mile Plains Satellite Hospital', text: 'Local healthcare services.' },
+      { icon: 'road', name: 'Gateway Motorway', text: 'Easy access across Brisbane.' },
+      { icon: 'road', name: 'M1 Pacific Motorway', text: 'Connections to Brisbane and the Gold Coast.' },
+    ],
+    closing: 'Peaceful surroundings. Strong community. A lifestyle inspired by tranquillity.',
+  },
   explore: {
     title: 'Explore the Village',
     body: [seniors.dignity.lead, seniors.connected.lead],

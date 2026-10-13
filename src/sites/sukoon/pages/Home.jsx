@@ -84,6 +84,32 @@ export default function SukoonHome() {
         </div>
       </section>
 
+      {/* Tranquil living + what is nearby */}
+      <section className="section sv-tranquil" aria-labelledby="tranquil-title">
+        <div className="container">
+          <div className="sv-tranquil__intro">
+            <SectionHeader eyebrow="Eight Mile Plains" title={<span id="tranquil-title">{c.tranquil.title}</span>} />
+            <Reveal className="sv-tranquil__text" delay={80}>
+              {c.tranquil.body.map((p) => <p key={p}>{p}</p>)}
+            </Reveal>
+          </div>
+          <div className="sv-tranquil__nearby">
+            <h3 className="sv-tranquil__nearby-title">{c.tranquil.nearbyTitle}</h3>
+            <p className="sv-tranquil__nearby-lead">{c.tranquil.nearbyLead}</p>
+            <ul className="sv-nearby">
+              {c.tranquil.nearby.map((n, i) => (
+                <Reveal as="li" key={n.name} delay={i * 80} className="sv-nearby__item">
+                  <span className="sv-nearby__icon" aria-hidden="true"><Icon name={n.icon} size={22} /></span>
+                  <span className="sv-nearby__name">{n.name}</span>
+                  <span className="sv-nearby__text">{n.text}</span>
+                </Reveal>
+              ))}
+            </ul>
+            <p className="sv-tranquil__closing">{c.tranquil.closing}</p>
+          </div>
+        </div>
+      </section>
+
       {/* Explore */}
       <section id="explore" className="section section--muted" aria-labelledby="explore-title">
         <div className="container container--wide">

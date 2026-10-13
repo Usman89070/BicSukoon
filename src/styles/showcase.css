@@ -3829,3 +3829,133 @@ button.home-gallery__card {
     inset: 0;
   }
 }
+
+/* ---- Sukoon home: tranquil living + what is nearby ------------------------ */
+.sv-tranquil__intro {
+  display: grid;
+  gap: var(--space-5) clamp(2rem, 5vw, 5rem);
+}
+@media (min-width: 960px) {
+  .sv-tranquil__intro {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+.sv-tranquil__text p {
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+.sv-tranquil__text p + p {
+  margin-top: var(--space-4);
+}
+.sv-tranquil__nearby {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+}
+.sv-tranquil__nearby-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-xl);
+  color: var(--primary);
+}
+.sv-tranquil__nearby-lead {
+  margin-top: var(--space-2);
+  color: var(--text-secondary);
+}
+.sv-nearby {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+.sv-nearby__item {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 18px;
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted, #f3f2fb);
+}
+.sv-nearby__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 6px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--bic-primary-light), var(--bic-primary));
+}
+.sv-nearby__name {
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--primary);
+}
+.sv-nearby__text {
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.sv-tranquil__closing {
+  margin-top: var(--space-6);
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-style: italic;
+  color: var(--primary-ink);
+}
+@media (max-width: 900px) {
+  .sv-nearby {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .sv-tranquil__nearby {
+    padding: 22px 14px;
+  }
+  .sv-tranquil__nearby-title {
+    font-size: 1.3rem;
+    line-height: 1.25;
+  }
+  .sv-nearby {
+    gap: 10px;
+  }
+  .sv-nearby__item {
+    padding: 14px 12px;
+  }
+  .sv-nearby__icon {
+    width: 38px;
+    height: 38px;
+  }
+  .sv-nearby__name {
+    font-size: 0.85rem;
+  }
+  .sv-nearby__text {
+    font-size: 0.8rem;
+  }
+}
+
+/* ---- Sukoon: headings and key wording in capitals ---------------------------- */
+:root[data-site='sukoon'] :is(h1, h2, h3, h4),
+:root[data-site='sukoon'] :is(.section-title, .stage-hero__title, .page-hero__title, .sv-nearby__name, .sv-tranquil__closing, .footer__cta-title),
+:root[data-site='sukoon'] :is(.explore-card__title, .cc-card__title, .done__title, .facility-card__title, .facility-block__title, .vision-chapter__title, .pillar__title, .timeline__title, .journal__title, .video__title, .social-band__title, .contact-card__title, .cta-band__title, .home-gallery__title, .empty-state__title, .discover__title) {
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+/* capitals read larger, so the biggest titles step down a little */
+:root[data-site='sukoon'] :is(.section-title, .page-hero__title) {
+  font-size: calc(var(--fs-2xl) * 0.82);
+  line-height: 1.12;
+}
+:root[data-site='sukoon'] .sv-tranquil__closing {
+  font-style: normal;
+  font-size: var(--fs-base);
+  letter-spacing: 0.08em;
+}

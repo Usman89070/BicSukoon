@@ -19,6 +19,9 @@ const paths = {
   check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
   star: <path d="M12 3l2.6 6.3L21 12l-6.4 2.7L12 21l-2.6-6.3L3 12l6.4-2.7z" />,
   layers: <path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5" />,
+  shop: <><path d="M5 8h14l-1 12H6z" /><path d="M9 8V6.5a3 3 0 016 0V8" /></>,
+  health: <><rect x="3.5" y="3.5" width="17" height="17" rx="4" /><path d="M12 8v8M8 12h8" /></>,
+  road: <path d="M8 3L4 21M16 3l4 18M12 4v3M12 10.5v3M12 17v3" />,
   // Social
   facebook: <path d="M14 8.5V7c0-.8.5-1 1-1h2V3h-3c-2.8 0-3.5 2-3.5 3.6v1.9H8V12h2.5v9H14v-9h2.6l.4-3.5z" fill="currentColor" stroke="none" />,
   instagram: <><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.3" cy="6.7" r="0.9" fill="currentColor" /></>,
