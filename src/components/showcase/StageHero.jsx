@@ -13,6 +13,7 @@ export default function StageHero({ id = 'hero-title', className, eyebrow, title
   const classes = ['stage-hero', className, full && 'stage-hero--full'].filter(Boolean).join(' ')
   return (
     <section className={classes} aria-labelledby={id}>
+      {full && <img className="stage-hero__fill" src={image} alt="" aria-hidden="true" />}
       <div className="stage-hero__bg">
         {filmSrc ? (
           <video autoPlay muted loop playsInline preload="metadata" poster={film.poster ?? image ?? undefined} aria-hidden="true">

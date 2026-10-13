@@ -3799,8 +3799,23 @@ button.home-gallery__card {
 .stage-hero--full {
   display: block;
   min-height: 0;
-  padding: calc(var(--nav-h) + 1.25rem) 0 0; /* picture starts below the menu bar */
+  /* Picture starts just low enough for the masjid dome (about 5vw from the
+     picture's top edge) to clear the menu bar; a blurred copy fills above it. */
+  padding: max(0px, calc(var(--nav-h) + 1.5rem - 5.2vw)) 0 0;
   background: var(--ink-950, #110e2e);
+}
+.stage-hero__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  width: 100%;
+  max-width: none;
+  height: calc(var(--nav-h) + 3rem);
+  object-fit: cover;
+  object-position: top;
+  filter: blur(10px) brightness(0.62); /* matches the picture's top shade */
+  transform: scale(1.15);
 }
 .stage-hero--full .stage-hero__bg {
   position: relative;
