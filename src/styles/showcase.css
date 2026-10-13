@@ -2508,7 +2508,8 @@
   cursor: pointer;
   transition: background var(--dur) var(--ease-out);
 }
-.pinmap__legend button span {
+.pinmap__legend-num {
+  flex: none;
   display: grid;
   place-items: center;
   width: 24px;
@@ -2527,7 +2528,47 @@
   border-color: var(--border);
   background: #ffffff;
 }
+.pinmap__legend-short {
+  display: none;
+}
 @media (max-width: 600px) {
+  /* legend: tidy two-column cards with short names */
+  .pinmap__legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: var(--space-4);
+  }
+  .pinmap__legend li {
+    display: flex;
+  }
+  .pinmap__legend button {
+    flex: 1;
+    min-width: 0;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 10px 12px 10px 10px;
+    border-radius: 14px;
+    font-size: 0.82rem;
+    line-height: 1.25;
+    text-align: left;
+  }
+  .pinmap__legend-num {
+    width: 22px;
+    height: 22px;
+  }
+  /* full name stays for screen readers, the short one is what shows */
+  .pinmap__legend button:has(.pinmap__legend-short) .pinmap__legend-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .pinmap__legend-short {
+    display: inline;
+  }
   .pinmap__pin {
     width: 26px;
     height: 34px;

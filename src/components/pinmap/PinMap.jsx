@@ -159,7 +159,10 @@ export default function PinMap() {
         {pinmap.pins.map((p) => (
           <li key={p.id}>
             <button type="button" className={open === p.id ? 'is-open' : undefined} onClick={() => (open === p.id ? setOpen(null) : show(p.id))}>
-              <span>{p.n}</span> {p.title}
+              <span className="pinmap__legend-num">{p.n}</span>
+              {/* phones show the short name when there is one */}
+              <span className="pinmap__legend-name">{p.title}</span>
+              {p.short && <span className="pinmap__legend-short" aria-hidden="true">{p.short}</span>}
             </button>
           </li>
         ))}
