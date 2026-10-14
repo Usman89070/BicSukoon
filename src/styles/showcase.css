@@ -4082,3 +4082,101 @@ button.home-gallery__card {
   border-color: #25d366;
   color: #ffffff;
 }
+
+/* ==========================================================================
+   SUKOON WELCOME: the Eight Mile Plains block inside Welcome to Sukoon
+   Village (a frosted panel over the welcome picture)
+   ========================================================================== */
+.welcome-place {
+  position: relative;
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  padding: clamp(1.5rem, 4vw, 3.25rem);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 30px 60px -36px rgba(17, 14, 46, 0.45);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  backdrop-filter: blur(14px) saturate(130%);
+}
+.welcome-place__intro {
+  display: grid;
+  gap: var(--space-4) clamp(2rem, 5vw, 4.5rem);
+}
+@media (min-width: 960px) {
+  .welcome-place__intro {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: start;
+  }
+}
+.welcome-place__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--bic-primary-light), var(--bic-primary));
+}
+.welcome-place__title {
+  margin-top: var(--space-4);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  line-height: 1.2;
+  color: var(--primary);
+}
+.welcome-place__text p {
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+.welcome-place__text p + p {
+  margin-top: var(--space-4);
+}
+.welcome-place__nearby {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding-top: clamp(1.5rem, 3vw, 2.25rem);
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.welcome-place__nearby-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-xl);
+  color: var(--primary);
+}
+.welcome-place__nearby-lead {
+  margin-top: var(--space-2);
+  color: var(--text-secondary);
+}
+.welcome-place .sv-nearby__item {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
+}
+@media (hover: hover) {
+  .welcome-place .sv-nearby__item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+}
+.welcome-place__closing {
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-style: italic;
+  color: var(--primary-ink, var(--primary));
+}
+@media (max-width: 600px) {
+  .welcome-place {
+    padding: 1.25rem;
+    border-radius: var(--radius-lg);
+  }
+}
+.welcome-place .sv-nearby {
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
