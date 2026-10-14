@@ -59,16 +59,6 @@ export default function SukoonHome() {
             </ul>
           </Reveal>
         </div>
-        <div className="container">
-          <ul className="sl-facts">
-            {c.facts.map((f, i) => (
-              <Reveal as="li" key={f.label} delay={i * 90} className="sl-fact">
-                <span className="sl-fact__value">{f.value}</span>
-                <span className="sl-fact__label">{f.label}</span>
-              </Reveal>
-            ))}
-          </ul>
-        </div>
 
         {/* Eight Mile Plains: tranquil living + what is nearby */}
         <div className="container">
