@@ -15,14 +15,12 @@ export default function UpdatesPage() {
       lead="Progress, milestones and stories from the project — newest first."
       media={{ label: 'Progress photography' }}
     >
-      {SITE_ID === 'bic' && (
-        <section className="section section--dark">
-          <div className="container">
-            <SectionHeader eyebrow="Featured" title="2026 Update" align="center" />
-            <Reveal variant="scale"><VideoFeature id="update2026" /></Reveal>
-          </div>
-        </section>
-      )}
+      <section className="section section--dark">
+        <div className="container">
+          <SectionHeader eyebrow="Featured" title={SITE_ID === 'bic' ? '2026 Update' : 'Project Update'} align="center" />
+          <Reveal variant="scale"><VideoFeature id={SITE_ID === 'bic' ? 'update2026' : 'sukoonUpdate'} /></Reveal>
+        </div>
+      </section>
       <section className="section">
         <div className="container">
           <SectionHeader eyebrow="Journal" title="All updates" />

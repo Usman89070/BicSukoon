@@ -28,6 +28,8 @@ export const videos = {
   hero: film('bic', 'Brisbane Islamic Centre', 'Hero film', 'bic-hero.mp4', { poster: bicPoster, background: true }),
   masjid: film('bic', 'The Masjid Complex', 'Architectural film', 'BIC(centreH).mp4', { poster: bicPoster }),
   status: film('bic', 'Project Status', 'Progress film', 'bic-project-status.mp4'),
+  // BIC Project Status page: "Project status film"
+  newBeginnings: film('bic', 'New Beginnings', 'Project status film', 'New beginings V3.mp4', { poster: bicPoster }),
   update2026: film('bic', '2026 Update', 'Project update film', 'bic-update-2026.mp4'),
   funding: film('bic', 'Project Funding', 'Why your support matters', 'bic-funding.mp4'),
   guests: film('bic', 'Honoured Guests', 'Guest highlights', 'bic-honoured-guests.mp4'),
@@ -46,7 +48,9 @@ export const videos = {
   // Site-picture pins (Sukoon home and Vision)
   pinChildcare: film('sukoon', 'Childcare Centre', 'Site film', 'pin-childcare.mp4', { poster: sukoonPoster }),
   pinSeniorsLiving: film('sukoon', 'Sukoon Village Seniors Living', 'Site film', 'pin-seniors-living.mp4', { poster: sukoonPoster }),
-  // Sukoon Project Status page: "Project status film"
-  newBeginnings: film('sukoon', 'New Beginnings', 'Village film', 'New beginings V3.mp4'),
+  // Sukoon Project Status, Project Updates and Contact pages (same films as BIC has)
+  sukoonStatus: film('sukoon', 'Project Status', 'Progress film', 'sukoon-project-status.mp4', { poster: sukoonPoster }),
+  sukoonUpdate: film('sukoon', 'Project Update', 'Project update film', 'sukoon-project-update.mp4', { poster: sukoonPoster }),
+  sukoonContact: film('sukoon', 'Contact Us', 'Get in touch', 'sukoon-contact.mp4', { poster: sukoonPoster }),
   sukoonHero: film('sukoon', 'Sukoon Village', 'Hero film', 'sukoon-hero.mp4', { poster: sukoonPoster, background: true }),
 }

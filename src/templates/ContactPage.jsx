@@ -20,11 +20,9 @@ export default function ContactPage() {
           <ContactSection />
         </div>
       </section>
-      {SITE_ID === 'bic' && (
-        <section className="section section--tight">
-          <div className="container"><Reveal variant="scale"><VideoFeature id="contact" ratio="21 / 9" /></Reveal></div>
-        </section>
-      )}
+      <section className="section section--tight">
+        <div className="container"><Reveal variant="scale"><VideoFeature id={SITE_ID === 'bic' ? 'contact' : 'sukoonContact'} ratio="21 / 9" /></Reveal></div>
+      </section>
     </PageShell>
   )
 }
