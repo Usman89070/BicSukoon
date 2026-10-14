@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react'
-import { NavLink } from 'react-router-dom'
 import { galleries } from '../data/gallery'
 import { useGallery } from '../hooks/useGallery'
 import { GalleryThumb } from '../components/gallery/GalleryMedia'
@@ -29,8 +28,8 @@ function Grid({ items, onOpen, offset = 0 }) {
 }
 
 /**
- * Gallery page on both websites. `project` = 'bic' | 'sukoon' shows one
- * gallery; without it both are shown, one after the other.
+ * Gallery page. Each website passes its own `project` ('bic' | 'sukoon') and
+ * shows only that gallery; without it both are shown, one after the other.
  */
 export default function GalleryPage({ project }) {
   const galleryItems = useGallery()
@@ -57,13 +56,6 @@ export default function GalleryPage({ project }) {
     >
       <section className="section gallery-page">
         <div className="container container--wide">
-          <nav className="gallery-tabs" aria-label="Choose a gallery">
-            <NavLink to="/gallery" end className="gallery-tabs__link">All</NavLink>
-            {order.map((id) => (
-              <NavLink key={id} to={galleries[id].path} className="gallery-tabs__link">{galleries[id].title}</NavLink>
-            ))}
-          </nav>
-
           {blocks.map(({ id, items, start }) => {
             return (
               <div key={id} className={`gallery__block home-gallery__block home-gallery__block--${id}`} aria-labelledby={`gallery-${id}`}>

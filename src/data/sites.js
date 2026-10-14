@@ -70,15 +70,7 @@ export const sites = {
           { label: 'Honoured Guests', to: '/honoured-guests', text: 'Distinguished visitors' },
         ],
       },
-      {
-        label: 'Gallery',
-        to: '/gallery', // the label opens both galleries; the menu opens one
-        allLabel: 'All galleries', // first entry in the mobile menu
-        children: [
-          { label: 'BIC Gallery', to: '/gallery/bic', text: 'Brisbane Islamic Centre' },
-          { label: 'Sukoon Gallery', to: '/gallery/sukoon', text: 'Sukoon Village' },
-        ],
-      },
+      { label: 'Gallery', to: '/gallery' }, // each site shows only its own gallery
       { label: 'Contact', to: '/contact' },
     ],
     cta: { label: 'Donate', ...donateLink, icon: 'heart' },
@@ -133,15 +125,7 @@ export const sites = {
           { label: 'Project Updates', to: '/project-updates', text: 'News from the village' },
         ],
       },
-      {
-        label: 'Gallery',
-        to: '/gallery', // the label opens both galleries; the menu opens one
-        allLabel: 'All galleries', // first entry in the mobile menu
-        children: [
-          { label: 'BIC Gallery', to: '/gallery/bic', text: 'Brisbane Islamic Centre' },
-          { label: 'Sukoon Gallery', to: '/gallery/sukoon', text: 'Sukoon Village' },
-        ],
-      },
+      { label: 'Gallery', to: '/gallery' }, // each site shows only its own gallery
       { label: 'Contact', to: '/contact' },
     ],
     // No donation page on Sukoon unless the organisation confirms one.

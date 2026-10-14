@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import SiteLayout from '../../layouts/SiteLayout'
 import BicHome from './pages/Home'
 
@@ -40,9 +40,9 @@ export default function BicApp() {
         <Route path="events/:id" element={<EventPage />} />
         <Route path="honoured-guests" element={<Guests />} />
         <Route path="donate" element={<Donate />} />
-        <Route path="gallery" element={<GalleryPage />} />
-        <Route path="gallery/bic" element={<GalleryPage project="bic" />} />
-        <Route path="gallery/sukoon" element={<GalleryPage project="sukoon" />} />
+        <Route path="gallery" element={<GalleryPage project="bic" />} />
+        {/* each site shows only its own gallery; older links land on it */}
+        <Route path="gallery/:project" element={<Navigate to="/gallery" replace />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>

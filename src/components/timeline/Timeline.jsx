@@ -9,13 +9,16 @@ import Pending from '../common/Pending'
 
 const stateLabel = { completed: 'Achieved', current: 'Current', upcoming: 'Upcoming' }
 
-/** Data-driven project timeline (completed → current → upcoming). */
+/**
+ * Data-driven project timeline, shown newest first: the data stays in date
+ * order (oldest → newest) and is reversed here for display.
+ */
 export default function Timeline({ items }) {
   const [viewing, setViewing] = useState(null)
   return (
     <>
     <ol className="timeline">
-      {items.map((m, i) => (
+      {[...items].reverse().map((m, i) => (
         <Reveal as="li" key={m.id} delay={Math.min(i, 3) * 100} className={cx('timeline__item', `is-${m.state}`)}>
           <span className="timeline__node" aria-hidden="true" />
           <div className="timeline__card glass-panel">

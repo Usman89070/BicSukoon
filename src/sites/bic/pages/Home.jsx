@@ -1,5 +1,4 @@
 import { bicHome as c } from '../../../data/home'
-import { videos } from '../../../data/videos'
 import Seo from '../../../components/common/Seo'
 import SectionHeader from '../../../components/common/SectionHeader'
 import Reveal from '../../../components/common/Reveal'
@@ -11,11 +10,12 @@ import PinMap from '../../../components/pinmap/PinMap'
 import VideoFeature from '../../../components/video/VideoFeature'
 import StageHero from '../../../components/showcase/StageHero'
 import CompletedWorks from '../../../components/showcase/CompletedWorks'
-import ExploreCard from '../../../components/showcase/ExploreCard'
 import { heroImage } from '../images'
 import { imageFor } from '../../../utils/images'
 
 const welcomeImage = imageFor('bic-welcome')
+// Hero uses the "Our vision" render (hero-bic is the same picture at 2400px), shown whole, edge to edge.
+const visionImage = imageFor(['hero-bic', 'bic-pinmap'])
 import { donateLink } from '../../../data/donation'
 import HomeGallery from '../../../components/gallery/HomeGallery'
 
@@ -30,15 +30,22 @@ export default function BicHome() {
   return (
     <>
       <Seo />
+      {/* Site picture with pins, first thing on the page */}
+      <section className="section section--dark home-pinmap-top" aria-label="Site map">
+        <div className="container">
+          <PinMap />
+        </div>
+      </section>
+
       <StageHero
         eyebrow={c.hero.eyebrow}
         title={c.hero.lines.map((l, i) => <span key={l} className="stage-hero__line">{i === 2 ? <em>{l}</em> : l}</span>)}
-        className="stage-hero--long"
-        image={heroImage}
-        film={videos.hero}
+        className="stage-hero--long stage-hero--second"
+        image={visionImage ?? heroImage}
+        fit="full"
         label="BIC aerial render"
         actions={[
-          { label: 'Explore the development', href: '#explore', variant: 'light', icon: 'arrow' },
+          { label: 'Discover the vision', to: '/vision', variant: 'light', icon: 'arrow' },
           { label: 'Donate', ...donateLink, variant: 'glass', icon: 'heart' },
         ]}
       />
@@ -67,21 +74,6 @@ export default function BicHome() {
         </div>
       </section>
 
-      {/* Explore the development */}
-      <section id="explore" className="section section--muted" aria-labelledby="explore-title">
-        <div className="container container--wide">
-          <div className="home-explore__head">
-            <SectionHeader eyebrow="The development" title={<span id="explore-title">{c.explore.title}</span>} />
-            <Reveal className="home-explore__intro" delay={80}>
-              {c.explore.body.map((p) => <p key={p}>{p}</p>)}
-            </Reveal>
-          </div>
-          <ul className="explore-grid">
-            {c.explore.items.map((item, i) => <ExploreCard key={item.id} item={item} index={i} />)}
-          </ul>
-        </div>
-      </section>
-
       {/* Film */}
       <section className="section section--tight" aria-label="Film">
         <div className="container container--wide">
@@ -89,7 +81,7 @@ export default function BicHome() {
         </div>
       </section>
 
-      {/* Vision + masterplan */}
+      {/* Vision */}
       <section className="section section--dark" aria-labelledby="vision-title">
         <div className="container">
           <div className="home-vision">
@@ -100,7 +92,6 @@ export default function BicHome() {
               {c.vision.body.map((p) => <p key={p}>{p}</p>)}
             </Reveal>
           </div>
-          <Reveal className="home-vision__plan"><PinMap /></Reveal>
         </div>
       </section>
 

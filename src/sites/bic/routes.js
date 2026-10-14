@@ -16,7 +16,5 @@ export const routes = [
   '/honoured-guests',
   '/donate',
   '/gallery',
-  '/gallery/bic',
-  '/gallery/sukoon',
   '/contact',
 ]

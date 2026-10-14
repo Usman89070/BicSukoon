@@ -13,33 +13,56 @@ const pinmap = pinmaps[SITE_ID]
 const image = imageFor(pinmap.image)
 const crop = pinmap.height / pinmap.visibleHeight // pins are given on the full render
 
-/** The film (or a branded "coming soon" card) for one pin. */
+const STILL_MS = 2500 // how long a pin's picture shows before its film starts
+
+/**
+ * The film (or a branded "coming soon" card) for one pin. A pin with its own
+ * picture shows that first, then the film takes over.
+ */
 function PinFilm({ pin, onWatch }) {
   const film = videos[pin.video]
   const src = useVideoSrc(film?.src)
+  const still = imageFor(pin.image)
+  const video = useRef(null)
   const [started, setStarted] = useState(false)
+  const [stillDone, setStillDone] = useState(!still)
+
+  useEffect(() => {
+    if (!still) return
+    const t = setTimeout(() => setStillDone(true), STILL_MS)
+    return () => clearTimeout(t)
+  }, [still])
+
+  // the film only starts once the picture has had its turn
+  useEffect(() => {
+    if (stillDone && src) video.current?.play().catch(() => {})
+  }, [stillDone, src])
 
   return (
     <div className="pinmap__film">
       {src && (
         <video
           key={src}
+          ref={video}
           src={src}
-          autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           title="Click to watch with sound"
           onPlaying={() => setStarted(true)}
           onClick={() => onWatch({ title: pin.title, src, poster: film?.poster })}
         />
       )}
-      {/* the website's logo shows until the film is actually playing */}
-      <div className={`pinmap__film-thumb${started ? ' is-hidden' : ''}`} aria-hidden={src ? true : undefined}>
-        <Logo project={SITE_ID} tone="dark" height={34} decorative />
-        <span><Icon name="play" size={14} /> {src ? 'Loading video' : 'Video coming soon'}</span>
-      </div>
+      {/* the pin's picture (or the website's logo) shows until the film is actually playing */}
+      {still ? (
+        <img className={`pinmap__film-still${started ? ' is-hidden' : ''}`} src={still} alt="" aria-hidden="true" />
+      ) : (
+        <div className={`pinmap__film-thumb${started ? ' is-hidden' : ''}`} aria-hidden={src ? true : undefined}>
+          <Logo project={SITE_ID} tone="dark" height={34} decorative />
+          <span><Icon name="play" size={14} /> {src ? 'Loading video' : 'Video coming soon'}</span>
+        </div>
+      )}
     </div>
   )
 }
@@ -136,7 +159,10 @@ export default function PinMap() {
         {pinmap.pins.map((p) => (
           <li key={p.id}>
             <button type="button" className={open === p.id ? 'is-open' : undefined} onClick={() => (open === p.id ? setOpen(null) : show(p.id))}>
-              <span>{p.n}</span> {p.title}
+              <span className="pinmap__legend-num">{p.n}</span>
+              {/* phones show the short name when there is one */}
+              <span className="pinmap__legend-name">{p.title}</span>
+              {p.short && <span className="pinmap__legend-short" aria-hidden="true">{p.short}</span>}
             </button>
           </li>
         ))}

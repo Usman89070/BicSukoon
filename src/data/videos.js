@@ -18,8 +18,8 @@ import { imageFor } from '../utils/images'
 const BASE = (import.meta.env.VITE_VIDEO_URL || '/videos').replace(/\/$/, '')
 export const videoUrl = (path) => (path ? `${BASE}/${path.split('/').map(encodeURIComponent).join('/')}` : null)
 
-const bicPoster = imageFor(['hero-bic', 'site-300DPIbic'])
-const sukoonPoster = imageFor(['hero-sukoon', 'site-300DPISukoon'])
+const bicPoster = imageFor('hero-bic')
+const sukoonPoster = imageFor('hero-sukoon')
 
 /** film(folder, …): folder is 'bic' or 'sukoon'. */
 const film = (folder, title, caption, file, extra = {}) => ({ title, caption, duration: null, file: `${folder}/${file}`, src: videoUrl(`${folder}/${file}`), poster: null, ...extra })

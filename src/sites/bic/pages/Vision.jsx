@@ -41,7 +41,7 @@ export default function BicVision() {
       <section className="section section--muted" aria-labelledby="worship-title">
         <div className="container cc-split">
           <Reveal variant="image" className="cc-split__media">
-            <Media src={imageFor(['facility-masjid', 'hero-bic', 'site-300DPIbic'])} label="Masjid render" ratio="4 / 5" />
+            <Media src={imageFor(['facility-masjid', 'hero-bic'])} label="Masjid render" ratio="4 / 5" />
           </Reveal>
           <div className="cc-split__text">
             <SectionHeader eyebrow="The Masjid" title={<span id="worship-title">{c.worship.title}</span>} />

@@ -6,10 +6,14 @@ import { useVideoSrc } from '../../hooks/useVideoSrc'
  * Full-screen home hero: one big render (or a muted looping film when
  * supplied) with a short headline and two actions. Little text by design.
  */
-export default function StageHero({ id = 'hero-title', className, eyebrow, title, image, film, label, actions = [] }) {
+export default function StageHero({ id = 'hero-title', className, eyebrow, title, image, film, label, fit = 'cover', hideTitle = false, actions = [] }) {
   const filmSrc = useVideoSrc(film?.background ? film.src : null)
+  // fit="full" shows the whole picture edge to edge, uncropped (the hero takes its height)
+  const full = fit === 'full' && !filmSrc && image
+  const classes = ['stage-hero', className, full && 'stage-hero--full'].filter(Boolean).join(' ')
   return (
-    <section className={className ? `stage-hero ${className}` : 'stage-hero'} aria-labelledby={id}>
+    <section className={classes} aria-labelledby={id}>
+      {full && <img className="stage-hero__fill" src={image} alt="" aria-hidden="true" />}
       <div className="stage-hero__bg">
         {filmSrc ? (
           <video autoPlay muted loop playsInline preload="metadata" poster={film.poster ?? image ?? undefined} aria-hidden="true">
@@ -22,7 +26,8 @@ export default function StageHero({ id = 'hero-title', className, eyebrow, title
       </div>
       <div className="container stage-hero__content">
         {eyebrow && <p className="stage-hero__eyebrow">{eyebrow}</p>}
-        <h1 id={id} className="stage-hero__title">{title}</h1>
+        {/* hideTitle keeps the heading for screen readers and search engines only */}
+        <h1 id={id} className={hideTitle ? 'sr-only' : 'stage-hero__title'}>{title}</h1>
         <div className="stage-hero__ctas">
           {actions.map((a) => (
             <Button key={a.label} to={a.to} href={a.href} target={a.target} rel={a.rel} variant={a.variant ?? 'glass'} icon={a.icon}>{a.label}</Button>

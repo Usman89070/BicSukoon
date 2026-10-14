@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import SiteLayout from '../../layouts/SiteLayout'
 import SukoonHome from './pages/Home'
 
@@ -25,9 +25,9 @@ export default function SukoonApp() {
         <Route path="childcare-centre" element={<ChildcarePage />} />
         <Route path="project-status" element={<StatusPage />} />
         <Route path="project-updates" element={<UpdatesPage />} />
-        <Route path="gallery" element={<GalleryPage />} />
-        <Route path="gallery/bic" element={<GalleryPage project="bic" />} />
-        <Route path="gallery/sukoon" element={<GalleryPage project="sukoon" />} />
+        <Route path="gallery" element={<GalleryPage project="sukoon" />} />
+        {/* each site shows only its own gallery; older links land on it */}
+        <Route path="gallery/:project" element={<Navigate to="/gallery" replace />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>

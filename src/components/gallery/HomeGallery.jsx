@@ -53,21 +53,14 @@ function GalleryBlock({ id, galleryItems }) {
   )
 }
 
-/**
- * Home-page gallery: a separate block for each project's gallery, this
- * website's own first.
- */
+/** Home-page gallery: only this website's own gallery. */
 export default function HomeGallery() {
   const galleryItems = useGallery()
   const own = SITE_ID === 'sukoon' ? 'sukoon' : 'bic'
-  const order = own === 'bic' ? ['bic', 'sukoon'] : ['sukoon', 'bic']
   return (
-    <section className="section section--muted home-gallery" aria-label="Galleries">
+    <section className="section section--muted home-gallery" aria-label="Gallery">
       <div className="container container--wide">
-        {order.map((id) => <GalleryBlock key={id} id={id} galleryItems={galleryItems} />)}
-        <div className="home-gallery__actions">
-          <Button to="/gallery" variant="primary" icon="arrow">View all galleries</Button>
-        </div>
+        <GalleryBlock id={own} galleryItems={galleryItems} />
       </div>
     </section>
   )

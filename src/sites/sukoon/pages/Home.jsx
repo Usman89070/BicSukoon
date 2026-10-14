@@ -15,7 +15,7 @@ import CompletedWorks from '../../../components/showcase/CompletedWorks'
 import ExploreCard from '../../../components/showcase/ExploreCard'
 import HomeGallery from '../../../components/gallery/HomeGallery'
 
-const heroImage = imageFor(['hero-sukoon', 'site-300DPISukoon', 'portal-sukoon'])
+const heroImage = imageFor(['hero-sukoon', 'portal-sukoon'])
 const welcomeImage = imageFor('sukoon-welcome')
 
 const Crescent = () => (
@@ -29,9 +29,18 @@ export default function SukoonHome() {
   return (
     <>
       <Seo />
+      {/* Site picture with pins, first thing on the page */}
+      <section className="section section--dark home-pinmap-top" aria-label="Site map">
+        <div className="container">
+          <PinMap />
+        </div>
+      </section>
+
       <StageHero
         eyebrow={c.hero.eyebrow}
-        title={<>A Place to <em>Call Home.</em></>}
+        title="Sukoon Village Seniors Living"
+        hideTitle
+        className="stage-hero--second"
         image={heroImage}
         film={videos.sukoonHero}
         label="Village render"
@@ -75,6 +84,32 @@ export default function SukoonHome() {
         </div>
       </section>
 
+      {/* Tranquil living + what is nearby */}
+      <section className="section sv-tranquil" aria-labelledby="tranquil-title">
+        <div className="container">
+          <div className="sv-tranquil__intro">
+            <SectionHeader eyebrow="Eight Mile Plains" title={<span id="tranquil-title">{c.tranquil.title}</span>} />
+            <Reveal className="sv-tranquil__text" delay={80}>
+              {c.tranquil.body.map((p) => <p key={p}>{p}</p>)}
+            </Reveal>
+          </div>
+          <div className="sv-tranquil__nearby">
+            <h3 className="sv-tranquil__nearby-title">{c.tranquil.nearbyTitle}</h3>
+            <p className="sv-tranquil__nearby-lead">{c.tranquil.nearbyLead}</p>
+            <ul className="sv-nearby">
+              {c.tranquil.nearby.map((n, i) => (
+                <Reveal as="li" key={n.name} delay={i * 80} className="sv-nearby__item">
+                  <span className="sv-nearby__icon" aria-hidden="true"><Icon name={n.icon} size={22} /></span>
+                  <span className="sv-nearby__name">{n.name}</span>
+                  <span className="sv-nearby__text">{n.text}</span>
+                </Reveal>
+              ))}
+            </ul>
+            <p className="sv-tranquil__closing">{c.tranquil.closing}</p>
+          </div>
+        </div>
+      </section>
+
       {/* Explore */}
       <section id="explore" className="section section--muted" aria-labelledby="explore-title">
         <div className="container container--wide">
@@ -97,7 +132,7 @@ export default function SukoonHome() {
         </div>
       </section>
 
-      {/* Connected community + masterplan */}
+      {/* Connected community */}
       <section className="section section--dark" aria-labelledby="connected-title">
         <div className="container">
           <div className="home-vision">
@@ -109,7 +144,6 @@ export default function SukoonHome() {
               {c.connected.body.map((p) => <p key={p}>{p}</p>)}
             </Reveal>
           </div>
-          <Reveal className="home-vision__plan"><PinMap /></Reveal>
         </div>
       </section>
 

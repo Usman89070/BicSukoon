@@ -12,6 +12,18 @@ if (!existsSync('dist/index.html')) {
 }
 
 cpSync('server', 'dist', { recursive: true })
+
+// Page lists for api/sitemap.php, which writes sitemap.xml for whatever
+// domain the site is opened on.
+const envBase = (siteId) =>
+  (readFileSync(`.env.${siteId}`, 'utf8').match(/^VITE_BASE=(.*)$/m)?.[1]?.trim() || `/${siteId}/`).replace(/\/$/, '')
+const sitemapSites = {}
+for (const siteId of ['bic', 'sukoon']) {
+  if (!existsSync(`dist/${siteId}/index.html`)) continue
+  const { routes } = await import(`../src/sites/${siteId}/routes.js`)
+  sitemapSites[siteId] = { base: envBase(siteId), routes }
+}
+writeFileSync('dist/api/sitemap-routes.json', JSON.stringify({ built: new Date().toISOString().slice(0, 10), sites: sitemapSites }, null, 2))
 const seed = (name, items) =>
   writeFileSync(
     `dist/api/${name}-seed.json`,

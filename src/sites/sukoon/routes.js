@@ -8,7 +8,5 @@ export const routes = [
   '/project-status',
   '/project-updates',
   '/gallery',
-  '/gallery/bic',
-  '/gallery/sukoon',
   '/contact',
 ]
