@@ -23,6 +23,10 @@ $authed = !empty($_SESSION['admin']) && ($_SESSION['expires'] ?? 0) > time();
 if ($authed) $_SESSION['expires'] = time() + SESSION_LIFETIME;
 if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(32));
 
+// Videos: create bic-videos/bic + bic-videos/sukoon next to public_html and
+// move any video uploaded inside the website there, so redeploys never lose them.
+$movedVideos = $authed && $_SERVER['REQUEST_METHOD'] === 'GET' ? sync_video_store() : [];
+
 function e(?string $s): string { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); }
 function csrf_field(): string { return '<input type="hidden" name="csrf" value="' . e($_SESSION['csrf']) . '">'; }
 function flash(string $msg, string $type = 'ok'): void { $_SESSION['flash'] = [$msg, $type]; }
@@ -362,6 +366,7 @@ if ($authed && isset($_GET['export'])) {
 /* -------------------------------------------------------------------- view */
 $flash = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
+if (!$flash && $movedVideos) $flash = ['Moved ' . count($movedVideos) . ' video' . (count($movedVideos) === 1 ? '' : 's') . ' into the safe bic-videos folder (kept on redeploys): ' . implode(', ', $movedVideos), 'ok'];
 $editing = null;
 if ($authed && isset($_GET['edit']) && ($i = $find((string) $_GET['edit'])) !== null) $editing = $guests[$i];
 $creating = $authed && isset($_GET['new']);

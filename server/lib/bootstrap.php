@@ -10,6 +10,7 @@
 declare(strict_types=1);
 
 require __DIR__ . '/config.php';
+require __DIR__ . '/video_store.php';
 
 const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 const PHOTO_MAX_WIDTH = 900;
@@ -219,9 +220,7 @@ function delete_photo(?string $name, string $type = 'guests'): void
 function gallery_video_dir(string $project): string
 {
     if (!isset(GALLERY_PROJECTS[$project])) throw new InvalidArgumentException('Unknown gallery');
-    $dir = dirname(__DIR__, 2) . '/bic-videos/' . $project . '/';
-    if (!is_dir($dir)) @mkdir($dir, 0755, true);
-    return $dir;
+    return video_store_dir($project);
 }
 
 function valid_video_name(string $name): bool

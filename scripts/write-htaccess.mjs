@@ -33,14 +33,15 @@ DirectoryIndex index.html index.php
   RewriteRule ^sitemap-home\\.xml$ api/sitemap.php?site=home [L]
   RewriteRule ^(bic|sukoon)/sitemap\\.xml$ api/sitemap.php?site=$1 [L]
 
+  # Every video is served by api/video.php from bic-videos/ (outside the
+  # website folder, kept on redeploys); a video uploaded into /videos/ by
+  # mistake is moved there automatically
+  RewriteRule ^videos/((?:bic|sukoon)/[^/]+\\.(?:mp4|m4v|webm|mov))$ api/video.php?f=$1 [NC,L,QSA,B]
+
   # Existing files and folders (assets, favicons) are served as-is
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
-
-  # Videos not found in /videos/ are served from bic-videos/ (outside the
-  # website folder, kept on redeploys) by api/video.php
-  RewriteRule ^videos/(.+)$ api/video.php?f=$1 [L,QSA,B]
 
   # Every other URL is a page inside one of the apps
   RewriteRule ^bic(/.*)?$ bic/index.html [L]
@@ -104,6 +105,10 @@ writeFileSync(
           <match url="^(bic|sukoon)/sitemap\\.xml$" />
           <action type="Rewrite" url="api/sitemap.php?site={R:1}" appendQueryString="false" />
         </rule>
+        <rule name="videos" stopProcessing="true">
+          <match url="^videos/((?:bic|sukoon)/[^/]+\\.(?:mp4|m4v|webm|mov))$" ignoreCase="true" />
+          <action type="Rewrite" url="api/video.php?f={UrlEncode:{R:1}}" />
+        </rule>
         <rule name="existing-files" stopProcessing="true">
           <match url=".*" />
           <conditions logicalGrouping="MatchAny">
@@ -111,10 +116,6 @@ writeFileSync(
             <add input="{REQUEST_FILENAME}" matchType="IsDirectory" />
           </conditions>
           <action type="None" />
-        </rule>
-        <rule name="videos" stopProcessing="true">
-          <match url="^videos/(.+)$" />
-          <action type="Rewrite" url="api/video.php?f={UrlEncode:{R:1}}" />
         </rule>
         <rule name="bic-app" stopProcessing="true">
           <match url="^bic(/.*)?$" />

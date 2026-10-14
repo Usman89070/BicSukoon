@@ -1,23 +1,31 @@
 <?php
 /**
- * Serves videos kept OUTSIDE the website folder, in bic-videos/bic/ and
- * bic-videos/sukoon/ next to public_html, so they survive redeploys.
- * /videos/<folder>/<file> is routed here by .htaccess only when the file is
- * not in public_html/videos/.
+ * Serves every website video from bic-videos/bic/ and bic-videos/sukoon/
+ * next to public_html, so videos survive redeploys (all /videos/<folder>/<file>
+ * video requests are routed here by .htaccess). A video found in
+ * public_html/videos/<folder>/ instead is moved to the safe folder first
+ * (see lib/video_store.php). Both folders are created automatically.
  * Supports HTTP Range requests so browsers can stream and seek.
  */
 declare(strict_types=1);
 
+require dirname(__DIR__) . '/lib/video_store.php';
+
 // Only "<folder>/<file>" with folder bic or sukoon is accepted (no other paths).
 $parts = explode('/', str_replace('\\', '/', (string) ($_GET['f'] ?? '')));
-$folder = count($parts) === 2 && in_array($parts[0], ['bic', 'sukoon'], true) ? $parts[0] : null;
+$folder = count($parts) === 2 && in_array($parts[0], VIDEO_FOLDERS, true) ? $parts[0] : null;
 $name = $folder ? basename($parts[1]) : '';
-$dir = dirname(__DIR__, 2) . '/bic-videos/' . $folder . '/';
-$types = ['mp4' => 'video/mp4', 'm4v' => 'video/mp4', 'webm' => 'video/webm', 'mov' => 'video/quicktime'];
+$types = VIDEO_FILE_TYPES;
 $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-$path = $dir . $name;
+$path = '';
+if ($folder && is_video_name($name)) {
+    move_video_to_store($folder, $name);
+    $path = video_store_dir($folder) . $name;
+    // still inside the website (just uploaded, or it could not be moved): serve it from there
+    if (!is_file($path) && is_file(video_web_dir($folder) . $name)) $path = video_web_dir($folder) . $name;
+}
 
-if ($name === '' || $name[0] === '.' || !isset($types[$ext]) || !is_file($path)) {
+if ($path === '' || !is_file($path)) {
     http_response_code(404);
     header('Content-Type: text/plain');
     exit('Video not found');
