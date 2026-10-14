@@ -17,6 +17,11 @@ AddType video/mp4 .mp4 .m4v
 AddType video/webm .webm
 DirectoryIndex index.html index.php
 
+# Bookkeeping file of the automatic FTP deploy (GitHub Action): not public
+<Files ".ftp-deploy-sync-state.json">
+  Require all denied
+</Files>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /

@@ -1,0 +1,51 @@
+# Builds the site and uploads it to Hostinger over FTP on every push, so the
+# live site updates on its own (no manual redeploy).
+#
+# One-time setup in GitHub → repository Settings → Secrets and variables →
+# Actions:
+#   Secrets:   FTP_SERVER    e.g. ftp.example.org or the server IP (hPanel → Files → FTP Accounts)
+#              FTP_USERNAME  the FTP user, e.g. u123456789.example.org
+#              FTP_PASSWORD  the FTP password
+#   Variables (optional):
+#              FTP_SERVER_DIR  folder the site goes in, relative to the FTP
+#                              account's home; default public_html/
+#              SITE_URL        public origin, e.g. https://example.org
+#
+# Only changed files are uploaded. Files the deploy did not upload (admin
+# data in bic-data/, videos in bic-videos/) are never touched.
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main, claude/beautiful-mayer-8gml0q]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-hostinger
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          VITE_SITE_URL: ${{ vars.SITE_URL }}
+
+      - name: Upload to Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ${{ vars.FTP_SERVER_DIR || 'public_html/' }}
