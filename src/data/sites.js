@@ -135,6 +135,9 @@ export const sites = {
     // To enable: set features.donate = true and change cta to the donate route.
     cta: { label: 'Enquire', to: '/contact', icon: 'mail' },
     features: { donate: false, funding: false, events: false, guests: false },
+    // Sticky "Expressions of Interest" button (bottom-right, every page).
+    // href: null shows the button without a link until the form link is given.
+    interest: { label: 'Expressions of Interest', href: null },
     enquiryTopics: ['General enquiry', 'Seniors Living', 'Lifestyle Centre', 'Childcare Centre', 'Media'],
 
     contact: { address: null, phone: null, email: null, hours: null, mapEmbedUrl: null },
