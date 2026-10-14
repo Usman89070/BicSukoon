@@ -113,8 +113,8 @@ export const sukoonHome = {
   tranquil: {
     title: 'Sukoon Village – Tranquil Living, Connected to Everything',
     body: [
-      'Sukoon means tranquillity — and that’s the heart of Sukoon Village. A peaceful, welcoming community where comfort, independence and connection come together.',
-      'With an on-site childcare centre and the Brisbane Islamic Centre Masjid just a short walk away, residents can enjoy a unique environment that brings generations together.',
+      'Sukoon means tranquillity — and that’s the heart of Sukoon Village. A peaceful, welcoming community featuring 36 thoughtfully designed seniors living townhouses, each with its own lift to the first floor, offering comfort, independence and connection.',
+      'With an on-site childcare centre and the Brisbane Islamic Centre and Masjid just a short walk away, residents can enjoy a unique environment that brings generations together.',
     ],
     nearbyTitle: 'Everything You Need, Close to Home',
     nearbyLead: 'Ideally located in Eight Mile Plains, Sukoon Village is close to:',
