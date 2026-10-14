@@ -36,7 +36,7 @@ DirectoryIndex index.html index.php
   # Every video is served by api/video.php from bic-videos/ (outside the
   # website folder, kept on redeploys); a video uploaded into /videos/ by
   # mistake is moved there automatically
-  RewriteRule ^videos/((?:bic|sukoon)/[^/]+\\.(?:mp4|m4v|webm|mov))$ api/video.php?f=$1 [NC,L,QSA,B]
+  RewriteRule ^videos/(?:bic|sukoon)/[^/]+\\.(?:mp4|m4v|webm|mov)$ api/video.php [NC,L]
 
   # Existing files and folders (assets, favicons) are served as-is
   RewriteCond %{REQUEST_FILENAME} -f [OR]

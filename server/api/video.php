@@ -11,8 +11,13 @@ declare(strict_types=1);
 
 require dirname(__DIR__) . '/lib/video_store.php';
 
+// The video is read from the address itself (/videos/<folder>/<file>), so any
+// file name works (spaces, brackets); ?f=<folder>/<file> is the fallback (IIS).
 // Only "<folder>/<file>" with folder bic or sukoon is accepted (no other paths).
-$parts = explode('/', str_replace('\\', '/', (string) ($_GET['f'] ?? '')));
+$requested = (string) ($_GET['f'] ?? '');
+$uriPath = rawurldecode((string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH));
+if (preg_match('~/videos/((?:bic|sukoon)/[^/]+)$~i', $uriPath, $m)) $requested = $m[1];
+$parts = explode('/', str_replace('\\', '/', $requested));
 $folder = count($parts) === 2 && in_array($parts[0], VIDEO_FOLDERS, true) ? $parts[0] : null;
 $name = $folder ? basename($parts[1]) : '';
 $types = VIDEO_FILE_TYPES;

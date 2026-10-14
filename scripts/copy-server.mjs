@@ -60,8 +60,13 @@ writeFileSync('dist/api/gallery-seed.json', JSON.stringify({ items: galleryItems
 // Videos: one folder per website. Copies any videos committed to videos/,
 // plus a list of the expected file names (from src/data/videos.js) for
 // whoever uploads them by hand.
-const slots = [...readFileSync('src/data/videos.js', 'utf8').matchAll(/film\('(bic|sukoon)',[^)]*?'([^']+\.(?:mp4|webm|mov|m4v))'/g)].map((m) => [m[1], m[2]])
+// Entries in videos.js that no page shows (kept for later), left out of the lists.
+const unusedVideos = new Set(['hero', 'about', 'status', 'sukoonHero'])
+const slots = [...readFileSync('src/data/videos.js', 'utf8').matchAll(/^\s*(\w+): film\('(bic|sukoon)',[^)]*?'([^']+\.(?:mp4|webm|mov|m4v))'/gm)]
+  .filter((m) => !unusedVideos.has(m[1]))
+  .map((m) => [m[2], m[3]])
 const names = slots.map(([, n]) => n)
+writeFileSync('dist/lib/video-slots.json', JSON.stringify(slots.map(([folder, name]) => ({ folder, name })), null, 2))
 for (const folder of ['bic', 'sukoon']) {
   mkdirSync(`dist/videos/${folder}`, { recursive: true })
   writeFileSync(
