@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { cx, formatDate } from '../../utils/format'
 import { imageFor } from '../../utils/images'
 import { SITE_ID } from '../../site'
@@ -10,20 +10,28 @@ import Pending from '../common/Pending'
 const stateLabel = { completed: 'Achieved', current: 'Current', upcoming: 'Upcoming' }
 
 /**
- * Data-driven project timeline, shown newest first: the data stays in date
- * order (oldest → newest) and is reversed here for display.
+ * Data-driven project timeline. The data stays in date order (oldest →
+ * newest); it is shown newest first unless `ascending`. Items with a `group`
+ * get that heading above the first item of the group.
  */
-export default function Timeline({ items }) {
+export default function Timeline({ items, ascending = false }) {
   const [viewing, setViewing] = useState(null)
+  const shown = ascending ? items : [...items].reverse()
   return (
     <>
     <ol className="timeline">
-      {[...items].reverse().map((m, i) => (
-        <Reveal as="li" key={m.id} delay={Math.min(i, 3) * 100} className={cx('timeline__item', `is-${m.state}`)}>
+      {shown.map((m, i) => (
+        <Fragment key={m.id}>
+        {m.group && m.group !== shown[i - 1]?.group && (
+          <Reveal as="li" className="timeline__group">
+            <h3 className="timeline__group-title">{m.group}</h3>
+          </Reveal>
+        )}
+        <Reveal as="li" delay={Math.min(i, 3) * 100} className={cx('timeline__item', `is-${m.state}`)}>
           <span className="timeline__node" aria-hidden="true" />
           <div className="timeline__card glass-panel">
             <div className="timeline__meta">
-              <span className={cx('status-pill', `status-pill--${m.state}`)}>{stateLabel[m.state]}</span>
+              <span className={cx('status-pill', `status-pill--${m.state}`)}>{m.label ?? stateLabel[m.state]}</span>
               {m.when ? (
                 <span className="timeline__when">{m.when}</span>
               ) : m.date ? (
@@ -32,7 +40,7 @@ export default function Timeline({ items }) {
                 <Pending>Date TBC</Pending>
               )}
             </div>
-            <h3 className="timeline__title">{m.title}</h3>
+            <h4 className="timeline__title">{m.title}</h4>
             {(() => {
               const text = [].concat(m.description ?? [])
               const src = m.image && imageFor(m.image.key)
@@ -54,6 +62,7 @@ export default function Timeline({ items }) {
             {m.placeholder && <Pending>Placeholder — official milestone required</Pending>}
           </div>
         </Reveal>
+        </Fragment>
       ))}
     </ol>
     {viewing && <GalleryLightbox items={[viewing]} index={0} onClose={() => setViewing(null)} onGo={() => {}} />}

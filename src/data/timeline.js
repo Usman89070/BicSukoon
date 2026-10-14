@@ -5,42 +5,18 @@
  */
 export const timelineIntro = {
   bic: {
-    title: 'Historical Project timeline',
-    text: 'This timeline summary briefly outlines the project from inception through to construction commencement.',
+    title: 'Projected Timeline',
+    // shown in date order (soonest first), grouped under each heading
+    ascending: true,
   },
 }
 
 export const timeline = {
   bic: [
-    { id: 'bic-2007', state: 'completed', when: '2007', title: 'Brisbane Islamic Centre entity established' },
-    { id: 'bic-2008', state: 'completed', when: '2008', title: 'Property at 161 Underwood Road, Eight Mile Plains acquired' },
-    { id: 'bic-2008-2012', state: 'completed', when: '2008 – 2012', title: 'Preparatory work for Development Approval Application', description: 'Lodged in December 2012.' },
-    { id: 'bic-2015-07-10', state: 'completed', when: '10 July 2015', title: 'Application declined by Brisbane City Council' },
-    { id: 'bic-2015-07-20', state: 'completed', when: '20 July 2015', title: 'Appeal lodged in the Planning and Environmental Court' },
-    { id: 'bic-2016-12-16', state: 'completed', when: '16 December 2016', title: 'Development Application Approval granted by the Court' },
-    { id: 'bic-2017-06-30', state: 'completed', when: '30 June 2017', title: 'Vegetation and Earthworks Approval granted' },
-    { id: 'bic-2017-2018', state: 'completed', when: 'December 2017 – August 2018', title: 'Vegetation cleared and earthworks completed' },
-    { id: 'bic-2018-2019', state: 'completed', when: 'August 2018 – March 2019', title: 'Architectural and concept design', description: 'Consultants preparing plans for Building Approval.' },
-    { id: 'bic-2020-06', state: 'completed', when: 'June 2020', title: 'Minor change Approval granted by Planning and Environmental Court' },
-    { id: 'bic-2021-07', state: 'completed', when: 'July 2021', title: 'Awaiting Final operational works from the Council for building operational works to commence' },
-    { id: 'bic-2021-09', state: 'completed', when: 'September 2021', title: 'Final Building operational works approved' },
-    { id: 'bic-2021-12', state: 'completed', when: 'December 2021', title: 'Construction commenced' },
-    {
-      id: 'bic-sukoon-drive',
-      state: 'current',
-      when: 'New road',
-      title: 'Sukoon Drive – A New Gateway to the Precinct',
-      description: [
-        'An important new chapter in the Brisbane Islamic Centre and Sukoon Village development is taking shape.',
-        'The recently approved Sukoon Drive will provide a dedicated new access road from Underwood Road, creating a safer and more direct entry into the precinct.',
-        'The road will play an important role in supporting the future Masjid, community facilities, Queensland Muslim Cultural and Heritage Centre, Sukoon Village and the wider development.',
-        'The plans below show the approved road and its connection to the precinct ahead of construction.',
-        'More than a new road — Sukoon Drive will become the gateway to a growing community and a legacy for generations to come.',
-      ],
-      // the description paragraphs before the plan, then the plan, then the rest
-      imageAfter: 4,
-      image: { key: 'timeline-sukoon-drive', alt: 'Approved Sukoon Drive plan: the new road from Underwood Road into the precinct, with Road 2 and Proposed Lots 1 and 2' },
-    },
+    { id: 'sd-start', group: 'Sukoon Drive – Construction & Completion (Estimated 2027)', state: 'upcoming', label: 'Projected', when: '2026', title: 'Sukoon Drive – Construction commencement' },
+    { id: 'sd-end', group: 'Sukoon Drive – Construction & Completion (Estimated 2027)', state: 'upcoming', label: 'Estimated', when: '2027', title: 'Sukoon Drive – Estimated completion' },
+    { id: 'bic-restart', group: 'Brisbane Islamic Centre – Construction & Completion (Estimated 2029)', state: 'upcoming', label: 'Projected', when: '2027', title: 'Brisbane Islamic Centre – Construction recommencement' },
+    { id: 'bic-end', group: 'Brisbane Islamic Centre – Construction & Completion (Estimated 2029)', state: 'upcoming', label: 'Estimated', when: '2029', title: 'Brisbane Islamic Centre – Estimated completion' },
   ],
   sukoon: [
     { id: 'sv-1', state: 'completed', title: 'Milestone to be confirmed', date: null, description: 'Completed milestones will be listed here.', placeholder: true },

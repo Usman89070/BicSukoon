@@ -117,10 +117,10 @@ export default function BicAbout() {
       {/* History */}
       <section id="history" className="section section--muted qm-space" aria-labelledby="history-title">
         <div className="container split">
-          <SectionHeader eyebrow="Our history" title={<span id="history-title">{timelineIntro.bic.title}</span>} intro={timelineIntro.bic.text} className="status-timeline__head">
+          <SectionHeader eyebrow="Timeline" title={<span id="history-title">{timelineIntro.bic.title}</span>} intro={timelineIntro.bic.text} className="status-timeline__head">
             <Button to="/vision" variant="ghost" icon="arrow">Our vision</Button>
           </SectionHeader>
-          <Timeline items={timeline.bic} />
+          <Timeline items={timeline.bic} ascending={timelineIntro.bic.ascending} />
         </div>
       </section>
     </PageShell>

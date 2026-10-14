@@ -26,7 +26,7 @@ export default function StatusPage() {
             intro={intro?.text ?? 'Completed, current and upcoming stages — published as they are officially confirmed.'}
             className="status-timeline__head"
           />
-          <Timeline items={timeline[SITE_ID]} />
+          <Timeline items={timeline[SITE_ID]} ascending={intro?.ascending} />
         </div>
       </section>
       <section className="section section--dark">
