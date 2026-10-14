@@ -8,7 +8,6 @@ import Icon from '../../../components/common/Icon'
 import SocialLinks from '../../../components/common/SocialLinks'
 import PinMap from '../../../components/pinmap/PinMap'
 import HomeFilm from '../../../components/video/HomeFilm'
-import CompletedWorks from '../../../components/showcase/CompletedWorks'
 import { heroImage } from '../images'
 import { imageFor } from '../../../utils/images'
 
@@ -76,24 +75,6 @@ export default function BicHome() {
         </div>
       </section>
 
-      {/* Project updates + completed works */}
-      <section className="section" aria-labelledby="updates-title">
-        <div className="container container--wide">
-          <div className="home-updates">
-            <SectionHeader eyebrow="Progress" title={<span id="updates-title">{c.updates.title}</span>}>
-              <div className="btn-row">
-                <Button to="/project-updates" variant="primary" icon="arrow">All updates</Button>
-                <Button to="/project-status" variant="glass">Project timeline</Button>
-              </div>
-            </SectionHeader>
-            <Reveal className="home-updates__text" delay={100}>
-              <p className="home-updates__lead">{c.updates.lead}</p>
-              <p>{c.updates.body}</p>
-            </Reveal>
-          </div>
-          <CompletedWorks />
-        </div>
-      </section>
 
       {/* Gallery preview */}
       <HomeGallery />

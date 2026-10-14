@@ -9,7 +9,6 @@ import Icon from '../../../components/common/Icon'
 import SocialLinks from '../../../components/common/SocialLinks'
 import PinMap from '../../../components/pinmap/PinMap'
 import HomeFilm from '../../../components/video/HomeFilm'
-import CompletedWorks from '../../../components/showcase/CompletedWorks'
 import ExploreCard from '../../../components/showcase/ExploreCard'
 import HomeGallery from '../../../components/gallery/HomeGallery'
 
@@ -122,24 +121,6 @@ export default function SukoonHome() {
         </div>
       </section>
 
-      {/* A new chapter + progress */}
-      <section className="section" aria-labelledby="chapter-title">
-        <div className="container container--wide">
-          <div className="home-updates">
-            <SectionHeader eyebrow="Progress" title={<span id="chapter-title">{c.chapter.title}</span>}>
-              <div className="btn-row">
-                <Button to="/project-updates" variant="primary" icon="arrow">All updates</Button>
-                <Button to="/project-status" variant="ghost">Project status</Button>
-              </div>
-            </SectionHeader>
-            <Reveal className="home-updates__text" delay={100}>
-              <p className="home-updates__lead">{c.chapter.body[0]}</p>
-              <p>{c.chapter.body[1]}</p>
-            </Reveal>
-          </div>
-          <CompletedWorks />
-        </div>
-      </section>
 
       {/* Gallery preview */}
       <HomeGallery />
