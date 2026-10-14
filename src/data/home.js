@@ -123,6 +123,8 @@ export const sukoonHome = {
       { icon: 'health', name: 'Eight Mile Plains Satellite Hospital', text: 'Local healthcare services.' },
       { icon: 'road', name: 'Gateway Motorway', text: 'Easy access across Brisbane.' },
       { icon: 'road', name: 'M1 Pacific Motorway', text: 'Connections to Brisbane and the Gold Coast.' },
+      { icon: 'train', name: 'Train station', text: '5 minutes to the train station.' },
+      { icon: 'walk', name: 'Brisbane Islamic Centre', text: '50 metres walk to Brisbane Islamic Centre.' },
     ],
     closing: 'Peaceful surroundings. Strong community. A lifestyle inspired by tranquillity.',
   },

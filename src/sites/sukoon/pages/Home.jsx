@@ -90,20 +90,6 @@ export default function SukoonHome() {
       </section>
 
 
-      {/* Explore */}
-      <section id="explore" className="section section--muted" aria-labelledby="explore-title">
-        <div className="container container--wide">
-          <div className="home-explore__head">
-            <SectionHeader eyebrow="The village" title={<span id="explore-title">{c.explore.title}</span>} />
-            <Reveal className="home-explore__intro" delay={80}>
-              {c.explore.body.map((p) => <p key={p}>{p}</p>)}
-            </Reveal>
-          </div>
-          <ul className="explore-grid">
-            {c.explore.items.map((item, i) => <ExploreCard key={item.id} item={item} index={i} />)}
-          </ul>
-        </div>
-      </section>
 
 
       {/* Connected community */}

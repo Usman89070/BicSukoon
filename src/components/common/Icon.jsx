@@ -21,6 +21,8 @@ const paths = {
   layers: <path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5" />,
   shop: <><path d="M5 8h14l-1 12H6z" /><path d="M9 8V6.5a3 3 0 016 0V8" /></>,
   health: <><rect x="3.5" y="3.5" width="17" height="17" rx="4" /><path d="M12 8v8M8 12h8" /></>,
+  train: <><rect x="6" y="3" width="12" height="13" rx="3" /><path d="M6 10h12M9.5 16L7 21M14.5 16L17 21M8 19h8" /><circle cx="9" cy="13" r="0.9" fill="currentColor" stroke="none" /><circle cx="15" cy="13" r="0.9" fill="currentColor" stroke="none" /></>,
+  walk: <><circle cx="13" cy="4.5" r="1.8" /><path d="M9 21l3-6.5 2.5 2.5V21M7.5 12l3-4.5h3l2 3.5 2.5 1M12 14.5l1.5-7" /></>,
   road: <path d="M8 3L4 21M16 3l4 18M12 4v3M12 10.5v3M12 17v3" />,
   // Social
   facebook: <path d="M14 8.5V7c0-.8.5-1 1-1h2V3h-3c-2.8 0-3.5 2-3.5 3.6v1.9H8V12h2.5v9H14v-9h2.6l.4-3.5z" fill="currentColor" stroke="none" />,
