@@ -102,8 +102,8 @@ export const bicHome = {
 export const sukoonHome = {
   hero: { eyebrow: 'Sukoon Village Seniors Living', title: seniors.heading },
   welcome: {
-    title: 'Welcome to Sukoon Village',
-    titleLines: ['Welcome to', 'Sukoon Village'],
+    title: 'Welcome to Sukoon Village Seniors Living',
+    titleLines: ['Welcome to', 'Sukoon Village', 'Seniors Living'],
     lead: seniors.intro[0],
     body: [seniors.intro[1], seniors.belong],
     pillars: ['Comfort', 'Independence', 'Community', 'Family', 'Faith'],
