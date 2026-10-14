@@ -46,5 +46,7 @@ export const videos = {
   // Site-picture pins (Sukoon home and Vision)
   pinChildcare: film('sukoon', 'Childcare Centre', 'Site film', 'pin-childcare.mp4', { poster: sukoonPoster }),
   pinSeniorsLiving: film('sukoon', 'Sukoon Village Seniors Living', 'Site film', 'pin-seniors-living.mp4', { poster: sukoonPoster }),
+  // Sukoon Project Status page: "Project status film"
+  newBeginnings: film('sukoon', 'New Beginnings', 'Village film', 'New beginings V3.mp4'),
   sukoonHero: film('sukoon', 'Sukoon Village', 'Hero film', 'sukoon-hero.mp4', { poster: sukoonPoster, background: true }),
 }

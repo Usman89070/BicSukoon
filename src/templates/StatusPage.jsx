@@ -32,7 +32,7 @@ export default function StatusPage() {
       <section className="section section--dark">
         <div className="container">
           <SectionHeader eyebrow="Watch" title="Project status film" align="center" />
-          <Reveal variant="scale"><VideoFeature id={SITE_ID === 'bic' ? 'status' : 'sukoon'} /></Reveal>
+          <Reveal variant="scale"><VideoFeature id={SITE_ID === 'bic' ? 'status' : 'newBeginnings'} /></Reveal>
         </div>
       </section>
       <section className="section">
