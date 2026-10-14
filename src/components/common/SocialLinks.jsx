@@ -13,7 +13,7 @@ export default function SocialLinks({ className, showPending = true }) {
     <ul className={cx('socials', className)}>
       {active.map((s) => (
         <li key={s.id}>
-          <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.label} (opens in a new tab)`} className="socials__link">
+          <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.label} (opens in a new tab)`} className={`socials__link socials__link--${s.id}`}>
             <Icon name={s.id} size={20} />
           </a>
         </li>

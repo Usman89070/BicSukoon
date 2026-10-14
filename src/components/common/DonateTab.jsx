@@ -39,7 +39,8 @@ export default function DonateTab() {
           {links.map((s) => (
             <li key={s.id}>
               <a href={s.href} target="_blank" rel="noopener noreferrer" className={`sticky-actions__link sticky-actions__link--${s.id}`} aria-label={`${s.label} (opens in a new tab)`}>
-                <Icon name={s.id} size={20} />
+                <Icon name={s.id} size={22} />
+                <span className="sticky-actions__tip" aria-hidden="true">{s.label}</span>
               </a>
             </li>
           ))}
