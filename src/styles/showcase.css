@@ -3710,6 +3710,8 @@ button.home-gallery__card {
 }
 .sticky-actions__social {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 10px;
   margin: 0;
   padding: 0;
