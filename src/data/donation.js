@@ -55,7 +55,7 @@ export const transparency = {
 /** Every "Donate" button on the site opens the Donate page. */
 export const donateLink = { to: '/donate' }
 
-/** The Square checkout (new tab): used only by the buttons on the Donate page. */
+/** The Square checkout (new tab): the buttons on the Donate page and the sticky Donate button. */
 export const checkoutLink = donation.payment.checkoutUrl
   ? { href: donation.payment.checkoutUrl, target: '_blank', rel: 'noopener noreferrer' }
   : { href: '#donate-form' }

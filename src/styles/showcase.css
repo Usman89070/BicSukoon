@@ -3705,13 +3705,13 @@ button.home-gallery__card {
   bottom: clamp(16px, 2.5vw, 28px);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   gap: 10px;
 }
 .sticky-actions__social {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   gap: 10px;
   margin: 0;
   padding: 0;
