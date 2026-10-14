@@ -7,6 +7,7 @@ import { useVideoSrc } from '../../hooks/useVideoSrc'
 import VideoLightbox from '../video/VideoLightbox'
 import Icon from '../common/Icon'
 import Logo from '../common/Logo'
+import FilmFrame from '../video/FilmFrame'
 import Media from '../common/Media'
 import Reveal from '../common/Reveal'
 
@@ -30,10 +31,16 @@ function Work({ w, index }) {
       {film ? (
         // video panel: the website's logo on its brand colours, like every other film
         <div className={`video__thumb video__thumb--${brand} done__thumb`} aria-hidden="true">
-          {(imageOf(w) ?? film.poster) && <img className="video__thumb-photo" src={imageOf(w) ?? film.poster} alt="" loading="lazy" decoding="async" />}
-          <span className="video__thumb-logo">
-            <Logo project={brand} tone="dark" height={brand === 'sukoon' ? 96 : 80} decorative />
-          </span>
+          {src ? (
+            <FilmFrame src={src} />
+          ) : (
+            <>
+              {(imageOf(w) ?? film.poster) && <img className="video__thumb-photo" src={imageOf(w) ?? film.poster} alt="" loading="lazy" decoding="async" />}
+              <span className="video__thumb-logo">
+                <Logo project={brand} tone="dark" height={brand === 'sukoon' ? 96 : 80} decorative />
+              </span>
+            </>
+          )}
           {!src && <span className="done__soon">Video coming soon</span>}
         </div>
       ) : (

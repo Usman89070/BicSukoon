@@ -7,6 +7,7 @@ import { SITE_ID } from '../../site'
 import { useVideoSrc } from '../../hooks/useVideoSrc'
 import { enterFullscreen } from '../../utils/fullscreen'
 import VideoLightbox from './VideoLightbox'
+import FilmFrame from './FilmFrame'
 
 /**
  * Reusable video block: a branded thumbnail (the website's logo) first,
@@ -60,10 +61,16 @@ export default function VideoFeature({ id, title, caption, className, ratio = '1
       ) : (
         <>
           <div className={`video__thumb video__thumb--${brand}`} aria-hidden="true">
-            {data.poster && <img className="video__thumb-photo" src={data.poster} alt="" loading="lazy" decoding="async" />}
-            <span className="video__thumb-logo">
-              <Logo project={brand} tone="dark" height={brand === 'sukoon' ? 96 : 80} decorative />
-            </span>
+            {src ? (
+              <FilmFrame src={src} />
+            ) : (
+              <>
+                {data.poster && <img className="video__thumb-photo" src={data.poster} alt="" loading="lazy" decoding="async" />}
+                <span className="video__thumb-logo">
+                  <Logo project={brand} tone="dark" height={brand === 'sukoon' ? 96 : 80} decorative />
+                </span>
+              </>
+            )}
           </div>
           <div className="video__overlay">
             <button type="button" className="video__play" onClick={play} disabled={!hasVideo} aria-label={hasVideo ? `Play video: ${label}` : `${label} video — coming soon`}>

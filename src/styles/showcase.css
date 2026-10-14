@@ -4219,3 +4219,71 @@ button.home-gallery__card {
     padding: 12px;
   }
 }
+
+/* ==========================================================================
+   VIDEOS WITHOUT THE PURPLE SHADE (both websites): a film shows its own
+   opening frame; a picture shows in its natural colours; neutral overlays
+   and a clear white play button.
+   ========================================================================== */
+.video,
+.video--wide {
+  background: #000000;
+}
+.video__thumb--bic,
+.video__thumb--sukoon {
+  background: #111214;
+}
+.video__thumb-photo,
+.video:hover .video__thumb-photo,
+.done__thumb .video__thumb-photo,
+.done__item:hover .done__thumb .video__thumb-photo {
+  opacity: 1;
+  mix-blend-mode: normal;
+  filter: none;
+}
+.video__thumb-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.video__overlay,
+.video__thumb + .video__overlay {
+  background: linear-gradient(180deg, transparent 62%, rgba(0, 0, 0, 0.45));
+}
+.done__shade {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), transparent 30%, transparent 50%, rgba(0, 0, 0, 0.75)) !important;
+}
+.video__play,
+.video__thumb + .video__overlay .video__play,
+.done__play,
+.facility-card__play,
+.gallery-card__play {
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.42);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+}
+.video__play:not(:disabled):hover,
+.done__play:hover,
+.done__play:focus-visible,
+.facility-card__film:hover .facility-card__play,
+.gallery-card:hover .gallery-card__play {
+  color: #111214;
+  background: #ffffff;
+  border-color: #ffffff;
+}
+.video__play-ring {
+  border-color: rgba(255, 255, 255, 0.55);
+}
+.video__caption.glass {
+  background: rgba(0, 0, 0, 0.45);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.video__meta {
+  color: rgba(255, 255, 255, 0.85);
+}
+.gallery-card__shade {
+  background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.6));
+}
