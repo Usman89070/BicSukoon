@@ -1,5 +1,4 @@
 import { sukoonHome as c } from '../../../data/home'
-import { videos } from '../../../data/videos'
 import { imageFor } from '../../../utils/images'
 import Seo from '../../../components/common/Seo'
 import SectionHeader from '../../../components/common/SectionHeader'
@@ -9,8 +8,7 @@ import Media from '../../../components/common/Media'
 import Icon from '../../../components/common/Icon'
 import SocialLinks from '../../../components/common/SocialLinks'
 import PinMap from '../../../components/pinmap/PinMap'
-import VideoFeature from '../../../components/video/VideoFeature'
-import StageHero from '../../../components/showcase/StageHero'
+import HomeFilm from '../../../components/video/HomeFilm'
 import CompletedWorks from '../../../components/showcase/CompletedWorks'
 import ExploreCard from '../../../components/showcase/ExploreCard'
 import HomeGallery from '../../../components/gallery/HomeGallery'
@@ -36,19 +34,8 @@ export default function SukoonHome() {
         </div>
       </section>
 
-      <StageHero
-        eyebrow={c.hero.eyebrow}
-        title="Sukoon Village Seniors Living"
-        hideTitle
-        className="stage-hero--second"
-        image={heroImage}
-        film={videos.sukoonHero}
-        label="Village render"
-        actions={[
-          { label: 'Explore the village', href: '#explore', variant: 'light', icon: 'arrow' },
-          { label: 'Enquire', to: '/contact', variant: 'glass', icon: 'mail' },
-        ]}
-      />
+      {/* The village film, large and as it is, right under the site picture */}
+      <HomeFilm id="sukoon" />
 
       {/* Welcome */}
       <section className={`section home-welcome${welcomeImage ? ' home-welcome--photo' : ''}`} aria-labelledby="welcome-title">
@@ -125,12 +112,6 @@ export default function SukoonHome() {
         </div>
       </section>
 
-      {/* Film */}
-      <section className="section section--tight" aria-label="Film">
-        <div className="container container--wide">
-          <Reveal variant="scale"><VideoFeature id="sukoon" ratio="21 / 9" className="video--wide" /></Reveal>
-        </div>
-      </section>
 
       {/* Connected community */}
       <section className="section section--dark" aria-labelledby="connected-title">

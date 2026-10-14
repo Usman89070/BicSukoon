@@ -88,7 +88,10 @@ export const sites = {
       hours: null,
       mapEmbedUrl: 'https://www.google.com/maps?q=161+Underwood+Road,+Eight+Mile+Plains+QLD+4113,+Australia&output=embed',
     },
-    socials: socialSlots(),
+    socials: socialSlots().map((s) => ({
+      ...s,
+      href: { facebook: 'https://www.facebook.com/groups/1038475222246006/', whatsapp: 'https://chat.whatsapp.com/BdkZWdhfariHbXxJIOwGY8' }[s.id] ?? s.href,
+    })),
     legal: { name: null, registrationNumber: null, copyrightHolder: null, links: [] },
 
     sister: { id: 'sukoon', name: 'Sukoon Village', url: import.meta.env.VITE_SISTER_URL || null },

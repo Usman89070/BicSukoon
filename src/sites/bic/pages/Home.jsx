@@ -7,15 +7,12 @@ import Media from '../../../components/common/Media'
 import Icon from '../../../components/common/Icon'
 import SocialLinks from '../../../components/common/SocialLinks'
 import PinMap from '../../../components/pinmap/PinMap'
-import VideoFeature from '../../../components/video/VideoFeature'
-import StageHero from '../../../components/showcase/StageHero'
+import HomeFilm from '../../../components/video/HomeFilm'
 import CompletedWorks from '../../../components/showcase/CompletedWorks'
 import { heroImage } from '../images'
 import { imageFor } from '../../../utils/images'
 
 const welcomeImage = imageFor('bic-welcome')
-// Hero uses the "Our vision" render (hero-bic is the same picture at 2400px), shown whole, edge to edge.
-const visionImage = imageFor(['hero-bic', 'bic-pinmap'])
 import { donateLink } from '../../../data/donation'
 import HomeGallery from '../../../components/gallery/HomeGallery'
 
@@ -37,18 +34,8 @@ export default function BicHome() {
         </div>
       </section>
 
-      <StageHero
-        eyebrow={c.hero.eyebrow}
-        title={c.hero.lines.map((l, i) => <span key={l} className="stage-hero__line">{i === 2 ? <em>{l}</em> : l}</span>)}
-        className="stage-hero--long stage-hero--second"
-        image={visionImage ?? heroImage}
-        fit="full"
-        label="BIC aerial render"
-        actions={[
-          { label: 'Discover the vision', to: '/vision', variant: 'light', icon: 'arrow' },
-          { label: 'Donate', ...donateLink, variant: 'glass', icon: 'heart' },
-        ]}
-      />
+      {/* The masjid film, large and as it is, right under the site picture */}
+      <HomeFilm id="masjid" />
 
       {/* Welcome */}
       <section className={`section home-welcome${welcomeImage ? ' home-welcome--photo' : ''}`} aria-labelledby="welcome-title">
@@ -74,12 +61,6 @@ export default function BicHome() {
         </div>
       </section>
 
-      {/* Film */}
-      <section className="section section--tight" aria-label="Film">
-        <div className="container container--wide">
-          <Reveal variant="scale"><VideoFeature id="masjid" ratio="21 / 9" className="video--wide" /></Reveal>
-        </div>
-      </section>
 
       {/* Vision */}
       <section className="section section--dark" aria-labelledby="vision-title">
