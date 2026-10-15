@@ -4457,3 +4457,138 @@ button.home-gallery__card {
   margin-top: clamp(1rem, 2.5vw, 1.5rem);
   padding: 6px 4px 12px;
 }
+
+/* ==========================================================================
+   SUKOON HOME: More Than Seniors Living (message left, values right)
+   ========================================================================== */
+.sv-more {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(4rem, 9vw, 7.5rem) 0;
+  color: #ffffff;
+}
+.sv-more__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.sv-more__bg .media,
+.sv-more__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* neutral dark veil (no colour tint), darker on the text side */
+.sv-more__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(8, 9, 12, 0.86) 0%, rgba(8, 9, 12, 0.72) 48%, rgba(8, 9, 12, 0.5) 100%);
+}
+.sv-more__inner {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+@media (min-width: 960px) {
+  .sv-more__inner {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+}
+.sv-more__eyebrow {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+.sv-more__title {
+  margin-top: var(--space-4);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  line-height: 1.12;
+  color: #ffffff;
+}
+.sv-more__lead {
+  margin-top: var(--space-5);
+  font-size: var(--fs-lg);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.95);
+}
+.sv-more__body {
+  margin-top: var(--space-4);
+  max-width: 58ch;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.8);
+}
+.sv-more__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: var(--space-6);
+}
+.sv-more__values {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sv-more__value {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: var(--radius-lg);
+  font-size: var(--fs-md);
+  line-height: 1.4;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: transform 300ms var(--ease-out), background 300ms var(--ease-out);
+}
+@media (hover: hover) {
+  .sv-more__value:hover {
+    transform: translateX(4px);
+    background: rgba(255, 255, 255, 0.16);
+  }
+}
+.sv-more__check {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: var(--bic-primary, #1c155c);
+  background: #ffffff;
+}
+.sv-more__value.is-last {
+  color: var(--bic-primary, #1c155c);
+  background: #ffffff;
+  border-color: #ffffff;
+  font-weight: 600;
+}
+.sv-more__value.is-last .sv-more__check {
+  color: #ffffff;
+  background: var(--bic-primary, #1c155c);
+}
+@media (max-width: 600px) {
+  .sv-more__value {
+    padding: 14px 16px;
+    font-size: var(--fs-base, 1rem);
+  }
+  .sv-more__ctas .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}

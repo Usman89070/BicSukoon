@@ -111,24 +111,28 @@ export default function SukoonHome() {
       {/* Gallery preview */}
       <HomeGallery />
 
-      {/* More than seniors living */}
-      <section className="home-journey" aria-labelledby="journey-title">
-        <div className="home-journey__bg" aria-hidden="true"><Media src={heroImage} showLabel={false} /></div>
-        <div className="container home-journey__inner">
-          <Reveal>
-            <p className="eyebrow eyebrow--light">{c.values.title}</p>
-            <h2 id="journey-title" className="home-journey__lines">
-              <span>{c.ahead.lead}</span>
-            </h2>
-            <ul className="ab-ahead">
-              {c.values.lines.map((l) => <li key={l}>{l}</li>)}
-            </ul>
-            <p className="home-journey__body">{c.ahead.closing}</p>
-            <div className="home-journey__ctas">
+      {/* More than seniors living: the message on the left, the values on the right */}
+      <section className="sv-more" aria-labelledby="journey-title">
+        <div className="sv-more__bg" aria-hidden="true"><Media src={heroImage} showLabel={false} /></div>
+        <div className="container sv-more__inner">
+          <Reveal className="sv-more__text">
+            <p className="sv-more__eyebrow">{c.values.title}</p>
+            <h2 id="journey-title" className="sv-more__title">{c.ahead.lead}</h2>
+            <p className="sv-more__lead">{c.values.lead}</p>
+            <p className="sv-more__body">{c.ahead.closing}</p>
+            <div className="sv-more__ctas">
               <Button to="/contact" variant="light" icon="mail">Register your interest</Button>
               <Button to="/seniors-living" variant="glass">Seniors Living</Button>
             </div>
           </Reveal>
+          <ul className="sv-more__values">
+            {c.values.lines.map((l, i) => (
+              <Reveal as="li" key={l} delay={i * 90} className={`sv-more__value${i === c.values.lines.length - 1 ? ' is-last' : ''}`}>
+                <span className="sv-more__check" aria-hidden="true"><Icon name="check" size={16} /></span>
+                <span>{l}</span>
+              </Reveal>
+            ))}
+          </ul>
         </div>
       </section>
 
