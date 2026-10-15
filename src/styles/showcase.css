@@ -4602,3 +4602,20 @@ button.home-gallery__card {
     justify-content: center;
   }
 }
+
+/* BIC Join us: heading on two lines, the second softer and in italics */
+.sv-more__line {
+  display: block;
+}
+.sv-more__line--accent {
+  font-style: italic;
+  color: #cfcaf7;
+}
+.sv-more__list-lead {
+  margin-bottom: 12px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}

@@ -79,24 +79,32 @@ export default function BicHome() {
       {/* Gallery preview */}
       <HomeGallery />
 
-      {/* Join us */}
-      <section className="home-journey" aria-labelledby="journey-title">
-        <div className="home-journey__bg" aria-hidden="true">
-          <Media src={heroImage} showLabel={false} />
-        </div>
-        <div className="container home-journey__inner">
-          <Reveal>
-            <p className="eyebrow eyebrow--light">{c.journey.title}</p>
-            <h2 id="journey-title" className="home-journey__lines">
-              {c.journey.lines.map((l) => <span key={l}>{l}</span>)}
+      {/* Join us: the message on the left, what the place is for on the right */}
+      <section className="sv-more" aria-labelledby="journey-title">
+        <div className="sv-more__bg" aria-hidden="true"><Media src={heroImage} showLabel={false} /></div>
+        <div className="container sv-more__inner">
+          <Reveal className="sv-more__text">
+            <p className="sv-more__eyebrow">{c.journey.title}</p>
+            <h2 id="journey-title" className="sv-more__title">
+              {c.journey.lines.map((l, i) => <span key={l} className={`sv-more__line${i ? ' sv-more__line--accent' : ''}`}>{l}</span>)}
             </h2>
-            <p className="home-journey__body">{c.journey.body}</p>
-            <p className="home-journey__closing">{c.journey.closing}</p>
-            <div className="home-journey__ctas">
+            <p className="sv-more__lead">{c.journey.closing}</p>
+            <div className="sv-more__ctas">
               <Button {...donateLink} variant="light" icon="heart">Donate</Button>
               <Button to="/contact" variant="glass" icon="mail">Get in touch</Button>
             </div>
           </Reveal>
+          <div>
+            <p className="sv-more__list-lead">{c.journey.placeLead}</p>
+            <ul className="sv-more__values">
+              {c.journey.places.map((l, i) => (
+                <Reveal as="li" key={l} delay={i * 90} className={`sv-more__value${i === c.journey.places.length - 1 ? ' is-last' : ''}`}>
+                  <span className="sv-more__check" aria-hidden="true"><Icon name="check" size={16} /></span>
+                  <span>{l}</span>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
