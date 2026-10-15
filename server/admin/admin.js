@@ -8,7 +8,7 @@ document.querySelectorAll('form.js-confirm').forEach((form) => {
 // Gallery form: show the video fields only for a video, and name the picture field to match.
 document.querySelectorAll('form.form').forEach((form) => {
   const kinds = form.querySelectorAll('input[name="kind"]')
-  const video = form.querySelector('.video-fields')
+  const video = form.querySelector('.video-fields:not(.video-fields--always)')
   const label = form.querySelector('.js-photo-label')
   if (!kinds.length || !video) return
   const sync = () => {

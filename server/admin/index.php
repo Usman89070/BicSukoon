@@ -397,7 +397,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin.css?v=<?= (int) @filemtime(__DIR__ . '/admin.css') ?>">
 </head>
 <body>
 <?php if (!$authed): ?>
@@ -500,7 +500,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
             <?php endif; ?>
             <?php if ($thumb): ?><label class="check"><input type="checkbox" name="remove_photo" value="1"> Remove current picture</label><?php endif; ?>
 
-            <div class="video-fields">
+            <div class="video-fields<?= $isFilms ? ' video-fields--always' : '' ?>">
               <p class="video-fields__title">Video <small>— use one of these three ways</small></p>
               <?php if (!empty($g['video'])): ?><p class="muted">Current video: <code><?= e($g['video']) ?></code></p><?php elseif (!empty($g['youtube'])): ?><p class="muted">Current video: YouTube <code><?= e($g['youtube']) ?></code></p><?php endif; ?>
               <label>1. Upload a video <small>(MP4, WebM or MOV; this server accepts up to <?= e(ini_get('upload_max_filesize')) ?>)</small> <input name="video" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.m4v,.webm,.mov"></label>
@@ -588,7 +588,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
       </ol>
     <?php endif; ?>
   </main>
-  <script src="admin.js"></script>
+  <script src="admin.js?v=<?= (int) @filemtime(__DIR__ . '/admin.js') ?>"></script>
 <?php endif; ?>
 </body>
 </html>
