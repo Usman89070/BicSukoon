@@ -11,6 +11,7 @@ function send_list(string $type, string $key): never
 {
     header('Content-Type: application/json; charset=utf-8');
     header('Cache-Control: no-cache');
+    header('X-LiteSpeed-Cache-Control: no-cache');
     header('X-Content-Type-Options: nosniff');
     if (!has_saved($type)) {
         http_response_code(404);

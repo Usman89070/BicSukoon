@@ -30,8 +30,13 @@ if ($folder && is_video_name($name)) {
     if (!is_file($path) && is_file(video_web_dir($folder) . $name)) $path = video_web_dir($folder) . $name;
 }
 
+// Never let a server cache (Hostinger's LiteSpeed cache) or the browser keep
+// these answers: a "not found" from before the upload would hide the video.
+header('X-LiteSpeed-Cache-Control: no-cache');
+
 if ($path === '' || !is_file($path)) {
     http_response_code(404);
+    header('Cache-Control: no-store');
     header('Content-Type: text/plain');
     exit('Video not found');
 }
