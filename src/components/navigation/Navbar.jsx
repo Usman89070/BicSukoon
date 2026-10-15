@@ -43,6 +43,19 @@ export default function Navbar() {
   useLockBody(mobileOpen)
   useEscape(Boolean(openMenu) || mobileOpen, closeAll)
 
+  // Widening the window to desktop (the menu button disappears at 1100px)
+  // closes the mobile menu, so the page does not stay locked from scrolling.
+  useEffect(() => {
+    if (!mobileOpen) return
+    const desktop = window.matchMedia('(min-width: 1100px)')
+    const onChange = () => {
+      if (desktop.matches) setMobileOpen(false)
+    }
+    onChange()
+    desktop.addEventListener('change', onChange)
+    return () => desktop.removeEventListener('change', onChange)
+  }, [mobileOpen])
+
   useEffect(() => {
     if (!openMenu) return
     const onDown = (e) => {
