@@ -4611,11 +4611,24 @@ button.home-gallery__card {
   font-style: italic;
   color: #cfcaf7;
 }
-.sv-more__list-lead {
-  margin-bottom: 12px;
-  font-size: var(--fs-xs);
+/* BIC Join us: the official text in a soft panel */
+.sv-more__panel {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.sv-more__panel .sv-more__body {
+  margin-top: 0;
+  font-size: var(--fs-lg);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.92);
+}
+.sv-more__closing {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   font-weight: 700;
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.55;
+  color: #ffffff;
 }

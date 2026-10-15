@@ -91,9 +91,6 @@ export const bicHome = {
     title: 'Join Us on the Journey',
     lines: ['This is more than a development.', 'More than a collection of buildings.'],
     body: 'It is a place where communities gather, knowledge is shared, children are nurtured and our elders remain connected.',
-    // the same sentence, split into its four parts for the cards
-    placeLead: 'It is a place where',
-    places: ['Communities gather', 'Knowledge is shared', 'Children are nurtured', 'Our elders remain connected'],
     closing: 'Together, we are building a legacy that will serve this generation and every generation to come.',
   },
 }
