@@ -4092,11 +4092,18 @@ button.home-gallery__card {
   margin-top: clamp(2.5rem, 6vw, 4.5rem);
   padding: clamp(1.5rem, 4vw, 3.25rem);
   border-radius: var(--radius-xl);
-  background: rgba(255, 255, 255, 0.86);
+  /* solid (no live blur): keeps scrolling smooth over the large picture */
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.95);
   box-shadow: 0 30px 60px -36px rgba(17, 14, 46, 0.45);
-  -webkit-backdrop-filter: blur(14px) saturate(130%);
-  backdrop-filter: blur(14px) saturate(130%);
+}
+/* Eight Mile Plains: content appears quickly while scrolling (no slow, staggered fade) */
+.welcome-place .reveal {
+  transition-duration: 420ms;
+  transition-delay: 0ms !important;
+}
+.welcome-place .reveal--up:not(.is-visible) {
+  transform: translateY(10px);
 }
 .welcome-place__intro {
   display: grid;
