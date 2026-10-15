@@ -13,7 +13,7 @@ export default function StatusPage() {
   const intro = timelineIntro[SITE_ID]
   return (
     <PageShell
-      title="Project Status"
+      title="Current Status"
       eyebrow="Progress"
       description={`Where ${site.name} is today: milestones, current stage and the latest updates.`}
       lead="Where the project is today, what has been achieved and what comes next."

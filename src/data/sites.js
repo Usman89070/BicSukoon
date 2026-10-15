@@ -58,7 +58,7 @@ export const sites = {
       {
         label: 'Progress',
         children: [
-          { label: 'Project Status', to: '/project-status', text: 'Milestones and current stage' },
+          { label: 'Current Status', to: '/project-status', text: 'Milestones and current stage' },
           { label: 'Project Updates', to: '/project-updates', text: 'The development journal' },
           { label: 'Project Funding', to: '/project-funding', text: 'Why funding is needed' },
         ],
@@ -125,7 +125,7 @@ export const sites = {
       {
         label: 'Progress',
         children: [
-          { label: 'Project Status', to: '/project-status', text: 'Milestones and current stage' },
+          { label: 'Current Status', to: '/project-status', text: 'Milestones and current stage' },
           { label: 'Project Updates', to: '/project-updates', text: 'News from the village' },
         ],
       },
