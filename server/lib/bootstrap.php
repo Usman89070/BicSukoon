@@ -63,7 +63,10 @@ const COLLECTIONS = [
     'board' => ['label' => 'Board of Directors', 'one' => 'board member', 'photos' => 'board-photos', 'page' => '../bic/about#board'],
     'gallery' => ['label' => 'Gallery', 'one' => 'photo or video', 'photos' => 'gallery-photos', 'page' => '../bic/gallery'],
     'events' => ['label' => 'Events', 'one' => 'event', 'photos' => 'event-photos', 'page' => '../bic/events'],
+    // the large film + row of films on the Current Status page of each website
+    'films' => ['label' => 'Current Status Videos', 'one' => 'video', 'photos' => 'film-photos', 'page' => '../bic/project-status'],
 ];
+const FILM_SITES = ['bic' => 'BIC website', 'sukoon' => 'Sukoon website'];
 
 const GALLERY_PROJECTS = ['bic' => 'BIC Gallery', 'sukoon' => 'Sukoon Gallery'];
 const GALLERY_PHOTO_MAX_WIDTH = 2000;
@@ -85,7 +88,7 @@ function load_items(string $type): array
     $seed = read_json(dirname(__DIR__) . "/api/$type-seed.json", ['items' => []]);
     $defaults = ['photo' => null, 'hidden' => false];
     if ($type === 'events') $defaults += ['date' => '', 'time' => '', 'location' => '', 'body' => '', 'photos' => []];
-    if ($type === 'gallery') $defaults += ['project' => 'bic', 'kind' => 'photo', 'builtin' => null, 'video' => null, 'video_uploaded' => false, 'youtube' => null];
+    if ($type === 'gallery' || $type === 'films') $defaults += ['project' => 'bic', 'kind' => 'photo', 'builtin' => null, 'video' => null, 'video_uploaded' => false, 'youtube' => null];
     return array_map(fn ($g) => $g + $defaults, $seed['items'] ?? $seed['guests'] ?? []);
 }
 
@@ -123,7 +126,7 @@ function public_items(string $type): array
             'photos' => array_values(array_map(fn ($f) => 'photo.php?t=events&f=' . rawurlencode($f), array_filter($g['photos'] ?? [], 'valid_photo_name'))),
         ], $items);
     }
-    if ($type === 'gallery') {
+    if ($type === 'gallery' || $type === 'films') {
         return array_map(fn ($g) => [
             'id' => (string) $g['id'],
             'title' => (string) $g['name'],

@@ -12,7 +12,8 @@ document.querySelectorAll('form.form').forEach((form) => {
   const label = form.querySelector('.js-photo-label')
   if (!kinds.length || !video) return
   const sync = () => {
-    const isVideo = form.querySelector('input[name="kind"]:checked')?.value === 'video'
+    // a hidden kind field (Current Status Videos) means video only
+    const isVideo = (form.querySelector('input[name="kind"]:checked') ?? form.querySelector('input[type="hidden"][name="kind"]'))?.value === 'video'
     video.hidden = !isVideo
     if (label) label.textContent = isVideo ? 'Cover picture (optional)' : 'Photo'
   }

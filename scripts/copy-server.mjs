@@ -74,6 +74,20 @@ for (const folder of ['bic', 'sukoon']) {
     `Upload the ${folder === 'bic' ? 'Brisbane Islamic Centre' : 'Sukoon Village'} videos to bic-videos/${folder}/ NEXT TO public_html (kept on every redeploy). The website creates that folder itself, and a video uploaded here into public_html/videos/${folder}/ instead is moved there automatically (when it is first played, or when the admin panel is opened). Use these exact names:\n\n${slots.filter(([f]) => f === folder).map(([, n]) => n).join('\n')}\n`,
   )
 }
+// Current Status Videos: the built-in row of films (all but the large film,
+// which stays fixed) becomes the admin panel's starting list.
+const films = Object.fromEntries(
+  [...readFileSync('src/data/videos.js', 'utf8').matchAll(/^\s*(\w+): film\('(bic|sukoon)',\s*'([^']*)',\s*'[^']*',\s*'([^']+)'/gm)].map((m) => [m[1], { project: m[2], name: m[3], video: m[4] }]),
+)
+const { statusFilms } = await import('../src/data/statusFilms.js')
+writeFileSync(
+  'dist/api/films-seed.json',
+  JSON.stringify({
+    items: Object.entries(statusFilms).flatMap(([site, ids]) =>
+      ids.slice(1).filter((id) => films[id]?.project === site).map((id) => ({ id: `${site}-${id}`, name: films[id].name, project: site, kind: 'video', photo: null, builtin: null, thumb: null, video: films[id].video, video_uploaded: false, youtube: null, hidden: false })),
+    ),
+  }, null, 2),
+)
 if (existsSync('videos')) cpSync('videos', 'dist/videos', { recursive: true, filter: (f) => !/(README\.md|\.gitkeep)$/.test(f) })
 
 console.log(`[server] Copied admin panel + API, seeded ${guests.length} guests, ${about.board.length} board members and ${galleryItems.length} gallery photos; ${names.length} video slots`)

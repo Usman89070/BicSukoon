@@ -67,7 +67,8 @@ $type = (string) ($_POST['list'] ?? $_GET['list'] ?? 'guests');
 if (!isset(COLLECTIONS[$type])) $type = 'guests';
 $meta = COLLECTIONS[$type];
 $isBoard = $type === 'board';
-$isGallery = $type === 'gallery';
+$isFilms = $type === 'films';      // Current Status Videos: like the gallery, videos only
+$isGallery = $type === 'gallery' || $isFilms;
 $isEvents = $type === 'events';
 $guests = load_items($type);
 $find = function (string $id) use (&$guests): ?int {
@@ -175,11 +176,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($isGallery) {
                 $title = trim((string) ($_POST['name'] ?? ''));
                 $project = (string) ($_POST['project'] ?? 'bic');
-                $kind = ($_POST['kind'] ?? 'photo') === 'video' ? 'video' : 'photo';
+                $kind = $isFilms || ($_POST['kind'] ?? 'photo') === 'video' ? 'video' : 'photo';
                 $id = (string) ($_POST['id'] ?? '');
                 $back = $id !== '' ? 'edit=' . urlencode($id) : 'new=1';
                 if ($title === '' || mb_strlen($title) > 200 || !isset(GALLERY_PROJECTS[$project])) {
-                    flash('Please enter a title (up to 200 characters) and choose a gallery.', 'error');
+                    flash('Please enter a title (up to 200 characters) and choose ' . ($isFilms ? 'a website.' : 'a gallery.'), 'error');
                     go($back);
                 }
                 $i = $id !== '' ? $find($id) : null;
@@ -484,6 +485,11 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
           </div>
           <div class="form__fields">
             <label>Title <input name="name" value="<?= e($g['name']) ?>" required maxlength="200" placeholder="e.g. Eid open day 2026"></label>
+            <?php if ($isFilms): ?>
+              <label>Website <small>(the Current Status page it shows on)</small> <select name="project"><?php foreach (FILM_SITES as $key => $label): ?><option value="<?= e($key) ?>" <?= $g['project'] === $key ? 'selected' : '' ?>><?= e($label) ?></option><?php endforeach; ?></select></label>
+              <input type="hidden" name="kind" value="video">
+              <label>Cover picture <small>(optional; JPG, PNG or WebP, up to 20 MB. Without one, the video’s own first frame is shown.)</small> <input name="photo" type="file" accept="image/jpeg,image/png,image/webp"></label>
+            <?php else: ?>
             <label>Gallery <select name="project"><?php foreach (GALLERY_PROJECTS as $key => $label): ?><option value="<?= e($key) ?>" <?= $g['project'] === $key ? 'selected' : '' ?>><?= e($label) ?></option><?php endforeach; ?></select></label>
             <fieldset class="choice">
               <legend>Type</legend>
@@ -491,6 +497,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
               <label class="check"><input type="radio" name="kind" value="video" <?= $g['kind'] === 'video' ? 'checked' : '' ?>> Video</label>
             </fieldset>
             <label><span class="js-photo-label">Photo</span> <small>(JPG, PNG or WebP, up to 20 MB. For a video this is the optional cover picture.)</small> <input name="photo" type="file" accept="image/jpeg,image/png,image/webp"></label>
+            <?php endif; ?>
             <?php if ($thumb): ?><label class="check"><input type="checkbox" name="remove_photo" value="1"> Remove current picture</label><?php endif; ?>
 
             <div class="video-fields">
@@ -503,7 +510,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
 
             <label class="check"><input type="checkbox" name="hidden" value="1" <?= !empty($g['hidden']) ? 'checked' : '' ?>> Hide from the website</label>
             <?php if (!$editing): ?>
-              <label>Place in the gallery <select name="position"><option value="start">First (newest at the top)</option><option value="end">Last</option></select></label>
+              <label><?= $isFilms ? 'Place in the list' : 'Place in the gallery' ?> <select name="position"><?php if ($isFilms): ?><option value="end">Last</option><option value="start">First</option><?php else: ?><option value="start">First (newest at the top)</option><option value="end">Last</option><?php endif; ?></select></label>
             <?php endif; ?>
           </div>
         </div>
@@ -536,7 +543,8 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
       <div class="head">
         <div>
           <h1><?= e($meta['label']) ?></h1>
-          <p class="muted"><?= count($guests) ?> <?= $isEvents ? 'events' : ($isGallery ? 'photos and videos' : ($isBoard ? 'members' : 'guests')) ?> · <?= $shown ?> shown on the website</p>
+          <p class="muted"><?= count($guests) ?> <?= $isEvents ? 'events' : ($isFilms ? 'videos' : ($isGallery ? 'photos and videos' : ($isBoard ? 'members' : 'guests'))) ?> · <?= $shown ?> shown on the website</p>
+          <?php if ($isFilms): ?><p class="muted">These videos appear in the row under the large video on each website’s Current Status page, in this order (the large video itself stays as it is). Visitors click one to play it in the large player. A video whose file is not on the server yet is left out until it is uploaded.</p><?php endif; ?>
         </div>
         <a class="btn btn--primary" href="?list=<?= e($type) ?>&amp;new=1">+ Add a <?= e($meta['one']) ?></a>
       </div>
@@ -564,7 +572,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
                 <?php if (!empty($g['date'])): ?><span class="muted"><?= e(date('j F Y', strtotime($g['date']))) ?></span><?php endif; ?>
                 <span class="tag"><?= count($g['photos'] ?? []) ?> photos</span>
               <?php elseif ($isGallery): ?>
-                <span class="tag"><?= e(GALLERY_PROJECTS[$g['project'] ?? 'bic'] ?? 'BIC Gallery') ?></span>
+                <span class="tag"><?= e(($isFilms ? FILM_SITES : GALLERY_PROJECTS)[$g['project'] ?? 'bic'] ?? 'BIC') ?></span>
                 <?php if (($g['kind'] ?? '') === 'video'): ?><span class="tag tag--video">Video<?= !empty($g['youtube']) ? ' · YouTube' : '' ?></span><?php endif; ?>
               <?php elseif (!$g['photo']): ?><span class="tag tag--soft">No photo</span><?php endif; ?>
             </span>

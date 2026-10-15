@@ -9,12 +9,6 @@ import FilmPlaylist from '../components/video/FilmPlaylist'
 import PageShell from './PageShell'
 import CtaBand from './CtaBand'
 
-// The large film on top, then the other films in a row under it (in this order).
-const statusFilms = {
-  bic: ['newBeginnings', 'masjid', 'pinMasjid', 'pinQmchc', 'pinCommunityHall', 'pinCafe', 'tank', 'update2026'],
-  sukoon: ['sukoonStatus', 'sukoon', 'pinSeniorsLiving', 'pinChildcare', 'sukoonUpdate'],
-}
-
 export default function StatusPage() {
   const intro = timelineIntro[SITE_ID]
   return (
@@ -24,7 +18,7 @@ export default function StatusPage() {
       description={`Where ${site.name} is today: milestones, current stage and the latest updates.`}
       lead="Where the project is today, what has been achieved and what comes next."
       heroLayout="center"
-      heroBelow={<Reveal variant="scale"><FilmPlaylist ids={statusFilms[SITE_ID] ?? statusFilms.bic} /></Reveal>}
+      heroBelow={<Reveal variant="scale"><FilmPlaylist /></Reveal>}
     >
       <section className="section">
         <div className="container split">
