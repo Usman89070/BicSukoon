@@ -47,7 +47,7 @@ export default function Footer() {
             <nav key={g.label} aria-label={g.label} className="footer__col">
               <p className="footer__heading">{g.label}</p>
               <ul>
-                {g.children.map((l) => {
+                {g.children.filter((l) => l.footer !== false).map((l) => {
                   const href = externalHref(l.site, l.to)
                   return <li key={l.label}>{href ? <a href={href}>{l.label}</a> : <Link to={l.to}>{l.label}</Link>}</li>
                 })}

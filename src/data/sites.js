@@ -50,8 +50,9 @@ export const sites = {
           { label: 'Community Hall', to: '/community-hall', text: 'Gatherings & events' },
           { label: 'Café', to: '/cafe', text: 'Meet & unwind' },
           { label: 'Gyms', to: '/gyms', text: 'Health & fitness' },
-          { label: 'Childcare Centre', to: '/childcare-centre', text: 'Nurturing the next generation' },
-          { label: 'Sukoon Village', site: 'sukoon', to: '/', text: 'Seniors living & lifestyle' },
+          // footer: false = in the menu only, not in the footer
+          { label: 'Childcare Centre', to: '/childcare-centre', text: 'Nurturing the next generation', footer: false },
+          { label: 'Sukoon Village', site: 'sukoon', to: '/', text: 'Seniors living & lifestyle', footer: false },
         ],
       },
       {
