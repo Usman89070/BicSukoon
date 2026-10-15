@@ -119,7 +119,6 @@ export const sites = {
           { label: 'Seniors Living', to: '/seniors-living', text: 'Dignity, comfort and connection' },
           { label: 'Lifestyle Centre', to: '/lifestyle-centre', text: 'The heart of village life' },
           { label: 'Childcare Centre', to: '/childcare-centre', text: 'Nurturing the next generation' },
-          { label: 'Masjid & QMCHC', site: 'bic', to: '/', text: 'At the Brisbane Islamic Centre', footer: false },
         ],
       },
       {
