@@ -1,6 +1,7 @@
-import { lazy } from 'react'
+import { lazy, useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import SiteLayout from '../../layouts/SiteLayout'
+import { externalHref } from '../../site'
 import BicHome from './pages/Home'
 
 const FacilityPage = lazy(() => import('../../templates/FacilityPage'))
@@ -15,9 +16,16 @@ const Events = lazy(() => import('./pages/Events'))
 const EventPage = lazy(() => import('./pages/EventPage'))
 const Guests = lazy(() => import('./pages/Guests'))
 const Donate = lazy(() => import('./pages/Donate'))
-const ChildcarePage = lazy(() => import('../../templates/ChildcarePage'))
 const Qmchc = lazy(() => import('./pages/Qmchc'))
 const Vision = lazy(() => import('./pages/Vision'))
+
+// The Childcare Centre is on the Sukoon Village website only; old BIC links go there.
+function ToSukoonChildcare() {
+  useEffect(() => {
+    window.location.replace(externalHref('sukoon', '/childcare-centre'))
+  }, [])
+  return null
+}
 
 /** Brisbane Islamic Centre website. */
 export default function BicApp() {
@@ -32,7 +40,7 @@ export default function BicApp() {
         <Route path="community-hall" element={<FacilityPage id="community-hall" />} />
         <Route path="cafe" element={<FacilityPage id="cafe" />} />
         <Route path="gyms" element={<FacilityPage id="gyms" />} />
-        <Route path="childcare-centre" element={<ChildcarePage />} />
+        <Route path="childcare-centre" element={<ToSukoonChildcare />} />
         <Route path="project-status" element={<StatusPage />} />
         <Route path="project-updates" element={<UpdatesPage />} />
         <Route path="project-funding" element={<Funding />} />

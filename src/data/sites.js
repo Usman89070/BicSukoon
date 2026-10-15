@@ -73,7 +73,7 @@ export const sites = {
     ],
     cta: { label: 'Donate', ...donateLink, icon: 'heart' },
     features: { donate: true, funding: true, events: true, guests: true },
-    enquiryTopics: ['General enquiry', 'Masjid Complex', 'Cultural Heritage Centre', 'Childcare Centre', 'Donations & funding', 'Events', 'Media'],
+    enquiryTopics: ['General enquiry', 'Masjid Complex', 'Cultural Heritage Centre', 'Donations & funding', 'Events', 'Media'],
 
     // Official details (from the BIC website, bic.org.au/contact-us)
     contact: {

@@ -127,8 +127,8 @@ export const facilities = {
   },
   'childcare-centre': {
     id: 'childcare-centre',
-    project: 'bic',
-    sites: ['bic', 'sukoon'], // page exists on both websites
+    project: 'sukoon',
+    sites: ['sukoon'], // on the Sukoon Village website only
     title: 'Childcare Centre',
     path: '/childcare-centre',
     eyebrow: 'Brisbane Islamic Centre',

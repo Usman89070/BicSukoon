@@ -37,7 +37,7 @@ export const seniors = {
       { label: 'Masjid', site: 'bic', path: '/masjid-complex' },
       { label: 'Community facilities', site: 'bic', path: '/community-hall' },
       { label: 'Cultural spaces', site: 'bic', path: '/cultural-heritage-centre' },
-      { label: 'Childcare Centre', site: 'bic', path: '/childcare-centre' },
+      { label: 'Childcare Centre', site: 'sukoon', path: '/childcare-centre' },
     ],
   },
   lifestyle: {

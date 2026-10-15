@@ -31,7 +31,7 @@ export const bicVision = {
       { label: 'Theatre and audio-visual facilities', site: 'bic', path: '/cultural-heritage-centre#theatre' },
       { label: 'Community Hall', site: 'bic', path: '/community-hall' },
       { label: 'Sukoon Village Seniors Living', site: 'sukoon', path: '/seniors-living' },
-      { label: 'Council-approved Childcare Centre', site: 'bic', path: '/childcare-centre' },
+      { label: 'Council-approved Childcare Centre', site: 'sukoon', path: '/childcare-centre' },
       { label: 'Café and community gathering spaces', site: 'bic', path: '/cafe' },
     ],
     closing: 'Together, these facilities will create a welcoming environment that supports people at every stage of life — from early childhood through to retirement.',
