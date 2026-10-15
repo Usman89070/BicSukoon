@@ -5,6 +5,7 @@ import { useVideoSrc } from '../../hooks/useVideoSrc'
 import Media from '../common/Media'
 import Icon from '../common/Icon'
 import FilmFrame from '../video/FilmFrame'
+import Logo from '../common/Logo'
 import Reveal from '../common/Reveal'
 import FacilityLink from '../common/FacilityLink'
 import VideoLightbox from '../video/VideoLightbox'
@@ -25,6 +26,7 @@ export default function FacilityCard({ facility, delay = 0 }) {
       {src && (
         <button type="button" className={`facility-card__film video__thumb video__thumb--${brand}`} onClick={() => setWatching(true)} aria-label={`Play video: ${facility.title}`}>
           <FilmFrame src={src} />
+          <span className="facility-card__logo"><Logo project={brand} tone="dark" height={brand === 'sukoon' ? 58 : 46} decorative /></span>
           <span className="facility-card__play" aria-hidden="true"><Icon name="play" size={24} /></span>
         </button>
       )}

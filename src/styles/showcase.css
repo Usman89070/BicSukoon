@@ -4287,3 +4287,20 @@ button.home-gallery__card {
 .gallery-card__shade {
   background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.6));
 }
+
+/* full-screen viewer and pin-map film: plain black, no purple */
+.lightbox {
+  background: rgba(0, 0, 0, 0.92) !important;
+}
+.pinmap__film {
+  background: #000000;
+}
+.pinmap__film-thumb {
+  background: #1a1b1e;
+}
+/* the logo sits over the film's own frame in white, without any colour */
+.video__thumb-frame ~ .video__thumb-logo,
+.video__thumb-frame ~ .facility-card__logo {
+  opacity: 0.55;
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.5));
+}
