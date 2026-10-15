@@ -2,7 +2,7 @@ import Seo from '../components/common/Seo'
 import PageHero from '../components/hero/PageHero'
 
 /** Standard interior page frame: SEO, hero with breadcrumbs, content. */
-export default function PageShell({ title, description, eyebrow, heading, lead, media, heroActions, heroSize = 'md', children }) {
+export default function PageShell({ title, description, eyebrow, heading, lead, media, heroActions, heroSize = 'md', heroLayout, heroBelow, children }) {
   return (
     <>
       <Seo title={title} description={description} />
@@ -13,6 +13,8 @@ export default function PageShell({ title, description, eyebrow, heading, lead, 
         media={media ?? { label: `${title} imagery` }}
         breadcrumbs={[{ label: 'Home', to: '/' }, { label: heading ?? title }]}
         size={heroSize}
+        layout={heroLayout}
+        below={heroBelow}
       >
         {heroActions}
       </PageHero>

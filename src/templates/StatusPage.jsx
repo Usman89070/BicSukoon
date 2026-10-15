@@ -17,6 +17,8 @@ export default function StatusPage() {
       eyebrow="Progress"
       description={`Where ${site.name} is today: milestones, current stage and the latest updates.`}
       lead="Where the project is today, what has been achieved and what comes next."
+      heroLayout="center"
+      heroBelow={<Reveal variant="scale"><VideoFeature id={SITE_ID === 'bic' ? 'newBeginnings' : 'sukoonStatus'} /></Reveal>}
     >
       <section className="section">
         <div className="container split">
@@ -27,12 +29,6 @@ export default function StatusPage() {
             className="status-timeline__head"
           />
           <Timeline items={timeline[SITE_ID]} ascending={intro?.ascending} />
-        </div>
-      </section>
-      <section className="section section--dark">
-        <div className="container">
-          <SectionHeader eyebrow="Watch" title="Project status film" align="center" />
-          <Reveal variant="scale"><VideoFeature id={SITE_ID === 'bic' ? 'newBeginnings' : 'sukoonStatus'} /></Reveal>
         </div>
       </section>
       <section className="section">

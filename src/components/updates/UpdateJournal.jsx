@@ -64,9 +64,7 @@ export default function UpdateJournal({ showFilter = true, limit }) {
                     <div className={cx('journal__gallery', u.images.length > 1 && 'is-multi')}>
                       {u.images.map((img) => <Media key={img.src} src={img.src} alt={img.alt} ratio="16 / 10" />)}
                     </div>
-                  ) : (
-                    <Media label="Update imagery" ratio="16 / 8" className="journal__placeholder" />
-                  )}
+                  ) : null}
 
                   {u.progress && (
                     <div className="progress" role="group" aria-label={`${u.progress.label} progress`}>

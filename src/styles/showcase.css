@@ -4304,3 +4304,48 @@ button.home-gallery__card {
   opacity: 0.55;
   filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.5));
 }
+
+/* Page hero with the text centred and a large film under it (Project Status) */
+.page-hero-center {
+  padding: calc(var(--nav-h, 72px) + clamp(2.5rem, 6vw, 4.5rem)) 0 clamp(2.5rem, 6vw, 4.5rem);
+  text-align: center;
+}
+.page-hero-center__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 820px;
+}
+.page-hero-center__text .breadcrumbs,
+.page-hero-center__text .breadcrumbs ol {
+  justify-content: center;
+}
+.page-hero-center__text .eyebrow {
+  justify-content: center;
+}
+.page-hero-center .page-hero__title {
+  margin-top: var(--space-3);
+}
+.page-hero-center .page-hero__lead {
+  margin-top: var(--space-4);
+  margin-inline: auto;
+  max-width: 60ch;
+}
+.page-hero-center__below {
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+}
+.page-hero-center .page-hero__title {
+  color: var(--primary-ink, var(--bic-primary));
+}
+.page-hero-center .page-hero__lead {
+  color: var(--text-secondary);
+}
+.page-hero-center .breadcrumbs,
+.page-hero-center .breadcrumbs a,
+.page-hero-center .breadcrumbs span,
+.page-hero-center .breadcrumbs li {
+  color: var(--text-secondary);
+}
+.page-hero-center .eyebrow {
+  color: var(--primary);
+}

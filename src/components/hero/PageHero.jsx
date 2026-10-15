@@ -13,7 +13,7 @@ import { useVideoSrc } from '../../hooks/useVideoSrc'
  *  - Sukoon ('split'): light, airy split layout with an arched image window.
  *  - 'cinematic':      full-bleed image/video with a dark scrim (not used now).
  */
-export default function PageHero({ eyebrow, title, lead, media, breadcrumbs, children, size = 'md', className }) {
+export default function PageHero({ eyebrow, title, lead, media, breadcrumbs, children, size = 'md', className, layout, below }) {
   const ref = useParallax(0.1)
   // media.video may be an id from data/videos.js or a direct file URL.
   const film = media?.video ? videos[media.video] : null
@@ -36,6 +36,16 @@ export default function PageHero({ eyebrow, title, lead, media, breadcrumbs, chi
       {children && <div className="page-hero__actions">{children}</div>}
     </>
   )
+
+  // layout="center": the text centred, with `below` (e.g. a large film) under it instead of the picture
+  if (layout === 'center') {
+    return (
+      <section className={cx('page-hero-center', className)}>
+        <div className="container page-hero-center__text">{text}</div>
+        {below && <div className="container container--wide page-hero-center__below">{below}</div>}
+      </section>
+    )
+  }
 
   if (site.heroStyle === 'split' || site.heroStyle === 'framed') {
     return (
