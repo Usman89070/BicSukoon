@@ -26,6 +26,8 @@ export default function SukoonHome() {
   return (
     <>
       <Seo />
+      {/* the page's main heading for search engines and screen readers (the page opens with the site picture) */}
+      <h1 className="sr-only">Sukoon Village</h1>
       {/* Site picture with pins, first thing on the page */}
       <section className="section section--dark home-pinmap-top" aria-label="Site map">
         <div className="container">
