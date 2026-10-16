@@ -29,7 +29,7 @@ export const videos = {
   masjid: film('bic', 'The Masjid Complex', 'Architectural film', 'BIC(centreH).mp4', { poster: bicPoster }),
   status: film('bic', 'Project Status', 'Progress film', 'bic-project-status.mp4'),
   // BIC Current Status page (/project-status): the film under the heading
-  newBeginnings: film('bic', 'New Beginnings', 'Current status film', 'New beginings V3.mp4', { poster: bicPoster }),
+  newBeginnings: film('bic', 'NEW BEGINNINGS', 'Current status film', 'New beginings V3.mp4', { poster: bicPoster }),
   update2026: film('bic', '2026 Update', 'Project update film', 'bic-update-2026.mp4'),
   funding: film('bic', 'Project Funding', 'Why your support matters', 'bic-funding.mp4'),
   guests: film('bic', 'Honoured Guests', 'Guest highlights', 'bic-honoured-guests.mp4'),
