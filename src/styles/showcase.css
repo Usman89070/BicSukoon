@@ -4632,3 +4632,27 @@ button.home-gallery__card {
   line-height: 1.55;
   color: #ffffff;
 }
+
+/* Current Status film boxes as a grid: 4 per row on large screens, 2 on small ones */
+.playlist > .playlist__row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 1.6vw, 20px);
+  overflow: visible;
+  scroll-snap-type: none;
+}
+.playlist > .playlist__row.is-single {
+  display: none;
+}
+.playlist__row .playlist__item {
+  flex: none;
+  min-width: 0;
+}
+@media (max-width: 760px) {
+  .playlist > .playlist__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .playlist__row .playlist__item {
+    flex-basis: auto;
+  }
+}
