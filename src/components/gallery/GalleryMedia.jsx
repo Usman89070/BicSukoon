@@ -28,7 +28,7 @@ export function GalleryFull({ item }) {
         key={item.id}
         className="lightbox__video lightbox__video--yt"
         src={`https://www.youtube-nocookie.com/embed/${item.youtube}?autoplay=1&rel=0`}
-        title={item.title}
+        title={item.title || 'Gallery video'}
         allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
         allowFullScreen
       />
@@ -37,5 +37,5 @@ export function GalleryFull({ item }) {
   if (item.kind === 'video') {
     return <video key={item.id} className="lightbox__video" src={item.video} poster={item.src ?? undefined} controls autoPlay playsInline />
   }
-  return <img key={item.id} src={item.src} alt={item.title} className="lightbox__img" />
+  return <img key={item.id} src={item.src} alt={item.title || 'Gallery photo'} className="lightbox__img" />
 }

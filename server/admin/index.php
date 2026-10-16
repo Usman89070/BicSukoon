@@ -179,13 +179,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $kind = $isFilms || ($_POST['kind'] ?? 'photo') === 'video' ? 'video' : 'photo';
                 $id = (string) ($_POST['id'] ?? '');
                 $back = $id !== '' ? 'edit=' . urlencode($id) : 'new=1';
-                if ($title === '' || mb_strlen($title) > 200 || !isset(GALLERY_PROJECTS[$project])) {
-                    flash('Please enter a title (up to 200 characters) and choose ' . ($isFilms ? 'a website.' : 'a gallery.'), 'error');
+                // a gallery photo or video may have no title; Current Status Videos need one
+                if (($title === '' && $isFilms) || mb_strlen($title) > 200 || !isset(GALLERY_PROJECTS[$project])) {
+                    flash(($isFilms ? 'Please enter a title (up to 200 characters)' : 'The title can be up to 200 characters') . ' and choose ' . ($isFilms ? 'a website.' : 'a gallery.'), 'error');
                     go($back);
                 }
                 $i = $id !== '' ? $find($id) : null;
                 if ($i === null) {
-                    $base = slugify($title);
+                    $base = $title !== '' ? slugify($title) : ($kind === 'video' ? 'video' : 'photo') . '-' . date('Ymd-His');
                     $id = $base;
                     for ($n = 2; $find($id) !== null; $n++) $id = $base . '-' . $n;
                     $item = ['id' => $id, 'name' => $title, 'project' => $project, 'kind' => $kind, 'photo' => null, 'builtin' => null, 'thumb' => null, 'video' => null, 'video_uploaded' => false, 'youtube' => null, 'hidden' => false];
@@ -258,7 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $guests[$i] = $item;
                 }
                 save_items($type, $guests);
-                flash('Saved “' . $title . '”.');
+                flash($title !== '' ? 'Saved “' . $title . '”.' : 'Saved.');
                 go();
             }
             $name = trim((string) ($_POST['name'] ?? ''));
@@ -312,7 +313,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($isEvents) foreach ($guests[$i]['photos'] ?? [] as $f) delete_photo($f, $type);
                 array_splice($guests, $i, 1);
                 save_items($type, $guests);
-                flash('Deleted “' . $name . '”.');
+                flash($name !== '' ? 'Deleted “' . $name . '”.' : 'Deleted.');
             }
             go();
 
@@ -484,7 +485,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
             <?php if ($thumb): ?><img src="<?= e($thumb) ?>" alt=""><?php else: ?><span class="mono"><?= $g['kind'] === 'video' ? '▶' : '?' ?></span><?php endif; ?>
           </div>
           <div class="form__fields">
-            <label>Title <input name="name" value="<?= e($g['name']) ?>" required maxlength="200" placeholder="e.g. Eid open day 2026"></label>
+            <label>Title<?= $isFilms ? '' : ' <small>(optional — leave empty for a photo or video without a title)</small>' ?> <input name="name" value="<?= e($g['name']) ?>" <?= $isFilms ? 'required ' : '' ?>maxlength="200" placeholder="e.g. Eid open day 2026"></label>
             <?php if ($isFilms): ?>
               <label>Website <small>(the Current Status page it shows on)</small> <select name="project"><?php foreach (FILM_SITES as $key => $label): ?><option value="<?= e($key) ?>" <?= $g['project'] === $key ? 'selected' : '' ?>><?= e($label) ?></option><?php endforeach; ?></select></label>
               <input type="hidden" name="kind" value="video">
@@ -564,7 +565,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
             <?php $thumb = $thumbOf($g); ?>
             <span class="row__thumb<?= $isGallery || $isEvents ? ' row__thumb--wide' : '' ?>"><?php if ($thumb): ?><img src="<?= e($thumb) ?>" alt="" loading="lazy"><?php else: ?><span class="mono"><?= $isGallery ? '▶' : ($isEvents ? '✦' : e($initials($g['name']))) ?></span><?php endif; ?></span>
             <span class="row__text">
-              <strong><?= e($g['name']) ?></strong>
+              <strong><?= $g['name'] !== '' ? e($g['name']) : '<span class="muted">(no title)</span>' ?></strong>
               <?php if (!empty($g['role'])): ?><span class="muted"><?= e($g['role']) ?></span><?php endif; ?>
               <?php if (!empty($g['memoriam'])): ?><span class="tag tag--memoriam">In memoriam</span><?php endif; ?>
               <?php if (!empty($g['hidden'])): ?><span class="tag">Hidden</span><?php endif; ?>
@@ -581,7 +582,7 @@ $shown = count(array_filter($guests, fn ($g) => empty($g['hidden'])));
               <form method="post"><?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="move"><input type="hidden" name="id" value="<?= e($g['id']) ?>"><input type="hidden" name="dir" value="down"><button class="icon" type="submit" title="Move down" aria-label="Move <?= e($g['name']) ?> down" <?= $i === count($guests) - 1 ? 'disabled' : '' ?>>↓</button></form>
               <a class="btn btn--sm" href="?list=<?= e($type) ?>&amp;edit=<?= e(urlencode($g['id'])) ?>">Edit</a>
               <form method="post"><?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="toggle"><input type="hidden" name="id" value="<?= e($g['id']) ?>"><button class="btn btn--sm" type="submit"><?= !empty($g['hidden']) ? 'Show' : 'Hide' ?></button></form>
-              <form method="post" class="js-confirm" data-confirm="Delete <?= e($g['name']) ?>? This cannot be undone."><?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?= e($g['id']) ?>"><button class="btn btn--sm btn--danger" type="submit">Delete</button></form>
+              <form method="post" class="js-confirm" data-confirm="Delete <?= e($g['name'] !== '' ? $g['name'] : 'this item') ?>? This cannot be undone."><?= csrf_field() ?><?= $listField ?? '' ?><input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?= e($g['id']) ?>"><button class="btn btn--sm btn--danger" type="submit">Delete</button></form>
             </span>
           </li>
         <?php endforeach; ?>

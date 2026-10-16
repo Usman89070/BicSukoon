@@ -55,7 +55,7 @@ export default function GalleryLightbox({ items, index, onClose, onGo, end }) {
       className="lightbox"
       role="dialog"
       aria-modal="true"
-      aria-label={item ? item.title : end.label}
+      aria-label={item ? item.title || (item.kind === 'video' ? 'Video' : 'Photo') : end.label}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       onClick={(e) => e.target === e.currentTarget && onClose()}

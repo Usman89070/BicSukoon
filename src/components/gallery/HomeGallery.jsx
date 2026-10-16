@@ -33,10 +33,10 @@ function GalleryBlock({ id, galleryItems }) {
       <ul className="home-gallery__grid">
         {photos.map((p, i) => (
           <Reveal as="li" key={p.id} delay={i * 70}>
-            <button type="button" className={`gallery-card gallery-card--${p.kind} home-gallery__card`} onClick={() => setOpen(i)} aria-label={`${p.kind === 'video' ? 'Play video' : 'View photo'}: ${p.title}`}>
+            <button type="button" className={`gallery-card gallery-card--${p.kind} home-gallery__card`} onClick={() => setOpen(i)} aria-label={`${p.kind === 'video' ? 'Play video' : 'View photo'}${p.title ? `: ${p.title}` : ''}`}>
               <GalleryThumb item={p} />
               <span className="gallery-card__shade" aria-hidden="true" />
-              <span className="gallery-card__title">{p.title}</span>
+              {p.title && <span className="gallery-card__title">{p.title}</span>}
               <span className="gallery-card__zoom" aria-hidden="true"><Icon name="expand" size={18} /></span>
             </button>
           </Reveal>
