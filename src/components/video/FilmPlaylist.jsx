@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { videos, videoUrl } from '../../data/videos'
 import { statusFilms } from '../../data/statusFilms'
 import { SITE_ID } from '../../site'
@@ -7,6 +7,7 @@ import { useVideoSrc } from '../../hooks/useVideoSrc'
 import Icon from '../common/Icon'
 import Logo from '../common/Logo'
 import FilmFrame from './FilmFrame'
+import VideoLightbox from './VideoLightbox'
 
 const brand = SITE_ID === 'sukoon' ? 'sukoon' : 'bic'
 
@@ -69,8 +70,8 @@ function PlaylistItem({ film, active, onPick, onReady }) {
         <span className="playlist__thumb">
           <FilmPicture film={film} src={src} />
           <span className="playlist__logo" aria-hidden="true"><Logo project={brand} tone="dark" height={brand === 'sukoon' ? 34 : 28} decorative /></span>
-          <span className="playlist__play" aria-hidden="true"><Icon name={active ? 'pause' : 'play'} size={16} /></span>
-          {active && <span className="playlist__now">Now playing</span>}
+          <span className="playlist__play" aria-hidden="true"><Icon name="play" size={16} /></span>
+          {active && <span className="playlist__now">Now showing</span>}
         </span>
         <span className="playlist__title">{film.title}</span>
       </button>
@@ -81,8 +82,9 @@ function PlaylistItem({ film, active, onPick, onReady }) {
 /**
  * A large film with a row of film boxes under it (each with its title).
  * The large film is fixed (data/statusFilms.js); the row comes from the
- * admin panel. Choosing a box plays that film in the large player, in
- * place. Films not on the server yet are left out of the row.
+ * admin panel. Pressing play, or choosing a box, plays that film in the
+ * full-screen viewer (like every other film on the site); a chosen box
+ * also becomes the large film. Films not on the server yet are left out.
  */
 export default function FilmPlaylist() {
   const row = useRowFilms()
@@ -91,48 +93,50 @@ export default function FilmPlaylist() {
   const [ready, setReady] = useState([])
   const [chosen, setChosen] = useState(null)
   const [playing, setPlaying] = useState(false)
-  const stage = useRef(null)
   const onReady = useCallback((id) => setReady((r) => (r.includes(id) ? r : [...r, id])), [])
   // the chosen film, else the first one that is available
   const active = films.find((f) => f.id === chosen) ?? films.find((f) => ready.includes(f.id)) ?? films[0]
   const src = useFilmSrc(active)
 
+  // choosing a box shows that film in the large player and plays it in the full-screen viewer
   const pick = (id) => {
     setChosen(id)
     setPlaying(true)
-    stage.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 
   if (!active) return null
   return (
     <div className="playlist">
-      <figure className="video playlist__stage" ref={stage}>
-        {playing && src && active.youtube ? (
-          <iframe key={active.youtube} className="video__el" src={`https://www.youtube-nocookie.com/embed/${active.youtube}?autoplay=1&rel=0`} title={active.title} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />
-        ) : playing && src ? (
-          <video key={src} className="video__el" src={src} controls autoPlay playsInline />
-        ) : (
-          <>
-            <div className={`video__thumb video__thumb--${brand}`} aria-hidden="true">
-              <FilmPicture film={active} src={src} />
-              <span className="video__thumb-logo"><Logo project={brand} tone="dark" height={brand === 'sukoon' ? 96 : 80} decorative /></span>
-            </div>
-            <div className="video__overlay">
-              <button type="button" className="video__play" onClick={() => setPlaying(true)} disabled={!src} aria-label={src ? `Play video: ${active.title}` : `${active.title} video — coming soon`}>
-                <span className="video__play-ring" aria-hidden="true" />
-                <Icon name="play" size={28} />
-              </button>
-              <figcaption className="video__caption glass">
-                <span className="video__title">{active.title}</span>
-                <span className="video__meta">{src ? active.caption ?? 'Current status' : 'Video coming soon'}</span>
-              </figcaption>
-            </div>
-          </>
-        )}
+      <figure className="video playlist__stage">
+        <div className={`video__thumb video__thumb--${brand}`} aria-hidden="true">
+          <FilmPicture film={active} src={src} />
+          <span className="video__thumb-logo"><Logo project={brand} tone="dark" height={brand === 'sukoon' ? 96 : 80} decorative /></span>
+        </div>
+        <div className="video__overlay">
+          <button type="button" className="video__play" onClick={() => setPlaying(true)} disabled={!src} aria-label={src ? `Play video: ${active.title}` : `${active.title} video — coming soon`}>
+            <span className="video__play-ring" aria-hidden="true" />
+            <Icon name="play" size={28} />
+          </button>
+          <figcaption className="video__caption glass">
+            <span className="video__title">{active.title}</span>
+            <span className="video__meta">{src ? active.caption ?? 'Current status' : 'Video coming soon'}</span>
+          </figcaption>
+        </div>
       </figure>
+      {playing && src && (
+        <VideoLightbox
+          title={active.title}
+          tag={active.caption ?? 'Current status'}
+          src={active.youtube ? null : src}
+          youtubeId={active.youtube}
+          poster={active.cover ?? active.poster}
+          project={brand}
+          onClose={() => setPlaying(false)}
+        />
+      )}
 
       <ul className={`playlist__row${ready.length > 1 ? '' : ' is-single'}`} aria-label="More films">
-        {films.map((f) => <PlaylistItem key={f.id} film={f} active={f.id === active.id && playing} onPick={pick} onReady={onReady} />)}
+        {films.map((f) => <PlaylistItem key={f.id} film={f} active={f.id === active.id} onPick={pick} onReady={onReady} />)}
       </ul>
     </div>
   )
