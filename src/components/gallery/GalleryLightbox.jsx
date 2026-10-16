@@ -70,7 +70,6 @@ export default function GalleryLightbox({ items, index, onClose, onGo, end }) {
         </figure>
       ) : (
         <div className="lightbox__end">
-          <p className="lightbox__end-text">See every photo and video</p>
           <Link to={end.to} className="lightbox__end-link" onClick={onClose}>
             {end.label} <Icon name="arrow" size={20} />
           </Link>
