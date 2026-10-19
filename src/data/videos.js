@@ -41,6 +41,8 @@ export const videos = {
   // Site-picture pins (BIC home and Vision): played when a pin is hovered or tapped (see data/pinmap.js).
   // The Community Hall, QMCHC and café films also play on those facility pages.
   pinCommunityHall: film('bic', 'Community Hall', 'Site film', 'Community hall short (c).mp4', { poster: bicPoster }),
+  // QMCHC page: plays silently in the picture frame at the top (click for sound, full screen)
+  qmchcHero: film('bic', 'Queensland Muslim Cultural Heritage Centre', 'Centre film', 'QMCHC2.mp4', { background: true }),
   pinQmchc: film('bic', 'Queensland Muslim Cultural and Heritage Centre', 'Site film', 'QMCHC.mp4', { poster: bicPoster }),
   pinMasjid: film('bic', 'Masjid', 'Site film', 'masjidBIC.mp4', { poster: bicPoster }),
   pinCafe: film('bic', 'Café, outdoor dining area and gyms', 'Site film', 'cafe short ( c).mp4', { poster: bicPoster }),

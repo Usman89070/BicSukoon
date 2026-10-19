@@ -4656,3 +4656,40 @@ button.home-gallery__card {
     flex-basis: auto;
   }
 }
+
+/* Page hero film (e.g. QMCHC): fills the picture frame; click for sound in the viewer */
+.page-hero__film {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: #000000;
+  cursor: pointer;
+}
+.page-hero__film video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.page-hero__film-play {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.45);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  transition: transform 300ms var(--ease-out), background 300ms var(--ease-out);
+}
+.page-hero__film:hover .page-hero__film-play,
+.page-hero__film:focus-visible .page-hero__film-play {
+  transform: scale(1.08);
+  background: rgba(0, 0, 0, 0.65);
+}

@@ -6,6 +6,9 @@ import Breadcrumbs from '../common/Breadcrumbs'
 import Media from '../common/Media'
 import Pattern from '../common/Pattern'
 import { useVideoSrc } from '../../hooks/useVideoSrc'
+import { useState } from 'react'
+import Icon from '../common/Icon'
+import VideoLightbox from '../video/VideoLightbox'
 
 /**
  * Interior page hero. Style follows the website:
@@ -19,10 +22,19 @@ export default function PageHero({ eyebrow, title, lead, media, breadcrumbs, chi
   const film = media?.video ? videos[media.video] : null
   // Only background films autoplay in a page hero; other films show their poster.
   const videoSrc = useVideoSrc(film ? (film.background ? film.src : null) : media?.video && /[/.]/.test(media.video) ? media.video : null)
+  const [watching, setWatching] = useState(false)
+  // a background film plays silently; clicking it opens it with sound in the full-screen viewer
   const visual = videoSrc ? (
-    <video autoPlay muted loop playsInline preload="metadata" poster={film?.poster ?? media.poster} aria-hidden="true">
-      <source src={videoSrc} />
-    </video>
+    <>
+      <button type="button" className="page-hero__film" onClick={() => setWatching(true)} aria-label={`Play video with sound: ${film?.title ?? title}`}>
+        <video autoPlay muted loop playsInline preload="metadata" poster={film?.poster ?? media.poster} aria-hidden="true">
+          <source src={videoSrc} />
+        </video>
+        <span className="page-hero__film-play" aria-hidden="true"><Icon name="volume" size={18} /></span>
+      </button>
+      {/* outside the button, so clicks in the viewer do not reopen it */}
+      {watching && <VideoLightbox title={film?.title ?? title} tag={film?.caption} src={videoSrc} onClose={() => setWatching(false)} />}
+    </>
   ) : (
     <Media src={media?.image ?? film?.poster} label={media?.label} eager />
   )

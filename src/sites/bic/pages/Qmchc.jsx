@@ -19,7 +19,7 @@ export default function Qmchc() {
       heading={c.heading}
       lead={c.intro[0]}
       description={c.intro[1]}
-      media={{ image: imageFor(['facility-qmchc', 'qmchc']), label: 'Cultural Heritage Centre render' }}
+      media={{ image: imageFor(['facility-qmchc', 'qmchc']), video: 'qmchcHero', label: 'Cultural Heritage Centre render' }}
       heroActions={c.spaces.map((s, i) => (
         <Button key={s.id} href={`#${s.id}`} variant={i === 0 ? 'primary' : 'glass'} icon={i === 0 ? 'arrow' : undefined}>{s.title}</Button>
       ))}
