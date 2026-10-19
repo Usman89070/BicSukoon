@@ -33,6 +33,8 @@ export const pinmaps = {
     pins: [
       { id: 'childcare', n: 'A', title: 'Childcare Centre', x: 33.7, y: 41, video: 'pinChildcare', path: '/childcare-centre' },
       { id: 'seniors-living', n: 'B', title: 'Sukoon Village Seniors Living', short: 'Seniors Living', x: 56, y: 34.5, video: 'pinSeniorsLiving', path: '/seniors-living' },
+      // the building beside the pool
+      { id: 'lifestyle-centre', n: 'C', title: 'Lifestyle Centre', narrow: 'below', x: 72.6, y: 41.2, video: 'pinLifestyle', path: '/lifestyle-centre' },
     ],
   },
 }

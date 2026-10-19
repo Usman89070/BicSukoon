@@ -48,6 +48,7 @@ export const videos = {
   // Site-picture pins (Sukoon home and Vision)
   pinChildcare: film('sukoon', 'Childcare Centre', 'Site film', 'pin-childcare.mp4', { poster: sukoonPoster }),
   pinSeniorsLiving: film('sukoon', 'Sukoon Village Seniors Living', 'Site film', 'pin-seniors-living.mp4', { poster: sukoonPoster }),
+  pinLifestyle: film('sukoon', 'Lifestyle Centre', 'Site film', 'pin-lifestyle-centre.mp4', { poster: sukoonPoster }),
   // Sukoon Current Status, Project Updates and Contact pages (same films as BIC has)
   sukoonStatus: film('sukoon', 'Current Status', 'Progress film', 'sukoon-project-status.mp4', { poster: sukoonPoster }),
   sukoonUpdate: film('sukoon', 'Project Update', 'Project update film', 'sukoon-project-update.mp4', { poster: sukoonPoster }),
