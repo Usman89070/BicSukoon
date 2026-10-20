@@ -4710,3 +4710,44 @@ button.home-gallery__card {
 .playlist--grid > .playlist__row {
   margin-top: 0;
 }
+
+/* Home large film: click opens it with sound in the full-screen viewer */
+.home-film__open {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: var(--radius-xl);
+}
+.home-film__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 7vw, 88px);
+  height: clamp(64px, 7vw, 88px);
+  border-radius: 50%;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.42);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  transform: translate(-50%, -50%);
+  transition: transform 300ms var(--ease-out), background 300ms var(--ease-out), color 300ms var(--ease-out);
+}
+.home-film__play svg {
+  margin-left: 4px;
+}
+.home-film__open:hover .home-film__play,
+.home-film__open:focus-visible .home-film__play {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: #ffffff;
+  color: #111214;
+}
+@media (max-width: 600px) {
+  .home-film__open {
+    border-radius: 0;
+  }
+}
