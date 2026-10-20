@@ -15,8 +15,7 @@ export const timeline = {
   bic: [
     { id: 'sd-start', group: 'Sukoon Drive – Construction & Completion (Estimated 2027)', state: 'upcoming', label: 'Projected', when: '2026', title: 'Sukoon Drive – Construction commencement' },
     { id: 'sd-end', group: 'Sukoon Drive – Construction & Completion (Estimated 2027)', state: 'upcoming', label: 'Estimated', when: '2027', title: 'Sukoon Drive – Estimated completion' },
-    { id: 'bic-restart', group: 'Brisbane Islamic Centre – Construction & Completion (Estimated 2029)', state: 'upcoming', label: 'Projected', when: '2027', title: 'Brisbane Islamic Centre – Construction recommencement' },
-    { id: 'bic-end', group: 'Brisbane Islamic Centre – Construction & Completion (Estimated 2029)', state: 'upcoming', label: 'Estimated', when: '2029', title: 'Brisbane Islamic Centre – Estimated completion' },
+    { id: 'bic-construction', group: 'Brisbane Islamic Centre – Construction & Completion (Estimated 2029)', state: 'upcoming', label: 'Projected', when: 'Mid-2027', title: "Construction to resume mid-2027, with completion by the end of 2029, Insha'Allah." },
   ],
   sukoon: [
     { id: 'sv-1', state: 'completed', title: 'Milestone to be confirmed', date: null, description: 'Completed milestones will be listed here.', placeholder: true },
