@@ -141,3 +141,41 @@ export default function FilmPlaylist() {
     </div>
   )
 }
+
+/** Plays one film from a grid in the full-screen viewer. */
+function GridViewer({ film, onClose }) {
+  const src = useFilmSrc(film)
+  if (!src) return null
+  return (
+    <VideoLightbox
+      title={film.title}
+      tag={film.caption ?? 'Current status'}
+      src={film.youtube ? null : src}
+      youtubeId={film.youtube}
+      poster={film.cover ?? film.poster}
+      project={brand}
+      onClose={onClose}
+    />
+  )
+}
+
+/**
+ * Just the grid of Current Status films (same films and admin-panel list as
+ * the Current Status page), for use under another large film, e.g. on the
+ * home page. Choosing a box plays it in the full-screen viewer.
+ */
+export function FilmGrid() {
+  const row = useRowFilms()
+  const films = mainFilm ? [mainFilm, ...row.filter((f) => f.src !== mainFilm.src)] : row
+  const [watching, setWatching] = useState(null)
+  const onReady = useCallback(() => {}, [])
+  const film = films.find((f) => f.id === watching)
+  return (
+    <div className="playlist playlist--grid">
+      <ul className="playlist__row" aria-label="Current status films">
+        {films.map((f) => <PlaylistItem key={f.id} film={f} active={false} onPick={setWatching} onReady={onReady} />)}
+      </ul>
+      {film && <GridViewer film={film} onClose={() => setWatching(null)} />}
+    </div>
+  )
+}

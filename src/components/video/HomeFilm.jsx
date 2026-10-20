@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { videos } from '../../data/videos'
 import { useVideoSrc } from '../../hooks/useVideoSrc'
+import { FilmGrid } from './FilmPlaylist'
 
 /**
  * Large home-page film shown as it is: plays silently on its own (sound on
@@ -25,6 +26,11 @@ export default function HomeFilm({ id }) {
         ) : (
           data.poster && <img className="home-film__el" src={data.poster} alt={data.title} decoding="async" />
         )}
+      </div>
+      {/* the Current Status films, under the large film */}
+      <div className="container container--wide home-film__status">
+        <h2 className="home-film__status-title">Current Status</h2>
+        <FilmGrid />
       </div>
     </section>
   )

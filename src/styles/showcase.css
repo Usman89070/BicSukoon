@@ -4693,3 +4693,20 @@ button.home-gallery__card {
   transform: scale(1.08);
   background: rgba(0, 0, 0, 0.65);
 }
+
+/* Home: Current Status heading + film grid under the large film */
+.home-film__status {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+.home-film__status-title {
+  margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  line-height: 1.2;
+  text-align: center;
+  color: var(--primary-ink, var(--primary));
+}
+.playlist--grid > .playlist__row {
+  margin-top: 0;
+}
