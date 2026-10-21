@@ -24,8 +24,8 @@ export default function StatusPage() {
         <div className="container split">
           <SectionHeader
             eyebrow="Timeline"
-            title={intro?.title ?? 'Milestones'}
-            intro={intro?.text ?? 'Completed, current and upcoming stages — published as they are officially confirmed.'}
+            title={intro?.title}
+            intro={intro?.text}
             className="status-timeline__head"
           />
           <Timeline items={timeline[SITE_ID]} ascending={intro?.ascending} />

@@ -5,7 +5,7 @@ export default function SectionHeader({ eyebrow, title, intro, align = 'left', a
   return (
     <Reveal className={cx('section-header', `section-header--${align}`, className)}>
       {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-      <H className="section-title">{title}</H>
+      {title && <H className="section-title">{title}</H>}
       {intro && <p className="section-intro">{intro}</p>}
       {children}
     </Reveal>
