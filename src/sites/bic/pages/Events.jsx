@@ -1,12 +1,13 @@
 import SectionHeader from '../../../components/common/SectionHeader'
 import Reveal from '../../../components/common/Reveal'
 import EventList from '../../../components/events/EventList'
+import EventsCollage from '../../../components/events/EventsCollage'
 import VideoFeature from '../../../components/video/VideoFeature'
 import PageShell from '../../../templates/PageShell'
 
 export default function BicEvents() {
   return (
-    <PageShell title="Events" description="Community events, open days and gatherings at the Brisbane Islamic Centre." lead="Gatherings, open days and community moments.">
+    <PageShell title="Events" description="Community events, open days and gatherings at the Brisbane Islamic Centre." lead="Gatherings, open days and community moments." heroVisual={<EventsCollage label="Events imagery" />}>
       <section className="section">
         <div className="container">
           <SectionHeader eyebrow="Calendar" title="Events" />

@@ -16,7 +16,7 @@ import VideoLightbox from '../video/VideoLightbox'
  *  - Sukoon ('split'): light, airy split layout with an arched image window.
  *  - 'cinematic':      full-bleed image/video with a dark scrim (not used now).
  */
-export default function PageHero({ eyebrow, title, lead, media, breadcrumbs, children, size = 'md', className, layout, below }) {
+export default function PageHero({ eyebrow, title, lead, media, visual: customVisual, breadcrumbs, children, size = 'md', className, layout, below }) {
   const ref = useParallax(0.1)
   // media.video may be an id from data/videos.js or a direct file URL.
   const film = media?.video ? videos[media.video] : null
@@ -24,7 +24,7 @@ export default function PageHero({ eyebrow, title, lead, media, breadcrumbs, chi
   const videoSrc = useVideoSrc(film ? (film.background ? film.src : null) : media?.video && /[/.]/.test(media.video) ? media.video : null)
   const [watching, setWatching] = useState(false)
   // a background film plays silently; clicking it opens it with sound in the full-screen viewer
-  const visual = videoSrc ? (
+  const visual = customVisual ?? (videoSrc ? (
     <>
       <button type="button" className="page-hero__film" onClick={() => setWatching(true)} aria-label={`Play video with sound: ${film?.title ?? title}`}>
         <video autoPlay muted loop playsInline preload="metadata" poster={film?.poster ?? media.poster} aria-hidden="true">
@@ -37,7 +37,7 @@ export default function PageHero({ eyebrow, title, lead, media, breadcrumbs, chi
     </>
   ) : (
     <Media src={media?.image ?? film?.poster} label={media?.label} eager />
-  )
+  ))
 
   const text = (
     <>
