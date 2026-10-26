@@ -3778,14 +3778,27 @@ button.home-gallery__card {
     transform: translate(0, -50%);
   }
 }
+/* phones: a smaller stack so it covers less of the text under it */
 @media (max-width: 600px) {
+  .sticky-actions,
+  .sticky-actions__social {
+    gap: 8px;
+  }
+  .sticky-actions {
+    right: 10px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
   .sticky-actions__link {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
   }
   .sticky-actions__link svg {
-    width: 20px;
-    height: 20px;
+    width: 19px;
+    height: 19px;
+  }
+  /* footer ends clear of the stack */
+  .footer {
+    padding-bottom: calc(var(--space-5) + 150px);
   }
 }
 @media print {
@@ -3820,8 +3833,8 @@ button.home-gallery__card {
 }
 @media (max-width: 600px) {
   .donate-tab {
-    padding: 10px 16px;
-    font-size: 0.78rem;
+    padding: 9px 14px;
+    font-size: 0.74rem;
   }
 }
 @media print {
