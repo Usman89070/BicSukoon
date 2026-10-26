@@ -3687,8 +3687,16 @@ button.home-gallery__card {
 .home-welcome__title-line {
   display: block;
 }
+/* phones: the name may wrap (balanced) so it never runs past the screen edge,
+   even with a larger system text size */
 .home-welcome__title-line + .home-welcome__title-line {
-  white-space: nowrap; /* the name stays on one line */
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+@media (min-width: 640px) {
+  .home-welcome__title-line + .home-welcome__title-line {
+    white-space: nowrap; /* the name stays on one line */
+  }
 }
 @media (min-width: 900px) {
   .home-welcome__title {
