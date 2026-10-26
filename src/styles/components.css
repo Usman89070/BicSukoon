@@ -723,6 +723,9 @@
   text-decoration: none;
 }
 .facility-card__media {
+  /* height auto: .media's 100% made the picture fill the whole card and hid
+     the title and text under it */
+  height: auto;
   border-radius: 0;
 }
 .facility-card__body {
@@ -1953,6 +1956,18 @@ ol.timeline {
 .footer__grid {
   display: grid;
   gap: var(--space-7);
+}
+/* phones: link groups two to a row (brand and contact full width) so the
+   footer is about half as long */
+@media (min-width: 340px) and (max-width: 719px) {
+  .footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6) var(--space-4);
+  }
+  .footer__brand,
+  .footer__col:last-child {
+    grid-column: 1 / -1;
+  }
 }
 @media (min-width: 720px) {
   .footer__grid {
