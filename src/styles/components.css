@@ -2062,6 +2062,22 @@ ol.timeline {
 .footer__legal a {
   color: inherit;
 }
+/* wider screens: clear of the sticky Donate / social stack on the right */
+@media (min-width: 601px) {
+  .footer__credit {
+    margin-right: 76px;
+  }
+}
+.footer__credit a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.footer__credit a:hover,
+.footer__credit a:focus-visible {
+  color: var(--text-on-dark);
+}
 
 /* ---- Events page hero: photo collage ---------------------------------- */
 .events-collage {

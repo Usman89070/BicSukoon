@@ -262,6 +262,12 @@
 }
 
 /* ---- Footer ------------------------------------------------------------ */
+.portal__foot a {
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .portal__foot {
   position: absolute;
   z-index: 5;

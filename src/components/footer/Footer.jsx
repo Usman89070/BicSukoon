@@ -88,6 +88,10 @@ export default function Footer() {
               {legal.links.map((l) => <li key={l.href}><Link to={l.href}>{l.label}</Link></li>)}
             </ul>
           )}
+          <p className="footer__credit">
+            Developed by{' '}
+            <a href="https://wsdigitalmarketing.com.au/" target="_blank" rel="noopener noreferrer">W&amp;S Digital Marketing</a>
+          </p>
         </div>
       </div>
     </footer>

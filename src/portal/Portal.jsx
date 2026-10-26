@@ -82,7 +82,10 @@ export default function Portal() {
       </div>
 
       <footer className="portal__foot">
-        <p>© {new Date().getFullYear()} {sites.bic.name} · {sites.sukoon.name}</p>
+        <p>
+          © {new Date().getFullYear()} {sites.bic.name} · {sites.sukoon.name} · Developed by{' '}
+          <a href="https://wsdigitalmarketing.com.au/" target="_blank" rel="noopener noreferrer">W&amp;S Digital Marketing</a>
+        </p>
       </footer>
     </main>
   )
