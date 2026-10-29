@@ -78,6 +78,9 @@ export default function BicHome() {
       </section>
 
 
+      {/* The Adhan film, large and as it is, between the vision and the gallery */}
+      <HomeFilm id="adhan" status={false} />
+
       {/* Gallery preview */}
       <HomeGallery />
 

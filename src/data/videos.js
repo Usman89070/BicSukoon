@@ -30,6 +30,8 @@ export const videos = {
   status: film('bic', 'Project Status', 'Progress film', 'bic-project-status.mp4'),
   // BIC Current Status page (/project-status): the film under the heading
   newBeginnings: film('bic', 'NEW BEGINNINGS', 'Current status film', 'New beginings V3.mp4', { poster: bicPoster }),
+  // BIC home: the large film between the vision and the gallery
+  adhan: film('bic', 'Adhan', 'Film', 'Adhan ( c ).mp4', { poster: bicPoster }),
   update2026: film('bic', '2026 Update', 'Project update film', 'bic-update-2026.mp4'),
   funding: film('bic', 'Project Funding', 'Why your support matters', 'bic-funding.mp4'),
   guests: film('bic', 'Honoured Guests', 'Guest highlights', 'bic-honoured-guests.mp4'),
