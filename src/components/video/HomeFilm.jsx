@@ -11,7 +11,7 @@ import Icon from '../common/Icon'
  * full-screen viewer, like every other film. Until the file is on the
  * server, the film's poster picture is shown.
  */
-export default function HomeFilm({ id, status = true }) {
+export default function HomeFilm({ id, status = true, still = false }) {
   const data = videos[id] ?? {}
   const src = useVideoSrc(data.src)
   const [watching, setWatching] = useState(false)
@@ -28,7 +28,12 @@ export default function HomeFilm({ id, status = true }) {
         {src ? (
           // plays silently in place; a click opens it with sound in the full-screen viewer, like every other film
           <button type="button" className="home-film__open" onClick={() => setWatching(true)} aria-label={`Play video with sound: ${data.title}`}>
-            <video ref={start} className="home-film__el" src={src} poster={data.poster ?? undefined} autoPlay muted loop playsInline preload="auto" aria-hidden="true" />
+            {still ? (
+              // `still`: only the film's opening frame; it plays only in the full-screen viewer
+              <video className="home-film__el" src={`${src}#t=0.5`} preload="metadata" muted playsInline tabIndex={-1} aria-hidden="true" />
+            ) : (
+              <video ref={start} className="home-film__el" src={src} poster={data.poster ?? undefined} autoPlay muted loop playsInline preload="auto" aria-hidden="true" />
+            )}
             <span className="home-film__play" aria-hidden="true"><Icon name="play" size={30} /></span>
           </button>
         ) : (

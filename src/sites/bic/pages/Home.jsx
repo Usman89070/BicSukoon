@@ -78,8 +78,8 @@ export default function BicHome() {
       </section>
 
 
-      {/* The Adhan film, large and as it is, between the vision and the gallery */}
-      <HomeFilm id="adhan" status={false} />
+      {/* The Adhan film, large, between the vision and the gallery: plays only from its play button, in the full-screen viewer */}
+      <HomeFilm id="adhan" status={false} still />
 
       {/* Gallery preview */}
       <HomeGallery />
