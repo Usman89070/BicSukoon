@@ -18,6 +18,7 @@ const Guests = lazy(() => import('./pages/Guests'))
 const Donate = lazy(() => import('./pages/Donate'))
 const Qmchc = lazy(() => import('./pages/Qmchc'))
 const Vision = lazy(() => import('./pages/Vision'))
+const Privacy = lazy(() => import('./pages/Privacy'))
 
 // The Childcare Centre is on the Sukoon Village website only; old BIC links go there.
 function ToSukoonChildcare() {
@@ -52,6 +53,7 @@ export default function BicApp() {
         {/* each site shows only its own gallery; older links land on it */}
         <Route path="gallery/:project" element={<Navigate to="/gallery" replace />} />
         <Route path="contact" element={<ContactPage />} />
+        <Route path="privacy-policy" element={<Privacy />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

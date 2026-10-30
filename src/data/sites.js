@@ -90,7 +90,7 @@ export const sites = {
       ...s,
       href: { facebook: 'https://www.facebook.com/groups/1038475222246006/', whatsapp: 'https://chat.whatsapp.com/BdkZWdhfariHbXxJIOwGY8' }[s.id] ?? s.href,
     })),
-    legal: { name: null, registrationNumber: null, copyrightHolder: null, links: [] },
+    legal: { name: null, registrationNumber: null, copyrightHolder: null, links: [{ label: 'Privacy Policy', href: '/privacy-policy' }] },
 
     sister: { id: 'sukoon', name: 'Sukoon Village', url: import.meta.env.VITE_SISTER_URL || null },
   },

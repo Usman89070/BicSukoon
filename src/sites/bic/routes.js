@@ -16,4 +16,5 @@ export const routes = [
   '/donate',
   '/gallery',
   '/contact',
+  '/privacy-policy',
 ]
