@@ -9,9 +9,9 @@ import Icon from '../common/Icon'
 /**
  * A film in the same dark viewer the gallery uses: plays with sound and
  * controls, closes with ✕, Escape or a click outside. Rendered at the end
- * of <body> so no parent layout can clip it. Where donations are open (BIC)
- * a Donate button sits in the caption, before the site tag, and another over
- * the film's bottom-left corner (on Sukoon Village: Expressions of Interest):
+ * of <body> so no parent layout can clip it. A Donate button (on Sukoon
+ * Village: Expressions of Interest) sits in the caption, before the site tag,
+ * and another over the film's bottom-left corner:
  * soft and blurred while the film plays, clear when it is paused or hovered.
  */
 function OverlayCta() {
@@ -46,6 +46,30 @@ function OverlayCta() {
   )
 }
 
+function CaptionCta() {
+  if (site.features.donate) {
+    return (
+      <a {...checkoutLink} className="donate-tab lightbox__donate" aria-label="Donate securely with Square (opens in a new tab)">
+        <Icon name="heart" size={14} />
+        <span>Donate</span>
+      </a>
+    )
+  }
+  const interest = site.interest
+  if (!interest) return null
+  const body = (
+    <>
+      <Icon name="mail" size={14} />
+      <span>{interest.label}</span>
+    </>
+  )
+  return interest.href ? (
+    <a href={interest.href} target="_blank" rel="noopener noreferrer" className="donate-tab lightbox__donate" aria-label={`${interest.label} (opens in a new tab)`}>{body}</a>
+  ) : (
+    <span className="donate-tab lightbox__donate">{body}</span>
+  )
+}
+
 export default function VideoLightbox({ title, tag, src, sources, youtubeId, poster, project = SITE_ID, onClose }) {
   useLockBody(true)
   useEscape(true, onClose)
@@ -71,12 +95,7 @@ export default function VideoLightbox({ title, tag, src, sources, youtubeId, pos
           <OverlayCta />
         </div>
         <figcaption className="lightbox__caption">
-          {site.features.donate && (
-            <a {...checkoutLink} className="donate-tab lightbox__donate" aria-label="Donate securely with Square (opens in a new tab)">
-              <Icon name="heart" size={14} />
-              <span>Donate</span>
-            </a>
-          )}
+          <CaptionCta />
           {tag && <span className={`lightbox__tag lightbox__tag--${brand}`}>{tag}</span>}
           {title}
         </figcaption>
