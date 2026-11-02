@@ -3231,6 +3231,42 @@
   border-radius: 12px;
   background: #000000;
 }
+.lightbox__stage {
+  position: relative;
+  width: min(100%, 1280px);
+  margin: 0 auto;
+}
+.lightbox__stage .lightbox__video {
+  width: 100%;
+}
+/* Donate over the film's bottom-left corner, clear of the player controls:
+   soft while the film plays, clear when paused or under the pointer */
+.lightbox__stage .lightbox__donate-over {
+  position: absolute;
+  left: 16px;
+  bottom: 72px;
+  z-index: 1;
+  padding: 8px 16px;
+  font-size: 0.75rem;
+  transition: opacity 300ms var(--ease-out), filter 300ms var(--ease-out), transform 300ms var(--ease-out);
+}
+.lightbox__stage.is-playing .lightbox__donate-over {
+  opacity: 0.6;
+  filter: blur(2px);
+}
+.lightbox__stage.is-playing .lightbox__donate-over:hover,
+.lightbox__stage.is-playing .lightbox__donate-over:focus-visible {
+  opacity: 1;
+  filter: none;
+}
+@media (max-width: 600px) {
+  .lightbox__stage .lightbox__donate-over {
+    left: 10px;
+    bottom: 56px;
+    padding: 6px 12px;
+    font-size: 0.7rem;
+  }
+}
 .lightbox__video--yt {
   aspect-ratio: 16 / 9;
   height: auto;

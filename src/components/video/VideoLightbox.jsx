@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { SITE_ID, site } from '../../site'
 import { checkoutLink } from '../../data/donation'
@@ -9,28 +10,39 @@ import Icon from '../common/Icon'
  * A film in the same dark viewer the gallery uses: plays with sound and
  * controls, closes with ✕, Escape or a click outside. Rendered at the end
  * of <body> so no parent layout can clip it. Where donations are open (BIC)
- * a Donate button sits in the caption, before the site tag.
+ * a Donate button sits in the caption, before the site tag, and another over
+ * the film's bottom-left corner: soft and blurred while the film plays, clear
+ * when it is paused or hovered.
  */
 export default function VideoLightbox({ title, tag, src, sources, youtubeId, poster, project = SITE_ID, onClose }) {
   useLockBody(true)
   useEscape(true, onClose)
   const brand = project === 'sukoon' ? 'sukoon' : 'bic'
+  const [playing, setPlaying] = useState(false)
   return createPortal(
     <div className="lightbox" role="dialog" aria-modal="true" aria-label={title} onClick={(e) => e.target === e.currentTarget && onClose()}>
       <figure className="lightbox__figure">
-        {youtubeId ? (
-          <iframe
-            className="lightbox__video lightbox__video--yt"
-            src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0`}
-            title={title}
-            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-            allowFullScreen
-          />
-        ) : (
-          <video className="lightbox__video" poster={poster ?? undefined} controls autoPlay playsInline>
-            {sources?.length ? sources.map((s) => <source key={s.src} src={s.src} type={s.type} />) : <source src={src} />}
-          </video>
-        )}
+        <div className={`lightbox__stage${playing ? ' is-playing' : ''}`}>
+          {youtubeId ? (
+            <iframe
+              className="lightbox__video lightbox__video--yt"
+              src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0`}
+              title={title}
+              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+              allowFullScreen
+            />
+          ) : (
+            <video className="lightbox__video" poster={poster ?? undefined} controls autoPlay playsInline onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}>
+              {sources?.length ? sources.map((s) => <source key={s.src} src={s.src} type={s.type} />) : <source src={src} />}
+            </video>
+          )}
+          {site.features.donate && (
+            <a {...checkoutLink} className="donate-tab lightbox__donate-over" aria-label="Donate securely with Square (opens in a new tab)">
+              <Icon name="heart" size={14} />
+              <span>Donate</span>
+            </a>
+          )}
+        </div>
         <figcaption className="lightbox__caption">
           {site.features.donate && (
             <a {...checkoutLink} className="donate-tab lightbox__donate" aria-label="Donate securely with Square (opens in a new tab)">
