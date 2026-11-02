@@ -3315,8 +3315,8 @@
   outline-offset: 2px;
 }
 .lightbox__stage.is-playing .lightbox__donate-over {
-  opacity: 0.6;
-  filter: blur(1.5px);
+  opacity: 0.8;
+  filter: blur(0.6px);
 }
 .lightbox__stage.is-playing .lightbox__donate-over:hover,
 .lightbox__stage.is-playing .lightbox__donate-over:focus-visible {
