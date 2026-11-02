@@ -11,9 +11,41 @@ import Icon from '../common/Icon'
  * controls, closes with ✕, Escape or a click outside. Rendered at the end
  * of <body> so no parent layout can clip it. Where donations are open (BIC)
  * a Donate button sits in the caption, before the site tag, and another over
- * the film's bottom-left corner: soft and blurred while the film plays, clear
- * when it is paused or hovered.
+ * the film's bottom-left corner (on Sukoon Village: Expressions of Interest):
+ * soft and blurred while the film plays, clear when it is paused or hovered.
  */
+function OverlayCta() {
+  const heart = (icon) => <span className="lightbox__donate-heart"><Icon name={icon} size={14} /></span>
+  if (site.features.donate) {
+    return (
+      <a {...checkoutLink} className="lightbox__donate-over" aria-label="Donate securely with Square (opens in a new tab)">
+        {heart('heart')}
+        <span className="lightbox__donate-text">
+          <strong>Donate</strong>
+          <small>Support the build</small>
+        </span>
+      </a>
+    )
+  }
+  const interest = site.interest
+  if (!interest) return null
+  const body = (
+    <>
+      {heart('mail')}
+      <span className="lightbox__donate-text">
+        <strong>{interest.label}</strong>
+        <small>Register your interest</small>
+      </span>
+    </>
+  )
+  // shown without a link until one is set (sites.js → interest.href)
+  return interest.href ? (
+    <a href={interest.href} target="_blank" rel="noopener noreferrer" className="lightbox__donate-over" aria-label={`${interest.label} (opens in a new tab)`}>{body}</a>
+  ) : (
+    <span className="lightbox__donate-over">{body}</span>
+  )
+}
+
 export default function VideoLightbox({ title, tag, src, sources, youtubeId, poster, project = SITE_ID, onClose }) {
   useLockBody(true)
   useEscape(true, onClose)
@@ -36,15 +68,7 @@ export default function VideoLightbox({ title, tag, src, sources, youtubeId, pos
               {sources?.length ? sources.map((s) => <source key={s.src} src={s.src} type={s.type} />) : <source src={src} />}
             </video>
           )}
-          {site.features.donate && (
-            <a {...checkoutLink} className="lightbox__donate-over" aria-label="Donate securely with Square (opens in a new tab)">
-              <span className="lightbox__donate-heart"><Icon name="heart" size={14} /></span>
-              <span className="lightbox__donate-text">
-                <strong>Donate</strong>
-                <small>Support the build</small>
-              </span>
-            </a>
-          )}
+          <OverlayCta />
         </div>
         <figcaption className="lightbox__caption">
           {site.features.donate && (
