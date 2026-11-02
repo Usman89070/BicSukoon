@@ -3240,19 +3240,83 @@
   width: 100%;
 }
 /* Donate over the film's bottom-left corner, clear of the player controls:
-   soft while the film plays, clear when paused or under the pointer */
+   a frosted pill with a gold heart; soft while the film plays, clear when
+   paused or under the pointer */
 .lightbox__stage .lightbox__donate-over {
   position: absolute;
   left: 16px;
   bottom: 72px;
   z-index: 1;
-  padding: 8px 16px;
-  font-size: 0.75rem;
-  transition: opacity 300ms var(--ease-out), filter 300ms var(--ease-out), transform 300ms var(--ease-out);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 18px 6px 6px;
+  border: 1px solid rgba(203, 155, 97, 0.65);
+  border-radius: var(--radius-pill, 999px);
+  color: #ffffff;
+  text-decoration: none;
+  background: rgba(17, 12, 58, 0.55);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.7);
+  transition: opacity 300ms var(--ease-out), filter 300ms var(--ease-out), transform 300ms var(--ease-out), background 300ms var(--ease-out);
+}
+.lightbox__donate-heart {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--bic-primary-dark, #110c3a);
+  background: linear-gradient(135deg, #e3bd86, var(--bic-secondary, #cb9b61));
+}
+.lightbox__donate-heart::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--bic-secondary, #cb9b61);
+  animation: donate-ping 2.4s var(--ease-out) infinite;
+}
+@keyframes donate-ping {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  70%,
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+.lightbox__donate-text {
+  display: grid;
+  line-height: 1.15;
+  text-align: left;
+}
+.lightbox__donate-text strong {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.lightbox__donate-text small {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+.lightbox__stage .lightbox__donate-over:hover,
+.lightbox__stage .lightbox__donate-over:focus-visible {
+  transform: translateY(-2px);
+  background: rgba(17, 12, 58, 0.8);
+}
+.lightbox__stage .lightbox__donate-over:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 .lightbox__stage.is-playing .lightbox__donate-over {
   opacity: 0.6;
-  filter: blur(2px);
+  filter: blur(1.5px);
 }
 .lightbox__stage.is-playing .lightbox__donate-over:hover,
 .lightbox__stage.is-playing .lightbox__donate-over:focus-visible {
@@ -3263,8 +3327,20 @@
   .lightbox__stage .lightbox__donate-over {
     left: 10px;
     bottom: 56px;
-    padding: 6px 12px;
-    font-size: 0.7rem;
+    gap: 8px;
+    padding: 4px 12px 4px 4px;
+  }
+  .lightbox__donate-heart {
+    width: 26px;
+    height: 26px;
+  }
+  .lightbox__donate-text small {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lightbox__donate-heart::after {
+    animation: none;
   }
 }
 .lightbox__video--yt {

@@ -37,9 +37,12 @@ export default function VideoLightbox({ title, tag, src, sources, youtubeId, pos
             </video>
           )}
           {site.features.donate && (
-            <a {...checkoutLink} className="donate-tab lightbox__donate-over" aria-label="Donate securely with Square (opens in a new tab)">
-              <Icon name="heart" size={14} />
-              <span>Donate</span>
+            <a {...checkoutLink} className="lightbox__donate-over" aria-label="Donate securely with Square (opens in a new tab)">
+              <span className="lightbox__donate-heart"><Icon name="heart" size={14} /></span>
+              <span className="lightbox__donate-text">
+                <strong>Donate</strong>
+                <small>Support the build</small>
+              </span>
             </a>
           )}
         </div>
