@@ -48,6 +48,7 @@ export const videos = {
   pinQmchc: film('bic', 'Queensland Muslim Cultural and Heritage Centre', 'Site film', 'QMCHC.mp4', { poster: bicPoster }),
   pinMasjid: film('bic', 'Masjid', 'Site film', 'masjidBIC.mp4', { poster: bicPoster }),
   pinCafe: film('bic', 'Café, outdoor dining area and gyms', 'Site film', 'cafe short ( c).mp4', { poster: bicPoster }),
+  pinArea5: film('bic', 'Car park walkway', 'Site film', 'area-5.mp4', { poster: bicPoster }),
   sukoon: film('sukoon', 'Sukoon Village', 'Village film', 'sukooonFull.mp4', { poster: sukoonPoster }),
   // Site-picture pins (Sukoon home and Vision)
   pinChildcare: film('sukoon', 'Childcare Centre', 'Site film', 'pin-childcare.mp4', { poster: sukoonPoster }),

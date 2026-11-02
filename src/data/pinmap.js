@@ -22,8 +22,8 @@ export const pinmaps = {
       { id: 'qmchc', n: 2, title: 'Queensland Muslim Cultural and Heritage Centre (QMCHC)', short: 'QMCHC', narrow: 'below', x: 45.5, y: 28, video: 'pinQmchc', path: '/cultural-heritage-centre' },
       { id: 'masjid', n: 3, title: 'Masjid', x: 70.5, y: 26, video: 'pinMasjid', path: '/masjid-complex' },
       { id: 'cafe', n: 4, title: 'Café, outdoor dining area and gyms', short: 'Café & gyms', x: 53.5, y: 20.5, video: 'pinCafe', image: 'pin-cafe', path: '/cafe' },
-      // the walkway between the upper car park and the forecourt (no film or page yet)
-      { id: 'area-5', n: 5, title: 'Car park walkway', x: 33.5, y: 40.5 },
+      // the walkway between the upper car park and the forecourt (no page yet)
+      { id: 'area-5', n: 5, title: 'Car park walkway', x: 33.5, y: 40.5, video: 'pinArea5' },
     ],
   },
   sukoon: {
