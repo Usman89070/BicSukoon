@@ -22,7 +22,6 @@ function OverlayCta() {
         {heart('heart')}
         <span className="lightbox__donate-text">
           <strong>Donate</strong>
-          <small>Support the build</small>
         </span>
       </a>
     )
