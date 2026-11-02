@@ -3240,7 +3240,7 @@
   width: 100%;
 }
 /* Donate over the film's bottom-left corner, clear of the player controls:
-   a frosted pill with a gold heart; soft while the film plays, clear when
+   a pill in the BIC navy and lavender; soft while the film plays, clear when
    paused or under the pointer */
 .lightbox__stage .lightbox__donate-over {
   position: absolute;
@@ -3251,11 +3251,11 @@
   align-items: center;
   gap: 10px;
   padding: 6px 18px 6px 6px;
-  border: 1px solid rgba(203, 155, 97, 0.65);
+  border: 1px solid rgba(180, 174, 235, 0.55);
   border-radius: var(--radius-pill, 999px);
   color: #ffffff;
   text-decoration: none;
-  background: rgba(17, 12, 58, 0.55);
+  background: linear-gradient(135deg, rgba(59, 50, 144, 0.88), rgba(28, 21, 92, 0.88));
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.7);
@@ -3269,14 +3269,14 @@
   height: 32px;
   border-radius: 50%;
   color: var(--bic-primary-dark, #110c3a);
-  background: linear-gradient(135deg, #e3bd86, var(--bic-secondary, #cb9b61));
+  background: linear-gradient(135deg, var(--bic-accent, #b4aeeb), #9b94e3);
 }
 .lightbox__donate-heart::after {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 2px solid var(--bic-secondary, #cb9b61);
+  border: 2px solid var(--bic-accent, #b4aeeb);
   animation: donate-ping 2.4s var(--ease-out) infinite;
 }
 @keyframes donate-ping {
@@ -3308,7 +3308,7 @@
 .lightbox__stage .lightbox__donate-over:hover,
 .lightbox__stage .lightbox__donate-over:focus-visible {
   transform: translateY(-2px);
-  background: rgba(17, 12, 58, 0.8);
+  background: linear-gradient(135deg, var(--bic-primary-light, #3b3290), var(--bic-primary, #1c155c));
 }
 .lightbox__stage .lightbox__donate-over:focus-visible {
   outline: 2px solid #ffffff;
