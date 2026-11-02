@@ -3343,6 +3343,31 @@
     animation: none;
   }
 }
+/* Sukoon Village: the viewer's buttons and tag in the Sukoon gold (from the logo,
+   #cb9b61; written out because the site's --sv-* tokens follow the BIC scheme) */
+:root[data-site='sukoon'] .lightbox__stage .lightbox__donate-over {
+  border-color: rgba(230, 201, 159, 0.7);
+  background: linear-gradient(135deg, rgba(154, 112, 56, 0.9), rgba(125, 88, 40, 0.9));
+}
+:root[data-site='sukoon'] .lightbox__stage .lightbox__donate-over:hover,
+:root[data-site='sukoon'] .lightbox__stage .lightbox__donate-over:focus-visible {
+  background: linear-gradient(135deg, #9a7038, #7d5828);
+}
+:root[data-site='sukoon'] .lightbox__donate-heart {
+  color: #15122e;
+  background: linear-gradient(135deg, #e6c99f, #cb9b61);
+}
+:root[data-site='sukoon'] .lightbox__donate-heart::after {
+  border-color: #e6c99f;
+}
+:root[data-site='sukoon'] .lightbox__caption .lightbox__donate {
+  color: #15122e;
+  background: linear-gradient(135deg, #ddb887, #cb9b61);
+}
+:root[data-site='sukoon'] .lightbox__tag--sukoon {
+  background: #e6c99f;
+  color: #15122e;
+}
 .lightbox__video--yt {
   aspect-ratio: 16 / 9;
   height: auto;
