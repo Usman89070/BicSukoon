@@ -1,5 +1,6 @@
 import { createPortal } from 'react-dom'
-import { SITE_ID } from '../../site'
+import { SITE_ID, site } from '../../site'
+import { checkoutLink } from '../../data/donation'
 import { useEscape } from '../../hooks/useEscape'
 import { useLockBody } from '../../hooks/useLockBody'
 import Icon from '../common/Icon'
@@ -7,7 +8,8 @@ import Icon from '../common/Icon'
 /**
  * A film in the same dark viewer the gallery uses: plays with sound and
  * controls, closes with ✕, Escape or a click outside. Rendered at the end
- * of <body> so no parent layout can clip it.
+ * of <body> so no parent layout can clip it. Where donations are open (BIC)
+ * a Donate button sits in the caption, before the site tag.
  */
 export default function VideoLightbox({ title, tag, src, sources, youtubeId, poster, project = SITE_ID, onClose }) {
   useLockBody(true)
@@ -30,6 +32,12 @@ export default function VideoLightbox({ title, tag, src, sources, youtubeId, pos
           </video>
         )}
         <figcaption className="lightbox__caption">
+          {site.features.donate && (
+            <a {...checkoutLink} className="donate-tab lightbox__donate" aria-label="Donate securely with Square (opens in a new tab)">
+              <Icon name="heart" size={14} />
+              <span>Donate</span>
+            </a>
+          )}
           {tag && <span className={`lightbox__tag lightbox__tag--${brand}`}>{tag}</span>}
           {title}
         </figcaption>

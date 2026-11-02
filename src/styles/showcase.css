@@ -2781,6 +2781,10 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
+.lightbox__caption .lightbox__donate {
+  padding: 8px 16px;
+  font-size: 0.75rem;
+}
 .lightbox__tag--bic {
   background: #9b94e3;
   color: #110e2e;
