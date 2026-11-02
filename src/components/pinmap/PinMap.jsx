@@ -145,7 +145,7 @@ export default function PinMap() {
             <div className="pinmap__card-body">
               <span className="pinmap__card-num">{active.n}</span>
               <h3 className="pinmap__card-title">{active.title}</h3>
-              <Link to={active.path} className="pinmap__card-link">Learn more <Icon name="arrow" size={14} /></Link>
+              {active.path && <Link to={active.path} className="pinmap__card-link">Learn more <Icon name="arrow" size={14} /></Link>}
             </div>
             <button type="button" className="pinmap__close" aria-label="Close" onClick={() => setOpen(null)}>
               <Icon name="close" size={16} />
