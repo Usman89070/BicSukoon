@@ -123,7 +123,6 @@ export default function SukoonHome() {
             <p className="sv-more__lead">{c.values.lead}</p>
             <p className="sv-more__body">{c.ahead.closing}</p>
             <div className="sv-more__ctas">
-              <Button to="/contact" variant="light" icon="mail">Register your interest</Button>
               <Button to="/seniors-living" variant="glass">Seniors Living</Button>
             </div>
           </Reveal>

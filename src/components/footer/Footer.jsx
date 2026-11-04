@@ -24,18 +24,21 @@ export default function Footer() {
     <footer className={`footer footer--${tone}`}>
       <Pattern className="footer__pattern" opacity={0.05} scale={90} />
       <div className="container">
-        <div className="footer__cta">
-          <div>
-            <p className="eyebrow">{site.features.donate ? 'Support the Vision' : 'Get in touch'}</p>
-            <p className="footer__cta-title">
-              {site.features.donate ? 'Help build the future of our community.' : 'We would love to hear from you.'}
-            </p>
+        {/* the call-to-action panel, only when the site has a main button (site.cta) */}
+        {site.cta && (
+          <div className="footer__cta">
+            <div>
+              <p className="eyebrow">{site.features.donate ? 'Support the Vision' : 'Get in touch'}</p>
+              <p className="footer__cta-title">
+                {site.features.donate ? 'Help build the future of our community.' : 'We would love to hear from you.'}
+              </p>
+            </div>
+            <div className="footer__cta-actions">
+              <Button to={site.cta.to} href={site.cta.href} target={site.cta.target} rel={site.cta.rel} variant="primary" icon={site.cta.icon}>{site.features.donate ? 'Donate Now' : 'Enquire Now'}</Button>
+              <Button to="/project-updates" variant="glass">Project Updates</Button>
+            </div>
           </div>
-          <div className="footer__cta-actions">
-            <Button to={site.cta.to} href={site.cta.href} target={site.cta.target} rel={site.cta.rel} variant="primary" icon={site.cta.icon}>{site.features.donate ? 'Donate Now' : 'Enquire Now'}</Button>
-            <Button to="/project-updates" variant="glass">Project Updates</Button>
-          </div>
-        </div>
+        )}
 
         <div className="footer__grid" style={{ '--footer-cols': groups.length + 1 }}>
           <div className="footer__brand">

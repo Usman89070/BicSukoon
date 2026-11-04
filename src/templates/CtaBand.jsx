@@ -16,7 +16,8 @@ const defaults = {
     eyebrow: 'Find out more',
     title: 'A place to belong, at every stage of life.',
     text: 'Register your interest or ask us anything about Sukoon Village — we would love to hear from you.',
-    primary: { label: 'Enquire Now', to: '/contact', icon: 'mail' },
+    // the Contact page is off on Sukoon for now
+    primary: null,
     secondary: { label: 'Project Updates', to: '/project-updates' },
   },
 }
@@ -33,7 +34,7 @@ export default function CtaBand(props) {
             <h2 className="cta-band__title">{title}</h2>
             <p className="cta-band__text">{text}</p>
             <div className="cta-band__actions">
-              <Button to={primary.to} href={primary.href} target={primary.target} rel={primary.rel} variant="primary" icon={primary.icon}>{primary.label}</Button>
+              {primary && <Button to={primary.to} href={primary.href} target={primary.target} rel={primary.rel} variant="primary" icon={primary.icon}>{primary.label}</Button>}
               {secondary && <Button to={secondary.to} variant="glass">{secondary.label}</Button>}
             </div>
           </div>

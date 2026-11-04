@@ -163,7 +163,7 @@ export default function Navbar() {
         </nav>
 
         <div className="nav__actions">
-          <Button to={site.cta.to} href={site.cta.href} target={site.cta.target} rel={site.cta.rel} variant="primary" size="sm" className="nav__cta">{site.cta.label}</Button>
+          {site.cta && <Button to={site.cta.to} href={site.cta.href} target={site.cta.target} rel={site.cta.rel} variant="primary" size="sm" className="nav__cta">{site.cta.label}</Button>}
           <button
             type="button"
             className="nav__toggle"
@@ -209,7 +209,7 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <Button to={site.cta.to} href={site.cta.href} target={site.cta.target} rel={site.cta.rel} variant="primary" className="mobile-menu__cta" icon={site.cta.icon}>{site.cta.label}</Button>
+          {site.cta && <Button to={site.cta.to} href={site.cta.href} target={site.cta.target} rel={site.cta.rel} variant="primary" className="mobile-menu__cta" icon={site.cta.icon}>{site.cta.label}</Button>}
         </nav>
       </div>
     </header>

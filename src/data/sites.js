@@ -121,7 +121,9 @@ export const sites = {
     ],
     // No donation page on Sukoon unless the organisation confirms one.
     // To enable: set features.donate = true and change cta to the donate route.
-    cta: { label: 'Enquire', to: '/contact', icon: 'mail' },
+    // cta: null = no menu button (the Contact page is off on Sukoon for now;
+    // to bring it back: { label: 'Enquire', to: '/contact', icon: 'mail' }).
+    cta: null,
     features: { donate: false, funding: false, events: false, guests: false },
     // Sticky "Expressions of Interest" button (bottom-right, every page).
     // href: null shows the button without a link until the form link is given.

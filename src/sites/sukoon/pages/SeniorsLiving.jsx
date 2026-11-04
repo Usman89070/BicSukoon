@@ -29,7 +29,6 @@ export default function SeniorsLiving() {
       heroActions={
         <>
           <Button href="#living" variant="primary" icon="arrow">Discover the village</Button>
-          <Button to="/contact" variant="glass" icon="mail">Enquire</Button>
         </>
       }
     >
@@ -133,7 +132,6 @@ export default function SeniorsLiving() {
             <h2 id="ahead-title" className="home-journey__lines"><span>{c.ahead.lead}</span></h2>
             <p className="home-journey__body">{c.ahead.closing}</p>
             <div className="home-journey__ctas">
-              <Button to="/contact" variant="light" icon="mail">Register your interest</Button>
               <Button to="/project-updates" variant="glass">Project updates</Button>
             </div>
           </Reveal>

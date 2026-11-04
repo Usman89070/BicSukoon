@@ -7,7 +7,6 @@ const FacilityPage = lazy(() => import('../../templates/FacilityPage'))
 const VisionPage = lazy(() => import('../../templates/VisionPage'))
 const StatusPage = lazy(() => import('../../templates/StatusPage'))
 const UpdatesPage = lazy(() => import('../../templates/UpdatesPage'))
-const ContactPage = lazy(() => import('../../templates/ContactPage'))
 const SeniorsLiving = lazy(() => import('./pages/SeniorsLiving'))
 const ChildcarePage = lazy(() => import('../../templates/ChildcarePage'))
 const NotFound = lazy(() => import('../../templates/NotFound'))
@@ -28,7 +27,8 @@ export default function SukoonApp() {
         <Route path="gallery" element={<GalleryPage project="sukoon" />} />
         {/* each site shows only its own gallery; older links land on it */}
         <Route path="gallery/:project" element={<Navigate to="/gallery" replace />} />
-        <Route path="contact" element={<ContactPage />} />
+        {/* the Contact page is off on Sukoon for now; old links go to the home page */}
+        <Route path="contact" element={<Navigate to="/" replace />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

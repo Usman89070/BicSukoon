@@ -33,7 +33,6 @@ export default function ChildcarePage() {
       heroActions={
         <>
           <Button href="#learning" variant="primary" icon="arrow">Discover the centre</Button>
-          <Button to="/contact" variant="glass" icon="mail">Enquire</Button>
         </>
       }
     >
