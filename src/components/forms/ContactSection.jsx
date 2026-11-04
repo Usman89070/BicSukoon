@@ -26,10 +26,13 @@ export default function ContactSection() {
           {c.mapEmbedUrl && <iframe className="contact-card__map" src={c.mapEmbedUrl} title={`Map — ${site.name}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />}
         </div>
         {SITE_ID === 'bic' && <BankDetails className="contact-card" />}
-        <div className="contact-card glass-panel">
-          <h3 className="contact-card__title">Follow the journey</h3>
-          <SocialLinks />
-        </div>
+        {/* only when the site has official social accounts */}
+        {site.socials.some((s) => s.href) && (
+          <div className="contact-card glass-panel">
+            <h3 className="contact-card__title">Follow the journey</h3>
+            <SocialLinks />
+          </div>
+        )}
       </Reveal>
       <Reveal delay={120}>
         <ContactForm />
