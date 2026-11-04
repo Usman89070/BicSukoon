@@ -21,7 +21,7 @@ export default function BicAbout() {
       media={{ image: heroImage, label: 'Brisbane Islamic Centre render' }}
       heroActions={
         <>
-          <Button href="#history" variant="glass">Projected Timeline</Button>
+          <Button href="#history" variant="glass">Our History to Projected Timeline</Button>
         </>
       }
     >
