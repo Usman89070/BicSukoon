@@ -117,13 +117,6 @@ export const sites = {
           { label: 'Childcare Centre', to: '/childcare-centre', text: 'Nurturing the next generation' },
         ],
       },
-      {
-        label: 'Progress',
-        children: [
-          { label: 'Current Status', to: '/project-status', text: 'Milestones and current stage' },
-          { label: 'Project Updates', to: '/project-updates', text: 'News from the village' },
-        ],
-      },
       { label: 'Gallery', to: '/gallery' }, // each site shows only its own gallery
       { label: 'Contact', to: '/contact' },
     ],
