@@ -1112,6 +1112,10 @@
   line-height: 1.75;
   color: var(--text-secondary);
 }
+/* Childcare 'One connected community': the text on its own, at a comfortable line length */
+.cc-community {
+  max-width: 760px;
+}
 .cc-split__text .cc-lead {
   font-family: var(--font-display);
   font-size: clamp(1.3rem, 1.05rem + 0.9vw, 1.8rem);

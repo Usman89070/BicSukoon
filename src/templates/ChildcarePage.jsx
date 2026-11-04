@@ -64,17 +64,11 @@ export default function ChildcarePage() {
 
       {/* Community-focused environment */}
       <section className="section section--dark" aria-labelledby="community-title">
-        <div className="container cc-split cc-split--flip">
-          <div className="cc-split__text">
+        <div className="container">
+          <div className="cc-split__text cc-community">
             <SectionHeader eyebrow="One connected community" title={<span id="community-title">{c.community.title}</span>} />
             <Reveal delay={80}>{c.community.body.map((p) => <p key={p}>{p}</p>)}</Reveal>
           </div>
-          <Reveal variant="scale" className="cc-connect" aria-hidden="true">
-            <span className="cc-connect__node cc-connect__node--bic">Brisbane Islamic Centre</span>
-            <span className="cc-connect__node cc-connect__node--main">Childcare Centre</span>
-            <span className="cc-connect__node cc-connect__node--sv">Sukoon Village</span>
-            <span className="cc-connect__people">Families · Children · Grandparents</span>
-          </Reveal>
         </div>
       </section>
 
