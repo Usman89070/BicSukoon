@@ -2,7 +2,6 @@ import { facilities, facilitiesFor } from '../data/facilities'
 import { videos } from '../data/videos'
 import SectionHeader from '../components/common/SectionHeader'
 import Reveal from '../components/common/Reveal'
-import Media from '../components/common/Media'
 import { Value } from '../components/common/Pending'
 import VideoFeature from '../components/video/VideoFeature'
 import FacilityCard from '../components/cards/FacilityCard'
@@ -36,19 +35,14 @@ export default function FacilityPage({ id }) {
         </div>
       </section>
 
-      <section className="section section--tight">
-        <div className="container">
-          {videoId ? (
+      {/* the facility's film; no "render coming soon" placeholders without one */}
+      {videoId && (
+        <section className="section section--tight">
+          <div className="container">
             <Reveal variant="scale"><VideoFeature id={videoId} /></Reveal>
-          ) : (
-            <div className="gallery">
-              <Reveal variant="image" className="gallery__main"><Media label={`${f.title} — architectural render`} ratio="16 / 9" /></Reveal>
-              <Reveal variant="image" delay={100}><Media label="Interior render" ratio="4 / 3" /></Reveal>
-              <Reveal variant="image" delay={160}><Media label="Landscape render" ratio="4 / 3" /></Reveal>
-            </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
       {related.length > 0 && (
         <section className="section section--muted">

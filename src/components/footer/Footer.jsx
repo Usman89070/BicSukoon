@@ -6,7 +6,6 @@ import Button from '../common/Button'
 import Icon from '../common/Icon'
 import SocialLinks from '../common/SocialLinks'
 import Pattern from '../common/Pattern'
-import { Value } from '../common/Pending'
 import { useNav } from '../../hooks/useNav'
 
 /** Footer for the current website. The sister project appears only as a single outbound link. */
@@ -61,12 +60,17 @@ export default function Footer() {
           <div className="footer__col">
             <p className="footer__heading">Explore</p>
             <ul>{singles.map((l) => <li key={l.to}><Link to={l.to}>{l.label}</Link></li>)}</ul>
-            <p className="footer__heading footer__heading--spaced">Contact</p>
-            <address className="footer__contact">
-              <span><Value value={contact.shortAddress ?? contact.address} fallback="Address to be confirmed" /></span>
-              <span>{contact.email ? <a href={`mailto:${contact.email}`}>{contact.email}</a> : <Value value={null} fallback="Email to be confirmed" />}</span>
-              {contact.phone && <a className="footer__phone" href={formatPhoneHref(contact.phone)}>{contact.phone}</a>}
-            </address>
+            {/* only the official details that are set; no "to be confirmed" notes */}
+            {(contact.shortAddress || contact.address || contact.email || contact.phone) && (
+              <>
+                <p className="footer__heading footer__heading--spaced">Contact</p>
+                <address className="footer__contact">
+                  {(contact.shortAddress || contact.address) && <span>{contact.shortAddress ?? contact.address}</span>}
+                  {contact.email && <span><a href={`mailto:${contact.email}`}>{contact.email}</a></span>}
+                  {contact.phone && <a className="footer__phone" href={formatPhoneHref(contact.phone)}>{contact.phone}</a>}
+                </address>
+              </>
+            )}
           </div>
         </div>
 
