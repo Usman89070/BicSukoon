@@ -2,7 +2,6 @@ import { facilities, facilitiesFor } from '../data/facilities'
 import { videos } from '../data/videos'
 import SectionHeader from '../components/common/SectionHeader'
 import Reveal from '../components/common/Reveal'
-import { Value } from '../components/common/Pending'
 import VideoFeature from '../components/video/VideoFeature'
 import FacilityCard from '../components/cards/FacilityCard'
 import PageShell from './PageShell'
@@ -18,12 +17,6 @@ export default function FacilityPage({ id }) {
     <PageShell title={f.title} description={f.summary} eyebrow={f.pillar} lead={f.summary} media={f.media}>
       <section className="section">
         <div className="container facility-intro">
-          <Reveal className="facility-intro__aside">
-            <dl className="facts glass-panel">
-              <div><dt>Theme</dt><dd>{f.pillar}</dd></div>
-              <div><dt>Status</dt><dd><Value value={f.status} fallback="To be confirmed" /></dd></div>
-            </dl>
-          </Reveal>
           <div className="facility-intro__sections">
             {f.sections.map((s, i) => (
               <Reveal key={s.heading} delay={i * 60} className="facility-block">
