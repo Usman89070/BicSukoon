@@ -118,7 +118,6 @@ export const sites = {
         ],
       },
       { label: 'Gallery', to: '/gallery' }, // each site shows only its own gallery
-      { label: 'Contact', to: '/contact' },
     ],
     // No donation page on Sukoon unless the organisation confirms one.
     // To enable: set features.donate = true and change cta to the donate route.
