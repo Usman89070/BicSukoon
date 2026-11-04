@@ -4,6 +4,11 @@ import SectionHeader from '../components/common/SectionHeader'
 import ContactSection from '../components/forms/ContactSection'
 import VideoFeature from '../components/video/VideoFeature'
 import PageShell from './PageShell'
+import { pinmaps } from '../data/pinmap'
+import { imageFor } from '../utils/images'
+
+// the hero shows the same site picture that opens the home page
+const heroImage = imageFor(pinmaps[SITE_ID].image)
 
 export default function ContactPage() {
   return (
@@ -13,6 +18,7 @@ export default function ContactPage() {
       description={`Get in touch with the ${site.name} team.`}
       lead="Questions, enquiries or media — we would love to hear from you."
       heroSize="sm"
+      media={{ image: heroImage, label: `${site.name} site` }}
     >
       <section className="section">
         <div className="container">
