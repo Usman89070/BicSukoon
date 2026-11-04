@@ -6,7 +6,6 @@ import BicHome from './pages/Home'
 
 const FacilityPage = lazy(() => import('../../templates/FacilityPage'))
 const StatusPage = lazy(() => import('../../templates/StatusPage'))
-const UpdatesPage = lazy(() => import('../../templates/UpdatesPage'))
 const ContactPage = lazy(() => import('../../templates/ContactPage'))
 const NotFound = lazy(() => import('../../templates/NotFound'))
 const GalleryPage = lazy(() => import('../../templates/GalleryPage'))
@@ -42,8 +41,9 @@ export default function BicApp() {
         <Route path="cafe" element={<FacilityPage id="cafe" />} />
         <Route path="gyms" element={<FacilityPage id="gyms" />} />
         <Route path="childcare-centre" element={<ToSukoonChildcare />} />
-        <Route path="project-status" element={<StatusPage />} />
-        <Route path="project-updates" element={<UpdatesPage />} />
+        {/* the Current Status page, now named Project Updates; the old address goes there */}
+        <Route path="project-updates" element={<StatusPage />} />
+        <Route path="project-status" element={<Navigate to="/project-updates" replace />} />
         <Route path="project-funding" element={<Funding />} />
         <Route path="events" element={<Events />} />
         <Route path="events/:id" element={<EventPage />} />

@@ -45,8 +45,7 @@ export const sites = {
       {
         label: 'Progress',
         children: [
-          { label: 'Current Status', to: '/project-status', text: 'Milestones and current stage' },
-          { label: 'Project Updates', to: '/project-updates', text: 'The development journal' },
+          { label: 'Project Updates', to: '/project-updates', text: 'Milestones and current stage' },
         ],
       },
       {

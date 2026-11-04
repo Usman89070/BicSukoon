@@ -64,7 +64,7 @@ const COLLECTIONS = [
     'gallery' => ['label' => 'Gallery', 'one' => 'photo or video', 'photos' => 'gallery-photos', 'page' => '../bic/gallery'],
     'events' => ['label' => 'Events', 'one' => 'event', 'photos' => 'event-photos', 'page' => '../bic/events'],
     // the large film + row of films on the Current Status page of each website
-    'films' => ['label' => 'Current Status Videos', 'one' => 'video', 'photos' => 'film-photos', 'page' => '../bic/project-status'],
+    'films' => ['label' => 'Current Status Videos', 'one' => 'video', 'photos' => 'film-photos', 'page' => '../bic/project-updates'],
 ];
 const FILM_SITES = ['bic' => 'BIC website', 'sukoon' => 'Sukoon website'];
 
