@@ -12,6 +12,7 @@ export default function StatusPage() {
   return (
     <PageShell
       title="Project Updates"
+      heading="Current Status"
       eyebrow="Progress"
       description={`Where ${site.name} is today: milestones, current stage and the latest updates.`}
       lead="Where the project is today, what has been achieved and what comes next."
