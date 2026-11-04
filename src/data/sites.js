@@ -97,7 +97,6 @@ export const sites = {
 
     nav: [
       { label: 'Home', to: '/' },
-      { label: 'Vision', to: '/vision' },
       {
         label: 'The Village',
         children: [

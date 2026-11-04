@@ -4,7 +4,6 @@ import SiteLayout from '../../layouts/SiteLayout'
 import SukoonHome from './pages/Home'
 
 const FacilityPage = lazy(() => import('../../templates/FacilityPage'))
-const VisionPage = lazy(() => import('../../templates/VisionPage'))
 const StatusPage = lazy(() => import('../../templates/StatusPage'))
 const SeniorsLiving = lazy(() => import('./pages/SeniorsLiving'))
 const ChildcarePage = lazy(() => import('../../templates/ChildcarePage'))
@@ -17,7 +16,8 @@ export default function SukoonApp() {
     <Routes>
       <Route element={<SiteLayout />}>
         <Route index element={<SukoonHome />} />
-        <Route path="vision" element={<VisionPage />} />
+        {/* the Vision page is off on Sukoon; old links go to the home page */}
+        <Route path="vision" element={<Navigate to="/" replace />} />
         <Route path="seniors-living" element={<SeniorsLiving />} />
         <Route path="lifestyle-centre" element={<FacilityPage id="lifestyle-centre" />} />
         <Route path="childcare-centre" element={<ChildcarePage />} />
