@@ -64,7 +64,8 @@ export default function PageHero({ eyebrow, title, lead, media, visual: customVi
       <section className={cx('page-hero-split', `page-hero-split--${size}`, site.heroStyle === 'framed' && 'page-hero-split--framed', className)}>
         <div className="container page-hero-split__inner">
           <div className="page-hero-split__text">{text}</div>
-          <div className="page-hero-split__visual">{visual}</div>
+          {/* media.whole: the frame takes the picture's own shape, so all of it shows */}
+          <div className={cx('page-hero-split__visual', media?.whole && 'page-hero-split__visual--whole')}>{visual}</div>
         </div>
       </section>
     )

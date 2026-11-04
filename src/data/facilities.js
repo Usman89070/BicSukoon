@@ -121,7 +121,7 @@ export const facilities = {
     pillar: 'Community',
     summary: 'A shared hub for gathering, wellbeing and everyday village life.',
     status: null,
-    media: { image: imageFor('facility-lifestyle-centre'), video: null, label: 'Lifestyle Centre render' },
+    media: { image: imageFor('facility-lifestyle-centre'), whole: true, video: null, label: 'Lifestyle Centre render' },
     // large picture under the text (shown when the facility has no film)
     photo: imageFor('lifestyle-centre-pool'),
     sections: [

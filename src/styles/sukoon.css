@@ -354,6 +354,14 @@
   height: 100%;
   object-fit: cover;
 }
+.page-hero-split__visual.page-hero-split__visual--whole {
+  aspect-ratio: auto;
+}
+.page-hero-split__visual--whole .media,
+.page-hero-split__visual--whole .media img {
+  display: block;
+  height: auto;
+}
 @media (max-width: 899px) {
   .page-hero-split__visual {
     aspect-ratio: 16 / 10;
