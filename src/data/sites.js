@@ -43,16 +43,6 @@ export const sites = {
         ],
       },
       {
-        label: 'Facilities',
-        children: [
-          { label: 'Masjid Complex', to: '/masjid-complex', text: 'The spiritual heart of the centre' },
-          { label: 'QMCHC', to: '/cultural-heritage-centre', text: 'Museum · Library · Theatre' },
-          { label: 'Community Hall', to: '/community-hall', text: 'Gatherings & events' },
-          { label: 'Café', to: '/cafe', text: 'Meet & unwind' },
-          { label: 'Gyms', to: '/gyms', text: 'Health & fitness' },
-        ],
-      },
-      {
         label: 'Progress',
         children: [
           { label: 'Current Status', to: '/project-status', text: 'Milestones and current stage' },
