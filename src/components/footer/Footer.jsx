@@ -13,7 +13,8 @@ import { useNav } from '../../hooks/useNav'
 export default function Footer() {
   const year = new Date().getFullYear()
   const nav = useNav()
-  const groups = nav.filter((n) => n.children?.length)
+  // the Facilities links are in the menu only, not repeated in the footer
+  const groups = nav.filter((n) => n.children?.length && n.label !== 'Facilities')
   const singles = nav.filter((n) => !n.children?.length && n.to && n.to !== '/')
   const { contact, legal, sister } = site
   const sisterUrl = sister.url ?? urls[sister.id]
