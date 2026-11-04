@@ -7,6 +7,7 @@ import Button from '../../../components/common/Button'
 import Media from '../../../components/common/Media'
 import Icon from '../../../components/common/Icon'
 import SocialLinks from '../../../components/common/SocialLinks'
+import { site } from '../../../site'
 import PinMap from '../../../components/pinmap/PinMap'
 import HomeFilm from '../../../components/video/HomeFilm'
 import ExploreCard from '../../../components/showcase/ExploreCard'
@@ -137,12 +138,15 @@ export default function SukoonHome() {
         </div>
       </section>
 
-      <section className="section section--tight social-band">
-        <div className="container social-band__inner">
-          <p className="social-band__title">Follow the journey</p>
-          <SocialLinks />
-        </div>
-      </section>
+      {/* only once Sukoon has official social accounts (sites.js) */}
+      {site.socials.some((s) => s.href) && (
+        <section className="section section--tight social-band">
+          <div className="container social-band__inner">
+            <p className="social-band__title">Follow the journey</p>
+            <SocialLinks />
+          </div>
+        </section>
+      )}
     </>
   )
 }

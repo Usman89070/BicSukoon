@@ -43,7 +43,7 @@ export default function Footer() {
           <div className="footer__brand">
             <Logo project={site.id} tone={tone} height={44} />
             <p className="footer__tagline">{site.tagline}</p>
-            <SocialLinks />
+            <SocialLinks showPending={false} />
           </div>
 
           {groups.map((g) => (
