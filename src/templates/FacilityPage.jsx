@@ -3,6 +3,7 @@ import { videos } from '../data/videos'
 import SectionHeader from '../components/common/SectionHeader'
 import Reveal from '../components/common/Reveal'
 import VideoFeature from '../components/video/VideoFeature'
+import Media from '../components/common/Media'
 import FacilityCard from '../components/cards/FacilityCard'
 import PageShell from './PageShell'
 import CtaBand from './CtaBand'
@@ -29,10 +30,15 @@ export default function FacilityPage({ id }) {
       </section>
 
       {/* the facility's film; no "render coming soon" placeholders without one */}
-      {videoId && (
+      {/* the facility's film, else its large picture; no "render coming soon" placeholders */}
+      {(videoId || f.photo) && (
         <section className="section section--tight">
           <div className="container">
-            <Reveal variant="scale"><VideoFeature id={videoId} /></Reveal>
+            {videoId ? (
+              <Reveal variant="scale"><VideoFeature id={videoId} /></Reveal>
+            ) : (
+              <Reveal variant="image"><Media src={f.photo} label={f.media.label} ratio="16 / 9" /></Reveal>
+            )}
           </div>
         </section>
       )}

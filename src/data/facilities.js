@@ -122,6 +122,8 @@ export const facilities = {
     summary: 'A shared hub for gathering, wellbeing and everyday village life.',
     status: null,
     media: { image: imageFor('facility-lifestyle-centre'), video: null, label: 'Lifestyle Centre render' },
+    // large picture under the text (shown when the facility has no film)
+    photo: imageFor('lifestyle-centre-pool'),
     sections: [
       { heading: 'Purpose', body: 'A central place for residents, families and visitors to meet, socialise and take part in village life.' },
       { heading: 'Community role', body: 'Bringing generations together and strengthening the connections that make Sukoon a village rather than a development.' },
