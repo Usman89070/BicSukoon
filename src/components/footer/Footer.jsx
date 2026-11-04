@@ -24,8 +24,8 @@ export default function Footer() {
     <footer className={`footer footer--${tone}`}>
       <Pattern className="footer__pattern" opacity={0.05} scale={90} />
       <div className="container">
-        {/* the call-to-action panel, only when the site has a main button (site.cta) */}
-        {site.cta && (
+        {/* the call-to-action panel: Donate, on the sites that take donations */}
+        {site.features.donate && site.cta && (
           <div className="footer__cta">
             <div>
               <p className="eyebrow">{site.features.donate ? 'Support the Vision' : 'Get in touch'}</p>

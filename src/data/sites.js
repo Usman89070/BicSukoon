@@ -121,9 +121,12 @@ export const sites = {
     ],
     // No donation page on Sukoon unless the organisation confirms one.
     // To enable: set features.donate = true and change cta to the donate route.
-    // cta: null = no menu button (the Contact page is off on Sukoon for now;
-    // to bring it back: { label: 'Enquire', to: '/contact', icon: 'mail' }).
-    cta: null,
+    // Menu button: Expressions of Interest, with the same link as the sticky
+    // button below (set there). The Contact page is off on Sukoon for now.
+    get cta() {
+      const { label, href } = this.interest
+      return href ? { label, href, target: '_blank', rel: 'noopener noreferrer' } : { label }
+    },
     features: { donate: false, funding: false, events: false, guests: false },
     // Sticky "Expressions of Interest" button (bottom-right, every page).
     // href: null shows the button without a link until the form link is given.
