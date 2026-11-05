@@ -3861,19 +3861,29 @@ button.home-gallery__card {
   align-items: flex-end;
   gap: 10px;
 }
-/* Logo above the Expressions of Interest button (Sukoon) */
+/* Logo above the Expressions of Interest button (Sukoon): a wide rounded
+   badge with a white rim; the square logo is cropped to its wording */
 .sticky-actions__logo {
   display: block;
-  width: 84px;
-  height: 84px;
-  border-radius: 14px;
-  box-shadow: 0 14px 30px -14px rgba(10, 8, 32, 0.6);
+  width: 176px;
+  height: 74px;
+  object-fit: cover;
+  object-position: center 52%;
+  border: 3px solid #ffffff;
+  border-radius: 18px;
+  background: #ffe600;
+  box-shadow: 0 16px 34px -14px rgba(10, 8, 32, 0.65), 0 0 0 1px rgba(10, 8, 32, 0.06);
+  transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
+}
+.sticky-actions__logo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 40px -14px rgba(10, 8, 32, 0.7), 0 0 0 1px rgba(10, 8, 32, 0.06);
 }
 @media (max-width: 600px) {
   .sticky-actions__logo {
-    width: 64px;
-    height: 64px;
-    border-radius: 12px;
+    width: 132px;
+    height: 56px;
+    border-radius: 14px;
   }
 }
 @media print {
