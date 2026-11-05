@@ -119,7 +119,25 @@ export const sites = {
     // Sticky "Expressions of Interest" button (bottom-right, every page).
     // href: null shows the button without a link until the form link is given.
     // logo: a picture shown above the button (file in src/assets/images/)
-    interest: { label: 'Expressions of Interest', href: 'https://form.jotform.com/232951557837468', logo: { image: 'logo-ray-white-rochedale', alt: 'Ray White Rochedale' } },
+    // notice: shown first; the form opens only after the visitor agrees
+    interest: {
+      label: 'Expressions of Interest',
+      href: 'https://form.jotform.com/232951557837468',
+      logo: { image: 'logo-ray-white-rochedale', alt: 'Ray White Rochedale' },
+      notice: {
+        title: 'Privacy Notice',
+        body: [
+          'Expressions of Interest for Sukoon Village are managed directly by our appointed property agent, Ray White Rochedale.',
+          'Information submitted through this form is provided directly to Ray White Rochedale for the purpose of responding to your enquiry and providing information about the proposed development.',
+          {
+            before: 'Please refer to ',
+            link: { label: 'https://www.raywhite.com/franchisee-privacy-policy/', href: 'https://www.raywhite.com/franchisee-privacy-policy/' },
+            after: ' for information about how your personal information is collected, used and protected.',
+          },
+          'Submitting an Expression of Interest does not create any obligation to purchase.',
+        ],
+      },
+    },
     enquiryTopics: ['General enquiry', 'Seniors Living', 'Lifestyle Centre', 'Childcare Centre', 'Media'],
 
     contact: { address: null, phone: null, email: null, hours: null, mapEmbedUrl: null },

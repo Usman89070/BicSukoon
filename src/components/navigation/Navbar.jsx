@@ -9,6 +9,7 @@ import { cx } from '../../utils/format'
 import Icon from '../common/Icon'
 import Logo from '../common/Logo'
 import Button from '../common/Button'
+import { onInterestClick } from '../common/InterestNotice'
 
 /**
  * Floating glass navigation for the current website (BIC or Sukoon).
@@ -163,7 +164,7 @@ export default function Navbar() {
         </nav>
 
         <div className="nav__actions">
-          {site.cta && <Button to={site.cta.to} href={site.cta.href} target={site.cta.target} rel={site.cta.rel} variant="primary" size="sm" className="nav__cta">{site.cta.label}</Button>}
+          {site.cta && <Button to={site.cta.to} href={site.cta.href} target={site.cta.target} rel={site.cta.rel} variant="primary" size="sm" className="nav__cta" onClick={onInterestClick}>{site.cta.label}</Button>}
           <button
             type="button"
             className="nav__toggle"
@@ -209,7 +210,7 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          {site.cta && <Button to={site.cta.to} href={site.cta.href} target={site.cta.target} rel={site.cta.rel} variant="primary" className="mobile-menu__cta" icon={site.cta.icon}>{site.cta.label}</Button>}
+          {site.cta && <Button to={site.cta.to} href={site.cta.href} target={site.cta.target} rel={site.cta.rel} variant="primary" className="mobile-menu__cta" icon={site.cta.icon} onClick={onInterestClick}>{site.cta.label}</Button>}
         </nav>
       </div>
     </header>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
+import { onInterestClick } from '../common/InterestNotice'
 import { SITE_ID, site } from '../../site'
 import { checkoutLink } from '../../data/donation'
 import { useEscape } from '../../hooks/useEscape'
@@ -39,7 +40,7 @@ function OverlayCta() {
   )
   // shown without a link until one is set (sites.js → interest.href)
   return interest.href ? (
-    <a href={interest.href} target="_blank" rel="noopener noreferrer" className="lightbox__donate-over" aria-label={`${interest.label} (opens in a new tab)`}>{body}</a>
+    <a href={interest.href} target="_blank" rel="noopener noreferrer" className="lightbox__donate-over" onClick={onInterestClick} aria-label={`${interest.label} (opens in a new tab)`}>{body}</a>
   ) : (
     <span className="lightbox__donate-over">{body}</span>
   )
@@ -63,7 +64,7 @@ function CaptionCta() {
     </>
   )
   return interest.href ? (
-    <a href={interest.href} target="_blank" rel="noopener noreferrer" className="donate-tab lightbox__donate" aria-label={`${interest.label} (opens in a new tab)`}>{body}</a>
+    <a href={interest.href} target="_blank" rel="noopener noreferrer" className="donate-tab lightbox__donate" onClick={onInterestClick} aria-label={`${interest.label} (opens in a new tab)`}>{body}</a>
   ) : (
     <span className="donate-tab lightbox__donate">{body}</span>
   )

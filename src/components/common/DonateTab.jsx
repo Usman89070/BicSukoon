@@ -2,6 +2,7 @@ import { site } from '../../site'
 import { checkoutLink } from '../../data/donation'
 import Icon from './Icon'
 import { imageFor } from '../../utils/images'
+import { onInterestClick } from './InterestNotice'
 
 const QUICK = ['facebook', 'whatsapp']
 
@@ -27,7 +28,7 @@ export default function DonateTab() {
           <span>Donate</span>
         </a>
       ) : interest.href ? (
-        <a href={interest.href} target="_blank" rel="noopener noreferrer" className="donate-tab" aria-label={`${interest.label} (opens in a new tab)`}>
+        <a href={interest.href} target="_blank" rel="noopener noreferrer" className="donate-tab" onClick={onInterestClick} aria-label={`${interest.label} (opens in a new tab)`}>
           <Icon name="mail" size={16} />
           <span>{interest.label}</span>
         </a>

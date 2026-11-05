@@ -2182,3 +2182,87 @@ ol.timeline {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+/* ---- Expressions of Interest: privacy notice before the form ---------- */
+.interest-notice {
+  position: fixed;
+  inset: 0;
+  z-index: 1100; /* above the video viewer */
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(10, 8, 32, 0.6);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  animation: interest-notice-in 220ms var(--ease-out) both;
+}
+@keyframes interest-notice-in {
+  from {
+    opacity: 0;
+  }
+}
+.interest-notice__panel {
+  position: relative;
+  width: min(600px, 100%);
+  max-height: calc(100svh - 32px);
+  overflow-y: auto;
+  padding: clamp(24px, 5vw, 44px);
+  border-radius: var(--radius-xl);
+  background: var(--surface, #ffffff);
+  box-shadow: 0 40px 100px -30px rgba(10, 8, 32, 0.7);
+  animation: interest-notice-rise 320ms var(--ease-out) both;
+}
+@keyframes interest-notice-rise {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+}
+.interest-notice__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.interest-notice__close:hover,
+.interest-notice__close:focus-visible {
+  background: var(--border);
+}
+.interest-notice__title {
+  margin: 0.4rem 0 1rem;
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+.interest-notice__body p {
+  margin: 0 0 0.85rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.interest-notice__body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.interest-notice__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .interest-notice,
+  .interest-notice__panel {
+    animation: none;
+  }
+}
