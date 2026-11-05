@@ -118,7 +118,7 @@ export const sites = {
     features: { donate: false, funding: false, events: false, guests: false },
     // Sticky "Expressions of Interest" button (bottom-right, every page).
     // href: null shows the button without a link until the form link is given.
-    interest: { label: 'Expressions of Interest', href: null },
+    interest: { label: 'Expressions of Interest', href: 'https://form.jotform.com/232951557837468' },
     enquiryTopics: ['General enquiry', 'Seniors Living', 'Lifestyle Centre', 'Childcare Centre', 'Media'],
 
     contact: { address: null, phone: null, email: null, hours: null, mapEmbedUrl: null },
