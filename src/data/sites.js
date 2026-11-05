@@ -131,7 +131,7 @@ export const sites = {
           'Information submitted through this form is provided directly to Ray White Rochedale for the purpose of responding to your enquiry and providing information about the proposed development.',
           {
             before: 'Please refer to ',
-            link: { label: 'https://www.raywhite.com/franchisee-privacy-policy/', href: 'https://www.raywhite.com/franchisee-privacy-policy/' },
+            link: { label: "Ray White Rochedale's Privacy Policy", href: 'https://www.raywhite.com/franchisee-privacy-policy/' },
             after: ' for information about how your personal information is collected, used and protected.',
           },
           'Submitting an Expression of Interest does not create any obligation to purchase.',
