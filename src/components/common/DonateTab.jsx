@@ -19,7 +19,7 @@ export default function DonateTab() {
   const logo = !site.features.donate && interest?.logo ? imageFor(interest.logo.image) : null
   const links = QUICK.map((id) => site.socials.find((s) => s.id === id && s.href)).filter(Boolean)
   return (
-    <div className={logo ? 'sticky-actions sticky-actions--logo' : 'sticky-actions'}>
+    <div className="sticky-actions">
       {logo && <img className="sticky-actions__logo" src={logo} alt={interest.logo.alt} width="300" height="300" decoding="async" />}
       {site.features.donate ? (
         <a {...checkoutLink} className="donate-tab" aria-label="Donate securely with Square (opens in a new tab)">
