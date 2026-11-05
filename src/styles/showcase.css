@@ -3861,16 +3861,24 @@ button.home-gallery__card {
   align-items: flex-end;
   gap: 10px;
 }
-/* Logo above the Expressions of Interest button (Sukoon): a wide rounded
-   badge with a white rim; the square logo is cropped to its wording */
+/* Logo above the Expressions of Interest button (Sukoon): a rounded badge
+   exactly as wide as the button, so the two read as one unit; the square
+   logo is cropped to its wording */
+.sticky-actions--logo {
+  align-items: stretch;
+  gap: 8px;
+}
+.sticky-actions--logo .donate-tab {
+  justify-content: center;
+}
 .sticky-actions__logo {
   display: block;
-  width: 176px;
-  height: 74px;
+  width: 100%;
+  height: 88px;
   object-fit: cover;
   object-position: center 52%;
   border: 3px solid #ffffff;
-  border-radius: 18px;
+  border-radius: 20px;
   background: #ffe600;
   box-shadow: 0 16px 34px -14px rgba(10, 8, 32, 0.65), 0 0 0 1px rgba(10, 8, 32, 0.06);
   transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
@@ -3881,9 +3889,8 @@ button.home-gallery__card {
 }
 @media (max-width: 600px) {
   .sticky-actions__logo {
-    width: 132px;
-    height: 56px;
-    border-radius: 14px;
+    height: 72px;
+    border-radius: 16px;
   }
 }
 @media print {
