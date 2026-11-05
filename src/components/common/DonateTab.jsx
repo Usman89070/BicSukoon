@@ -1,6 +1,7 @@
 import { site } from '../../site'
 import { checkoutLink } from '../../data/donation'
 import Icon from './Icon'
+import { imageFor } from '../../utils/images'
 
 const QUICK = ['facebook', 'whatsapp']
 
@@ -15,9 +16,11 @@ const QUICK = ['facebook', 'whatsapp']
 export default function DonateTab() {
   const interest = site.interest
   if (!site.features.donate && !interest) return null
+  const logo = !site.features.donate && interest?.logo ? imageFor(interest.logo.image) : null
   const links = QUICK.map((id) => site.socials.find((s) => s.id === id && s.href)).filter(Boolean)
   return (
     <div className="sticky-actions">
+      {logo && <img className="sticky-actions__logo" src={logo} alt={interest.logo.alt} width="300" height="300" decoding="async" />}
       {site.features.donate ? (
         <a {...checkoutLink} className="donate-tab" aria-label="Donate securely with Square (opens in a new tab)">
           <Icon name="heart" size={16} />

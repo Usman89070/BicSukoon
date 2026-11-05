@@ -3861,6 +3861,26 @@ button.home-gallery__card {
   align-items: flex-end;
   gap: 10px;
 }
+/* Logo above the Expressions of Interest button (Sukoon) */
+.sticky-actions__logo {
+  display: block;
+  width: 84px;
+  height: 84px;
+  border-radius: 14px;
+  box-shadow: 0 14px 30px -14px rgba(10, 8, 32, 0.6);
+}
+@media (max-width: 600px) {
+  .sticky-actions__logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+  }
+}
+@media print {
+  .sticky-actions__logo {
+    display: none;
+  }
+}
 .sticky-actions__social {
   display: flex;
   flex-direction: column;

@@ -118,7 +118,8 @@ export const sites = {
     features: { donate: false, funding: false, events: false, guests: false },
     // Sticky "Expressions of Interest" button (bottom-right, every page).
     // href: null shows the button without a link until the form link is given.
-    interest: { label: 'Expressions of Interest', href: 'https://form.jotform.com/232951557837468' },
+    // logo: a picture shown above the button (file in src/assets/images/)
+    interest: { label: 'Expressions of Interest', href: 'https://form.jotform.com/232951557837468', logo: { image: 'logo-ray-white-rochedale', alt: 'Ray White Rochedale' } },
     enquiryTopics: ['General enquiry', 'Seniors Living', 'Lifestyle Centre', 'Childcare Centre', 'Media'],
 
     contact: { address: null, phone: null, email: null, hours: null, mapEmbedUrl: null },
