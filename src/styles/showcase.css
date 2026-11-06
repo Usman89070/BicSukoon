@@ -3327,18 +3327,10 @@
   opacity: 1;
   filter: none;
 }
-@media (max-width: 600px) {
+/* phones: no button over the video (it covers the film and its controls);
+   the Donate / Expressions of Interest button under the video stays */
+@media (max-width: 767px) {
   .lightbox__stage .lightbox__donate-over {
-    left: 10px;
-    bottom: 56px;
-    gap: 8px;
-    padding: 4px 12px 4px 4px;
-  }
-  .lightbox__donate-heart {
-    width: 26px;
-    height: 26px;
-  }
-  .lightbox__donate-text small {
     display: none;
   }
 }
