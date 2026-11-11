@@ -6,6 +6,7 @@ import { checkoutLink } from '../../data/donation'
 import { useEscape } from '../../hooks/useEscape'
 import { useLockBody } from '../../hooks/useLockBody'
 import Icon from '../common/Icon'
+import { imageFor } from '../../utils/images'
 
 /**
  * A film in the same dark viewer the gallery uses: plays with sound and
@@ -29,6 +30,15 @@ function OverlayCta() {
   }
   const interest = site.interest
   if (!interest) return null
+  // with a logo (sites.js → interest.logo): the logo alone, no label
+  const logo = interest.logo ? imageFor(interest.logo.image) : null
+  if (logo && interest.href) {
+    return (
+      <a href={interest.href} target="_blank" rel="noopener noreferrer" className="lightbox__donate-over lightbox__logo-over" onClick={onInterestClick} aria-label={`${interest.label}: ${interest.logo.alt} (opens in a new tab)`}>
+        <img src={logo} alt="" width="300" height="300" />
+      </a>
+    )
+  }
   const body = (
     <>
       {heart('mail')}

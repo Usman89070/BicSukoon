@@ -75,6 +75,7 @@ export default function Portal() {
                 <a className="half__cta" href={entry(urls[h.id])} aria-label={`${h.cta}: enter the ${s.name} website`}>
                   {h.cta} <Icon name="arrow" size={18} />
                 </a>
+                <span className="half__note">All images and videos are architectural visualisations only</span>
               </span>
             </div>
           )

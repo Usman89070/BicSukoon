@@ -3327,6 +3327,23 @@
   opacity: 1;
   filter: none;
 }
+/* Sukoon: the Ray White Rochedale logo over the film instead of the labelled
+   button (same badge as above the sticky Expressions of Interest button) */
+.lightbox__stage .lightbox__donate-over.lightbox__logo-over,
+:root[data-site='sukoon'] .lightbox__stage .lightbox__donate-over.lightbox__logo-over {
+  padding: 0;
+  overflow: hidden;
+  border: 3px solid #ffffff;
+  border-radius: 18px;
+  background: #ffe600;
+}
+.lightbox__logo-over img {
+  display: block;
+  width: 176px;
+  height: 74px;
+  object-fit: cover;
+  object-position: center 52%;
+}
 /* phones: no button over the video (it covers the film and its controls);
    the Donate / Expressions of Interest button under the video stays */
 @media (max-width: 767px) {

@@ -11,7 +11,7 @@ import Icon from '../common/Icon'
  * full-screen viewer, like every other film. Until the file is on the
  * server, the film's poster picture is shown.
  */
-export default function HomeFilm({ id, status = true, still = false }) {
+export default function HomeFilm({ id, status = true, statusTitle = true, still = false }) {
   const data = videos[id] ?? {}
   const src = useVideoSrc(data.src)
   const [watching, setWatching] = useState(false)
@@ -44,7 +44,7 @@ export default function HomeFilm({ id, status = true, still = false }) {
       {/* the Current Status films, under the large film */}
       {status && (
         <div className="container container--wide home-film__status">
-          <h2 className="home-film__status-title">Current Status</h2>
+          {statusTitle && <h2 className="home-film__status-title">Current Status</h2>}
           <FilmGrid />
         </div>
       )}

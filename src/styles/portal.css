@@ -232,6 +232,18 @@
   transform: translateY(-2px);
   box-shadow: 0 22px 44px -18px rgba(0, 0, 0, 0.8);
 }
+/* note under each button: black on white so it reads clearly over the photo */
+.half__note {
+  display: inline-block;
+  margin-top: 0.9rem;
+  padding: 0.4em 0.9em;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #000000;
+  background: #ffffff;
+}
 .half__cta svg {
   transition: transform 400ms var(--ease-out);
 }

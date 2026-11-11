@@ -13,7 +13,7 @@ export const timelineIntro = {
 
 export const timeline = {
   bic: [
-    { id: 'sd-start', group: 'Sukoon Drive – Construction & Completion (Estimated Early 2029)', state: 'upcoming', label: 'Projected', when: '2026', title: 'Sukoon Drive – Construction commencement' },
+    { id: 'sd-start', group: 'Sukoon Drive – Construction & Completion (Estimated Early 2029)', state: 'upcoming', label: 'Projected', when: 'January 2027', title: 'Sukoon Drive – Construction commencement' },
     { id: 'sd-end', group: 'Sukoon Drive – Construction & Completion (Estimated Early 2029)', state: 'upcoming', label: 'Estimated', when: 'Early 2029', title: 'Sukoon Drive – Estimated completion' },
     { id: 'bic-construction', group: "Brisbane Islamic Centre – Construction & Completion (Estimated End of 2029, Insha'Allah)", state: 'upcoming', label: 'Projected', when: 'Mid-2027', title: "Construction to resume mid-2027, with completion by the end of 2029, Insha'Allah." },
   ],
