@@ -99,14 +99,20 @@ export default function VideoLightbox({ title, tag, src, sources, youtubeId, pos
         </div>
         <figcaption className="lightbox__caption">
           <CaptionCta />
-          {/* Sukoon pin films: the Ray White Rochedale logo (sites.js → interest.logo) in place of the tag */}
-          {captionLogo ? (
-            <img className="lightbox__logo" src={captionLogo} alt={site.interest.logo.alt} width="300" height="300" />
+          {note ? (
+            // note: shown in place of the tag and the title
+            <span className="lightbox__note">{note}</span>
           ) : (
-            tag && <span className={`lightbox__tag lightbox__tag--${brand}`}>{tag}</span>
+            <>
+              {/* Sukoon pin films: the Ray White Rochedale logo (sites.js → interest.logo) in place of the tag */}
+              {captionLogo ? (
+                <img className="lightbox__logo" src={captionLogo} alt={site.interest.logo.alt} width="300" height="300" />
+              ) : (
+                tag && <span className={`lightbox__tag lightbox__tag--${brand}`}>{tag}</span>
+              )}
+              {title}
+            </>
           )}
-          {title}
-          {note && <span className="lightbox__note">{note}</span>}
         </figcaption>
       </figure>
       <button type="button" className="lightbox__btn lightbox__close" onClick={onClose} aria-label="Close" autoFocus><Icon name="close" size={22} /></button>
