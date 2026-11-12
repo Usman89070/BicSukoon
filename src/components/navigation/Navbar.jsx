@@ -10,6 +10,10 @@ import Icon from '../common/Icon'
 import Logo from '../common/Logo'
 import Button from '../common/Button'
 import { onInterestClick } from '../common/InterestNotice'
+import { imageFor } from '../../utils/images'
+
+// Sukoon: the Ray White Rochedale logo beside the Expressions of Interest button (sites.js → interest.logo)
+const partnerLogo = site && !site.features.donate && site.interest?.logo ? imageFor(site.interest.logo.image) : null
 
 /**
  * Floating glass navigation for the current website (BIC or Sukoon).
@@ -164,6 +168,7 @@ export default function Navbar() {
         </nav>
 
         <div className="nav__actions">
+          {partnerLogo && <img className="nav__partner" src={partnerLogo} alt={site.interest.logo.alt} width="300" height="300" />}
           {site.cta && <Button to={site.cta.to} href={site.cta.href} target={site.cta.target} rel={site.cta.rel} variant="primary" size="sm" className="nav__cta" onClick={onInterestClick}>{site.cta.label}</Button>}
           <button
             type="button"
@@ -210,6 +215,7 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+          {partnerLogo && <img className="mobile-menu__partner" src={partnerLogo} alt={site.interest.logo.alt} width="300" height="300" />}
           {site.cta && <Button to={site.cta.to} href={site.cta.href} target={site.cta.target} rel={site.cta.rel} variant="primary" className="mobile-menu__cta" icon={site.cta.icon} onClick={onInterestClick}>{site.cta.label}</Button>}
         </nav>
       </div>

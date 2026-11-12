@@ -358,8 +358,21 @@
     display: none;
   }
 }
+/* Sukoon: Ray White Rochedale logo beside the Expressions of Interest button */
+.nav__partner {
+  display: block;
+  width: 92px;
+  height: 40px;
+  margin-right: 4px;
+  object-fit: cover;
+  object-position: center 52%;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(10, 8, 32, 0.08);
+  background: #ffe600;
+}
 @media (max-width: 420px) {
-  .nav__cta {
+  .nav__cta,
+  .nav__partner {
     display: none;
   }
 }
@@ -508,6 +521,20 @@
 .mobile-menu__cta {
   margin-top: var(--space-6);
   width: 100%;
+}
+.mobile-menu__partner {
+  display: block;
+  width: 200px;
+  height: 72px;
+  margin-inline: auto;
+  margin-top: var(--space-6);
+  object-fit: cover;
+  object-position: center 52%;
+  border-radius: 14px;
+  background: #ffe600;
+}
+.mobile-menu__partner + .mobile-menu__cta {
+  margin-top: 10px;
 }
 @media (min-width: 1100px) {
   .mobile-menu {
