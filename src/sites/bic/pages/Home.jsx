@@ -37,7 +37,7 @@ export default function BicHome() {
       </section>
 
       {/* The masjid film, large and as it is, right under the site picture */}
-      <HomeFilm id="masjid" note={visualisationNote} />
+      <HomeFilm id="masjid" statusTitle={false} note={visualisationNote} />
 
       {/* Welcome */}
       <section className={`section home-welcome${welcomeImage ? ' home-welcome--photo' : ''}`} aria-labelledby="welcome-title">
