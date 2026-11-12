@@ -48,9 +48,9 @@ export default function ChildcarePage() {
 
       {/* Learning through care */}
       <section id="learning" className="section section--muted" aria-labelledby="learning-title">
-        <div className="container cc-split">
+        <div className="container cc-split cc-split--fill">
           <Reveal variant="image" className="cc-split__media">
-            {/* the picture in its own (wide) shape, so none of it is cut off */}
+            {/* the picture as tall as the text beside it (desktop) */}
             <Media src={imageFor('childcare-learning')} label="Sukoon Early Learning Centre" ratio="1600 / 673" />
           </Reveal>
           <div className="cc-split__text">

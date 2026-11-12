@@ -1102,6 +1102,20 @@
     grid-template-columns: 1.1fr 0.9fr;
   }
 }
+/* picture as tall as the text beside it, from the heading to the last line */
+@media (min-width: 900px) {
+  .cc-split--fill {
+    align-items: stretch;
+  }
+  .cc-split--fill .cc-split__media,
+  .cc-split--fill .cc-split__media .media {
+    height: 100%;
+    aspect-ratio: auto !important;
+  }
+  .cc-split--fill .cc-split__media .media img {
+    object-position: 22% center;
+  }
+}
 .cc-split__media .media {
   border-radius: var(--radius-xl, 28px);
   overflow: hidden;
