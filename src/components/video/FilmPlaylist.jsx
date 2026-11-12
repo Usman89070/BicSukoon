@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { videos, videoUrl } from '../../data/videos'
-import { statusFilms, noStatusTag } from '../../data/statusFilms'
+import { statusFilms, noStatusTag, visualisationNoteFilms } from '../../data/statusFilms'
+import { visualisationNote } from '../../data/gallery'
 import { SITE_ID } from '../../site'
 import { API } from '../../hooks/useAdminList'
 import { useVideoSrc } from '../../hooks/useVideoSrc'
@@ -10,6 +11,8 @@ import FilmFrame from './FilmFrame'
 import VideoLightbox from './VideoLightbox'
 
 // the viewer's tag: the film's caption, else 'Current status' (none for the films listed in noStatusTag)
+const sameTitle = (film) => (t) => t.toLowerCase() === film.title?.trim().toLowerCase()
+const viewerNote = (film) => (visualisationNoteFilms.some(sameTitle(film)) ? visualisationNote : null)
 const viewerTag = (film) => (noStatusTag.some((t) => t.toLowerCase() === film.title?.trim().toLowerCase()) ? null : film.caption ?? 'Current status')
 
 const brand = SITE_ID === 'sukoon' ? 'sukoon' : 'bic'
@@ -130,6 +133,7 @@ export default function FilmPlaylist({ showRow = true }) {
         <VideoLightbox
           title={active.title}
           tag={viewerTag(active)}
+          note={viewerNote(active)}
           src={active.youtube ? null : src}
           youtubeId={active.youtube}
           poster={active.cover ?? active.poster}
@@ -156,6 +160,7 @@ function GridViewer({ film, onClose }) {
     <VideoLightbox
       title={film.title}
       tag={viewerTag(film)}
+      note={viewerNote(film)}
       src={film.youtube ? null : src}
       youtubeId={film.youtube}
       poster={film.cover ?? film.poster}

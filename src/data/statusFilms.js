@@ -11,3 +11,6 @@ export const statusFilms = {
 
 /** Films (by title) whose video viewer shows no 'Current status' tag. */
 export const noStatusTag = ['Sukoon Drive', 'Janaza Facilities']
+
+/** Films (by title) whose video viewer shows the visualisation note under the caption. */
+export const visualisationNoteFilms = ['New Beginnings']

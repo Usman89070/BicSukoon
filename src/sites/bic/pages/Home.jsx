@@ -8,6 +8,7 @@ import Icon from '../../../components/common/Icon'
 import SocialLinks from '../../../components/common/SocialLinks'
 import PinMap from '../../../components/pinmap/PinMap'
 import HomeFilm from '../../../components/video/HomeFilm'
+import { visualisationNote } from '../../../data/gallery'
 import { heroImage } from '../images'
 import { imageFor } from '../../../utils/images'
 
@@ -36,7 +37,7 @@ export default function BicHome() {
       </section>
 
       {/* The masjid film, large and as it is, right under the site picture */}
-      <HomeFilm id="masjid" />
+      <HomeFilm id="masjid" note={visualisationNote} />
 
       {/* Welcome */}
       <section className={`section home-welcome${welcomeImage ? ' home-welcome--photo' : ''}`} aria-labelledby="welcome-title">

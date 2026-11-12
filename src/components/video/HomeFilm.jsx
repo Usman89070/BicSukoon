@@ -11,7 +11,7 @@ import Icon from '../common/Icon'
  * full-screen viewer, like every other film. Until the file is on the
  * server, the film's poster picture is shown.
  */
-export default function HomeFilm({ id, status = true, statusTitle = true, still = false, partnerLogo = false }) {
+export default function HomeFilm({ id, status = true, statusTitle = true, still = false, partnerLogo = false, note = null }) {
   const data = videos[id] ?? {}
   const src = useVideoSrc(data.src)
   const [watching, setWatching] = useState(false)
@@ -40,7 +40,7 @@ export default function HomeFilm({ id, status = true, statusTitle = true, still 
           data.poster && <img className="home-film__el" src={data.poster} alt={data.title} decoding="async" />
         )}
       </div>
-      {watching && src && <VideoLightbox title={data.title} tag={data.caption} src={src} poster={data.poster} partnerLogo={partnerLogo} onClose={() => setWatching(false)} />}
+      {watching && src && <VideoLightbox title={data.title} tag={data.caption} src={src} poster={data.poster} partnerLogo={partnerLogo} note={note} onClose={() => setWatching(false)} />}
       {/* the Current Status films, under the large film */}
       {status && (
         <div className="container container--wide home-film__status">

@@ -71,7 +71,7 @@ function CaptionCta() {
   )
 }
 
-export default function VideoLightbox({ title, tag, src, sources, youtubeId, poster, project = SITE_ID, partnerLogo = false, onClose }) {
+export default function VideoLightbox({ title, tag, src, sources, youtubeId, poster, project = SITE_ID, partnerLogo = false, note = null, onClose }) {
   useLockBody(true)
   useEscape(true, onClose)
   const brand = project === 'sukoon' ? 'sukoon' : 'bic'
@@ -106,6 +106,7 @@ export default function VideoLightbox({ title, tag, src, sources, youtubeId, pos
             tag && <span className={`lightbox__tag lightbox__tag--${brand}`}>{tag}</span>
           )}
           {title}
+          {note && <span className="lightbox__note">{note}</span>}
         </figcaption>
       </figure>
       <button type="button" className="lightbox__btn lightbox__close" onClick={onClose} aria-label="Close" autoFocus><Icon name="close" size={22} /></button>
