@@ -71,12 +71,13 @@ function CaptionCta() {
   )
 }
 
-export default function VideoLightbox({ title, tag, src, sources, youtubeId, poster, project = SITE_ID, onClose }) {
+export default function VideoLightbox({ title, tag, src, sources, youtubeId, poster, project = SITE_ID, partnerLogo = false, onClose }) {
   useLockBody(true)
   useEscape(true, onClose)
   const brand = project === 'sukoon' ? 'sukoon' : 'bic'
   const [playing, setPlaying] = useState(false)
-  const captionLogo = !site.features.donate && site.interest?.logo ? imageFor(site.interest.logo.image) : null
+  // partnerLogo (the site-picture pin films): the Ray White Rochedale logo replaces the tag
+  const captionLogo = partnerLogo && !site.features.donate && site.interest?.logo ? imageFor(site.interest.logo.image) : null
   return createPortal(
     <div className="lightbox" role="dialog" aria-modal="true" aria-label={title} onClick={(e) => e.target === e.currentTarget && onClose()}>
       <figure className="lightbox__figure">
@@ -98,7 +99,7 @@ export default function VideoLightbox({ title, tag, src, sources, youtubeId, pos
         </div>
         <figcaption className="lightbox__caption">
           <CaptionCta />
-          {/* Sukoon: the Ray White Rochedale logo (sites.js → interest.logo) in place of the film's tag */}
+          {/* Sukoon pin films: the Ray White Rochedale logo (sites.js → interest.logo) in place of the tag */}
           {captionLogo ? (
             <img className="lightbox__logo" src={captionLogo} alt={site.interest.logo.alt} width="300" height="300" />
           ) : (

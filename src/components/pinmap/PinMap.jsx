@@ -168,7 +168,7 @@ export default function PinMap() {
         ))}
       </ol>
 
-      {watching && <VideoLightbox title={watching.title} tag={site.name} src={watching.src} poster={watching.poster} onClose={() => setWatching(null)} />}
+      {watching && <VideoLightbox title={watching.title} tag={site.name} src={watching.src} poster={watching.poster} partnerLogo onClose={() => setWatching(null)} />}
     </div>
   )
 }
