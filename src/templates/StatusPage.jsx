@@ -15,9 +15,9 @@ export default function StatusPage() {
       heading="Current Status"
       eyebrow="Progress"
       description={`Where ${site.name} is today: milestones, current stage and the latest updates.`}
-      lead="Where the project is today, what has been achieved and what comes next."
       heroLayout="center"
-      heroBelow={<Reveal variant="scale"><FilmPlaylist /></Reveal>}
+      heroHideTitle
+      heroBelow={<Reveal variant="scale"><FilmPlaylist showRow={false} /></Reveal>}
     >
       <section className="section">
         <div className="container split">

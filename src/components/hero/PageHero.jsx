@@ -16,7 +16,7 @@ import VideoLightbox from '../video/VideoLightbox'
  *  - Sukoon ('split'): light, airy split layout with an arched image window.
  *  - 'cinematic':      full-bleed image/video with a dark scrim (not used now).
  */
-export default function PageHero({ eyebrow, title, lead, media, visual: customVisual, breadcrumbs, children, size = 'md', className, layout, below }) {
+export default function PageHero({ eyebrow, title, lead, media, visual: customVisual, breadcrumbs, children, size = 'md', className, layout, below, hideTitle = false }) {
   const ref = useParallax(0.1)
   // media.video may be an id from data/videos.js or a direct file URL.
   const film = media?.video ? videos[media.video] : null
@@ -43,7 +43,8 @@ export default function PageHero({ eyebrow, title, lead, media, visual: customVi
     <>
       {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
       {eyebrow && <p className="eyebrow eyebrow--light">{eyebrow}</p>}
-      <h1 className="page-hero__title">{title}</h1>
+      {/* hideTitle: the heading stays for search engines and screen readers only */}
+      <h1 className={hideTitle ? 'sr-only' : 'page-hero__title'}>{title}</h1>
       {lead && <p className="page-hero__lead">{lead}</p>}
       {children && <div className="page-hero__actions">{children}</div>}
     </>

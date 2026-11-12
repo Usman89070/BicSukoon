@@ -86,7 +86,7 @@ function PlaylistItem({ film, active, onPick, onReady }) {
  * full-screen viewer (like every other film on the site); a chosen box
  * also becomes the large film. Films not on the server yet are left out.
  */
-export default function FilmPlaylist() {
+export default function FilmPlaylist({ showRow = true }) {
   const row = useRowFilms()
   // the large film first (it also has a box, to come back to it), then the admin panel's films
   const films = mainFilm ? [mainFilm, ...row.filter((f) => f.src !== mainFilm.src)] : row
@@ -135,9 +135,12 @@ export default function FilmPlaylist() {
         />
       )}
 
-      <ul className={`playlist__row${ready.length > 1 ? '' : ' is-single'}`} aria-label="More films">
-        {films.map((f) => <PlaylistItem key={f.id} film={f} active={f.id === active.id} onPick={pick} onReady={onReady} />)}
-      </ul>
+      {/* showRow={false}: the large film only, without the boxes under it */}
+      {showRow && (
+        <ul className={`playlist__row${ready.length > 1 ? '' : ' is-single'}`} aria-label="More films">
+          {films.map((f) => <PlaylistItem key={f.id} film={f} active={f.id === active.id} onPick={pick} onReady={onReady} />)}
+        </ul>
+      )}
     </div>
   )
 }
