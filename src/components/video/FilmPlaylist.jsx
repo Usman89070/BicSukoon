@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { videos, videoUrl } from '../../data/videos'
-import { statusFilms } from '../../data/statusFilms'
+import { statusFilms, noStatusTag } from '../../data/statusFilms'
 import { SITE_ID } from '../../site'
 import { API } from '../../hooks/useAdminList'
 import { useVideoSrc } from '../../hooks/useVideoSrc'
@@ -9,8 +9,8 @@ import Logo from '../common/Logo'
 import FilmFrame from './FilmFrame'
 import VideoLightbox from './VideoLightbox'
 
-// the viewer shows no 'Current status' tag on these films (only another caption, if a film has one)
-const viewerTag = (film) => (film.caption && !/current status/i.test(film.caption) ? film.caption : null)
+// the viewer's tag: the film's caption, else 'Current status' (none for the films listed in noStatusTag)
+const viewerTag = (film) => (noStatusTag.some((t) => t.toLowerCase() === film.title?.trim().toLowerCase()) ? null : film.caption ?? 'Current status')
 
 const brand = SITE_ID === 'sukoon' ? 'sukoon' : 'bic'
 

@@ -8,3 +8,6 @@ export const statusFilms = {
   bic: ['newBeginnings', 'masjid', 'pinMasjid', 'pinQmchc', 'pinCommunityHall', 'pinCafe', 'tank', 'update2026'],
   sukoon: ['sukoonStatus', 'sukoon', 'pinSeniorsLiving', 'pinChildcare', 'sukoonUpdate'],
 }
+
+/** Films (by title) whose video viewer shows no 'Current status' tag. */
+export const noStatusTag = ['Sukoon Drive', 'Janaza Facilities']
