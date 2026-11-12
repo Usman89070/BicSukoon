@@ -30,15 +30,6 @@ function OverlayCta() {
   }
   const interest = site.interest
   if (!interest) return null
-  // with a logo (sites.js → interest.logo): the logo alone, no label
-  const logo = interest.logo ? imageFor(interest.logo.image) : null
-  if (logo && interest.href) {
-    return (
-      <a href={interest.href} target="_blank" rel="noopener noreferrer" className="lightbox__donate-over lightbox__logo-over" onClick={onInterestClick} aria-label={`${interest.label}: ${interest.logo.alt} (opens in a new tab)`}>
-        <img src={logo} alt="" width="300" height="300" />
-      </a>
-    )
-  }
   const body = (
     <>
       {heart('mail')}
@@ -85,6 +76,7 @@ export default function VideoLightbox({ title, tag, src, sources, youtubeId, pos
   useEscape(true, onClose)
   const brand = project === 'sukoon' ? 'sukoon' : 'bic'
   const [playing, setPlaying] = useState(false)
+  const captionLogo = !site.features.donate && site.interest?.logo ? imageFor(site.interest.logo.image) : null
   return createPortal(
     <div className="lightbox" role="dialog" aria-modal="true" aria-label={title} onClick={(e) => e.target === e.currentTarget && onClose()}>
       <figure className="lightbox__figure">
@@ -106,7 +98,12 @@ export default function VideoLightbox({ title, tag, src, sources, youtubeId, pos
         </div>
         <figcaption className="lightbox__caption">
           <CaptionCta />
-          {tag && <span className={`lightbox__tag lightbox__tag--${brand}`}>{tag}</span>}
+          {/* Sukoon: the Ray White Rochedale logo (sites.js → interest.logo) in place of the film's tag */}
+          {captionLogo ? (
+            <img className="lightbox__logo" src={captionLogo} alt={site.interest.logo.alt} width="300" height="300" />
+          ) : (
+            tag && <span className={`lightbox__tag lightbox__tag--${brand}`}>{tag}</span>
+          )}
           {title}
         </figcaption>
       </figure>
