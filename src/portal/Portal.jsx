@@ -7,7 +7,7 @@ import Pattern from '../components/common/Pattern'
 import { portalImage } from './media'
 
 const halves = [
-  { id: 'bic', cta: 'Explore BIC', line: 'Masjid · QMCHC · Community Hall' },
+  { id: 'bic', cta: 'Explore BIC', line: null },
   { id: 'sukoon', cta: 'Explore Sukoon Village', line: 'Seniors Living · Lifestyle · Childcare' },
 ]
 
@@ -71,7 +71,7 @@ export default function Portal() {
               <span className="half__shade" aria-hidden="true" />
               <span className="half__content">
                 <Logo project={h.id} tone="dark" height={h.id === 'sukoon' ? 70 : 60} decorative />
-                <span className="half__line">{h.line}</span>
+                {h.line && <span className="half__line">{h.line}</span>}
                 <a className="half__cta" href={entry(urls[h.id])} aria-label={`${h.cta}: enter the ${s.name} website`}>
                   {h.cta} <Icon name="arrow" size={18} />
                 </a>
