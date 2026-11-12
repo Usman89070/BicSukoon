@@ -9,6 +9,9 @@ import Logo from '../common/Logo'
 import FilmFrame from './FilmFrame'
 import VideoLightbox from './VideoLightbox'
 
+// the viewer shows no 'Current status' tag on these films (only another caption, if a film has one)
+const viewerTag = (film) => (film.caption && !/current status/i.test(film.caption) ? film.caption : null)
+
 const brand = SITE_ID === 'sukoon' ? 'sukoon' : 'bic'
 
 const fromVideos = (id) => ({ id, title: videos[id]?.title, caption: videos[id]?.caption, src: videos[id]?.src, poster: videos[id]?.poster })
@@ -126,7 +129,7 @@ export default function FilmPlaylist({ showRow = true }) {
       {playing && src && (
         <VideoLightbox
           title={active.title}
-          tag={active.caption ?? 'Current status'}
+          tag={viewerTag(active)}
           src={active.youtube ? null : src}
           youtubeId={active.youtube}
           poster={active.cover ?? active.poster}
@@ -152,7 +155,7 @@ function GridViewer({ film, onClose }) {
   return (
     <VideoLightbox
       title={film.title}
-      tag={film.caption ?? 'Current status'}
+      tag={viewerTag(film)}
       src={film.youtube ? null : src}
       youtubeId={film.youtube}
       poster={film.cover ?? film.poster}
