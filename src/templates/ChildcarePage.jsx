@@ -50,7 +50,8 @@ export default function ChildcarePage() {
       <section id="learning" className="section section--muted" aria-labelledby="learning-title">
         <div className="container cc-split">
           <Reveal variant="image" className="cc-split__media">
-            <Media src={imageFor('childcare-learning')} label="Early learning photo" ratio="4 / 5" />
+            {/* the picture in its own (wide) shape, so none of it is cut off */}
+            <Media src={imageFor('childcare-learning')} label="Sukoon Early Learning Centre" ratio="1600 / 673" />
           </Reveal>
           <div className="cc-split__text">
             <SectionHeader eyebrow="Early years" title={<span id="learning-title">{c.learning.title}</span>} />
