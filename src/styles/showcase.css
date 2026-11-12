@@ -1106,6 +1106,7 @@
 @media (min-width: 900px) {
   .cc-split--fill {
     align-items: stretch;
+    grid-template-columns: 1.15fr 0.85fr; /* a wider picture: the sign and the building both show */
   }
   .cc-split--fill .cc-split__media,
   .cc-split--fill .cc-split__media .media {
@@ -1113,7 +1114,7 @@
     aspect-ratio: auto !important;
   }
   .cc-split--fill .cc-split__media .media img {
-    object-position: 22% center;
+    object-position: 28% center;
   }
 }
 .cc-split__media .media {
