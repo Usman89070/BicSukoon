@@ -37,7 +37,7 @@ export default function SukoonHome() {
       </section>
 
       {/* The village film, large and as it is, right under the site picture */}
-      <HomeFilm id="sukoon" statusTitle={false} />
+      <HomeFilm id="sukoon" statusTitle={false} partnerLogo />
 
       {/* Welcome */}
       <section className={`section home-welcome${welcomeImage ? ' home-welcome--photo' : ''}`} aria-labelledby="welcome-title">
