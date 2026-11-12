@@ -2905,6 +2905,14 @@
   font-size: clamp(1.6rem, 1.25rem + 1.2vw, 2.4rem);
   color: var(--text-primary);
 }
+/* under each gallery heading */
+.home-gallery__note {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
 .home-gallery__more {
   grid-column: 3;
   justify-self: end;

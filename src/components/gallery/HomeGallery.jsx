@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { galleries } from '../../data/gallery'
+import { galleries, visualisationNote } from '../../data/gallery'
 import { useGallery } from '../../hooks/useGallery'
 import { GalleryThumb } from './GalleryMedia'
 import GalleryLightbox from './GalleryLightbox'
@@ -27,6 +27,7 @@ function GalleryBlock({ id, galleryItems }) {
           <span className="home-gallery__kicker">{g.name}</span>
           <h3 id={`home-gallery-${id}`} className="home-gallery__title">{g.title}</h3>
           <span className="home-gallery__rule" aria-hidden="true" />
+          <p className="home-gallery__note">{visualisationNote}</p>
         </div>
         <Button to={g.path} variant="ghost" icon="arrow" className="home-gallery__more">View {g.title}</Button>
       </header>

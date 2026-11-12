@@ -11,6 +11,9 @@ import { galleryBuiltIn, captionFromSlug } from './galleryList'
  *   gallery-bic-<anything>.jpg / gallery-sukoon-<anything>.jpg
  * (caption from the rest of the file name).
  */
+/** Shown under every gallery heading. */
+export const visualisationNote = 'All images and videos are architectural visualisations only'
+
 export const galleries = {
   bic: { id: 'bic', title: 'BIC Gallery', name: 'Brisbane Islamic Centre', path: '/gallery' },
   sukoon: { id: 'sukoon', title: 'Sukoon Gallery', name: 'Sukoon Village', path: '/gallery' },

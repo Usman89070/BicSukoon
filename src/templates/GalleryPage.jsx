@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { galleries } from '../data/gallery'
+import { galleries, visualisationNote } from '../data/gallery'
 import { useGallery } from '../hooks/useGallery'
 import { GalleryThumb } from '../components/gallery/GalleryMedia'
 import GalleryLightbox from '../components/gallery/GalleryLightbox'
@@ -64,6 +64,7 @@ export default function GalleryPage({ project }) {
                     <span className="home-gallery__kicker">{galleries[id].name}</span>
                     <h2 id={`gallery-${id}`} className="home-gallery__title">{galleries[id].title}</h2>
                     <span className="home-gallery__rule" aria-hidden="true" />
+                    <p className="home-gallery__note">{visualisationNote}</p>
                   </div>
                   {!project && <Button to={galleries[id].path} variant="ghost" icon="arrow" className="home-gallery__more">View {galleries[id].title}</Button>}
                 </header>
