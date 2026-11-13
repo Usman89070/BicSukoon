@@ -4,6 +4,7 @@ import { useVideoSrc } from '../../hooks/useVideoSrc'
 import { FilmGrid } from './FilmPlaylist'
 import VideoLightbox from './VideoLightbox'
 import Icon from '../common/Icon'
+import { useNearView } from '../../hooks/useNearView'
 
 /**
  * Large home-page film shown as it is (its own shape, no tint or overlay):
@@ -15,6 +16,8 @@ export default function HomeFilm({ id, status = true, statusTitle = true, still 
   const data = videos[id] ?? {}
   const src = useVideoSrc(data.src)
   const [watching, setWatching] = useState(false)
+  // the film downloads only once it is near the screen and the page's pictures are in
+  const [nearRef, near] = useNearView()
   // React sets `muted` after the element exists, which browsers can treat as
   // "not muted" and block autoplay; set it first and start the film here.
   const start = useCallback((el) => {
@@ -23,16 +26,16 @@ export default function HomeFilm({ id, status = true, statusTitle = true, still 
     el.play?.().catch(() => {})
   }, [])
   return (
-    <section className="home-film" aria-label={data.title}>
+    <section className="home-film" aria-label={data.title} ref={nearRef}>
       <div className="container container--wide">
         {src ? (
           // plays silently in place; a click opens it with sound in the full-screen viewer, like every other film
           <button type="button" className="home-film__open" onClick={() => setWatching(true)} aria-label={`Play video with sound: ${data.title}`}>
             {still ? (
               // `still`: only the film's opening frame; it plays only in the full-screen viewer
-              <video className="home-film__el" src={`${src}#t=0.5`} preload="metadata" muted playsInline tabIndex={-1} aria-hidden="true" />
+              <video className="home-film__el" src={near ? `${src}#t=0.5` : undefined} preload="metadata" muted playsInline tabIndex={-1} aria-hidden="true" />
             ) : (
-              <video ref={start} className="home-film__el" src={src} poster={data.poster ?? undefined} autoPlay muted loop playsInline preload="auto" aria-hidden="true" />
+              <video key={near ? 'on' : 'off'} ref={start} className="home-film__el" src={near ? src : undefined} poster={near ? (data.poster ?? undefined) : undefined} autoPlay muted loop playsInline preload={near ? 'auto' : 'none'} aria-hidden="true" />
             )}
             <span className="home-film__play" aria-hidden="true"><Icon name="play" size={30} /></span>
           </button>

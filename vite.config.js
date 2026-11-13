@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -27,6 +28,15 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd())
   return {
     base: command === 'build' ? env.VITE_BASE || '/' : '/',
+    resolve: {
+      // the app of this build, imported statically by main.jsx so its files are
+      // listed in the page and download together with it (no extra round trip)
+      alias: {
+        'virtual-site-app': fileURLToPath(
+          new URL(env.VITE_SITE === 'portal' ? './src/portal/Portal.jsx' : env.VITE_SITE === 'sukoon' ? './src/sites/sukoon/App.jsx' : './src/sites/bic/App.jsx', import.meta.url),
+        ),
+      },
+    },
     plugins: [react(), subSiteFallback()],
     build: {
       target: 'es2020',
