@@ -13,12 +13,25 @@ export function lazyPage(load) {
   return lazy(load)
 }
 
-/** Fetches every page file while the browser is idle (call once, after the first render). */
+/**
+ * Fetches the page files only when the visitor reaches for the menu (hovers
+ * or touches the header, or opens the mobile menu), so the first visit loads
+ * nothing extra and the chosen page is usually ready by the time of the click.
+ */
 export function preloadPages() {
-  // one file after another (not all at once), gentle on the host
-  const run = () => loaders.reduce((chain, load) => chain.then(() => load().catch(() => {})), Promise.resolve())
-  if ('requestIdleCallback' in window) window.requestIdleCallback(run, { timeout: 3000 })
-  else setTimeout(run, 1500)
+  let started = false
+  const run = () => {
+    if (started) return
+    started = true
+    events.forEach((e) => window.removeEventListener(e, onIntent, true))
+    // one file after another (not all at once), gentle on the host
+    loaders.reduce((chain, load) => chain.then(() => load().catch(() => {})), Promise.resolve())
+  }
+  const onIntent = (e) => {
+    if (e.target instanceof Element && e.target.closest('header, nav, .mobile-menu, a[href]')) run()
+  }
+  const events = ['pointerover', 'touchstart', 'focusin']
+  events.forEach((e) => window.addEventListener(e, onIntent, { capture: true, passive: true }))
 }
 
 // A page file that no longer exists (the site was updated while this tab was
