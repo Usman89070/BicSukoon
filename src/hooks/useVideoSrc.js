@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { API } from './useAdminList'
 
 const known = new Map()
 const pending = new Map()
@@ -14,17 +15,40 @@ const check = (src, attempt = 0) =>
       return ok
     })
 
+// The list of video files on the server (api/videos.php), fetched once per
+// visit: a film on the list starts at once, without a check of its own.
+let listRequest = null
+const loadList = () =>
+  (listRequest ??= fetch(`${API}/videos.php`, { headers: { Accept: 'application/json' } })
+    .then((r) => (r.ok ? r.json() : null))
+    .catch(() => null))
+const inList = (list, src) => {
+  const m = /\/videos\/(bic|sukoon)\/([^/?#]+)$/.exec(new URL(src, window.location.href).pathname)
+  if (!m || !list || !Array.isArray(list[m[1]])) return null
+  let name
+  try {
+    name = decodeURIComponent(m[2])
+  } catch {
+    return null
+  }
+  return list[m[1]].includes(name)
+}
+
 /** One check per file for the whole visit, shared by every caller. */
 function checkVideo(src) {
   if (known.has(src)) return Promise.resolve(known.get(src))
   if (!pending.has(src)) {
     pending.set(
       src,
-      check(src).then((ok) => {
-        pending.delete(src)
-        if (ok !== null) known.set(src, ok)
-        return ok
-      }),
+      loadList()
+        .then((list) => inList(list, src))
+        // not answerable from the list (no list, other address): check the file itself
+        .then((ok) => (ok === null ? check(src) : ok))
+        .then((ok) => {
+          pending.delete(src)
+          if (ok !== null) known.set(src, ok)
+          return ok
+        }),
     )
   }
   return pending.get(src)
