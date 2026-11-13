@@ -4979,3 +4979,34 @@ button.home-gallery__card {
     border-radius: 0;
   }
 }
+
+/* Phones: picture cards stack the picture above the text, so long text
+   always sits on a dark panel (over the photo it was hard to read) */
+@media (max-width: 899px) {
+  .cc-card {
+    display: block;
+    min-height: 0;
+    padding: 0;
+  }
+  .cc-card__media {
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+  .cc-card__shade {
+    inset: auto 0 auto 0;
+    top: 0;
+    height: 0;
+    padding-top: 62.5%; /* 16:10, the picture only */
+    background: linear-gradient(180deg, transparent 70%, rgba(8, 6, 26, 0.5));
+  }
+  .cc-card__body {
+    position: relative;
+    padding: 20px 22px 26px;
+  }
+  .cc-card__body p {
+    color: rgba(255, 255, 255, 0.92);
+  }
+}
