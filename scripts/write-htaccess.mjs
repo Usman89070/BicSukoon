@@ -57,6 +57,18 @@ DirectoryIndex index.html index.php
   <FilesMatch "\\.(mp4|m4v|webm|mov)$">
     Header set Cache-Control "public, max-age=86400"
   </FilesMatch>
+  # built files carry a content hash in their name: keep them for a year
+  <If "%{REQUEST_URI} =~ m#/assets/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  <FilesMatch "\\.(svg|ico|woff2?)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
+
+# Compress text files (pages, scripts, styles) on hosts that do not do it themselves
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript text/javascript application/json image/svg+xml
 </IfModule>
 `,
 )
