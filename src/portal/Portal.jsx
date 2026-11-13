@@ -5,6 +5,7 @@ import Logo from '../components/common/Logo'
 import Icon from '../components/common/Icon'
 import Pattern from '../components/common/Pattern'
 import { portalImage, portalSrcSet } from './media'
+import { prefetchProps } from '../utils/prefetchSite'
 
 const halves = [
   { id: 'bic', cta: 'Explore BIC', line: null },
@@ -75,7 +76,7 @@ export default function Portal() {
               <span className="half__content">
                 <Logo project={h.id} tone="dark" height={h.id === 'sukoon' ? 70 : 60} decorative />
                 {h.line && <span className="half__line">{h.line}</span>}
-                <a className="half__cta" href={entry(urls[h.id])} aria-label={`${h.cta}: enter the ${s.name} website`}>
+                <a className="half__cta" href={entry(urls[h.id])} {...prefetchProps(entry(urls[h.id]), h.id)} aria-label={`${h.cta}: enter the ${s.name} website`}>
                   {h.cta} <Icon name="arrow" size={18} />
                 </a>
                 <span className="half__note">All images and videos are architectural visualisations only</span>

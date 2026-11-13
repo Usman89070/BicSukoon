@@ -7,6 +7,7 @@ import Icon from '../common/Icon'
 import SocialLinks from '../common/SocialLinks'
 import Pattern from '../common/Pattern'
 import { useNav } from '../../hooks/useNav'
+import { prefetchProps } from '../../utils/prefetchSite'
 
 /** Footer for the current website. The sister project appears only as a single outbound link. */
 export default function Footer() {
@@ -75,12 +76,12 @@ export default function Footer() {
         </div>
 
         <div className="footer__links-out">
-          <a className="footer__sister" href={urls.portal}>
+          <a className="footer__sister" href={urls.portal} {...prefetchProps(urls.portal)}>
             <Icon name="arrowLeft" size={16} />
             <span className="footer__sister-label">All projects</span>
           </a>
           {sisterUrl && (
-            <a className="footer__sister" href={sisterUrl}>
+            <a className="footer__sister" href={sisterUrl} {...prefetchProps(sisterUrl, sister.id)}>
               <span className="footer__sister-label">Also visit</span>
               <Logo project={sister.id} tone={tone} height={26} />
               <Icon name="arrow" size={16} />
