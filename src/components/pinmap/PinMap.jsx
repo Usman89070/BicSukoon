@@ -4,6 +4,7 @@ import { pinmaps } from '../../data/pinmap'
 import { SITE_ID, site } from '../../site'
 import { videos } from '../../data/videos'
 import { imageFor } from '../../utils/images'
+import { portalSrcSet } from '../../portal/media'
 import { prefetchVideoSrc, useVideoSrc } from '../../hooks/useVideoSrc'
 import VideoLightbox from '../video/VideoLightbox'
 import Icon from '../common/Icon'
@@ -11,6 +12,8 @@ import Logo from '../common/Logo'
 
 const pinmap = pinmaps[SITE_ID]
 const image = imageFor(pinmap.image)
+// smaller WebP copies of the same render (shared with the starting page)
+const srcSet = portalSrcSet(SITE_ID)
 const crop = pinmap.height / pinmap.visibleHeight // pins are given on the full render
 
 const STILL_MS = 2500 // how long a pin's picture shows before its film starts
@@ -114,7 +117,18 @@ export default function PinMap() {
       {/* pins and card are placed over the picture only (not the legend below) */}
       <div className="pinmap__stage">
         <div className="pinmap__frame" style={{ aspectRatio: `${pinmap.width} / ${pinmap.visibleHeight}` }}>
-          {image && <img className="pinmap__img" src={image} alt={`Aerial render of ${pinmap.name} with its main areas marked`} loading="lazy" decoding="async" />}
+          {/* the first picture on the home page: loaded at once, as a smaller WebP copy where one fits the screen */}
+          {image && (
+            <img
+              className="pinmap__img"
+              src={image}
+              srcSet={srcSet ? `${srcSet}, ${image} 2400w` : undefined}
+              sizes="(max-width: 1320px) 100vw, 1280px"
+              alt={`Aerial render of ${pinmap.name} with its main areas marked`}
+              fetchPriority="high"
+              decoding="async"
+            />
+          )}
         </div>
 
         {pinmap.pins.map((p) => (
