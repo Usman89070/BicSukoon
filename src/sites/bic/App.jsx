@@ -1,23 +1,24 @@
-import { lazy, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import SiteLayout from '../../layouts/SiteLayout'
 import { externalHref } from '../../site'
 import BicHome from './pages/Home'
+import { lazyPage, preloadPages } from '../../utils/lazyPage'
 
-const FacilityPage = lazy(() => import('../../templates/FacilityPage'))
-const StatusPage = lazy(() => import('../../templates/StatusPage'))
-const ContactPage = lazy(() => import('../../templates/ContactPage'))
-const NotFound = lazy(() => import('../../templates/NotFound'))
-const GalleryPage = lazy(() => import('../../templates/GalleryPage'))
-const About = lazy(() => import('./pages/About'))
-const Funding = lazy(() => import('./pages/Funding'))
-const Events = lazy(() => import('./pages/Events'))
-const EventPage = lazy(() => import('./pages/EventPage'))
-const Guests = lazy(() => import('./pages/Guests'))
-const Donate = lazy(() => import('./pages/Donate'))
-const Qmchc = lazy(() => import('./pages/Qmchc'))
-const Vision = lazy(() => import('./pages/Vision'))
-const Privacy = lazy(() => import('./pages/Privacy'))
+const FacilityPage = lazyPage(() => import('../../templates/FacilityPage'))
+const StatusPage = lazyPage(() => import('../../templates/StatusPage'))
+const ContactPage = lazyPage(() => import('../../templates/ContactPage'))
+const NotFound = lazyPage(() => import('../../templates/NotFound'))
+const GalleryPage = lazyPage(() => import('../../templates/GalleryPage'))
+const About = lazyPage(() => import('./pages/About'))
+const Funding = lazyPage(() => import('./pages/Funding'))
+const Events = lazyPage(() => import('./pages/Events'))
+const EventPage = lazyPage(() => import('./pages/EventPage'))
+const Guests = lazyPage(() => import('./pages/Guests'))
+const Donate = lazyPage(() => import('./pages/Donate'))
+const Qmchc = lazyPage(() => import('./pages/Qmchc'))
+const Vision = lazyPage(() => import('./pages/Vision'))
+const Privacy = lazyPage(() => import('./pages/Privacy'))
 
 // The Childcare Centre is on the Sukoon Village website only; old BIC links go there.
 function ToSukoonChildcare() {
@@ -29,6 +30,8 @@ function ToSukoonChildcare() {
 
 /** Brisbane Islamic Centre website. */
 export default function BicApp() {
+  // fetch the other pages in the background, so menu links open at once
+  useEffect(() => preloadPages(), [])
   return (
     <Routes>
       <Route element={<SiteLayout />}>

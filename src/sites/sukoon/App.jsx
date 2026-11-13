@@ -1,17 +1,20 @@
-import { lazy } from 'react'
+import { useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import SiteLayout from '../../layouts/SiteLayout'
 import SukoonHome from './pages/Home'
+import { lazyPage, preloadPages } from '../../utils/lazyPage'
 
-const FacilityPage = lazy(() => import('../../templates/FacilityPage'))
-const StatusPage = lazy(() => import('../../templates/StatusPage'))
-const SeniorsLiving = lazy(() => import('./pages/SeniorsLiving'))
-const ChildcarePage = lazy(() => import('../../templates/ChildcarePage'))
-const NotFound = lazy(() => import('../../templates/NotFound'))
-const GalleryPage = lazy(() => import('../../templates/GalleryPage'))
+const FacilityPage = lazyPage(() => import('../../templates/FacilityPage'))
+const StatusPage = lazyPage(() => import('../../templates/StatusPage'))
+const SeniorsLiving = lazyPage(() => import('./pages/SeniorsLiving'))
+const ChildcarePage = lazyPage(() => import('../../templates/ChildcarePage'))
+const NotFound = lazyPage(() => import('../../templates/NotFound'))
+const GalleryPage = lazyPage(() => import('../../templates/GalleryPage'))
 
 /** Sukoon Village website. */
 export default function SukoonApp() {
+  // fetch the other pages in the background, so menu links open at once
+  useEffect(() => preloadPages(), [])
   return (
     <Routes>
       <Route element={<SiteLayout />}>
