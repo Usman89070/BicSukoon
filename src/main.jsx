@@ -13,6 +13,7 @@ import './styles/portal.css'
 // The app of this build (portal, BIC or Sukoon), chosen in vite.config.js
 // by VITE_SITE; a static import, so its files load together with the page.
 import App from 'virtual-site-app'
+import './utils/videoTraffic'
 
 const mode = import.meta.env.VITE_SITE
 
