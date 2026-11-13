@@ -15,6 +15,18 @@ const patterns = {
   sukoon: [/\/portal-sukoon\.[a-z]+$/i, /\/hero-sukoon\.[a-z]+$/i, /\/site-300DPISukoon[^/]*$/i],
 }
 
+// Smaller WebP copies of the photos (portal-<id>-<width>.webp) for phones and laptops
+const sized = import.meta.glob('../assets/images/portal-{bic,sukoon}-*.webp', { eager: true, import: 'default' })
+
+/** srcset of the smaller copies, e.g. "…-960.webp 960w, …-1600.webp 1600w" (null when there are none). */
+export function portalSrcSet(id) {
+  const list = Object.entries(sized)
+    .map(([k, url]) => [Number(k.match(new RegExp(`/portal-${id}-(\\d+)\\.webp$`))?.[1]), url])
+    .filter(([w]) => w)
+    .sort((a, b) => a[0] - b[0])
+  return list.length ? list.map(([w, url]) => `${url} ${w}w`).join(', ') : null
+}
+
 export function portalImage(id) {
   for (const re of patterns[id] ?? []) {
     const key = Object.keys(files).find((k) => re.test(k))

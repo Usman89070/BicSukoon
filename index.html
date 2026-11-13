@@ -7,7 +7,10 @@
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%%VITE_FAVICON%" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="%VITE_FONTS_URL%" />
+    <!-- fonts load without holding up the first paint (text shows in a system font for a moment) -->
+    <link rel="preload" as="style" href="%VITE_FONTS_URL%" />
+    <link rel="stylesheet" href="%VITE_FONTS_URL%" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="%VITE_FONTS_URL%" /></noscript>
     <title>%VITE_SITE_NAME%</title>
     <meta name="description" content="%VITE_SITE_DESCRIPTION%" />
   </head>

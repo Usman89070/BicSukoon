@@ -4,7 +4,7 @@ import { urls } from '../site'
 import Logo from '../components/common/Logo'
 import Icon from '../components/common/Icon'
 import Pattern from '../components/common/Pattern'
-import { portalImage } from './media'
+import { portalImage, portalSrcSet } from './media'
 
 const halves = [
   { id: 'bic', cta: 'Explore BIC', line: null },
@@ -22,7 +22,7 @@ const Crescent = (props) => (
 
 // Photo that fades and settles in only once it has loaded, so the
 // entrance never starts on an empty frame.
-function HalfPhoto({ src }) {
+function HalfPhoto({ src, srcSet }) {
   const [ready, setReady] = useState(false)
   const ref = useCallback((img) => {
     if (img?.complete && img.naturalWidth) setReady(true)
@@ -32,6 +32,9 @@ function HalfPhoto({ src }) {
       ref={ref}
       className={`half__photo${ready ? ' is-ready' : ''}`}
       src={src}
+      srcSet={srcSet ? `${srcSet}, ${src} 2400w` : undefined}
+      // the photo covers a tall half, so it may need to be wider than the half itself (no upscaling, no blur)
+      sizes="(max-width: 899px) max(100vw, 85vh), max(50vw, 136vh)"
       alt=""
       fetchPriority="high"
       decoding="async"
@@ -64,7 +67,7 @@ export default function Portal() {
           return (
             <div key={h.id} className={`half half--${h.id}`} style={{ '--i': i }}>
               {image ? (
-                <HalfPhoto src={image} />
+                <HalfPhoto src={image} srcSet={portalSrcSet(h.id)} />
               ) : (
                 <Pattern className="half__pattern" opacity={0.08} scale={88} />
               )}
