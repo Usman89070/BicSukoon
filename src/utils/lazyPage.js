@@ -15,7 +15,8 @@ export function lazyPage(load) {
 
 /** Fetches every page file while the browser is idle (call once, after the first render). */
 export function preloadPages() {
-  const run = () => loaders.forEach((load) => load().catch(() => {}))
+  // one file after another (not all at once), gentle on the host
+  const run = () => loaders.reduce((chain, load) => chain.then(() => load().catch(() => {})), Promise.resolve())
   if ('requestIdleCallback' in window) window.requestIdleCallback(run, { timeout: 3000 })
   else setTimeout(run, 1500)
 }
