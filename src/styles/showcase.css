@@ -4980,33 +4980,19 @@ button.home-gallery__card {
   }
 }
 
-/* Phones: picture cards stack the picture above the text, so long text
-   always sits on a dark panel (over the photo it was hard to read) */
+/* Phones: same picture cards, with a darker shade behind the text so long
+   text stays readable over bright parts of the picture */
 @media (max-width: 899px) {
-  .cc-card {
-    display: block;
-    min-height: 0;
-    padding: 0;
+  .cc-card__shade,
+  .cc-card--future .cc-card__shade,
+  :root:is([data-site='bic'], [data-site='sukoon']) .cc-card--future .cc-card__shade {
+    background: linear-gradient(180deg, rgba(8, 6, 26, 0.55) 0%, rgba(8, 6, 26, 0.78) 30%, rgba(8, 6, 26, 0.9) 60%, rgba(8, 6, 26, 0.95));
   }
-  .cc-card__media {
-    position: relative;
-    inset: auto;
-    z-index: 0;
-    height: auto;
-    aspect-ratio: 16 / 10;
-  }
-  .cc-card__shade {
-    inset: auto 0 auto 0;
-    top: 0;
-    height: 0;
-    padding-top: 62.5%; /* 16:10, the picture only */
-    background: linear-gradient(180deg, transparent 70%, rgba(8, 6, 26, 0.5));
-  }
-  .cc-card__body {
-    position: relative;
-    padding: 20px 22px 26px;
+  .cc-card__title,
+  .cc-card__body p {
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.55);
   }
   .cc-card__body p {
-    color: rgba(255, 255, 255, 0.92);
+    color: #ffffff;
   }
 }
