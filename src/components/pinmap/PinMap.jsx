@@ -4,7 +4,7 @@ import { pinmaps } from '../../data/pinmap'
 import { SITE_ID, site } from '../../site'
 import { videos } from '../../data/videos'
 import { imageFor } from '../../utils/images'
-import { useVideoSrc } from '../../hooks/useVideoSrc'
+import { prefetchVideoSrc, useVideoSrc } from '../../hooks/useVideoSrc'
 import VideoLightbox from '../video/VideoLightbox'
 import Icon from '../common/Icon'
 import Logo from '../common/Logo'
@@ -79,6 +79,12 @@ export default function PinMap() {
   const timer = useRef(null)
   const root = useRef(null)
   const hovered = useRef(false) // a mouse click on a hovered pin keeps its card open
+  // check every pin's film once the picture is on screen, so a hovered pin
+  // starts its film without waiting for that check first
+  useEffect(() => {
+    const t = setTimeout(() => pinmap.pins.forEach((p) => prefetchVideoSrc(videos[p.video]?.src)), 1200)
+    return () => clearTimeout(t)
+  }, [])
 
   const show = (id) => {
     clearTimeout(timer.current)

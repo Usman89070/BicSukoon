@@ -70,6 +70,12 @@ $length = $end - $start + 1;
 header('Content-Length: ' . $length);
 if ($_SERVER['REQUEST_METHOD'] === 'HEAD') exit;
 
+// stream straight to the visitor: no output buffering or compression of
+// the video, no time limit for a long film
+@set_time_limit(0);
+@ini_set('zlib.output_compression', '0');
+while (ob_get_level() > 0) @ob_end_clean();
+
 $fp = fopen($path, 'rb');
 fseek($fp, $start);
 while ($length > 0 && !feof($fp) && !connection_aborted()) {
